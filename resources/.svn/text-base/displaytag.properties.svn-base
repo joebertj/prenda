@@ -1,0 +1,12 @@
+sort.amount=page
+basic.empty.showtable=true
+export.amount=page
+export.types=csv excel xml pdf rtf
+export.excel=true
+export.csv=true
+export.xml=true
+export.pdf=true
+export.rtf=true
+export.excel.class=org.displaytag.export.excel.DefaultHssfExportView
+export.pdf.class=org.displaytag.export.DefaultPdfExportView
+export.rtf.class=org.displaytag.export.DefaultRtfExportView

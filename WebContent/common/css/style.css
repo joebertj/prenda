@@ -1,0 +1,77 @@
+@CHARSET "UTF-8";
+
+body {
+	font: normal 0.7em Verdana, Arial, Helvetica, sans-serif;
+	color: #003366;
+	background-color: #99CCFF
+}
+
+table {
+	border-style: none ridge ridge none;	
+	background: #3399FF;
+}
+
+table.main {
+	font: normal 1em Verdana, Arial, Helvetica, sans-serif;
+	background: #99CCFF;
+	border-style: none
+}
+
+table.navi {
+	background: #99CCFF;
+	border-style: none
+}
+
+table.branch {
+	font: normal 1.1em Verdana, Arial, Helvetica, sans-serif;
+	background: #FF8080;
+	border-color: #FF8080;
+}
+
+table.menu {
+	font: normal 0.8em Verdana, Arial, Helvetica, sans-serif;
+	border-width: thin thin thin thin;	
+	background: #FF8080;
+	border-style: solid
+}
+
+td {
+	border-style: none;
+}
+
+th {
+	color: #ffffff;
+	background: #000040;
+	border-style:none;
+}
+
+input {
+	color: #003366;
+	background: #99CCFF;
+	border:1px solid;
+}
+
+select {
+	color: #003366;
+	background: #99CCFF;
+}
+
+a:link {
+	text-decoration: none; color: blue
+}
+
+a:visited {
+	text-decoration: none; color: blue
+}
+
+a:active {
+	text-decoration: none; color: blue
+}
+
+a:hover {
+	text-decoration: none; color: red
+}
+
+.msg {
+	color : red
+}

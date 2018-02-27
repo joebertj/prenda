@@ -1,0 +1,4 @@
+mainDataSource.driverClass=com.mysql.jdbc.Driver
+mainDataSource.jdbcUrl=jdbc:mysql://localhost/prenda
+mainDataSource.user=prenda
+mainDataSource.password=prenda
