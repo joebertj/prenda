@@ -1,6 +1,7 @@
 # Prenda
 Joebert S. Jacaba
 joebertj@gmail.com
+https://ex.kenchlightyear.com
 
 ## Overview
 
@@ -30,8 +31,8 @@ joebertj@gmail.com
 		`mysql -u root -p`
 	on sql> prompt,
 ```
-		create database aspe;
-		grant all privileges on aspe.* to 'aspe'@'localhost' identified by 'aspe';
+		create database prenda;
+		grant all privileges on prenda.* to 'prenda'@'localhost' identified by 'prenda';
 		quit
 ```
 3. Extract package
@@ -40,10 +41,10 @@ joebertj@gmail.com
 	cd prenda
 ```
 4. Copy aspe.war to webapps folder of Tomcat
-	`cp aspe.war /path/to/tomcat/webapps`
+	`cp prenda.war /path/to/tomcat/webapps`
 	
 5. On command prompt,
-		`mysql -u aspe -p aspe < aspe.sql`
+		`mysql -u prenda -p prenda < prenda.sql`
 
 6. Go to bin folder of Tomcat
 	`cd /path/to/tomcat/bin`
@@ -52,10 +53,13 @@ joebertj@gmail.com
 	on windows,
 		`startup.bat`
 
-7. Point your browser to http://localhost:8080/aspe (adjust port on Tomcat's server.xml)
+7. Point your browser to http://localhost:8080/prenda (adjust port on Tomcat's server.xml)
 	Admin:		admin/123
 	
 ## Changelog
+
+March 3, 2018
+Coverted to Maven
 
 January 27, 2013
 Fixed aspe.sql to add required initial values.
@@ -127,18 +131,17 @@ GNU GENERAL PUBLIC LICENSE Version 3
 
 ## Todo
 
-**** Adjustable redeem dates.
-**** Add jewelry and non-jewelry option to pawn. 
-	 Jewelry items will have weight in grams, carats(K) and min/max appraisal.
-*** Review interest rate of redeem. (interest is in table)
-*** PDF for all periods in reports.
-*** PDF for all disbursements.
-*** PDF for auction.
-*** PDF for statistics.
-** Factor in advance interest (0%) and service charge (0) in computation of net.
-** Adjustable auction markup (10%).
-** Adjustable edit minute (15).
-** Adjustable maturity (30 days) and expiry (120 days)
+* Adjustable redeem dates.
+* Add jewelry and non-jewelry option to pawn. Jewelry items will have weight in grams, carats(K) and min/max appraisal.
+* Review interest rate of redeem. (interest is in table)
+* PDF for all periods in reports.
+* PDF for all disbursements.
+* PDF for auction.
+* PDF for statistics.
+* Factor in advance interest (0%) and service charge (0) in computation of net.
+* Adjustable auction markup (10%).
+* Adjustable edit minute (15).
+* Adjustable maturity (30 days) and expiry (120 days)
 * Name entry for user.
 * User should not be able to delete or archive himself.
 * Admin should have unarchive functionality.

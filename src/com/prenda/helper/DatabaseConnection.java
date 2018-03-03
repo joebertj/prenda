@@ -33,7 +33,7 @@ public class DatabaseConnection {
 			String password = props.getProperty("mainDataSource.password");
 			try {
 				Class.forName(driver).newInstance();
-				conn = DriverManager.getConnection(url + "?useUnicode=true&characterEncoding=UTF-8&user=" + user + "&password=" + password);
+				conn = DriverManager.getConnection(url + "&user=" + user + "&password=" + password);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

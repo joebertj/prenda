@@ -13,23 +13,23 @@
 
     xmlns:util="http://www.springframework.org/schema/util"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
-              http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+              http://www.springframework.org/schema/beans/spring-beans.xsd
               http://www.springframework.org/schema/aop
-              http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+              http://www.springframework.org/schema/aop/spring-aop.xsd
               http://www.springframework.org/schema/context
-              http://www.springframework.org/schema/context/spring-context-2.5.xsd
+              http://www.springframework.org/schema/context/spring-context.xsd
               http://www.springframework.org/schema/jee
-              http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+              http://www.springframework.org/schema/jee/spring-jee.xsd
 
               http://www.springframework.org/schema/jms
 
-              http://www.springframework.org/schema/jms/spring-jms-2.5.xsd
+              http://www.springframework.org/schema/jms/spring-jms.xsd
               http://www.springframework.org/schema/lang
-              http://www.springframework.org/schema/lang/spring-lang-2.5.xsd
+              http://www.springframework.org/schema/lang/spring-lang-.xsd
               http://www.springframework.org/schema/tx
-              http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+              http://www.springframework.org/schema/tx/spring-tx.xsd
               http://www.springframework.org/schema/util
-              http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+              http://www.springframework.org/schema/util/spring-utils.xsd">
 
    	<bean id="persistenceManager" class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
     
@@ -52,7 +52,7 @@
 	<bean id="mainDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<property name="driverClass" value="com.mysql.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://localhost/prenda" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost/prenda?useSSL=false" />
         <property name="user" value="prenda"/>
         <property name="password" value="prenda"/>
         <property name="idleConnectionTestPeriod" value="60"/>
@@ -73,9 +73,7 @@
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
-		<property name="targetDataSource">
-			<ref local="mainDataSource" />
-		</property>
+		<property name="targetDataSource" ref="mainDataSource" />
 	</bean>
 	
     <!-- Hibernate SessionFactory -->
@@ -102,9 +100,7 @@
 	</bean>
 	
 	<bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="dataSource">
-			<ref local="dataSource" />
-		</property>
+		<property name="dataSource" ref="dataSource"/>
 		<property name="sessionFactory">
 			<ref bean="sessionFactory" />
 		</property>
