@@ -11,7 +11,7 @@
 	 
 	<http pattern="/common/**" security="none"/>
 	<http pattern="/customer/**" security="none"/>
-	
+		
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/manager/**" access="hasAnyRole('ROLE_MANAGER','ROLE_OWNER','ROLE_ADMIN')"/>
@@ -32,17 +32,25 @@
 	<authentication-manager>
 		<authentication-provider>
 			<password-encoder hash="md5"/>
-			<jdbc-user-service data-source-ref="dataSource" 
+			<jdbc-user-service data-source-ref="basicDataSource" 
 				users-by-username-query="select username, password, not archive from users where username=?" 
-				authorities-by-username-query="select username, level.description from users left join level on users.level=level.id where username=?"
-	        	role-prefix="ROLE_"/>
+				authorities-by-username-query="select username, concat('ROLE_', level.description) from users left join level on users.level=level.id where username=?"
+	        	/>
 		</authentication-provider>
 	</authentication-manager>
 	
-	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-    	<beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
-    	<beans:property name="url" value="jdbc:mysql://localhost:3306/prenda"/>
-    	<beans:property name="username" value="prenda"/>
-    	<beans:property name="password" value="prenda"/>
+	<beans:bean
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<beans:property name="location">
+			<beans:value>classpath:application.properties</beans:value>
+		</beans:property>
 	</beans:bean>
+	
+	<beans:bean id="basicDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    	<beans:property name="driverClassName" value="${mainDataSource.driverClass}"/>
+    	<beans:property name="url" value="${mainDataSource.jdbcUrl}"/>
+    	<beans:property name="username" value="${mainDataSource.user}"/>
+    	<beans:property name="password" value="${mainDataSource.password}"/>
+	</beans:bean>
+
 </beans:beans>

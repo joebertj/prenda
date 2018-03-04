@@ -47,7 +47,7 @@ public class UserModify {
 	private static Logger log = Logger.getLogger(UserModify.class);
 	
 	@RequestMapping(value = "UserModify.htm", method = RequestMethod.POST)
-	@Secured({ "ROLE_ADMIN", "ROLE_OWNER", "ROLE_MANAGER", "ROLE_ENCODER" })
+	@Secured({ "ROLE_ADMIN", "ROLE_OWNER", "ROLE_MANAGER", "ROLE_LIAISON", "ROLE_ENCODER" })
 	@Transactional
 	public String changePassword(HttpSession session, ModelMap map, @RequestParam("referer") String redirectUrl, @RequestParam("pass") String oldPassword, 
 			@RequestParam("pass1") String newPassword, @RequestParam("pass2") String verifyPassword){
@@ -127,7 +127,7 @@ public class UserModify {
 		log.info("role: " + role + " level: " + level);
 		String message = null;
 		if (level == Level.ADMIN) {
-			continuePost(redirectURL, username, pass, pass2, pass3, modtype, lvl,
+			continuePost(map, redirectURL, username, pass, pass2, pass3, modtype, lvl,
 					branch, uid, delresp);
 		} else if (level == Level.OWNER) {
 			if (modtype != 1) {
@@ -145,7 +145,7 @@ public class UserModify {
 						pstmt.setInt(2, branch);
 						rs = pstmt.executeQuery();
 						if (rs.first()) {
-							continuePost(redirectURL, username, pass, pass2, pass3,
+							continuePost(map, redirectURL, username, pass, pass2, pass3,
 									modtype, lvl, branch, uid, delresp);
 						} else {
 							message = "You do not own the selected branch";
@@ -158,11 +158,11 @@ public class UserModify {
 					log.info("VendorError: " + ex.getErrorCode());
 				}
 			} else {
-				continuePost(redirectURL, username, pass, pass2, pass3, modtype,
+				continuePost(map, redirectURL, username, pass, pass2, pass3, modtype,
 						lvl, branch, uid, delresp);
 			}
 		} else if (authenticated.equals(username)) {
-			continuePost(redirectURL, username, pass, pass2, pass3, modtype, lvl,
+			continuePost(map, redirectURL, username, pass, pass2, pass3, modtype, lvl,
 					branch, uid, delresp);
 		} else if (level == Level.MANAGER) {
 			if (modtype > 0) {
@@ -176,7 +176,7 @@ public class UserModify {
 					if (rs.first()) {
 						int branch2 = rs.getInt(1);
 						if (branch == branch2) {
-							continuePost(redirectURL, username, pass, pass2, pass3,
+							continuePost(map, redirectURL, username, pass, pass2, pass3,
 									modtype, lvl, branch, uid, delresp);
 						} else {
 							message = "You are not the manager of branch where user "
@@ -194,7 +194,7 @@ public class UserModify {
 					log.info("VendorError: " + ex.getErrorCode());
 				}
 			} else {
-				continuePost(redirectURL, username, pass, pass2, pass3, modtype,
+				continuePost(map, redirectURL, username, pass, pass2, pass3, modtype,
 						lvl, branch, uid, delresp);
 			}
 		} else if (level < Level.MANAGER) {
@@ -210,14 +210,14 @@ public class UserModify {
 		return redirectURL;
 	}
 
-	protected String continuePost(String redirectURL, String username, String pass,
+	protected String continuePost(ModelMap map, String redirectURL, String username, String pass,
 			String pass2, String pass3, int modtype, int lvl, int branch,
 			int uid, String delresp) {
 		try {
 			log.info("redirectURL: " + redirectURL);
 			Connection conn = DatabaseConnection.getConnection();
 			PreparedStatement pstmt = null;
-			String message;
+			String message = null;
 			if (modtype == 0) {
 				if (pass.equals(pass2)) {
 					pstmt = conn
@@ -388,13 +388,16 @@ public class UserModify {
 					}
 				}
 			}
-
+			if (message != null) {
+				map.addAttribute("msg", message);
+			}
 		} catch (SQLException ex) {
 			ex.printStackTrace();
 			log.debug("SQLException: " + ex.getMessage());
 			log.debug("SQLState: " + ex.getSQLState());
 			log.debug("VendorError: " + ex.getErrorCode());
 		}
+		
 		return redirectURL;
 	}
 }

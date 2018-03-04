@@ -1,6 +1,6 @@
 package com.prenda.model.dao;
 
-import com.felees.hbnpojogen.persistence.GenericDAO;
+import com.github.wwadge.hbnpojogen.persistence.GenericDAO;
 import com.prenda.model.obj.Users;
  
 /**

@@ -24,18 +24,14 @@
               http://www.springframework.org/schema/util
               http://www.springframework.org/schema/util/spring-utils-3.2.xsd">
 
-	<bean
-		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-
+   	<bean id="persistenceExceptionTranslationPostProcessor" class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+    
+	<context:annotation-config />
+    <context:component-scan base-package="com.prenda" />
 
 	<bean
 		class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
-		<property name="ignoreResourceNotFound">
-			<value>true</value>
-		</property>   <!-- In the properties file, override the items you need in this format: 
-			mainDataSource.user=root mainDataSource.password=abcdefgh -->
 		<property name="location">
-			<!-- You may use file:d:/temp/db.properties etc here -->
 			<value>classpath:application.properties</value>
 		</property>
 	</bean>
@@ -46,7 +42,7 @@
 	<bean id="mainDataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
 		destroy-method="close">
 		<!-- access -->
-		<property name="driverClass" value="${mainDataSource.driverclass}" />
+		<property name="driverClass" value="${mainDataSource.driverClass}" />
 		<property name="jdbcUrl" value="${mainDataSource.jdbcUrl}" />
 		<property name="user" value="${mainDataSource.user}" />
 		<property name="password" value="${mainDataSource.password}" />
@@ -78,18 +74,17 @@
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy">
-		<property name="targetDataSource" ref="mainDataSource" />
-	</bean>
-
-	<!-- Hibernate SessionFactory -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
-		<property name="dataSource">
-			<ref bean="dataSource" />
+		<property name="targetDataSource">
+			<ref local="mainDataSource" />
 		</property>
-
-
-		<property name="packagesToScan">
+	</bean>
+	
+    <!-- Hibernate SessionFactory -->
+	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+	
+		
+ 		<property name="packagesToScan">
 			<list>
 				<value>com.prenda.**.*</value>
 			</list>
@@ -97,7 +92,7 @@
 
 		<property name="hibernateProperties">
 			<props>
-				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
 				<prop key="hibernate.generate_statistics">true</prop>
 				<prop key="hibernate.show_sql">false</prop>
 				<prop key="hibernate.cache.use_second_level_cache">true</prop>
@@ -107,22 +102,13 @@
 			</props>
 		</property>
 	</bean>
-
-	<bean id="transactionManager"
-		class="org.springframework.orm.hibernate3.HibernateTransactionManager">
-		<property name="dataSource">
-			<ref bean="dataSource" />
-		</property>
-		<property name="sessionFactory">
-			<ref bean="sessionFactory" />
-		</property>
+	
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"/>
 	</bean>
 
-	<!-- Switch on transactions -->
-	<tx:annotation-driven />
-	<context:component-scan base-package="com.prenda" />
-	<context:component-scan
-		base-package="com.felees.hbnpojogen.persistence.impl.HibernateUtils" />
+	
 
 
 

@@ -1,6 +1,6 @@
 package com.prenda.factories;
 
-import com.felees.hbnpojogen.randomlib.data.dataGeneration.*;
+import com.github.wwadge.hbnpojogen.randomlib.data.dataGeneration.*;
 import com.prenda.model.obj.*;
 
 import org.springframework.stereotype.Component;

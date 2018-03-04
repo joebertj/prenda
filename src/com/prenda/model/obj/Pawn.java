@@ -1,6 +1,6 @@
 package com.prenda.model.obj;
 
-import com.felees.hbnpojogen.persistence.IPojoGenEntity;
+import com.github.wwadge.hbnpojogen.persistence.IPojoGenEntity;
 import com.prenda.model.obj.iface.IPawn;
 
 import java.io.Serializable;

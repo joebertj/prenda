@@ -334,7 +334,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>BranchModify</servlet-name>
-		<url-pattern>/admin/BranchModify</url-pattern>
+		<url-pattern>/BranchModify</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>TransferCash</servlet-name>
@@ -440,10 +440,4 @@
 		<servlet-name>CheckAuction</servlet-name>
 		<url-pattern>/CheckAuction</url-pattern>
 	</servlet-mapping>
-	<jsp-config>
-		<taglib>
-        	<taglib-uri>rssutils</taglib-uri>
-        	<taglib-location>/WEB-INF/tld/rssutils.tld</taglib-location>
-    	</taglib>
-    </jsp-config>
 </web-app>

@@ -6,7 +6,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://ajaxtags.org/tags/ajax" prefix="ajax"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib uri="rssutils" prefix="rss" %>
 <c:set var="contextPath" scope="request">${pageContext.request.contextPath}</c:set>
 <c:set var="fullPath" scope="request">${pageContext.request.requestURI}</c:set>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">

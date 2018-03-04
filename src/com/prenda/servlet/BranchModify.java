@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Iterator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,8 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.prenda.Level;
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.service.LevelService;
 
 /**
  * Servlet implementation class for Servlet: UserModify
@@ -51,14 +57,25 @@ import com.prenda.helper.DatabaseConnection;
 			redirectURL = "common/login.jsp";
 			response.sendRedirect(redirectURL);
 		}else{ 
-			String authenticated=(String) session.getAttribute("authenticated");
-			Integer level=(Integer) session.getAttribute("level");
+			Authentication auth = SecurityContextHolder.getContext()
+					.getAuthentication();
+			String authenticated = auth.getName();
+			Iterator<? extends GrantedAuthority> li = auth.getAuthorities()
+					.iterator();
+			String role = "ROLE_";
+			if (li.hasNext()) {
+				GrantedAuthority ga = li.next();
+				role = ga.getAuthority();
+			}
+			LevelService ls = new LevelService();
+			Integer level = ls.getId(role.replace("ROLE_", ""));
+			log.info("role: " + role + " level: " + level);
 			if(authenticated == null){
 				redirectURL = "common/login.jsp?msg=You have not logged in yet";
 				response.sendRedirect(redirectURL);
-			}else if(level==9){
-				continuePost(request, response);
-			}else if(level>6){
+			}else if(level==Level.ADMIN){
+				continuePost(request, response, authenticated, level);
+			}else if(level>=Level.MANAGER){
 				int modtype = new Integer(request.getParameter("modtype"))
 						.intValue();
 				if (modtype > 0) {
@@ -74,12 +91,12 @@ import com.prenda.helper.DatabaseConnection;
 							pstmt.setString(2, bname);
 							rs = pstmt.executeQuery();
 							if (rs.first()) {
-								continuePost(request, response);
+								continuePost(request, response, authenticated, level);
 							} else {
 								redirectURL = "common/login.jsp?msg=You do not own the selected branch";
 								response.sendRedirect(redirectURL);
 							}
-						} else if (modtype == 2 && level==8) {
+						} else if (modtype == 2 && level==Level.OWNER) {
 							int branchid = new Integer(request.getParameter("branchid")).intValue();
 							pstmt = conn
 									.prepareStatement("SELECT branchid FROM branch LEFT JOIN users ON branch.owner=users.uid WHERE users.username=? AND branchid=?");
@@ -87,13 +104,13 @@ import com.prenda.helper.DatabaseConnection;
 							pstmt.setInt(2, branchid);
 							rs = pstmt.executeQuery();
 							if (rs.first()) {
-								continuePost(request, response);
+								continuePost(request, response, authenticated, level);
 							} else {
 								redirectURL = "common/login.jsp?msg=You do not own the selected branch";
 								response.sendRedirect(redirectURL);
 							}
 
-						} else if (modtype == 2 && level==7) {
+						} else if (modtype == 2 && level==Level.MANAGER) {
 							int branchid = new Integer(request.getParameter("branchid")).intValue();
 							pstmt = conn
 									.prepareStatement("SELECT branch FROM users WHERE users.username=?");
@@ -101,7 +118,7 @@ import com.prenda.helper.DatabaseConnection;
 							rs = pstmt.executeQuery();
 							if (rs.first()) {
 								if(branchid==rs.getInt(1)){
-									continuePost(request, response);
+									continuePost(request, response, authenticated, level);
 								}else{
 									redirectURL = "common/login.jsp?msg=You are not the manager of this branch";
 									response.sendRedirect(redirectURL);
@@ -117,9 +134,9 @@ import com.prenda.helper.DatabaseConnection;
 						log.info("VendorError: " + ex.getErrorCode());
 					}
 				} else {
-					continuePost(request, response);
+					continuePost(request, response, authenticated, level);
 				}
-			}else if(level<9){
+			}else if(level<Level.ADMIN){
 				redirectURL = "common/login.jsp?msg=You are not an administrator";
 				response.sendRedirect(redirectURL);
 			}else{
@@ -128,10 +145,8 @@ import com.prenda.helper.DatabaseConnection;
 			}
 		}
 	}
-	protected void continuePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void continuePost(HttpServletRequest request, HttpServletResponse response, String authenticated, Integer level) throws ServletException, IOException {
 		try{
-			HttpSession session=request.getSession(true);
-			String authenticated=(String) session.getAttribute("authenticated");
 			Connection conn = DatabaseConnection.getConnection();
     		PreparedStatement pstmt = null;
     		String modtype = request.getParameter("modtype");
@@ -143,11 +158,10 @@ import com.prenda.helper.DatabaseConnection;
     			float sc = new Float(request.getParameter("sc")).floatValue();
     			int extend = new Integer(request.getParameter("extend")).intValue();
     			int reserve = new Integer(request.getParameter("reserve")).intValue();
-    			Integer level=(Integer) session.getAttribute("level");
     			int pt = new Integer(request.getParameter("pt")).intValue();
     			int owner=0;
     			ResultSet rs;
-    			if(level==9){
+    			if(level==Level.ADMIN){
     				owner = new Integer(request.getParameter("uid")).intValue();
     			}else{
     				pstmt = conn.prepareStatement("SELECT uid FROM users WHERE username=?");
@@ -166,7 +180,7 @@ import com.prenda.helper.DatabaseConnection;
     				if(request.getContextPath().toString().contains("owner")){
     					response.sendRedirect("owner/newbranch.jsp?msg=Branch "+bname+" already exists");
     				}else{
-    					response.sendRedirect("admin/newbranch.jsp?msg=Branch "+bname+" already exists");
+    					response.sendRedirect("newbranch.jsp?msg=Branch "+bname+" already exists");
     				}	
     			}
     			pstmt = conn.prepareStatement("INSERT INTO branch VALUES (0,?,?,?,?,0,?,?,?,0,?,?)");
@@ -200,7 +214,7 @@ import com.prenda.helper.DatabaseConnection;
     			if(request.getContextPath().toString().contains("owner")){
     				response.sendRedirect("owner/newbranch.jsp?msg=Branch "+bname+" successfully added");
     			}else{
-    				response.sendRedirect("admin/newbranch.jsp?msg=Branch "+bname+" successfully added");
+    				response.sendRedirect("newbranch.jsp?msg=Branch "+bname+" successfully added");
     			}
     		}else if(modtype.equals("1")){
     			int branchid = new Integer(request.getParameter("branchid")).intValue();
@@ -237,18 +251,17 @@ import com.prenda.helper.DatabaseConnection;
     			float sc = new Float(request.getParameter("sc")).floatValue();
     			int extend = new Integer(request.getParameter("extend")).intValue();
     			int reserve = new Integer(request.getParameter("reserve")).intValue();
-    			Integer level=(Integer) session.getAttribute("level");
     			int uid=-1;
-    			if(level==9){
+    			if(level==Level.ADMIN){
     				uid = new Integer(request.getParameter("uid")).intValue();
     			}
     			int pt = new Integer(request.getParameter("pt")).intValue();
-    			if(level==9){
+    			if(level==Level.ADMIN){
     				pstmt = conn.prepareStatement("UPDATE branch SET name = ?, address = ?, balance = ?, extend = ?, advance_interest=?, service_charge=?, reserve=?, owner=?, pt_number=? WHERE branchid = ?");
     				pstmt.setInt(8, uid);
     				pstmt.setInt(9, pt);
         			pstmt.setInt(10, branchid);
-    			}else if(level>6){
+    			}else if(level>=Level.MANAGER){
     				pstmt = conn.prepareStatement("UPDATE branch SET name = ?, address = ?, balance = ?, extend = ?, advance_interest=?, service_charge=?, reserve=?, pt_number=? WHERE branchid = ?");
     				pstmt.setInt(8, pt);
         			pstmt.setInt(9, branchid);

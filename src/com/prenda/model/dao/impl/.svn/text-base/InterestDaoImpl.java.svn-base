@@ -2,7 +2,7 @@ package com.prenda.model.dao.impl;
 
 import java.io.Serializable;
 
-import com.felees.hbnpojogen.persistence.impl.GenericHibernateDaoImpl;
+import com.github.wwadge.hbnpojogen.persistence.impl.GenericHibernateDaoImpl;
 import com.prenda.model.obj.Interest;
 
 import org.springframework.stereotype.Repository;

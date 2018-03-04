@@ -1,6 +1,6 @@
 package com.prenda.model.dao.impl;
 
-import com.felees.hbnpojogen.persistence.impl.GenericHibernateDaoImpl;
+import com.github.wwadge.hbnpojogen.persistence.impl.GenericHibernateDaoImpl;
 import com.prenda.model.obj.Page;
 
 import org.springframework.stereotype.Repository;

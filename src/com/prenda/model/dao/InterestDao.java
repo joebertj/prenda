@@ -2,7 +2,7 @@ package com.prenda.model.dao;
 
 import java.io.Serializable;
 
-import com.felees.hbnpojogen.persistence.GenericDAO;
+import com.github.wwadge.hbnpojogen.persistence.GenericDAO;
 import com.prenda.model.obj.Interest;
  
 /**
