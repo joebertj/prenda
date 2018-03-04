@@ -15,7 +15,7 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 <jsp:setProperty property="id" name="branches" value="${param.branchid}"/>
-			<FORM method="post" action="../BranchModify">
+			<FORM method="post" action="BranchModify">
 			<INPUT type="hidden" name="branchid" value="${branches.id}">
 			<INPUT type="hidden" name="modtype" value="2">
 			<TABLE border="1">

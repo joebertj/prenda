@@ -3,9 +3,9 @@
     xmlns:beans="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.springframework.org/schema/beans
-                         http://www.springframework.org/schema/beans/spring-beans.xsd
+                         http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
                         http://www.springframework.org/schema/security
-                         http://www.springframework.org/schema/security/spring-security.xsd">
+                         http://www.springframework.org/schema/security/spring-security-3.2.xsd">
 	
 	<global-method-security secured-annotations="enabled" /> 
 	 
@@ -34,9 +34,15 @@
 			<password-encoder hash="md5"/>
 			<jdbc-user-service data-source-ref="dataSource" 
 				users-by-username-query="select username, password, not archive from users where username=?" 
-				authorities-by-username-query="select username, concat('ROLE_', level.description) from users left join level on users.level=level.id
-	        		where username=? "/>
+				authorities-by-username-query="select username, level.description from users left join level on users.level=level.id where username=?"
+	        	role-prefix="ROLE_"/>
 		</authentication-provider>
 	</authentication-manager>
 	
+	<beans:bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    	<beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    	<beans:property name="url" value="jdbc:mysql://localhost:3306/prenda"/>
+    	<beans:property name="username" value="prenda"/>
+    	<beans:property name="password" value="prenda"/>
+	</beans:bean>
 </beans:beans>

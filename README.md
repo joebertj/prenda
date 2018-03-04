@@ -59,7 +59,7 @@ https://ex.kenchlightyear.com
 ## Changelog
 
 March 3, 2018
-Coverted to Maven
+Converted to Maven
 
 January 27, 2013
 Fixed aspe.sql to add required initial values.
