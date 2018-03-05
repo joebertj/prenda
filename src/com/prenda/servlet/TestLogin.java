@@ -18,9 +18,8 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.w3c.tools.crypt.Md5;
-
 import com.prenda.factories.HibernatePrendaDaoFactory;
+import com.prenda.helper.PasswordEncoderGenerator;
 import com.prenda.model.obj.Users;
 
 /**
@@ -47,9 +46,7 @@ public class TestLogin {
 		}
 		log.debug("size " + size);
 		if (size==1){
-			Md5 md5=new Md5(pass);
-		    md5.processString();
-		    String password = md5.getStringDigest();
+			String password = PasswordEncoderGenerator.getHash(pass);
 		    String password2 = user.getPassword();
 		    log.debug(password);
 		    log.debug(password2);

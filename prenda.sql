@@ -209,7 +209,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `uid` tinyint(4) NOT NULL auto_increment,
   `username` varchar(50) default NULL,
-  `password` varchar(50) default NULL,
+  `password` varchar(60) default NULL,
   `lastname` varchar(50) default NULL,
   `firstname` varchar(50) default NULL,
   `mi` varchar(2) default NULL,
@@ -221,13 +221,14 @@ CREATE TABLE `users` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 
-INSERT INTO `users` VALUES (0,'admin','202cb962ac59075b964b07152d234b70',NULL,NULL,NULL,9,1,0,'2007-06-12');
+INSERT INTO `users` VALUES (0,'admin','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGVlXdII76vlXuaDWYOwTW',NULL,NULL,NULL,9,1,0,'2007-06-12');
 
 insert into branch (branchid,archive) values (1,0);
 
 insert into page values (1,10,10,10,10,10,10,10,10,10);
 
 insert into level values(1,"ENCODER");
+insert into level values(3,"LIAISON");
 insert into level values(7,"MANAGER");
 insert into level values(8,"OWNER");
 insert into level values(9,"ADMIN");

@@ -27,11 +27,10 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.w3c.tools.crypt.Md5;
-
 import com.prenda.Level;
 import com.prenda.factories.HibernatePrendaDaoFactory;
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.helper.PasswordEncoderGenerator;
 import com.prenda.model.obj.Users;
 import com.prenda.service.LevelService;
 import com.prenda.services.data.DataLayerPrenda;
@@ -68,15 +67,11 @@ public class UserModify {
 		}else if(size==1){
 			if(newPassword.equals(verifyPassword)){
 				String ep = user.getPassword();
-				Md5 md5=new Md5(oldPassword);
-				md5.processString();
-				String eo = md5.getStringDigest();
+				String eo = PasswordEncoderGenerator.getHash(oldPassword);
 				log.info("ep: " + ep + " eo: " + eo);
 				if(eo.equals(ep)){
 					DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
-					md5 = new Md5(newPassword);
-					md5.processString();
-					String en = md5.getStringDigest();
+					String en = PasswordEncoderGenerator.getHash(newPassword);
 					user.setPassword(en);
 					dataLayerPrenda.update(user);
 					dataLayerPrenda.flushAndClearSession();
@@ -239,9 +234,7 @@ public class UserModify {
 						pstmt = conn
 								.prepareStatement("INSERT INTO users VALUES (0,?,?,'','','',?,?,false,CURDATE())");
 						pstmt.setString(1, username);
-						Md5 md5 = new Md5(pass);
-						md5.processString();
-						String password = md5.getStringDigest();
+						String password = PasswordEncoderGenerator.getHash(pass);
 						pstmt.setString(2, password);
 						pstmt.setInt(3, lvl);
 						pstmt.setInt(4, branch);
@@ -318,9 +311,7 @@ public class UserModify {
 									.prepareStatement("UPDATE users SET username = ?, password = ?, level = ?, branch = ? WHERE uid = ?");
 							pstmt.setInt(5, uid);
 							pstmt.setString(1, username);
-							Md5 md5 = new Md5(pass);
-							md5.processString();
-							String password = md5.getStringDigest();
+							String password = PasswordEncoderGenerator.getHash(pass);
 							pstmt.setString(2, password);
 							pstmt.setInt(3, lvl);
 							pstmt.setInt(4, branch);
@@ -353,9 +344,7 @@ public class UserModify {
 						pstmt = conn
 								.prepareStatement("UPDATE users SET password = ? WHERE uid = ?");
 						pstmt.setInt(2, uid);
-						Md5 md5 = new Md5(pass);
-						md5.processString();
-						String password = md5.getStringDigest();
+						String password = PasswordEncoderGenerator.getHash(pass);
 						pstmt.setString(1, password);
 						pstmt.executeUpdate();
 						message = "Password for user " + username
@@ -374,9 +363,7 @@ public class UserModify {
 						pstmt = conn
 								.prepareStatement("UPDATE users SET password = ? WHERE username = ?");
 						pstmt.setString(2, username);
-						Md5 md5 = new Md5(pass);
-						md5.processString();
-						String password = md5.getStringDigest();
+						String password = PasswordEncoderGenerator.getHash(pass);
 						pstmt.setString(1, password);
 						pstmt.executeUpdate();
 						message = "Password for user " + username

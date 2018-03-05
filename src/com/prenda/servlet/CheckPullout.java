@@ -19,9 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
-import org.w3c.tools.crypt.Md5;
-
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.helper.PasswordEncoderGenerator;
 
 /**
  * Servlet implementation class for Servlet: CheckRedeem
@@ -69,9 +68,8 @@ import com.prenda.helper.DatabaseConnection;
             ResultSet rs = pstmt.executeQuery();
             String badLogin="No such user or bad password!";
             if(rs.first()){
-            	Md5 md5=new Md5(request.getParameter("password"));
-                md5.processString();
-                String password = md5.getStringDigest();
+            	String pass = request.getParameter("password");
+            	String password = PasswordEncoderGenerator.getHash(pass);
                 String password2 = rs.getString(1);
                 int level = rs.getInt(2);
                 if(!password.equals(password2)){

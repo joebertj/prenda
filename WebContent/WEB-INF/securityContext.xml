@@ -31,7 +31,7 @@
 	
 	<authentication-manager>
 		<authentication-provider>
-			<password-encoder hash="md5"/>
+			<password-encoder hash="bcrypt"/>
 			<jdbc-user-service data-source-ref="basicDataSource" 
 				users-by-username-query="select username, password, not archive from users where username=?" 
 				authorities-by-username-query="select username, concat('ROLE_', level.description) from users left join level on users.level=level.id where username=?"
