@@ -3,7 +3,7 @@
  * Copyright (C) 2008
  */
 
-package com.prenda.servlet;
+package unit.com.prenda;
 
 
 import javax.servlet.http.HttpSession;
@@ -61,7 +61,7 @@ public class TestLogin {
 				redirectURL = "common/login";        			
 			}
 		}else{
-			map.addAttribute("msg",badLogin);
+			map.addAttribute("msg","Duplicate username detected");
 			redirectURL = "common/login";
 		}
 		log.debug(redirectURL);

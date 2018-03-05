@@ -194,6 +194,7 @@ import com.prenda.service.LevelService;
     			pstmt.setInt(8, owner);
     			pstmt.setInt(9, pt);
     			pstmt.executeUpdate();
+    			log.info("owner id "+owner);
     			pstmt = conn.prepareStatement("SELECT branchid FROM branch WHERE name=?");
     			pstmt.setString(1, bname);
     			rs=pstmt.executeQuery();
@@ -254,6 +255,7 @@ import com.prenda.service.LevelService;
     			int uid=-1;
     			if(level==Level.ADMIN){
     				uid = new Integer(request.getParameter("uid")).intValue();
+    				log.info("owner id "+uid);
     			}
     			int pt = new Integer(request.getParameter("pt")).intValue();
     			if(level==Level.ADMIN){

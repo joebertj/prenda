@@ -33,6 +33,7 @@ public abstract class GenericService {
 	public GenericService(){
 		filterFormat = "MMM dd, yyyy";
 		conn = DatabaseConnection.getConnection();
+		filterDate = new java.util.Date();
 	}
 	
 	public int getBranchId() {

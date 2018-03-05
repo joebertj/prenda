@@ -15,7 +15,7 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 <jsp:setProperty property="id" name="branches" value="${param.branchid}"/>
-			<FORM method="post" action="BranchModify">
+			<FORM method="post" action="../BranchModify">
 			<INPUT type="hidden" name="branchid" value="${branches.id}">
 			<INPUT type="hidden" name="modtype" value="2">
 			<TABLE border="1">
@@ -60,15 +60,23 @@
 					<sql:query var="owner" dataSource="${prenda}">
 					SELECT uid,username FROM users WHERE level>=8
 					</sql:query>
+					<c:set var="selected" value="0"/>
 					<select name="uid">
+					
 					<c:forEach items="${owner.rows}" var="row">
 					<c:choose>
-					<c:when test="${branch.rows[0].owner==row.uid}">
-					<option value='<c:out value="${row.uid}"/>' selected><c:out value="${row.username}"/></option>
+					<c:when test="${branches.ownerId==row.uid}">
+						<option value='<c:out value="${row.uid}"/>' selected><c:out value="${row.username}"/></option>
+						<c:set var="selected" value="1"/>
 					</c:when>
 					<c:otherwise>
-					<option value='<c:out value="${row.uid}"/>'><c:out value="${row.username}"/></option>
+						<option value='<c:out value="${row.uid}"/>'><c:out value="${row.username}"/></option>
 					</c:otherwise>
+					</c:choose>
+					<c:choose>
+					<c:when test="${selected==0}">
+						<option value="-1" disabled selected hidden="true">Unassigned</option>
+					</c:when>
 					</c:choose>
 					</c:forEach>
 					</select></TD>

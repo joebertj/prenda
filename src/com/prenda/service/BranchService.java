@@ -11,8 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
-import com.prenda.Branch;
 import com.prenda.helper.DatabaseConnection;
 
 public class BranchService {
@@ -35,6 +33,16 @@ public class BranchService {
 	private int ownerId;
 	
 	public int getOwnerId() {
+		try {
+			pstmt = conn.prepareStatement("SELECT owner FROM branch WHERE branchid=?");
+			pstmt.setInt(1, id);
+			rs=pstmt.executeQuery();
+			if(rs.first()){
+				ownerId=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return ownerId;
 	}
 
@@ -216,13 +224,15 @@ public class BranchService {
 		this.balance = balance;
 	}
 	
-	public List<Branch> getBranches(){
-		List<Branch> list = new ArrayList<Branch>();
+	public List<com.prenda.Branch> getBranches(){
+		List<com.prenda.Branch> list = new ArrayList<com.prenda.Branch>();
 		list = getBranches(ownerId);
 		return list;
 	}
-	public List<Branch> getBranches(int ownerId){
-		List<Branch> list = new ArrayList<Branch>();
+	
+	// TODO Replace com.prenda.Branch SQL model with com.prenda.model.obj.Branch
+	public List<com.prenda.Branch> getBranches(int ownerId){
+		List<com.prenda.Branch> list = new ArrayList<com.prenda.Branch>();
 		try {
 			pstmt = conn.prepareStatement("SELECT branchid,name,address FROM branch WHERE owner=?");
 			pstmt.setInt(1, ownerId);
@@ -231,7 +241,7 @@ public class BranchService {
 				id=rs.getInt(1);
 				name=rs.getString(2);
 				address=rs.getString(3);
-				Branch b=new Branch(id,name,address);
+				com.prenda.Branch b=new com.prenda.Branch(id,name,address);
 				list.add(b);
 			}
 		} catch (SQLException e) {

@@ -1,6 +1,6 @@
 -- MySQL dump 10.10
 --
--- Host: localhost    Database: aspe
+-- Host: localhost    Database: prenda
 -- ------------------------------------------------------
 -- Server version	5.0.27-community-nt
 
@@ -46,9 +46,8 @@ CREATE TABLE `branch` (
   `owner` tinyint(4) NOT NULL,
   `pt_number` int(8) unsigned NOT NULL,
   PRIMARY KEY  (`branchid`),
-  UNIQUE KEY `name` (`name`),
-  UNIQUE KEY `name_2` (`name`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  UNIQUE KEY `name` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `customer`
@@ -58,12 +57,12 @@ DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `last_name` varchar(20) NOT NULL,
-  `first_name` varchar(20) NOT NULL,
+  `first_name` varchar(30) NOT NULL,
   `middle_name` varchar(20) NOT NULL,
-  `address` varchar(60) NOT NULL default '',
+  `address` varchar(100) NOT NULL default '',
   `archive` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `genkey`
@@ -101,7 +100,7 @@ CREATE TABLE `journal` (
   `amount` float NOT NULL default '0',
   `journal_group` varchar(18) default '0',
   PRIMARY KEY  (`journalid`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `ledger`
@@ -169,7 +168,7 @@ CREATE TABLE `pawn` (
   `pt` int(8) unsigned NOT NULL,
   PRIMARY KEY  (`pid`),
   KEY `nameid` (`nameid`)
-) ENGINE=MyISAM AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 --
 -- Table structure for table `pullout`
@@ -208,9 +207,9 @@ CREATE TABLE `redeem` (
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `uid` tinyint(4) NOT NULL auto_increment,
-  `username` varchar(50) default NULL,
+  `username` varchar(20) default NULL,
   `password` varchar(60) default NULL,
-  `lastname` varchar(50) default NULL,
+  `lastname` varchar(20) default NULL,
   `firstname` varchar(50) default NULL,
   `mi` varchar(2) default NULL,
   `level` tinyint(3) unsigned default NULL,
@@ -219,7 +218,7 @@ CREATE TABLE `users` (
   `loan_date` date default NULL,
   PRIMARY KEY  (`uid`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=MyISAM AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 INSERT INTO `users` VALUES (0,'admin','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGVlXdII76vlXuaDWYOwTW',NULL,NULL,NULL,9,1,0,'2007-06-12');
 

@@ -36,7 +36,7 @@
 					<TH>This Month</TH>					
 					<TH>Today</TH>
 				</TR>
-				<c:forEach var="i" begin="0" end="20"varStatus="line">
+				<c:forEach var="i" begin="0" end="20" varStatus="line">
 					<c:choose>
 						<c:when test="${line.count % 2 == 1}">
 							<TR bgcolor="#3366FF">

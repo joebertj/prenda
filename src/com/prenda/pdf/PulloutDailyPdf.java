@@ -50,8 +50,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 		param.put("branch",branch);
 		param.put("name",bname);
 		param.put("address",baddress);
-		String path = request.getSession().getServletContext().getRealPath("/common");
-		param.put("logo", path+"/aspe_logo.jpg");
+		String path = request.getSession().getServletContext().getRealPath("/common/img");
+		param.put("logo", path+"logo2.png");
 		try {
 			Connection conn = DatabaseConnection.getConnection();
 			JasperPrint jprint=JasperFillManager.fillReport(path+"/jasper/pulloutitemsdaily.jasper",param,conn);

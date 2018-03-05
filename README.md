@@ -40,7 +40,7 @@ https://ex.kenchlightyear.com
 	tar xvzf prenda-0.1.1.tar.gz
 	cd prenda
 ```
-4. Copy aspe.war to webapps folder of Tomcat
+4. Copy prenda.war to webapps folder of Tomcat
 	`cp prenda.war /path/to/tomcat/webapps`
 	
 5. On command prompt,
@@ -62,7 +62,7 @@ March 3, 2018
 Converted to Maven
 
 January 27, 2013
-Fixed aspe.sql to add required initial values.
+Fixed prenda.sql to add required initial values.
 
 October 20, 2008
 Added reports.

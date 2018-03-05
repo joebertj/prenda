@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.apache.log4j.Logger;
 import com.prenda.Branch;
 import com.prenda.Level;
 import com.prenda.Mode;
@@ -20,6 +21,8 @@ import com.prenda.Pawn;
 import com.prenda.SortOrder;
 
 public class PawnService extends GenericService {
+	
+	private static Logger log = Logger.getLogger(PawnService.class);
 	
 	public PawnService(){
 		super();
@@ -42,39 +45,41 @@ public class PawnService extends GenericService {
 		"ADDDATE(loan_date,120+15*pawn.extend) AS expire,"+
 		"(ADDDATE(pawn.loan_date,120+15*pawn.extend) <= ?) AS foreclose,"+
 		"(pawn.pid=redeem.pid) AS redeem,"+
-		"(pawn.pid=pullout.pid) AS pullout "+
+		"(pawn.pid=pullout.pid) AS pullout, "+
+		"DATEDIFF(?,loan_date) as day " +
 		"FROM pawn "+
 		"LEFT JOIN genkey ON pawn.pid=genkey.pid "+
 		"LEFT JOIN interest ON pawn.branch=interest.interestid "+
 		"LEFT JOIN redeem ON redeem.pid=pawn.pid "+
 		"LEFT JOIN pullout ON pullout.pid=pawn.pid "+
-		"LEFT JOIN branch ON pawn.branch=branch.branchid "+
-		"WHERE ((day=DATEDIFF(?,loan_date) AND DATEDIFF(?,loan_date)<=34 AND DATEDIFF(?,loan_date)>=0) OR (day=34 AND DATEDIFF(?,loan_date)>34) OR (day=0 AND DATEDIFF(?,loan_date)<0))";
+		"LEFT JOIN branch ON pawn.branch=branch.branchid ";
 		if(mode==Mode.DAILY){
-			query += " and loan_date=?";
+			query += "WHERE loan_date=?";
 		}else if(mode==Mode.MONTHLY){
-			query += " and year(loan_date)=year(?) and month(loan_date)=month(?)";
+			query += "WHERE year(loan_date)=year(?) and month(loan_date)=month(?)";
 		}else if(mode==Mode.YEARLY){
-			query += " and year(loan_date)=year(?)";
+			query += "WHERE year(loan_date)=year(?)";
 		}
 		java.sql.Date sqlDate = new java.sql.Date(filterDate.getTime());
-		int pre = 6;
+		log.info(sqlDate.toString());
+		int paramsBeforeWhere = 2;
 		if(level==Level.ADMIN){
 			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				int i=1;
-				for(;i<=pre;i++){
+				for(;i<=paramsBeforeWhere;i++){
 					pstmt.setDate(i,sqlDate);
 				}
 				if(mode!=Mode.ALL){
 					pstmt.setDate(i++,sqlDate);
-				}
-				if(mode==Mode.MONTHLY){
-					pstmt.setDate(i++,sqlDate);
+					if(mode==Mode.MONTHLY){
+						pstmt.setDate(i++,sqlDate);
+					}
 				}
 				pstmt.setInt(i++,(page-1)*pageSize);
 				pstmt.setInt(i++, pageSize);
+				log.info(level + "level" + query);
 				ResultSet rs=pstmt.executeQuery();
 				while(rs.next()){
 					int pid = rs.getInt(1);
@@ -123,17 +128,18 @@ public class PawnService extends GenericService {
 			try {
 				pstmt = conn.prepareStatement(query);
 				i=1;
-				for(;i<=pre;i++){
+				for(;i<=paramsBeforeWhere;i++){
 					pstmt.setDate(i,sqlDate);
 				}
 				if(mode!=Mode.ALL){
 					pstmt.setDate(i++,sqlDate);
-				}
-				if(mode==Mode.MONTHLY){
-					pstmt.setDate(i++,sqlDate);
+					if(mode==Mode.MONTHLY){
+						pstmt.setDate(i++,sqlDate);
+					}
 				}
 				pstmt.setInt(i++,(page-1)*pageSize);
 				pstmt.setInt(i++, pageSize);
+				log.info(level + "level" + query);
 				ResultSet rs=pstmt.executeQuery();
 				while(rs.next()){
 					int pid = rs.getInt(1);
@@ -168,18 +174,19 @@ public class PawnService extends GenericService {
 			try {
 				pstmt = conn.prepareStatement(query);
 				int i=1;
-				for(;i<=pre;i++){
+				for(;i<=paramsBeforeWhere;i++){
 					pstmt.setDate(i,sqlDate);
 				}
 				if(mode!=Mode.ALL){
 					pstmt.setDate(i++,sqlDate);
-				}
-				if(mode==Mode.MONTHLY){
-					pstmt.setDate(i++,sqlDate);
+					if(mode==Mode.MONTHLY){
+						pstmt.setDate(i++,sqlDate);
+					}
 				}
 				pstmt.setInt(i++, branchId);
 				pstmt.setInt(i++,(page-1)*pageSize);
 				pstmt.setInt(i++, pageSize);
+				log.info(level + "level" + query);
 				ResultSet rs=pstmt.executeQuery();
 				while(rs.next()){
 					int pid = rs.getInt(1);
