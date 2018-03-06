@@ -95,10 +95,14 @@ AND pid=<c:out value="${pid}" />
 				</TR>
 				<TR>
 					<TD colspan="2" align=center>
+					<jsp:useBean id="rdate" class="com.prenda.helper.DateUtil" /> 
+					<jsp:setProperty property="sdfIn" name="rdate" value="E MMM dd hh:mm:ss z yyyy"/>
+					<jsp:setProperty property="sdfOut" name="rdate" value="MMM dd, yyyy"/>
+					<jsp:setProperty property="value" name="rdate" value="${now}"/>
 					<FORM method="post" action="CheckRedeem">
 						<INPUT type="hidden" name="pid" value='<c:out value="${pawn.rows[0].pid}"/>'> 
 						<INPUT type="hidden" name="branch" value='<c:out value="${users.rows[0].branch}"/>'> 
-						<INPUT type="hidden" name="redeemdate" value="<%= now.getTime() %>"> 
+						<INPUT type="hidden" name="redeemdate" value="<c:out value='${rdate.effective}'/>"> 
 						<INPUT type="hidden" name="interest" value='<c:out value="${pawn.rows[0].loan*pawn.rows[0].rate/100}"/>'/>
 						<INPUT type="hidden" name="net" value='<c:out value="${(1 + pawn.rows[0].rate/100 )*pawn.rows[0].loan+pawn.rows[0].service_charge}" />'/>
 						<INPUT type="button" value="Cancel" onclick="location.href='redeem.jsp'">

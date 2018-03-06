@@ -86,15 +86,9 @@ import com.prenda.helper.DatabaseConnection;
     		pstmt.setFloat(1,net);
     		pstmt.setInt(2,branch);
     		pstmt.executeUpdate();
-    		pstmt = conn.prepareStatement("UPDATE users SET redeem_date=? WHERE username=?");
-    		pstmt.setDate(1,redeemDate);
-    		pstmt.setString(2,encoder);
-    		pstmt.executeUpdate();
     		response.sendRedirect("redeem.jsp?msg=Pawn with effective PID "+pid+" successfully redeemed");
     	}catch (SQLException ex) {
-            log.info("SQLException: " + ex.getMessage());
-            log.info("SQLState: " + ex.getSQLState());
-            log.info("VendorError: " + ex.getErrorCode());
+            ex.printStackTrace();
 		}
 	}   	  	    
 }

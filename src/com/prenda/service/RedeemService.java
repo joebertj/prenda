@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.apache.log4j.Logger;
 import com.prenda.Branch;
 import com.prenda.Level;
 import com.prenda.Mode;
@@ -20,6 +21,8 @@ import com.prenda.Redeem;
 import com.prenda.SortOrder;
 
 public class RedeemService extends GenericService{
+	
+	private static Logger log = Logger.getLogger(RedeemService.class);
 	
 	public RedeemService(){
 		super();
@@ -37,7 +40,7 @@ public class RedeemService extends GenericService{
 	
 	public List<Redeem> getAllRedeem(int level,int branchId,int userId,int mode,String sort,int order,int page,int pageSize,Date filterDate){
 		List<Redeem> list = new ArrayList<Redeem>();
-		String query = "SELECT pawn.pid,branch,loan_date,nameid,loan,bpid,rate,pawn.service_charge,pt,bcode," +
+		String query = "SELECT pawn.pid,branch,loan_date,nameid,loan,bpid,interest,pawn.service_charge,pt,bcode," +
 			"redeem.create_date AS cdate,"+
 			"ADDDATE(loan_date,120+15*pawn.extend) AS expire,"+
 			"redeem_date " +
@@ -45,10 +48,8 @@ public class RedeemService extends GenericService{
 			"LEFT JOIN redeem ON pawn.pid=redeem.pid " +
 			"LEFT JOIN customer ON pawn.nameid=customer.id " +
 			"LEFT JOIN interest ON pawn.branch=interest.interestid " +
-			"LEFT JOIN branch ON pawn.branch=branch.branchid, " +
-			"DATEDIFF(redeem_date,loan_date) as day " +
-			"WHERE pawn.pid=redeem.pid " +
-			"AND (DATEDIFF(redeem_date,loan_date)>=34)) ";
+			"LEFT JOIN branch ON pawn.branch=branch.branchid " +
+			"WHERE pawn.pid=redeem.pid AND day=DATEDIFF(redeem_date,loan_date)";
 		if(mode==Mode.DAILY){
 			query += " and redeem_date=?";
 		}else if(mode==Mode.MONTHLY){
@@ -60,6 +61,7 @@ public class RedeemService extends GenericService{
 		if(level==Level.ADMIN){
 			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
+				log.info(query);
 				pstmt = conn.prepareStatement(query);
 				int i=1;
 				if(mode!=Mode.ALL){
@@ -86,7 +88,7 @@ public class RedeemService extends GenericService{
 					Date expire = rs.getDate(12);
 					Date redeemDate = rs.getDate(13);
 					Redeem r = new Redeem(pid, loanDate.getTime(), bcode, loanDate, expire, nameId, amount, amount+100, query, sc, pid, query, pid, branch, bpid, pt, redeemDate);
-					r.setInterestRate(rate);
+					r.setInterestRate(rate/amount);
 					r.setCdate(cdate);
 					list.add(r);
 				}
@@ -137,7 +139,7 @@ public class RedeemService extends GenericService{
 					Date expire = rs.getDate(12);
 					Date redeemDate = rs.getDate(13);
 					Redeem r = new Redeem(pid, loanDate.getTime(), bcode, loanDate, expire, nameId, amount, amount+100, query, sc, pid, query, pid, branch, bpid, pt,redeemDate);
-					r.setInterestRate(rate);
+					r.setInterestRate(rate/amount);
 					r.setCdate(cdate);
 					list.add(r);
 				}
@@ -175,7 +177,7 @@ public class RedeemService extends GenericService{
 					Date expire = rs.getDate(12);
 					Date redeemDate = rs.getDate(13);
 					Redeem r = new Redeem(pid, loanDate.getTime(), bcode, loanDate, expire, nameId, amount, amount+100, query, sc, pid, query, pid, branch, bpid, pt,redeemDate);
-					r.setInterestRate(rate);
+					r.setInterestRate(rate/amount);
 					r.setCdate(cdate);
 					list.add(r);
 				}

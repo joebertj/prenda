@@ -12,7 +12,7 @@
 	</c:when>
 	<c:otherwise>
 		<TD>
-		OUTSTANDING
+		<!-- TODO: get status -->
 		</TD>
 	</c:otherwise>
 </c:choose>	

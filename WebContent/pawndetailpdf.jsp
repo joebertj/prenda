@@ -31,11 +31,11 @@ WHERE pawn.pid=<c:out value="${param.pid}"/>
 					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branches.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD width="200"></TD>
 					<TD>Date of Loan</TD>
-					<TD>:<jsp:useBean id="ldate" class="com.prenda.Loan" /> 
+					<TD>:<jsp:useBean id="ldate" class="com.prenda.helper.DateUtil" /> 
 					<jsp:setProperty property="sdfIn" name="ldate" value="yyyy-MM-dd"/>
 					<jsp:setProperty property="sdfOut" name="ldate" value="MMM dd, yyyy"/>
 					<jsp:setProperty property="value" name="ldate" value="${pawn.rows[0].loan_date}"/>
-					<c:out value="${ldate.loan}"/>
+					<c:out value="${ldate.effective}"/>
 					</TD>
 				</TR>
 				<TR>
@@ -108,7 +108,7 @@ WHERE pawn.pid=<c:out value="${param.pid}"/>
 					<form method="post" action="pawnticket.pdf">
 						<input type="hidden" name="pid" value='<c:out value="${param.pid}"/>'/>
 						<input type="hidden" name="bpid" value='<c:out value="${pawn.rows[0].bpid}"/>'/>
-						<input type="hidden" name="pawn" value='<c:out value="${ldate.loan}"/>'/>
+						<input type="hidden" name="pawn" value='<c:out value="${ldate.effective}"/>'/>
 						<input type="hidden" name="maturity" value='<c:out value="${ldate.maturity}"/>'/>
 						<input type="hidden" name="expire" value='<c:out value="${ldate.expiry}"/>'/>
 						<input type="hidden" name="name" value='<c:out value="${pawn.rows[0].last_name}"/>, <c:out value="${pawn.rows[0].first_name}"/> <c:out value="${pawn.rows[0].middle_name}"/>'/>
@@ -126,11 +126,12 @@ WHERE pawn.pid=<c:out value="${param.pid}"/>
 						<input type="hidden" name="password" value='<c:out value="${pawn.rows[0].password}"/>'/>
 						<input type="hidden" name="encoder" value='<c:out value="${pawn.rows[0].encoder}"/>'/>
 						<input type="hidden" name="branch" value='<c:out value="${users.rows[0].branch}"/>'/>
-						<input type="submit" value="Generate PDF" onClick='
+						<input type="submit" value="Print on Preprinted Receipt" onClick='
 							document.getElementsByName("ratew").value=AmtInWords(document.getElementsByName("rate").value,"Pesos Only");
 							document.getElementsByName("loanw").value=AmtInWords(document.getElementsByName("loan").value,"Pesos Only");
 							document.getElementsByName("appraisedw").value=AmtInWords(document.getElementsByName("appraised").value,"Pesos Only")'
 							/>
+						<input type="submit" value="Print on Empty Paper" onClick="alert('Not yet available');return false;"/>
 					</form>
 					</TD>
 				</TR>

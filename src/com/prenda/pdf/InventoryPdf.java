@@ -50,8 +50,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 		param.put("branch",branch);
 		param.put("name",bname);
 		param.put("address",baddress);
-		String path = request.getSession().getServletContext().getRealPath("/common/img");
-		param.put("logo", path+"logo2.png");
+		String path = request.getSession().getServletContext().getRealPath("/common");
+		param.put("logo", path+"/img/logo2.png");
 		try {
 			Connection conn = DatabaseConnection.getConnection();
 			JasperPrint jprint=JasperFillManager.fillReport(path+"/jasper/inventoryitems.jasper",param,conn);

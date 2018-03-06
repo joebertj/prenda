@@ -25,16 +25,16 @@
 					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branches.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD width="200"></TD>
 					<TD>Date of Loan</TD>
-					<TD>: <jsp:useBean id="ldate" class="com.prenda.Loan" /> 
+					<TD>: <jsp:useBean id="ldate" class="com.prenda.helper.DateUtil" /> 
 					<jsp:setProperty property="sdfIn" name="ldate" value="MMM dd, yyyy"/>
 					<jsp:setProperty property="sdfOut" name="ldate" value="MMM dd, yyyy"/>
 					<jsp:setProperty property="value" name="ldate" value="${param.loandate}"/>
-					<jsp:useBean id="uldate" class="com.prenda.Loan" /> 
+					<jsp:useBean id="uldate" class="com.prenda.helper.DateUtil" /> 
 					<jsp:setProperty property="sdfIn" name="uldate" value="MMM dd, yyyy"/>
 					<jsp:setProperty property="sdfOut" name="uldate" value="MM/dd/yyyy"/>
 					<jsp:setProperty property="value" name="uldate" value="${param.loandate}"/>
-					<input type="hidden" name="loandate" value='<c:out value="${uldate.loan}"/>'/>
-					<c:out value="${ldate.loan}"/>
+					<input type="hidden" name="loandate" value='<c:out value="${uldate.effective}"/>'/>
+					<c:out value="${ldate.effective}"/>
 					</TD>
 				</TR>
 				<TR>

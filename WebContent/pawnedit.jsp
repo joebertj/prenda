@@ -43,11 +43,11 @@ WHERE pid=<c:out value="${param.pid}"/>
 					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branches.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD width="200"></TD>
 					<TD>Date of Loan</TD>
-					<TD>: <jsp:useBean id="ldate" class="com.prenda.Loan" /> 
+					<TD>: <jsp:useBean id="ldate" class="com.prenda.helper.DateUtil" /> 
 					<jsp:setProperty property="sdfIn" name="ldate" value="yyyy-MM-dd"/>
 					<jsp:setProperty property="sdfOut" name="ldate" value="MMM dd, yyyy"/>
 					<jsp:setProperty property="value" name="ldate" value="${pawn.rows[0].loan_date}"/>
-					<c:out value="${ldate.loan}"/>
+					<c:out value="${ldate.effective}"/>
 					<input type="hidden" name="loandate" value='<c:out value="${ldate.value}"/>'/>
 					</TD>
 				</TR>

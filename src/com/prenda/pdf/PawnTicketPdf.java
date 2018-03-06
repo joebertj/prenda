@@ -99,8 +99,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 		param.put("branch",branch);
 		try {
 			Connection conn = DatabaseConnection.getConnection();
-			String jasper = request.getSession().getServletContext().getRealPath("/common/jasper");
-			JasperPrint jprint=JasperFillManager.fillReport(jasper+"/pawnticket.jasper",param,conn);
+			String jasper = request.getSession().getServletContext().getRealPath("/common");
+			JasperPrint jprint=JasperFillManager.fillReport(jasper+"/jasper/pawnticket.jasper",param,conn);
 			OutputStream out=response.getOutputStream();
 			JasperExportManager.exportReportToPdfStream(jprint,out);
 		} catch (Exception e) {

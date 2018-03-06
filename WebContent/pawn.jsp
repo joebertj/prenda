@@ -12,7 +12,7 @@
 </head>
 <body>
 
-<TABLE border="1" width=100% class=main>
+<TABLE border="1" class="main" style="width:100%;">
 	<TBODY>
 		<TR>
 			<TD><IMG border="0" src="common/img/logo2.png" width="135"
@@ -32,22 +32,22 @@
 				</TR>
 				<TR>
 					<TD><jsp:useBean id="now" class="java.util.Date" />
-					<jsp:useBean id="ldate" class="com.prenda.Loan" /> 
+					<jsp:useBean id="ldate" class="com.prenda.helper.DateUtil" /> 
 					<jsp:setProperty property="sdfIn" name="ldate" value="E MMM dd hh:mm:ss z yyyy"/>
 					<jsp:setProperty property="sdfOut" name="ldate" value="MMM dd, yyyy"/>
 					<jsp:setProperty property="value" name="ldate" value="${now}"/>
-					<jsp:useBean id="uldate" class="com.prenda.Loan" /> 
+					<jsp:useBean id="uldate" class="com.prenda.helper.DateUtil" /> 
 					<jsp:setProperty property="sdfIn" name="uldate" value="yyyy-MM-dd"/>
 					<jsp:setProperty property="sdfOut" name="uldate" value="MM/dd/yyyy"/>
 					<jsp:setProperty property="value" name="uldate" value="${user.loanDate}"/>
 					Branch PID</TD>
 					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branches.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD width="200" align="right">
-					<input type="button" value="Prev" onClick='document.pawn.sldate.value="<c:out value="${uldate.loan}"/>";document.pawn.loandate.focus()'/></TD>
+					<input type="button" value="  " style="background: url(common/img/revert.png) no-repeat; cursor:pointer; border: none;" onClick='document.pawn.sldate.value="<c:out value="${uldate.effective}"/>";document.pawn.loandate.focus()'/></TD>
 					<TD>Date of Loan</TD>
-					<TD>: 
+					<TD> 
 					<input type="hidden" id="sldate" name="sldate" value="<c:out value="${now}"/>"/>
-					<input type="text" name="loandate" id="loandate" value="<c:out value="${ldate.loan}"/>" size="10"/>
+					<input type="text" name="loandate" id="loandate" value="<c:out value="${ldate.effective}"/>" size="10"/>
 					<a href="javascript:ggLang='eng';show_calendar('pawn.sldate')">
 					<img src="common/img/showcalendar.gif" align="top" border="0"/></a>
 					<input type="hidden" id="sdfin" value="MM/dd/yyyy"/>
@@ -60,102 +60,96 @@
 					<input type="hidden" id="pt" name="pt" value='<c:out value="${branches.pawnTicket}"/>' />
 					</TD>
 					<TD>Maturity Date</TD>
-					<TD>: <input type="text" id="maturity" value='<c:out value="${ldate.maturity}"/>' size="10"/>
+					<TD><input type="text" id="maturity" value='<c:out value="${ldate.maturity}"/>' size="10"/>
 					</TD>
 				</TR>
 				<TR>
 					<TD colspan="4"></TD>
 					<TD>Expiry Date</TD>
-					<TD>: <input type="text" id="expiry" value='<c:out value="${ldate.expiry}"/>' size="10"/>
+					<TD><input type="text" id="expiry" value='<c:out value="${ldate.expiry}"/>' size="10"/>
 					</TD>
 				</TR>
 				<TR>
 					<TD colspan="5">
-					Last Name<INPUT id="lname" name="lname" type="text"/> 
+					Last Name <INPUT id="lname" name="lname" type="text"/> 
 					<span id="indicator1" style="display:none;"><img src="common/img/indicator.gif" /></span>
-					First Name<INPUT id="fname" name="fname" type="text"/>
+					First Name <INPUT id="fname" name="fname" type="text"/>
 					<span id="indicator2" style="display:none;"><img src="common/img/indicator.gif" /></span>
-					Middle<INPUT id="mname" name="mname" type="text"/>
+					Middle <INPUT id="mname" name="mname" type="text"/>
 					<span id="indicator3" style="display:none;"><img src="common/img/indicator.gif" /></span>
 					<input type="hidden" id="cid" name="cid"/>
 					</TD>
 				</TR>
 				<TR>
 					<TD>Address</TD>
-					<TD colspan="3">: <INPUT type="text" id="address" name="address" size="60"/>
+					<TD colspan="3"><INPUT type="text" id="address" name="address" size="60"/>
 					</TD>
 				</TR>
 				<tr>
-					<td colspan="2">Pawn Type <input type="radio" name="loantype" value="1" onclick="
-						document.pawn.loanamt.disabled=true;
-						document.pawn.weight.disabled=false;
-						document.pawn.carats.disabled=false;
-						" checked/>Jewelry
-					<input type="radio" name="loantype" value="2" onclick="
-						document.pawn.loanamt.disabled=false;
-						document.pawn.weight.disabled=true;
-						document.pawn.carats.disabled=true;
-						"/>Non-Jewelry</td>
+					<td colspan="2">Pawn Type <input type="radio" name="loantype" value="1" onclick="modeJewelry()" checked/>Jewelry
+					<input type="radio" name="loantype" value="2" onclick="modeNonJewel()"/>Non-Jewelry</td>
 				</tr>
-				<tr>
+				<tr id="jewelry1">
 					<td colspan="2">
-						Weight : <INPUT type="text" name="weight" size="5" onChange="updatePawn()"/>grams
-						Carats : <INPUT type="text" name="carats" id="carats" size="3" onChange="updatePawn()"/>K
+						Weight<INPUT type="text" name="weight" size="5" onChange="updatePawn()"/>grams
+						Carats<INPUT type="text" name="carats" id="carats" size="3" onChange="updatePawn()"/>K
 					</td>
-					<td colspan="3">
-						Adjust Amount : <INPUT type="text" name="slide" id="slide" size="5" disabled/>
-						<div id="track1" style="width: 200px; height: 9px; float: right;">
-							<div id="track1-left"></div>
-							<div class="selected" id="handle1" style="width: 19px; height: 20px; position: relative;">
-								<img src="common/img/slider.png" alt="" style="float: left;"/>
-							</div>
+					<td align="right">
+						Adjust Amount 
+					</td>
+					<td colspan="2">
+						<div id="track1" class="slider">
+							<div class="handle" id="handle1"/>
 						</div>
 					</td>
+					<td>
+						<INPUT type="text" name="slide" id="slide" size="5" disabled/>
+					</td>
 				</tr>
-				<tr>
-					<td colspan="2">Amount per Gram Based on Carats</td>
-					<td>Minimum: <INPUT type="text" name="minimum" id="minimum" size="5" disabled/></td>
-					<td>Maximum: <INPUT type="text" name="maximum" id="maximum" size="5" disabled/></td>
+				<tr id="jewelry2">
+					<td colspan="3" align="center">Amount per Gram Based on Carats</td>
+					<td>Minimum<INPUT type="text" name="minimum" id="minimum" size="5" disabled/></td>
+					<td>Maximum<INPUT type="text" name="maximum" id="maximum" size="5" disabled/></td>
 				</tr>
 				<TR>
 					<TD>Loan Amount</TD>
-					<TD>: <INPUT type="text" name="loanamt" id="loanamt" size="10" onChange="updatePawn()" disabled/>
+					<TD><INPUT type="text" name="loanamt" id="loanamt" size="10" onChange="updatePawn()" disabled/>
 					</TD>
 					<TD>In Words</TD>
-					<TD colspan="3">: <INPUT type="text" name="loanword" size="50" disabled/>
+					<TD colspan="3"><INPUT type="text" name="loanword" size="50" disabled/>
 					</TD>
 				</TR>
 				<TR>
 					<TD>Appraised Amount</TD>
-					<TD>: <INPUT type="text" name="appamt" size="10" disabled/>
+					<TD><INPUT type="text" name="appamt" size="10" disabled/>
 					</TD>
 					<TD>In Words</TD>
-					<TD colspan="3">: <INPUT type="text" name="appword" size="50" disabled/></TD>
+					<TD colspan="3"><INPUT type="text" name="appword" size="50" disabled/></TD>
 				</TR>
 				<TR>
 					<TD>Description</TD>
-					<TD colspan="4">: <INPUT type="text" name="desc" size="78"/></TD>
+					<TD colspan="4"><INPUT type="text" name="desc" size="78"/></TD>
 				</TR>
 				<TR>
 					<TD colspan="4"></TD>
 					<TD>Principal</TD>
-					<TD>: <INPUT type="text" name="pri" size="10" disabled/></TD>
+					<TD><INPUT type="text" name="pri" size="10" disabled/></TD>
 				</TR>
 				<TR>
 					<TD colspan="4"></TD>
 					<TD>Advance Interest</TD>
-					<TD>: <INPUT type="text" name="interest" size="10" value="0.00" disabled/></TD>
+					<TD><INPUT type="text" name="interest" size="10" value="0.00" disabled/></TD>
 				</TR>
 				<TR>
 					<TD colspan="4"></TD>
 					<TD>Service Charge</TD>
-					<TD>: <INPUT type="text" name="service" size="10" value="0.00" disabled/>
+					<TD><INPUT type="text" name="service" size="10" value="0.00" disabled/>
 					</TD>
 				</TR>
 				<TR>
 					<TD colspan="4"></TD>
 					<TD>Net Proceeds</TD>
-					<TD>: <INPUT type="text" name="net" size="10" disabled/></TD>
+					<TD><INPUT type="text" name="net" size="10" disabled/></TD>
 				</TR>
 				<TR>
 					<TD colspan="6" align="center">

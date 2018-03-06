@@ -12,7 +12,7 @@ SELECT name,address FROM branch WHERE branchid=<c:out value="${users.rows[0].bra
 <jsp:useBean id="branches" class="com.prenda.service.BranchService"/>
 <jsp:setProperty property="id" name="branches" value="${user.branchId}"/>
 </sec:authorize>
-<table width="100%" class="navi">
+<table class="navi" style="width:100%;">
 <sec:authorize access="isAuthenticated()"> 
 	<tr><td>
 		<table align="center" class="branch">

@@ -51,23 +51,25 @@ public class PawnService extends GenericService {
 		"LEFT JOIN interest ON pawn.branch=interest.interestid "+
 		"LEFT JOIN redeem ON redeem.pid=pawn.pid "+
 		"LEFT JOIN pullout ON pullout.pid=pawn.pid "+
-		"LEFT JOIN branch ON pawn.branch=branch.branchid ";
+		"LEFT JOIN branch ON pawn.branch=branch.branchid "+
+		"WHERE day=DATEDIFF(?,loan_date) ";
 		if(mode==Mode.DAILY){
-			query += "WHERE loan_date=?";
+			query += "AND loan_date=?";
 		}else if(mode==Mode.MONTHLY){
-			query += "WHERE year(loan_date)=year(?) and month(loan_date)=month(?)";
+			query += "AND year(loan_date)=year(?) and month(loan_date)=month(?)";
 		}else if(mode==Mode.YEARLY){
-			query += "WHERE year(loan_date)=year(?)";
+			query += "AND year(loan_date)=year(?)";
 		}
 		java.sql.Date sqlDate = new java.sql.Date(filterDate.getTime());
 		log.info(sqlDate.toString());
-		int paramsBeforeWhere = 1;
+		// Date is basically NOW() but there is a feature to use filterDate to override this for debugging
+		int datesMinimum = 2;
 		if(level==Level.ADMIN){
 			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				int i=1;
-				for(;i<=paramsBeforeWhere;i++){
+				for(;i<=datesMinimum;i++){
 					pstmt.setDate(i,sqlDate);
 				}
 				if(mode!=Mode.ALL){
@@ -127,7 +129,7 @@ public class PawnService extends GenericService {
 			try {
 				pstmt = conn.prepareStatement(query);
 				i=1;
-				for(;i<=paramsBeforeWhere;i++){
+				for(;i<=datesMinimum;i++){
 					pstmt.setDate(i,sqlDate);
 				}
 				if(mode!=Mode.ALL){
@@ -173,7 +175,7 @@ public class PawnService extends GenericService {
 			try {
 				pstmt = conn.prepareStatement(query);
 				int i=1;
-				for(;i<=paramsBeforeWhere;i++){
+				for(;i<=datesMinimum;i++){
 					pstmt.setDate(i,sqlDate);
 				}
 				if(mode!=Mode.ALL){

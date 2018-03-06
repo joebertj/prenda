@@ -7,7 +7,7 @@ function updateslider(min, max) {
 		},
 		onChange : function(v) {
 			$('slide').value = Math.ceil(v);
-			updatePawn()
+			updatePawn();
 		}
 	});
 }
@@ -27,4 +27,23 @@ function updatePawn() {
 			'Pesos Only');
 	document.pawn.pri.value = document.pawn.loanamt.value;
 
+}
+function modeJewelry(){
+
+	document.pawn.loanamt.disabled=true;
+	document.pawn.weight.disabled=false;
+	document.pawn.carats.disabled=false;
+
+	document.getElementById("jewelry1").style.visibility="visible";
+	document.getElementById("jewelry2").style.visibility="visible";
+}
+
+function modeNonJewel(){
+
+	document.pawn.loanamt.disabled=false;
+	document.pawn.weight.disabled=true;
+	document.pawn.carats.disabled=true;
+	
+	document.getElementById("jewelry1").style.visibility="collapse";
+	document.getElementById("jewelry2").style.visibility="collapse";
 }
