@@ -1,0 +1,14 @@
+<assembly>
+	<formats>
+		<format>tar.gz</format>
+	</formats>
+	<fileSets>
+		<fileSet>
+			<includes>
+				<include>README.md</include>
+				<include>prenda.sql</include>
+				<include>prenda.war</include>
+			</includes>
+		</fileSet>
+	</fileSets>
+</assembly>
