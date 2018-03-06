@@ -82,6 +82,20 @@ public class UserService {
 		}
 		return level;
 	}
+	
+	public int getLevelById(int userId) {
+		try {
+			pstmt = conn.prepareStatement("SELECT level FROM users WHERE uid=?");
+			pstmt.setInt(1, userId);
+			rs=pstmt.executeQuery();
+			if(rs.first()){
+				level=rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return level;
+	}
 
 	public void setLevel(int level) {
 		this.level = level;

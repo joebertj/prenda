@@ -46,7 +46,6 @@
 						</c:otherwise>
 					</c:choose>
 					<jsp:setProperty name="service" property="rate" value="${i}"/>
-					<jsp:setProperty name="service" property="level" value="${sessionScope.level}"/>
 					<jsp:setProperty name="service" property="branchId" value="${user.branchId}"/>
 					<jsp:setProperty name="service" property="userId" value="${user.id}"/>
 					<td><c:out value="${i}"/>%</td>

@@ -18,12 +18,16 @@ import java.sql.ResultSet;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.apache.log4j.Logger;
+
 public class StatisticsService {
+	
+	private static Logger log = Logger.getLogger(StatisticsService.class);
+	
 	private Connection conn;
 	private PreparedStatement pstmt;
 	
 	private float rate;
-	private int level;
 	private int branchId;
 	private int userId;
 	private int mode;
@@ -43,11 +47,11 @@ public class StatisticsService {
 	}
 
 	public int getRedeemCount(){
-		count = getRedeemCount(level,branchId,userId,mode);
+		count = getRedeemCount(branchId,userId,mode);
 		return count;
 	}
 	
-	public int getRedeemCount(int level,int branchId,int userId,int mode){
+	public int getRedeemCount(int branchId,int userId,int mode){
 		int count = 0;
 		try {
 			pstmt = conn.prepareStatement("select count(pid) from redeem");
@@ -61,8 +65,10 @@ public class StatisticsService {
 		return count;
 	}
 	
-	public int getRedeemCountByInterestRate(float rate,int level,int branchId,int userId,int mode){
+	public int getRedeemCountByInterestRate(float rate,int branchId,int userId,int mode){
 		int count = 0;
+		UserService us = new UserService();
+		int level = us.getLevelById(userId);
 		String query = "select count(redeem.pid) from pawn " +
 			"left join redeem on pawn.pid=redeem.pid " +
 			"where 100*interest/loan = ? " +
@@ -134,11 +140,12 @@ public class StatisticsService {
 				e.printStackTrace();
 			}
 		}
+		log.info("mode " + mode + "count " + count);
 		return count;
 	}
 	
 	public int getRedeemCountByInterestRate(){
-		count = getRedeemCountByInterestRate(rate,level,branchId,userId,mode);
+		count = getRedeemCountByInterestRate(rate,branchId,userId,mode);
 		return count;
 	}
 
@@ -148,14 +155,6 @@ public class StatisticsService {
 
 	public void setBranchId(int branchId) {
 		this.branchId = branchId;
-	}
-
-	public int getLevel() {
-		return level;
-	}
-
-	public void setLevel(int level) {
-		this.level = level;
 	}
 
 	public int getMode() {

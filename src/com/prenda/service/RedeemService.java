@@ -40,7 +40,7 @@ public class RedeemService extends GenericService{
 	
 	public List<Redeem> getAllRedeem(int level,int branchId,int userId,int mode,String sort,int order,int page,int pageSize,Date filterDate){
 		List<Redeem> list = new ArrayList<Redeem>();
-		String query = "SELECT pawn.pid,branch,loan_date,nameid,loan,bpid,interest,pawn.service_charge,pt,bcode," +
+		String query = "SELECT pawn.pid,branch,loan_date,nameid,loan,bpid,rate,pawn.service_charge,pt,bcode," +
 			"redeem.create_date AS cdate,"+
 			"ADDDATE(loan_date,120+15*pawn.extend) AS expire,"+
 			"redeem_date " +
@@ -88,7 +88,7 @@ public class RedeemService extends GenericService{
 					Date expire = rs.getDate(12);
 					Date redeemDate = rs.getDate(13);
 					Redeem r = new Redeem(pid, loanDate.getTime(), bcode, loanDate, expire, nameId, amount, amount+100, query, sc, pid, query, pid, branch, bpid, pt, redeemDate);
-					r.setInterestRate(rate/amount);
+					r.setInterestRate(rate);
 					r.setCdate(cdate);
 					list.add(r);
 				}

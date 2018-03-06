@@ -43,7 +43,7 @@ public class PawnService extends GenericService {
 		String query = "SELECT pawn.pid,branch,loan_date,nameid,loan,bpid,rate,pawn.service_charge,pt,bcode,"+
 		"pawn.create_date AS cdate,"+
 		"ADDDATE(loan_date,120+15*pawn.extend) AS expire,"+
-		"(ADDDATE(pawn.loan_date,120+15*pawn.extend) <= ?) AS foreclose,"+
+		"(? > ADDDATE(pawn.loan_date,120+15*pawn.extend)) AS foreclose,"+
 		"(pawn.pid=redeem.pid) AS redeem,"+
 		"(pawn.pid=pullout.pid) AS pullout "+
 		"FROM pawn "+
@@ -52,7 +52,8 @@ public class PawnService extends GenericService {
 		"LEFT JOIN redeem ON redeem.pid=pawn.pid "+
 		"LEFT JOIN pullout ON pullout.pid=pawn.pid "+
 		"LEFT JOIN branch ON pawn.branch=branch.branchid "+
-		"WHERE day=DATEDIFF(?,loan_date) ";
+		// set day to [0,34] all overflows stop at 34
+		"WHERE day=DATEDIFF(?,loan_date) OR (day=34 AND DATEDIFF(?,loan_date)>34)";
 		if(mode==Mode.DAILY){
 			query += "AND loan_date=?";
 		}else if(mode==Mode.MONTHLY){
@@ -63,7 +64,7 @@ public class PawnService extends GenericService {
 		java.sql.Date sqlDate = new java.sql.Date(filterDate.getTime());
 		log.info(sqlDate.toString());
 		// Date is basically NOW() but there is a feature to use filterDate to override this for debugging
-		int datesMinimum = 2;
+		int datesMinimum = 3;
 		if(level==Level.ADMIN){
 			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
