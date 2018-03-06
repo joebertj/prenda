@@ -295,8 +295,8 @@
 								<configuration>
 									<tasks>
 										<echo>Using application-openshift.properties</echo>
-										<copy file="${project.build.directory}/WebContent/WEB-INF/classes/application-openshift.properties" tofile="${project.build.directory}/WebContent/WEB-INF/classes/application.properties" />
-										<copy file="${project.build.directory}/target/classes/application-openshift.properties" tofile="${project.build.directory}/target/classes/application.properties" />
+										<copy file="${project.basedir}/WebContent/WEB-INF/classes/application-openshift.properties" tofile="${project.basedir}/WebContent/WEB-INF/classes/application.properties" />
+										<copy file="${project.build.directory}/classes/application-openshift.properties" tofile="${project.build.directory}/classes/application.properties" />
 									</tasks>
 								</configuration>
 							</execution>
