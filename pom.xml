@@ -295,7 +295,7 @@
 								<configuration>
 									<tasks>
 										<echo>Using application-openshift.properties</echo>
-										<copy file="${project.basedir}/src/main/resources/application-openshift.properties" tofile="${project.basedir}/src/main/resources/application.properties" />
+										<copy file="${project.build.directory}/classes/application-openshift.properties" tofile="${project.build.directory}/classes/application.properties" />
 									</tasks>
 								</configuration>
 							</execution>
