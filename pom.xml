@@ -288,14 +288,14 @@
 						<version>1.1</version>
 						<executions>
 							<execution>
-								<phase>resources</phase>
+								<phase>test</phase>
 								<goals>
 									<goal>run</goal>
 								</goals>
 								<configuration>
 									<tasks>
 										<echo>Using application-openshift.properties</echo>
-										<copy file="${project.build.directory}/classes/application-openshift.properties" tofile="${project.build.directory}/classes/application.properties" />
+										<copy file="${project.build.directory}/classes/application-openshift.properties" tofile="${project.build.directory}/prenda/WEB-INF/classes/application.properties" />
 									</tasks>
 								</configuration>
 							</execution>
