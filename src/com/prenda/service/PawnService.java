@@ -53,7 +53,7 @@ public class PawnService extends GenericService {
 		"LEFT JOIN pullout ON pullout.pid=pawn.pid "+
 		"LEFT JOIN branch ON pawn.branch=branch.branchid "+
 		// set day to [0,34] all overflows stop at 34
-		"WHERE day=DATEDIFF(?,loan_date) OR (day=34 AND DATEDIFF(?,loan_date)>34)";
+		"WHERE (day=DATEDIFF(?,loan_date) OR (day=34 AND DATEDIFF(?,loan_date)>34)) ";
 		if(mode==Mode.DAILY){
 			query += "AND loan_date=?";
 		}else if(mode==Mode.MONTHLY){

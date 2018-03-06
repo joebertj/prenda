@@ -68,9 +68,14 @@
 					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${cashpos.endBalance}"/></TD>
 				</TR>
 				<TR bgcolor="#3366FF">
-					<TD>Asset</TD>
+					<TD>Inventory</TD>
 					<TD><input name="inventory" type="hidden" value='<c:out value="${cashpos.inventory}"/>'/></TD>
 					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${cashpos.inventory}"/></TD>
+				</TR>
+				<TR>
+					<TD>Asset</TD>
+					<TD><input name="asset" type="hidden" value='<c:out value="${cashpos.inventory + cashpos.endBalance}"/>'/></TD>
+					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${cashpos.inventory + cashpos.endBalance}"/></TD>
 				</TR>
 				<TR>
 					<TD colspan="100%" align="center"><INPUT type="submit" value="Generate PDF">
