@@ -294,8 +294,8 @@
 									<goal>copy</goal>
 								</goals>
 								<configuration>
-									<sourceFile>"${project.basedir}/src/main/resources/application-openshift.properties"</sourceFile>
-									<destinationFile>"${project.basedir}/src/main/resources/application.properties"</destinationFile>
+									<sourceFile>src/main/resources/application-openshift.properties</sourceFile>
+									<destinationFile>src/main/resources/application.properties</destinationFile>
 								</configuration>
 							</execution>
 						</executions>
@@ -306,7 +306,7 @@
 						<version>1.1</version>
 						<executions>
 							<execution>
-								<phase>test</phase>
+								<phase>generate-sources</phase>
 								<goals>
 									<goal>run</goal>
 								</goals>
@@ -314,8 +314,8 @@
 									<tasks>
 										<echo>Using application-openshift.properties</echo>
 										<copy
-											file="${project.build.directory}/classes/application-openshift.properties"
-											tofile="${project.build.directory}/prenda/WEB-INF/classes/application.properties" />
+											file="${project.basedir}/src/main/resources/application-openshift.properties"
+											tofile="{project.basedir}/src/main/resources/application.properties" />
 									</tasks>
 								</configuration>
 							</execution>
