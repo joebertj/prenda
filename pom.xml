@@ -288,7 +288,7 @@
 						<version>1.0</version>
 						<executions>
 							<execution>
-								<id>copy-file</id>
+								<id>copy-file-1</id>
 								<phase>generate-sources</phase>
 								<goals>
 									<goal>copy</goal>
@@ -298,25 +298,15 @@
 									<destinationFile>src/main/resources/application.properties</destinationFile>
 								</configuration>
 							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-antrun-plugin</artifactId>
-						<version>1.1</version>
-						<executions>
 							<execution>
-								<phase>generate-sources</phase>
+								<id>copy-file-2</id>
+								<phase>test</phase>
 								<goals>
-									<goal>run</goal>
+									<goal>copy</goal>
 								</goals>
 								<configuration>
-									<tasks>
-										<echo>Using application-openshift.properties</echo>
-										<copy
-											file="${project.basedir}/src/main/resources/application-openshift.properties"
-											tofile="{project.basedir}/src/main/resources/application.properties" />
-									</tasks>
+									<sourceFile>target/prenda/WEB-INF/classes/application-openshift.properties</sourceFile>
+									<destinationFile>target/prenda/WEB-INF/classes/application.properties</destinationFile>
 								</configuration>
 							</execution>
 						</executions>
