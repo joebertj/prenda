@@ -294,8 +294,9 @@
 								</goals>
 								<configuration>
 									<tasks>
-										<echo>Using env.test.properties</echo>
-										<copy file="src/application-openshift.properties" tofile="src/application.properties" />
+										<echo>Using application-openshift.properties</echo>
+										<copy file="${project.build.directory}/WebContent/WEB-INF/classes/application-openshift.properties" tofile="${project.build.directory}/WebContent/WEB-INF/classes/application.properties" />
+										<copy file="${project.build.directory}/target/classes/application-openshift.properties" tofile="${project.build.directory}/target/classes/application.properties" />
 									</tasks>
 								</configuration>
 							</execution>
