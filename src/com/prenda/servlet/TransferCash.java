@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.service.UserService;
 
 /**
  * Servlet implementation class for Servlet: TransferCash
@@ -48,7 +49,8 @@ import com.prenda.helper.DatabaseConnection;
 			response.sendRedirect(redirectURL);
 		}else{ 
 			String authenticated=(String) session.getAttribute("authenticated");
-			int level=((Integer) session.getAttribute("level")).intValue();
+			UserService us = new UserService();
+			int level= us.getLevelByUsername(authenticated);
 			if(authenticated == null){
 				redirectURL = "common/login.jsp?msg=You have not logged in yet";
 				response.sendRedirect(redirectURL);

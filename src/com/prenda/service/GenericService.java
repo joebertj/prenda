@@ -28,6 +28,8 @@ public abstract class GenericService {
 	protected int pageSize;
 	protected String filter;
 	protected String filterFormat;
+	
+	// Used to override the current system date mainly for debugging
 	protected Date filterDate;
 	
 	public GenericService(){

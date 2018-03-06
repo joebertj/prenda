@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.service.UserService;
 
 /**
  * Servlet implementation class for Servlet: CheckAuction
@@ -55,7 +56,9 @@ public class CheckAuction extends javax.servlet.http.HttpServlet implements java
 	protected void continuePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try{
 			HttpSession session=request.getSession(true);
-			int level=((Integer) session.getAttribute("level")).intValue();
+			String authenticated = session.getAttribute("authenticated").toString();
+    		UserService us = new UserService();
+			int level= us.getLevelByUsername(authenticated);
 			if(level>7){
 				Connection conn = DatabaseConnection.getConnection();
 				String[] pid=(String []) request.getParameterValues("pid");

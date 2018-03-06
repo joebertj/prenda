@@ -45,9 +45,10 @@ public class RedeemService extends GenericService{
 			"LEFT JOIN redeem ON pawn.pid=redeem.pid " +
 			"LEFT JOIN customer ON pawn.nameid=customer.id " +
 			"LEFT JOIN interest ON pawn.branch=interest.interestid " +
-			"LEFT JOIN branch ON pawn.branch=branch.branchid " +
+			"LEFT JOIN branch ON pawn.branch=branch.branchid, " +
+			"DATEDIFF(redeem_date,loan_date) as day " +
 			"WHERE pawn.pid=redeem.pid " +
-			"AND (day=DATEDIFF(redeem_date,loan_date) OR (day=34 AND DATEDIFF(redeem_date,loan_date)>34)) ";
+			"AND (DATEDIFF(redeem_date,loan_date)>=34)) ";
 		if(mode==Mode.DAILY){
 			query += " and redeem_date=?";
 		}else if(mode==Mode.MONTHLY){

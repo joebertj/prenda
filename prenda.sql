@@ -83,7 +83,8 @@ DROP TABLE IF EXISTS `interest`;
 CREATE TABLE `interest` (
   `interestid` int(10) unsigned NOT NULL,
   `day` tinyint(3) unsigned NOT NULL,
-  `rate` tinyint(3) unsigned NOT NULL default '0'
+  `rate` tinyint(3) unsigned NOT NULL default '0',
+  PRIMARY KEY (`interestid`,`day`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -220,6 +221,15 @@ CREATE TABLE `users` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `jewelry`;
+CREATE TABLE `jewelry` (
+  `branchid` tinyint(3) unsigned NOT NULL auto_increment,
+  `caratid` tinyint(1) NOT NULL default '0',
+  `minimum` float NOT NULL default '0',
+  `maximum` float NOT NULL default '0',
+  PRIMARY KEY  (`branchid`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 INSERT INTO `users` VALUES (0,'admin','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGVlXdII76vlXuaDWYOwTW',NULL,NULL,NULL,9,1,0,'2007-06-12');
 
 insert into branch (branchid,archive) values (1,0);
@@ -231,6 +241,18 @@ insert into level values(3,"LIAISON");
 insert into level values(7,"MANAGER");
 insert into level values(8,"OWNER");
 insert into level values(9,"ADMIN");
+
+LOCK TABLES `accounts` WRITE;
+/*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
+INSERT INTO `accounts` VALUES (1,'ASSET',1),(2,'LIABILITIES',2),(3,'CAPITAL',3),(4,'INCOME',4),(5,'EXPENSES',5),(6,'CURRENT ASSEST',101),(7,'CASH ON HAND',10101),(8,'ACCOUNTS PAYABLE',201),(9,'FIXED ASSET',102),(10,'FURNITURES AND EXPENSES',10201),(11,'ACCUM. DEPRECATION - F & F',10202),(12,'OWNER CAPITAL',301),(13,'OWNER DRAWINGS',302),(14,'INTEREST INCOME',401),(15,'OTHER INCOME',402),(16,'OFFICE SUPPLIES',501),(17,'SALARIES AND WAGES',502),(18,'TRANSPORTATION AND ALLOWANCES',503),(19,'LOANS EXTENDED',10103),(20,'UTILITIES (POWER & WATER)',504),(21,'COMMUNICATION AND POSTAGE',505),(22,'TAXES AND LICENCES',506),(23,'DONATION',507),(24,'RENT',508),(25,'ADVERTISING',509),(26,'JEWELRY SALE',403),(27,'MEETINGS AND REPRESENTATION',510),(28,'DEPRECATION EXPENSE',511),(29,'IT EQUIPMENT',10203),(30,'ACCUM. DEPRECIATION - IT EQUIP',10204),(31,'SECURITY SERVICES',512),(32,'PREMIUM',515),(33,'REPAIRS AND MAINTENANCE',513),(34,'HONORARIUM',514),(35,'STAFF HOUSE',516),(36,'INTEREST ON PAST DUE LOANS',517);
+/*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+LOCK TABLES `interest` WRITE;
+/*!40000 ALTER TABLE `interest` DISABLE KEYS */;
+INSERT INTO `interest` VALUES (1,0,1),(1,1,2),(1,2,2),(1,3,2),(1,4,3),(1,5,3),(1,6,3),(1,7,3),(1,8,4),(1,9,4),(1,10,4),(1,11,5),(1,12,5),(1,13,5),(1,14,5),(1,15,6),(1,16,6),(1,17,6),(1,18,6),(1,19,6),(1,20,6),(1,21,6),(1,22,6),(1,23,6),(1,24,6),(1,25,6),(1,26,6),(1,27,6),(1,28,6),(1,29,6),(1,30,6),(1,31,6),(1,32,6),(1,33,6),(1,34,6),(2,0,2),(2,1,2),(2,2,2),(2,3,3),(2,4,3),(2,5,3),(2,6,4),(2,7,4),(2,8,4),(2,9,4),(2,10,5),(2,11,5),(2,12,5),(2,13,5),(2,14,5),(2,15,5),(2,16,5),(2,17,5),(2,18,5),(2,19,5),(2,20,5),(2,21,5),(2,22,5),(2,23,5),(2,24,5),(2,25,5),(2,26,5),(2,27,5),(2,28,5),(2,29,5),(2,30,5),(2,31,5),(2,32,5),(2,33,5),(2,34,5);
+/*!40000 ALTER TABLE `interest` ENABLE KEYS */;
+UNLOCK TABLES;
 
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

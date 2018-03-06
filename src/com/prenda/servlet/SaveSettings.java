@@ -19,7 +19,9 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.prenda.Level;
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.service.UserService;
 
 /**
  * Servlet implementation class for Servlet: SaveSettings
@@ -51,7 +53,8 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 			response.sendRedirect(redirectURL);
 		}else{ 
 			String authenticated=(String) session.getAttribute("authenticated");
-			int level=((Integer) session.getAttribute("level")).intValue();
+			UserService us = new UserService();
+			int level= us.getLevelByUsername(authenticated);
 			if(authenticated == null){
 				redirectURL = "common/login.jsp?msg=You have not logged in yet";
 				response.sendRedirect(redirectURL);
@@ -122,19 +125,31 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 		try{
 			Connection conn = DatabaseConnection.getConnection();
 			PreparedStatement pstmt = null;
-    		int level=((Integer) session.getAttribute("level")).intValue();
+    		String authenticated = session.getAttribute("authenticated").toString();
+    		UserService us = new UserService();
+			int level= us.getLevelByUsername(authenticated);
     		String bname=request.getParameter("bname");
     		int branchId=new Integer(request.getParameter("branchid")).intValue();
-    		if(level>=7){
+    		if(level>=Level.MANAGER){
     			int rate;
-    			pstmt = conn.prepareStatement("UPDATE interest SET rate=? WHERE interestid=? AND day=?");
+    			pstmt = conn.prepareStatement("INSERT INTO interest VALUES (?,?,?) ON DUPLICATE KEY UPDATE rate = ?");
 				for(int i=0;i<35;i++){
-    				rate=new Integer(request.getParameter("day"+i)).intValue();
-    				pstmt.setInt(2, branchId);
-    				pstmt.setInt(3, i);
-    				pstmt.setInt(1, rate);
+					String daynum = "day"+new Integer(i).toString();
+					String dayval = request.getParameter(daynum);
+					if(dayval.isEmpty()) {
+						rate = 0;
+					}else {
+						rate=new Integer(dayval).intValue();
+					}
+    				pstmt.setInt(1, branchId);
+    				pstmt.setInt(2, i);
+    				pstmt.setInt(3, rate);
+    				pstmt.setInt(4, rate);
     				pstmt.executeUpdate();
+    				log.info("branch" + branchId + " " + daynum + " " + rate );
     			}
+				// TODO Create interface for jewelry settings
+				/* 
 				int i=0;
 				int [] caratId = {10,14,18,22,24};
 				String [] mins = request.getParameterValues("min");
@@ -145,7 +160,7 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 					min[i] = Double.parseDouble(mins[i]);
 					max[i] = Double.parseDouble(maxs[i]);
 				}
-    			pstmt = conn.prepareStatement("UPDATE jewelry SET minimum=?,maximum=? WHERE branch_id=? AND carat_id=?");
+    			pstmt = conn.prepareStatement("UPDATE jewelry SET minimum=?,maximum=? WHERE branchid=? AND caratid=?");
     			for(i=0;i<caratId.length;i++){
     				pstmt.setDouble(1, min[i]);
 					pstmt.setDouble(2, max[i]);
@@ -153,6 +168,7 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 					pstmt.setInt(4, caratId[i]);
 					pstmt.executeUpdate();
     			}
+    			*/
 				int user=new Integer(request.getParameter("user")).intValue();
     			int customer=new Integer(request.getParameter("customer")).intValue();
     			int pawn=new Integer(request.getParameter("pawn")).intValue();
@@ -162,17 +178,26 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
     			int outstanding=new Integer(request.getParameter("outstanding")).intValue();
     			int foreclose=new Integer(request.getParameter("foreclose")).intValue();
     			int auction=new Integer(request.getParameter("auction")).intValue();
-    			pstmt = conn.prepareStatement("UPDATE page SET user=?,customer=?,pawn=?,redeem=?,foreclose=?,pullout=?,outstanding=?,inventory=?,auction=? WHERE pageid=?");
-				pstmt.setInt(10, branchId);
-				pstmt.setInt(1, user);
-				pstmt.setInt(2, customer);
-				pstmt.setInt(3, pawn);
-				pstmt.setInt(4, redeem);
-				pstmt.setInt(5, foreclose);
-				pstmt.setInt(6, pullout);
-				pstmt.setInt(7, outstanding);
-				pstmt.setInt(8, inventory);
-				pstmt.setInt(9, auction);
+    			pstmt = conn.prepareStatement("INSERT INTO page VALUES (?,?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE user=?,customer=?,pawn=?,redeem=?,foreclose=?,pullout=?,outstanding=?,inventory=?,auction=?");
+				pstmt.setInt(1, branchId);
+				pstmt.setInt(2, user);
+				pstmt.setInt(3, customer);
+				pstmt.setInt(4, pawn);
+				pstmt.setInt(5, redeem);
+				pstmt.setInt(6, foreclose);
+				pstmt.setInt(7, pullout);
+				pstmt.setInt(8, outstanding);
+				pstmt.setInt(9, inventory);
+				pstmt.setInt(10, auction);
+				pstmt.setInt(11, user);
+				pstmt.setInt(12, customer);
+				pstmt.setInt(13, pawn);
+				pstmt.setInt(14, redeem);
+				pstmt.setInt(15, foreclose);
+				pstmt.setInt(16, pullout);
+				pstmt.setInt(17, outstanding);
+				pstmt.setInt(18, inventory);
+				pstmt.setInt(19, auction);
 				pstmt.executeUpdate();
 				String referer=(String) request.getContextPath();
 				if(referer.contains("owner")){
@@ -184,9 +209,7 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 				}
     		}
     	} catch (SQLException ex) {
-            log.info("SQLException: " + ex.getMessage());
-            log.info("SQLState: " + ex.getSQLState());
-            log.info("VendorError: " + ex.getErrorCode());
-		}
+    		ex.printStackTrace();
+        }
 	}
 }

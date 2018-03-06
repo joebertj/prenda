@@ -68,7 +68,7 @@ public class InventoryCheckList extends javax.servlet.http.HttpServlet implement
 		String authenticated=(String) session.getAttribute("authenticated");
 		UserService us = new UserService();
 		int userId = us.getIdByUsername(authenticated);
-		int level = (Integer) session.getAttribute("level");
+		int level= us.getLevelByUsername(authenticated);
 		int branchId = us.getBranchIdByUsername(authenticated);
 		InventoryService is = new InventoryService();
 		List<Pawn> list = is.getAllInventory(level, branchId, userId, "pawn.pid", SortOrder.ASC, 1, Integer.MAX_VALUE);

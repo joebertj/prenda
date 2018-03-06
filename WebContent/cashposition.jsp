@@ -15,9 +15,7 @@
 <%@include file="common/msg.jsp"%>
 <jsp:useBean id="cashpos" class="com.prenda.service.CashPositionService"/>
 <jsp:setProperty name="cashpos" property="level" value="${user.level}"/>
-<c:if test="${user.level<9}">
 <jsp:setProperty name="cashpos" property="branchId" value="${user.branchId}"/>
-</c:if>
 <c:if test="${param.bcode==1}">
 <jsp:setProperty name="cashpos" property="bcode" value="${param.bcode}"/>
 </c:if>

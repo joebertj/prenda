@@ -28,7 +28,7 @@ WHERE redeem.pid IS NULL
 <c:if test="${users.rows[0].level==8}">
 AND users.username='<c:out value="${authenticated}"/>'
 </c:if>
-AND ADDDATE(pawn.loan_date,120+15*pawn.extend) > NOW()
+AND NOW() <= ADDDATE(pawn.loan_date,120+15*pawn.extend) 
 <c:if test="${users.rows[0].level<8}">
 AND pawn.branch=<c:out value="${users.rows[0].branch}"/>
 </c:if>
@@ -78,12 +78,11 @@ LEFT JOIN branch ON pawn.branch=branch.branchid
 <c:if test="${users.rows[0].level==8}">
 LEFT JOIN users ON branch.owner=users.uid 
 </c:if>
-WHERE (day=DATEDIFF(NOW(),pawn.loan_date) OR (day=34 AND DATEDIFF(NOW(),pawn.loan_date)>34))
+WHERE redeem.pid IS NULL
 <c:if test="${users.rows[0].level==8}">
 AND users.username='<c:out value="${authenticated}"/>'
 </c:if>
-AND redeem.pid IS NULL
-AND ADDDATE(pawn.loan_date,120+15*pawn.extend) > NOW()
+AND NOW() <= ADDDATE(pawn.loan_date,120+15*pawn.extend) 
 <c:if test="${users.rows[0].level<8}">
 AND pawn.branch=<c:out value="${users.rows[0].branch}"/>
 </c:if>

@@ -46,8 +46,7 @@ public class PulloutService extends GenericService{
 		"LEFT JOIN interest ON pawn.branch=interest.interestid " +
 		"LEFT JOIN branch ON pawn.branch=branch.branchid " +
 		"LEFT JOIN pullout ON pullout.pid=pawn.pid "+
-		"WHERE pawn.pid=pullout.pid " +
-		"AND day=34 ";
+		"WHERE pawn.pid=pullout.pid ";
 		if(mode==Mode.DAILY){
 			query += " and pullout_date=?";
 		}else if(mode==Mode.MONTHLY){
@@ -63,9 +62,9 @@ public class PulloutService extends GenericService{
 				int i=1;
 				if(mode!=Mode.ALL){
 					pstmt.setDate(i++,sqlDate);
-				}
-				if(mode==Mode.MONTHLY){
-					pstmt.setDate(i++,sqlDate);
+					if(mode==Mode.MONTHLY){
+						pstmt.setDate(i++,sqlDate);
+					}
 				}
 				pstmt.setInt(i++,(page-1)*pageSize);
 				pstmt.setInt(i++, pageSize);
@@ -114,9 +113,9 @@ public class PulloutService extends GenericService{
 				i=1;
 				if(mode!=Mode.ALL){
 					pstmt.setDate(i++,sqlDate);
-				}
-				if(mode==Mode.MONTHLY){
-					pstmt.setDate(i++,sqlDate);
+					if(mode==Mode.MONTHLY){
+						pstmt.setDate(i++,sqlDate);
+					}
 				}
 				pstmt.setInt(i++,(page-1)*pageSize);
 				pstmt.setInt(i++, pageSize);
@@ -151,9 +150,9 @@ public class PulloutService extends GenericService{
 				int i=1;
 				if(mode!=Mode.ALL){
 					pstmt.setDate(i++,sqlDate);
-				}
-				if(mode==Mode.MONTHLY){
-					pstmt.setDate(i++,sqlDate);
+					if(mode==Mode.MONTHLY){
+						pstmt.setDate(i++,sqlDate);
+					}
 				}
 				pstmt.setInt(i++, branchId);
 				pstmt.setInt(i++,(page-1)*pageSize);

@@ -38,7 +38,7 @@ public class JewelryService {
 
 	public double getMinimum() {
 		try {
-			String sql="SELECT minimum FROM jewelry WHERE branch_id=? AND carat_id=?";
+			String sql="SELECT minimum FROM jewelry WHERE branchid=? AND caratid=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, branchId);
 			pstmt.setInt(2, caratId);
@@ -58,7 +58,7 @@ public class JewelryService {
 
 	public double getMaximum() {
 		try {
-			String sql="SELECT maximum FROM jewelry WHERE branch_id=? AND carat_id=?";
+			String sql="SELECT maximum FROM jewelry WHERE branchid=? AND caratid=?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, branchId);
 			pstmt.setInt(2, caratId);

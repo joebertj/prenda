@@ -7,9 +7,10 @@
 <script type="text/javascript" src="common/js/ajaxtags-1.2-beta2.js"></script>
 <script type="text/javascript" src="common/js/calendarmws_lang.js"></script>
 <script type="text/javascript" src="common/js/sprintf.js"></script>
+<script type="text/javascript" src="common/js/slider.js"></script>
+<script type="text/javascript" src="common/js/pawnslide.js"></script>
 </head>
 <body>
-
 
 <TABLE border="1" width=100% class=main>
 	<TBODY>
@@ -23,7 +24,8 @@
 			<TD align=center>
 <%@include file="common/msg.jsp"%>
 <div id="errorMsg" style="display:none;border:1px solid #e00;background-color:#fee;padding:2px;margin-top:8px;width:300px;font:normal 12px Arial;color:#900"></div>
-			<FORM name="pawn" method="post" action="pawndetail.jsp">
+			<FORM name="pawn" method="post" action="pawndetail.jsp" onSubmit="updatePawn()">
+			<input type="hidden" id="branchid" value="${user.branchId}"/><!-- used by ajax only -->
 			<TABLE border="1">
 				<TR>
 					<TH colspan="100%">Pawn</TH>
@@ -83,6 +85,46 @@
 					<TD colspan="3">: <INPUT type="text" id="address" name="address" size="60"/>
 					</TD>
 				</TR>
+				<tr>
+					<td colspan="2">Pawn Type <input type="radio" name="loantype" value="1" onclick="
+						document.pawn.loanamt.disabled=true;
+						document.pawn.weight.disabled=false;
+						document.pawn.carats.disabled=false;
+						" checked/>Jewelry
+					<input type="radio" name="loantype" value="2" onclick="
+						document.pawn.loanamt.disabled=false;
+						document.pawn.weight.disabled=true;
+						document.pawn.carats.disabled=true;
+						"/>Non-Jewelry</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						Weight : <INPUT type="text" name="weight" size="5" onChange="updatePawn()"/>grams
+						Carats : <INPUT type="text" name="carats" id="carats" size="3" onChange="updatePawn()"/>K
+					</td>
+					<td colspan="3">
+						Adjust Amount : <INPUT type="text" name="slide" id="slide" size="5" disabled/>
+						<div id="track1" style="width: 200px; height: 9px; float: right;">
+							<div id="track1-left"></div>
+							<div class="selected" id="handle1" style="width: 19px; height: 20px; position: relative;">
+								<img src="common/img/slider.png" alt="" style="float: left;"/>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">Amount per Gram Based on Carats</td>
+					<td>Minimum: <INPUT type="text" name="minimum" id="minimum" size="5" disabled/></td>
+					<td>Maximum: <INPUT type="text" name="maximum" id="maximum" size="5" disabled/></td>
+				</tr>
+				<TR>
+					<TD>Loan Amount</TD>
+					<TD>: <INPUT type="text" name="loanamt" id="loanamt" size="10" onChange="updatePawn()" disabled/>
+					</TD>
+					<TD>In Words</TD>
+					<TD colspan="3">: <INPUT type="text" name="loanword" size="50" disabled/>
+					</TD>
+				</TR>
 				<TR>
 					<TD>Appraised Amount</TD>
 					<TD>: <INPUT type="text" name="appamt" size="10" disabled/>
@@ -91,22 +133,8 @@
 					<TD colspan="3">: <INPUT type="text" name="appword" size="50" disabled/></TD>
 				</TR>
 				<TR>
-					<TD>Loan Amount</TD>
-					<TD>: <INPUT type="text" name="loanamt" size="10" onKeyUp="
-						document.pawn.loanword.value=AmtInWords(document.pawn.loanamt.value,'Pesos Only');
-						document.pawn.appamt.value=parseFloat(this.value)+100;
-						document.pawn.appword.value=AmtInWords(document.pawn.appamt.value,'Pesos Only');
-						document.pawn.pri.value=this.value;
-						document.pawn.net.value=this.value;
-						"/>
-					</TD>
-					<TD>In Words</TD>
-					<TD colspan="3">: <INPUT type="text" name="loanword" size="50" disabled/>
-					</TD>
-				</TR>
-				<TR>
 					<TD>Description</TD>
-					<TD colspan="5">: <INPUT type="text" name="desc" size="78"/></TD>
+					<TD colspan="4">: <INPUT type="text" name="desc" size="78"/></TD>
 				</TR>
 				<TR>
 					<TD colspan="4"></TD>
@@ -132,6 +160,7 @@
 				<TR>
 					<TD colspan="6" align="center">
 					<INPUT type="submit" value="Pawn" onClick="
+						document.pawn.loanamt.disabled=false;
 						document.pawn.loanword.disabled=false;
 						document.pawn.appamt.disabled=false;	
 						document.pawn.appword.disabled=false;
@@ -213,6 +242,16 @@
   parameters="sdfin={sdfin},sdfout={sdfout},date={sldate}"
   eventType="focus"
   parser="new ResponseXmlParser()" />
+  
+<ajax:updateField
+  baseUrl="GetMinMax"
+  source="carats"
+  target="minimum,maximum"
+  action="carats"
+  parameters="branchid={branchid},carats={carats}"
+  eventType="blur"
+  parser="new ResponseXmlParser()" 
+  postFunction="initPawn" />
 
 </body>
 </html>

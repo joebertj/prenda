@@ -304,6 +304,15 @@
 		<servlet-class>
 		com.prenda.servlet.CheckAuction</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		GetMinMax</display-name>
+		<servlet-name>GetMinMax</servlet-name>
+		<servlet-class>
+		com.prenda.ajax.GetMinMax</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>CheckPawn</servlet-name>
 		<url-pattern>/CheckPawn</url-pattern>
@@ -439,5 +448,9 @@
 	<servlet-mapping>
 		<servlet-name>CheckAuction</servlet-name>
 		<url-pattern>/CheckAuction</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetMinMax</servlet-name>
+		<url-pattern>/GetMinMax</url-pattern>
 	</servlet-mapping>
 </web-app>

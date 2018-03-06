@@ -45,8 +45,7 @@ public class PawnService extends GenericService {
 		"ADDDATE(loan_date,120+15*pawn.extend) AS expire,"+
 		"(ADDDATE(pawn.loan_date,120+15*pawn.extend) <= ?) AS foreclose,"+
 		"(pawn.pid=redeem.pid) AS redeem,"+
-		"(pawn.pid=pullout.pid) AS pullout, "+
-		"DATEDIFF(?,loan_date) as day " +
+		"(pawn.pid=pullout.pid) AS pullout "+
 		"FROM pawn "+
 		"LEFT JOIN genkey ON pawn.pid=genkey.pid "+
 		"LEFT JOIN interest ON pawn.branch=interest.interestid "+
@@ -62,7 +61,7 @@ public class PawnService extends GenericService {
 		}
 		java.sql.Date sqlDate = new java.sql.Date(filterDate.getTime());
 		log.info(sqlDate.toString());
-		int paramsBeforeWhere = 2;
+		int paramsBeforeWhere = 1;
 		if(level==Level.ADMIN){
 			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {

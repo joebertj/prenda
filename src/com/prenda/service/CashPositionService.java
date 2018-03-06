@@ -10,9 +10,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
 import com.prenda.helper.DatabaseConnection;
 
 public class CashPositionService {
+	private static Logger log =Logger.getLogger(CashPositionService.class);
+	
 	private Connection conn;
 	private PreparedStatement pstmt;
 	
@@ -137,16 +140,10 @@ public class CashPositionService {
 		try {
 			String sql="SELECT sum(loan) as sumloan " +
 					"FROM pawn " +
-					"WHERE loan_date=CURDATE()";
-			if(level<9){
-				if(bcode==1){
-					sql=sql+" AND bcode=1";
-				}
-				pstmt = conn.prepareStatement(sql + " AND branch=?");
-				pstmt.setInt(1, branchId);
-			}else{
-				pstmt = conn.prepareStatement(sql);
-			}
+					"WHERE branch=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, branchId);
+			log.info(sql + " ? is" + branchId);
 			ResultSet rs=pstmt.executeQuery();
 			if(rs.first()){
 				pawn=rs.getFloat(1);

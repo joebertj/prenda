@@ -52,28 +52,28 @@
 SELECT rate FROM interest WHERE interestid=<c:out value="${branches.id}"/> AND day=<c:out value="${i}"/>
 </sql:query>
 					</TD>
-					<TD><INPUT type="text" name="day<c:out value="${i}"/>" size="2" value='<c:out value="${interest.rows[0].rate}"/>'>
+					<TD><INPUT type="text" name="day<c:out value="${i}"/>" size="2" value='<c:out value="${interest.rows[0].rate + 0}"/>'>
 					</TD>
 					<TD>Day <c:out value="${i+7}"/>
 <sql:query var="interest" dataSource="${prenda}">
 SELECT rate FROM interest WHERE interestid=<c:out value="${branches.id}"/> AND day=<c:out value="${i+7}"/>
 </sql:query>
 					</TD>
-					<TD><INPUT type="text" name="day<c:out value="${i+7}"/>" size="2" value='<c:out value="${interest.rows[0].rate}"/>'>
+					<TD><INPUT type="text" name="day<c:out value="${i+7}"/>" size="2" value='<c:out value="${interest.rows[0].rate + 0}"/>'>
 					</TD>
 					<TD>Day <c:out value="${i+14}"/>
 <sql:query var="interest" dataSource="${prenda}">
 SELECT rate FROM interest WHERE interestid=<c:out value="${branches.id}"/> AND day=<c:out value="${i+14}"/>
 </sql:query>
 					</TD>
-					<TD><INPUT type="text" name="day<c:out value="${i+14}"/>" size="2" value='<c:out value="${interest.rows[0].rate}"/>'>
+					<TD><INPUT type="text" name="day<c:out value="${i+14}"/>" size="2" value='<c:out value="${interest.rows[0].rate + 0}"/>'>
 					</TD>
 					<TD>Day <c:out value="${i+21}"/>
 <sql:query var="interest" dataSource="${prenda}">
 SELECT rate FROM interest WHERE interestid=<c:out value="${branches.id}"/> AND day=<c:out value="${i+21}"/>
 </sql:query>
 					</TD>
-					<TD><INPUT type="text" name="day<c:out value="${i+21}"/>" size="2" value='<c:out value="${interest.rows[0].rate}"/>'>
+					<TD><INPUT type="text" name="day<c:out value="${i+21}"/>" size="2" value='<c:out value="${interest.rows[0].rate + 0}"/>'>
 					</TD>
 					<TD>Day <c:out value="${i+28}"/>
 <sql:query var="interest" dataSource="${prenda}">
