@@ -288,7 +288,7 @@
 						<version>1.0</version>
 						<executions>
 							<execution>
-								<id>copy-file-1</id>
+								<id>copy-file</id>
 								<phase>generate-sources</phase>
 								<goals>
 									<goal>copy</goal>
@@ -296,17 +296,6 @@
 								<configuration>
 									<sourceFile>src/main/resources/application-openshift.properties</sourceFile>
 									<destinationFile>src/main/resources/application.properties</destinationFile>
-								</configuration>
-							</execution>
-							<execution>
-								<id>copy-file-2</id>
-								<phase>test</phase>
-								<goals>
-									<goal>copy</goal>
-								</goals>
-								<configuration>
-									<sourceFile>target/prenda/WEB-INF/classes/application-openshift.properties</sourceFile>
-									<destinationFile>target/prenda/WEB-INF/classes/application.properties</destinationFile>
 								</configuration>
 							</execution>
 						</executions>
