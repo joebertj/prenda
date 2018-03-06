@@ -230,7 +230,8 @@ CREATE TABLE `jewelry` (
   PRIMARY KEY  (`branchid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-INSERT INTO `users` VALUES (0,'admin','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGVlXdII76vlXuaDWYOwTW',NULL,NULL,NULL,9,1,0,'2007-06-12');
+INSERT INTO `users` VALUES (0,'admin','$2a$10$xjahs1aLp6l2pjNtN6GTseil9bj5eWRiSP.l0SmCzXdyEHX/IQY1e',NULL,NULL,NULL,9,1,0,'2007-06-12');
+INSERT INTO `users` VALUES (1,'owner','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGVlXdII76vlXuaDWYOwTW',NULL,NULL,NULL,8,1,0,'2007-06-12');
 
 insert into branch (branchid,archive) values (1,0);
 
