@@ -40,7 +40,7 @@
 />
     
 <cache
-    name="com.prenda.model.obj.Accounts"
+    name="com.prenda.model.obj.prenda.Accounts"
     maxElementsInMemory="500"
     eternal="false"
     timeToIdleSeconds="300"
@@ -48,7 +48,7 @@
     overflowToDisk="false"
 />
 <cache
-    name="com.prenda.model.obj.Branch"
+    name="com.prenda.model.obj.prenda.Branch"
     maxElementsInMemory="1000"
     eternal="false"
     timeToIdleSeconds="300"
@@ -56,7 +56,7 @@
     overflowToDisk="false"
 />
 <cache
-    name="com.prenda.model.obj.Customer"
+    name="com.prenda.model.obj.prenda.Customer"
     maxElementsInMemory="50000"
     eternal="false"
     timeToIdleSeconds="300"
@@ -64,7 +64,7 @@
     overflowToDisk="false"
 />
 <cache
-    name="com.prenda.model.obj.Genkey"
+    name="com.prenda.model.obj.prenda.Genkey"
     maxElementsInMemory="5000"
     eternal="false"
     timeToIdleSeconds="300"
@@ -72,7 +72,7 @@
     overflowToDisk="false"
 />
 <cache
-    name="com.prenda.model.obj.Interest"
+    name="com.prenda.model.obj.prenda.Interest"
     maxElementsInMemory="5000"
     eternal="false"
     timeToIdleSeconds="300"
@@ -80,7 +80,23 @@
     overflowToDisk="false"
 />
 <cache
-    name="com.prenda.model.obj.Journal"
+    name="com.prenda.model.obj.prenda.InterestPK"
+    maxElementsInMemory="50000"
+    eternal="false"
+    timeToIdleSeconds="300"
+    timeToLiveSeconds="600"
+    overflowToDisk="false"
+/>
+<cache
+    name="com.prenda.model.obj.prenda.Jewelry"
+    maxElementsInMemory="10"
+    eternal="false"
+    timeToIdleSeconds="300"
+    timeToLiveSeconds="600"
+    overflowToDisk="false"
+/>
+<cache
+    name="com.prenda.model.obj.prenda.Journal"
     maxElementsInMemory="5000"
     eternal="false"
     timeToIdleSeconds="300"
@@ -88,7 +104,7 @@
     overflowToDisk="false"
 />
 <cache
-    name="com.prenda.model.obj.Ledger"
+    name="com.prenda.model.obj.prenda.Ledger"
     maxElementsInMemory="5000"
     eternal="false"
     timeToIdleSeconds="300"
@@ -96,7 +112,7 @@
     overflowToDisk="false"
 />
 <cache
-    name="com.prenda.model.obj.Level"
+    name="com.prenda.model.obj.prenda.Level"
     maxElementsInMemory="5"
     eternal="false"
     timeToIdleSeconds="300"
@@ -104,7 +120,7 @@
     overflowToDisk="false"
 />
 <cache
-    name="com.prenda.model.obj.Page"
+    name="com.prenda.model.obj.prenda.Page"
     maxElementsInMemory="100"
     eternal="false"
     timeToIdleSeconds="300"
@@ -112,7 +128,7 @@
     overflowToDisk="false"
 />
 <cache
-    name="com.prenda.model.obj.Pawn"
+    name="com.prenda.model.obj.prenda.Pawn"
     maxElementsInMemory="50000"
     eternal="false"
     timeToIdleSeconds="300"
@@ -120,7 +136,7 @@
     overflowToDisk="false"
 />
 <cache
-    name="com.prenda.model.obj.Pullout"
+    name="com.prenda.model.obj.prenda.Pullout"
     maxElementsInMemory="5000"
     eternal="false"
     timeToIdleSeconds="300"
@@ -128,7 +144,7 @@
     overflowToDisk="false"
 />
 <cache
-    name="com.prenda.model.obj.Redeem"
+    name="com.prenda.model.obj.prenda.Redeem"
     maxElementsInMemory="5000"
     eternal="false"
     timeToIdleSeconds="300"
@@ -136,7 +152,7 @@
     overflowToDisk="false"
 />
 <cache
-    name="com.prenda.model.obj.Users"
+    name="com.prenda.model.obj.prenda.Users"
     maxElementsInMemory="50000"
     eternal="false"
     timeToIdleSeconds="300"

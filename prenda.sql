@@ -21,9 +21,9 @@
 
 DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts` (
-  `accountid` tinyint(3) unsigned NOT NULL,
+  `accountid` tinyint unsigned NOT NULL,
   `accountname` varchar(30) NOT NULL,
-  `accountcode` smallint(5) unsigned default NULL,
+  `accountcode` smallint unsigned default NULL,
   PRIMARY KEY  (`accountid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -33,20 +33,21 @@ CREATE TABLE `accounts` (
 
 DROP TABLE IF EXISTS `branch`;
 CREATE TABLE `branch` (
-  `branchid` tinyint(3) unsigned NOT NULL auto_increment,
+  `branchid` smallint unsigned NOT NULL auto_increment,
   `name` varchar(50) NOT NULL,
   `address` varchar(100) NOT NULL default 'none',
   `balance` float NOT NULL default '0',
-  `extend` tinyint(4) NOT NULL default '15',
-  `counter` int(10) unsigned NOT NULL default '0',
+  `extend` tinyint unsigned NOT NULL default '15',
+  `counter` tinyint unsigned NOT NULL default '0',
   `advance_interest` float NOT NULL default '0',
   `service_charge` float NOT NULL default '0',
-  `reserve` tinyint(4) NOT NULL default '15',
-  `archive` tinyint(1) NOT NULL default '0',
-  `owner` tinyint(4) NOT NULL,
-  `pt_number` int(8) unsigned NOT NULL,
+  `reserve` tinyint unsigned NOT NULL default '15',
+  `archive` boolean NOT NULL default '0',
+  `owner` tinyint unsigned NOT NULL,
+  `pt_number` int unsigned NOT NULL,
   PRIMARY KEY  (`branchid`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `name` (`name`),
+  FOREIGN KEY `owner` (`owner`) REFERENCES users (`uid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 --
@@ -55,12 +56,12 @@ CREATE TABLE `branch` (
 
 DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
-  `id` int(10) unsigned NOT NULL auto_increment,
+  `id` mediumint unsigned NOT NULL auto_increment,
   `last_name` varchar(20) NOT NULL,
   `first_name` varchar(30) NOT NULL,
   `middle_name` varchar(20) NOT NULL,
   `address` varchar(100) NOT NULL default '',
-  `archive` tinyint(1) NOT NULL default '0',
+  `archive` boolean NOT NULL default '0',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
@@ -72,7 +73,8 @@ DROP TABLE IF EXISTS `genkey`;
 CREATE TABLE `genkey` (
   `pid` int(10) unsigned NOT NULL default '0',
   `password` char(10) NOT NULL default '',
-  PRIMARY KEY  (`pid`)
+  PRIMARY KEY  (`pid`),
+  FOREIGN KEY `pid` (`pid`) REFERENCES pawn (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -81,10 +83,11 @@ CREATE TABLE `genkey` (
 
 DROP TABLE IF EXISTS `interest`;
 CREATE TABLE `interest` (
-  `interestid` int(10) unsigned NOT NULL,
-  `day` tinyint(3) unsigned NOT NULL,
-  `rate` tinyint(3) unsigned NOT NULL default '0',
-  PRIMARY KEY (`interestid`,`day`)
+  `interestid` smallint unsigned NOT NULL,
+  `day` tinyint unsigned NOT NULL,
+  `rate` tinyint unsigned NOT NULL default '0',
+  PRIMARY KEY (`interestid`,`day`),
+  FOREIGN KEY `interestid` (`interestid`) REFERENCES branch (`branchid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -93,14 +96,16 @@ CREATE TABLE `interest` (
 
 DROP TABLE IF EXISTS `journal`;
 CREATE TABLE `journal` (
-  `journalid` int(10) unsigned NOT NULL auto_increment,
+  `journalid` int unsigned NOT NULL auto_increment,
   `journal_date` date NOT NULL default '0000-00-00',
   `accountid` tinyint(4) NOT NULL default '0',
   `branchid` tinyint(4) NOT NULL default '0',
   `description` varchar(100) default NULL,
   `amount` float NOT NULL default '0',
-  `journal_group` varchar(18) default '0',
-  PRIMARY KEY  (`journalid`)
+  `journal_group` varchar(20) default '0',
+  PRIMARY KEY  (`journalid`),
+  FOREIGN KEY `branchid` (`branchid`) REFERENCES branch (`branchid`),
+  FOREIGN KEY `accountid` (`accountid`) REFERENCES accounts (`accountid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 --
@@ -109,10 +114,11 @@ CREATE TABLE `journal` (
 
 DROP TABLE IF EXISTS `ledger`;
 CREATE TABLE `ledger` (
-  `ledgerid` int(10) unsigned NOT NULL default '0',
+  `ledgerid` int unsigned NOT NULL default '0',
   `ledger_date` date NOT NULL,
-  `encoder` varchar(20) NOT NULL,
-  PRIMARY KEY  (`ledgerid`)
+  `encoder` varchar(50) NOT NULL,
+  PRIMARY KEY  (`ledgerid`),
+  FOREIGN KEY `encoder` (`encoder`) REFERENCES users (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -121,7 +127,7 @@ CREATE TABLE `ledger` (
 
 DROP TABLE IF EXISTS `level`;
 CREATE TABLE `level` (
-  `id` tinyint(3) unsigned NOT NULL,
+  `id` tinyint unsigned NOT NULL,
   `description` varchar(20) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
@@ -132,17 +138,18 @@ CREATE TABLE `level` (
 
 DROP TABLE IF EXISTS `page`;
 CREATE TABLE `page` (
-  `pageid` int(10) unsigned NOT NULL default '0',
-  `user` tinyint(4) NOT NULL default '10',
-  `customer` tinyint(4) NOT NULL default '10',
-  `pawn` tinyint(4) NOT NULL default '10',
-  `redeem` tinyint(4) NOT NULL default '10',
-  `foreclose` tinyint(4) NOT NULL default '10',
-  `pullout` tinyint(4) NOT NULL default '10',
-  `outstanding` tinyint(4) NOT NULL default '10',
-  `inventory` tinyint(4) NOT NULL default '10',
-  `auction` tinyint(4) NOT NULL default '10',
-  PRIMARY KEY  (`pageid`)
+  `pageid` smallint unsigned NOT NULL default '0',
+  `user` tinyint NOT NULL default '10',
+  `customer` tinyint NOT NULL default '10',
+  `pawn` tinyint NOT NULL default '10',
+  `redeem` tinyint NOT NULL default '10',
+  `foreclose` tinyint NOT NULL default '10',
+  `pullout` tinyint NOT NULL default '10',
+  `outstanding` tinyint NOT NULL default '10',
+  `inventory` tinyint NOT NULL default '10',
+  `auction` tinyint NOT NULL default '10',
+  PRIMARY KEY  (`pageid`),
+  FOREIGN KEY `pageid` (`pageid`) REFERENCES branch (`branchid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -151,24 +158,26 @@ CREATE TABLE `page` (
 
 DROP TABLE IF EXISTS `pawn`;
 CREATE TABLE `pawn` (
-  `pid` int(10) unsigned NOT NULL auto_increment,
-  `serial` bigint(20) unsigned NOT NULL default '0',
-  `bcode` tinyint(3) unsigned NOT NULL default '0',
+  `pid` int unsigned NOT NULL auto_increment,
+  `serial` int unsigned NOT NULL default '0',
+  `bcode` tinyint unsigned NOT NULL default '0',
   `create_date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `loan_date` date NOT NULL default '0000-00-00',
-  `nameid` int(10) unsigned NOT NULL,
+  `nameid` int unsigned NOT NULL,
   `loan` float NOT NULL default '0',
   `appraised` float NOT NULL default '0',
   `description` varchar(255) default NULL,
   `service_charge` float NOT NULL default '0',
   `advance_interest` float NOT NULL default '0',
-  `encoder` varchar(50) default NULL,
-  `extend` tinyint(3) unsigned NOT NULL default '0',
-  `branch` int(10) unsigned NOT NULL,
-  `bpid` int(8) unsigned NOT NULL,
-  `pt` int(8) unsigned NOT NULL,
+  `encoder` varchar(20) default NULL,
+  `extend` tinyint unsigned NOT NULL default '0',
+  `branch` int unsigned NOT NULL,
+  `bpid` int unsigned NOT NULL,
+  `pt` int unsigned NOT NULL,
   PRIMARY KEY  (`pid`),
-  KEY `nameid` (`nameid`)
+  FOREIGN KEY `nameid` (`nameid`) REFERENCES customer (`id`),
+  FOREIGN KEY `encoder` (`encoder`) REFERENCES users (`username`),
+  FOREIGN KEY `branch` (`branch`) REFERENCES branch (`branchid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 --
@@ -177,14 +186,15 @@ CREATE TABLE `pawn` (
 
 DROP TABLE IF EXISTS `pullout`;
 CREATE TABLE `pullout` (
-  `pid` int(10) unsigned NOT NULL default '0',
+  `pid` int unsigned NOT NULL default '0',
   `create_date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `pullout_date` date NOT NULL default '0000-00-00',
-  `username` varchar(50) default NULL,
-  `encoder` varchar(50) default NULL,
-  `auction` tinyint(1) NOT NULL default '0',
+  `username` varchar(20) default NULL,
+  `encoder` varchar(20) default NULL,
+  `auction` boolean NOT NULL default '0',
   PRIMARY KEY  (`pid`),
-  KEY `username` (`username`)
+  FOREIGN KEY `username` (`username`) REFERENCES users (`username`),
+  FOREIGN KEY `encoder` (`encoder`) REFERENCES users (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -193,12 +203,13 @@ CREATE TABLE `pullout` (
 
 DROP TABLE IF EXISTS `redeem`;
 CREATE TABLE `redeem` (
-  `pid` int(10) unsigned NOT NULL default '0',
+  `pid` int unsigned NOT NULL default '0',
   `create_date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `redeem_date` date NOT NULL default '0000-00-00',
-  `encoder` varchar(50) default NULL,
+  `encoder` varchar(20) default NULL,
   `interest` float NOT NULL,
-  PRIMARY KEY  (`pid`)
+  PRIMARY KEY  (`pid`),
+  FOREIGN KEY `encoder` (`encoder`) REFERENCES users (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -207,31 +218,33 @@ CREATE TABLE `redeem` (
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `uid` tinyint(4) NOT NULL auto_increment,
+  `uid` smallint NOT NULL auto_increment,
   `username` varchar(20) default NULL,
   `password` varchar(60) default NULL,
   `lastname` varchar(20) default NULL,
   `firstname` varchar(50) default NULL,
   `mi` varchar(2) default NULL,
-  `level` tinyint(3) unsigned default NULL,
-  `branch` int(10) unsigned NOT NULL default '0',
-  `archive` tinyint(1) NOT NULL default '0',
+  `level` tinyint unsigned default NULL,
+  `branch` smallint unsigned NOT NULL default '0',
+  `archive` boolean NOT NULL default '0',
   `loan_date` date default NULL,
   PRIMARY KEY  (`uid`),
-  UNIQUE KEY `username` (`username`)
+  UNIQUE KEY `username` (`username`),
+  FOREIGN KEY `branch` (`branch`) REFERENCES branch (`branchid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `jewelry`;
 CREATE TABLE `jewelry` (
-  `branchid` tinyint(3) unsigned NOT NULL auto_increment,
-  `caratid` tinyint(1) NOT NULL default '0',
+  `branchid` smallint unsigned NOT NULL,
+  `caratid` tinyint unsigned NOT NULL default '0',
   `minimum` float NOT NULL default '0',
   `maximum` float NOT NULL default '0',
-  PRIMARY KEY  (`branchid`,`caratid`)
+  PRIMARY KEY  (`branchid`,`caratid`),
+  FOREIGN KEY `branchid` (`branchid`) REFERENCES branch (`branchid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
-INSERT INTO `users` VALUES (0,'admin','$2a$10$xjahs1aLp6l2pjNtN6GTseil9bj5eWRiSP.l0SmCzXdyEHX/IQY1e',NULL,NULL,NULL,9,1,0,'2007-06-12');
-INSERT INTO `users` VALUES (1,'owner','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGVlXdII76vlXuaDWYOwTW',NULL,NULL,NULL,8,1,0,'2007-06-12');
+INSERT INTO `users` VALUES (1,'admin','$2a$10$xjahs1aLp6l2pjNtN6GTseil9bj5eWRiSP.l0SmCzXdyEHX/IQY1e',NULL,NULL,NULL,9,1,0,'2007-06-12');
+INSERT INTO `users` VALUES (2,'owner','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGVlXdII76vlXuaDWYOwTW',NULL,NULL,NULL,8,1,0,'2007-06-12');
 
 insert into branch (branchid,archive) values (1,0);
 

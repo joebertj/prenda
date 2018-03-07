@@ -1,19 +1,21 @@
 package com.prenda.services.data;
 
-import com.prenda.model.obj.Accounts;
-import com.prenda.model.obj.Branch;
-import com.prenda.model.obj.Customer;
-import com.prenda.model.obj.Genkey;
-import com.prenda.model.obj.Interest;
-import com.prenda.model.obj.Journal;
-import com.prenda.model.obj.Ledger;
-import com.prenda.model.obj.Level;
-import com.prenda.model.obj.Page;
-import com.prenda.model.obj.Pawn;
-import com.prenda.model.obj.Pullout;
-import com.prenda.model.obj.Redeem;
-import com.prenda.model.obj.Users;
-
+import com.prenda.model.obj.prenda.Accounts;
+import com.prenda.model.obj.prenda.Branch;
+import com.prenda.model.obj.prenda.Customer;
+import com.prenda.model.obj.prenda.Genkey;
+import com.prenda.model.obj.prenda.Interest;
+import com.prenda.model.obj.prenda.InterestPK;
+import com.prenda.model.obj.prenda.Jewelry;
+import com.prenda.model.obj.prenda.JewelryPK;
+import com.prenda.model.obj.prenda.Journal;
+import com.prenda.model.obj.prenda.Ledger;
+import com.prenda.model.obj.prenda.Level;
+import com.prenda.model.obj.prenda.Page;
+import com.prenda.model.obj.prenda.Pawn;
+import com.prenda.model.obj.prenda.Pullout;
+import com.prenda.model.obj.prenda.Redeem;
+import com.prenda.model.obj.prenda.Users;
 import java.io.Serializable;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
@@ -86,20 +88,20 @@ public interface DataLayerPrenda {
      * Will load the object internally so consider using delete (Branch obj) directly
      * @param id Identifier to delete
      */
-    void deleteBranch(final Byte id);
+    void deleteBranch(final Integer id);
 	
     /**
      * Loads the given Object.
      * @param id Identifier to load
      * @return a Branch object
      */
-    Branch loadBranch(final Byte id);
+    Branch loadBranch(final Integer id);
     /**
      * Loads the given Object.
      * @param id Id to load
      * @return An object of type T
      */
-     Branch getBranch(final Byte id);  
+     Branch getBranch(final Integer id);  
 
     /** Deletes an object of a given Id. 
      * Will load the object internally so consider using delete (Customer obj) directly
@@ -143,20 +145,39 @@ public interface DataLayerPrenda {
      * Will load the object internally so consider using delete (Interest obj) directly
      * @param id Identifier to delete
      */
-    void deleteInterest(final Serializable id);
+    void deleteInterest(final InterestPK id);
 	
     /**
      * Loads the given Object.
      * @param id Identifier to load
      * @return a Interest object
      */
-    Interest loadInterest(final Serializable id);
+    Interest loadInterest(final InterestPK id);
     /**
      * Loads the given Object.
      * @param id Id to load
      * @return An object of type T
      */
-     Interest getInterest(final Serializable id);  
+     Interest getInterest(final InterestPK id);  
+
+    /** Deletes an object of a given Id. 
+     * Will load the object internally so consider using delete (Jewelry obj) directly
+     * @param id Identifier to delete
+     */
+    void deleteJewelry(final JewelryPK id);
+	
+    /**
+     * Loads the given Object.
+     * @param id Identifier to load
+     * @return a Jewelry object
+     */
+    Jewelry loadJewelry(final JewelryPK id);
+    /**
+     * Loads the given Object.
+     * @param id Id to load
+     * @return An object of type T
+     */
+     Jewelry getJewelry(final JewelryPK id);  
 
     /** Deletes an object of a given Id. 
      * Will load the object internally so consider using delete (Journal obj) directly
@@ -219,20 +240,20 @@ public interface DataLayerPrenda {
      * Will load the object internally so consider using delete (Page obj) directly
      * @param id Identifier to delete
      */
-    void deletePage(final Long id);
+    void deletePage(final Integer id);
 	
     /**
      * Loads the given Object.
      * @param id Identifier to load
      * @return a Page object
      */
-    Page loadPage(final Long id);
+    Page loadPage(final Integer id);
     /**
      * Loads the given Object.
      * @param id Id to load
      * @return An object of type T
      */
-     Page getPage(final Long id);  
+     Page getPage(final Integer id);  
 
     /** Deletes an object of a given Id. 
      * Will load the object internally so consider using delete (Pawn obj) directly
@@ -295,20 +316,20 @@ public interface DataLayerPrenda {
      * Will load the object internally so consider using delete (Users obj) directly
      * @param id Identifier to delete
      */
-    void deleteUsers(final Byte id);
+    void deleteUsers(final Integer id);
 	
     /**
      * Loads the given Object.
      * @param id Identifier to load
      * @return a Users object
      */
-    Users loadUsers(final Byte id);
+    Users loadUsers(final Integer id);
     /**
      * Loads the given Object.
      * @param id Id to load
      * @return An object of type T
      */
-     Users getUsers(final Byte id);  
+     Users getUsers(final Integer id);  
     /** Returns a query handle.
      * @param query Query to use
      * @return A query instance
@@ -328,7 +349,7 @@ public interface DataLayerPrenda {
 	* @param persistentObject a class, which is persistent, or has persistent subclasses 
 	* @return Criteria instance
 	*/
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings("unchecked")
 	Criteria createCriteria(Class persistentObject);
     /** Flushes the currently open session.
 	*/

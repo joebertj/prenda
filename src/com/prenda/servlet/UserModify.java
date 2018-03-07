@@ -22,10 +22,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.prenda.Level;
 import com.prenda.Mode;
-import com.prenda.factories.HibernatePrendaDaoFactory;
+import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.helper.PasswordEncoderGenerator;
-import com.prenda.model.obj.Branch;
-import com.prenda.model.obj.Users;
+import com.prenda.model.obj.prenda.Branch;
+import com.prenda.model.obj.prenda.Users;
 import com.prenda.service.UserService;
 import com.prenda.services.data.DataLayerPrenda;
 import com.prenda.services.data.DataLayerPrendaImpl;
@@ -82,12 +82,7 @@ public class UserModify {
 		log.info("actionUser " + actionUser + " targetUser " + targetUser + " newPassword " + newPassword + " verifyPassword " + verifyPassword + " message " + message);
 		if(actionUserLevel==Level.ADMIN && targetUserLevel<Level.ADMIN){
 			user.setLevel(targetUserLevel);
-			ListIterator <Branch> li = HibernatePrendaDaoFactory.getBranchDao().findByCriteria(Restrictions.eq("id", (byte) (targetBranch & 0xFF))).listIterator();
-			Branch branch;
-				if(li.hasNext()){
-					branch = (Branch) li.next();
-					user.setBranch(branch);
-				}
+			user.setBranch(targetBranch);
 			user.setArchive(false);
 			if(verifyPassword(targetUser,"",newPassword,verifyPassword,true)) {
 				message=saveUser(user,newPassword);
