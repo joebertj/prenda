@@ -227,7 +227,7 @@ CREATE TABLE `jewelry` (
   `caratid` tinyint(1) NOT NULL default '0',
   `minimum` float NOT NULL default '0',
   `maximum` float NOT NULL default '0',
-  PRIMARY KEY  (`branchid`)
+  PRIMARY KEY  (`branchid`,`caratid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 INSERT INTO `users` VALUES (0,'admin','$2a$10$xjahs1aLp6l2pjNtN6GTseil9bj5eWRiSP.l0SmCzXdyEHX/IQY1e',NULL,NULL,NULL,9,1,0,'2007-06-12');
@@ -236,6 +236,8 @@ INSERT INTO `users` VALUES (1,'owner','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGV
 insert into branch (branchid,archive) values (1,0);
 
 insert into page values (1,10,10,10,10,10,10,10,10,10);
+
+insert into jewelry values (1,10,100,150),(1,14,150,200),(1,18,200,250),(1,22,250,300),(1,24,300,350);
 
 insert into level values(1,"ENCODER");
 insert into level values(3,"LIAISON");

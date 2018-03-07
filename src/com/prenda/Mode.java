@@ -13,4 +13,10 @@ public class Mode {
 	public static final int YEARLY = 3;
 	
 	public static final int ALL = 99;
+	
+	public static final int CREATENEW = 0;
+	
+	public static final int DELETE = 1;
+	
+	public static final int UPDATE = 2;
 }

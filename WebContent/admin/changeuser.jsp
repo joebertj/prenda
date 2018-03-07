@@ -15,7 +15,7 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 			<FORM method="post" action="${contextPath}/UserModify.htm">
-			<INPUT type="hidden" name="referer" value="admin">
+			<INPUT type="hidden" name="referer" value="admin/userlist.jsp">
 			<INPUT type="hidden" name="uid" value="${param.uid}">
 			<INPUT type="hidden" name="modtype" value="2">
 			<TABLE border="1">
@@ -28,12 +28,12 @@
 				</TR>
 				<TR>
 					<TD>Password</TD>
-					<TD>: <INPUT type="password" name="pass" value="${param.password}"></TD>
+					<TD>: <INPUT type="password" name="pass1" value="${param.password}"></TD>
 				</TR>
 				<TR>
 					<TD>Verify Password</TD>
 					<TD>: <INPUT type="password" name="pass2" value="${param.password}">
-					<INPUT type="hidden" name="pass3" value="${param.password}"></TD>
+					<INPUT type="hidden" name="pass" value="${param.password}"></TD>
 				</TR>
 				<TR>
 					<TD>Level</TD>

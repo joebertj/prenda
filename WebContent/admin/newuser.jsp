@@ -14,8 +14,10 @@
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
-			<FORM method="post" action="${contextPath}/UserModify.htm"><INPUT type="hidden"
-				name="modtype" value="0">
+			<FORM method="post" action="${contextPath}/UserModify.htm">
+				<INPUT type="hidden" name="referer" value="admin/newuser.jsp">
+				<INPUT type="hidden" name="pass" value="">
+				<INPUT type="hidden" name="modtype" value="0">
 			<TABLE border="1">
 				<TR>
 					<TH colspan="2">Add New User</TH>
@@ -26,7 +28,7 @@
 				</TR>
 				<TR>
 					<TD>Password</TD>
-					<TD>: <INPUT type="password" name="pass"></TD>
+					<TD>: <INPUT type="password" name="pass1"></TD>
 				</TR>
 				<TR>
 					<TD>Verify Password</TD>

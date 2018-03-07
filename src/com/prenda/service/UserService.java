@@ -11,9 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
 import com.prenda.helper.DatabaseConnection;
 
 public class UserService {
+	
+	private static Logger log = Logger.getLogger(UserService.class);
+	
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -80,6 +84,7 @@ public class UserService {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		log.info("name " + name + " level " + level);
 		return level;
 	}
 	

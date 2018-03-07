@@ -50,7 +50,7 @@ SELECT count(uid) as numid FROM users
 				<A href='userlist.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
 			</c:if>
 <sql:query var="userlist" dataSource="${prenda}">
-SELECT uid,username,level,users.archive,name FROM users
+SELECT uid,username,level,users.archive,name,password FROM users
 LEFT JOIN branch
 ON users.branch=branch.branchid
 WHERE users.branch=branch.branchid
