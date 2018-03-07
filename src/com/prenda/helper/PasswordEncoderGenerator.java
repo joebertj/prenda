@@ -17,7 +17,7 @@ public class PasswordEncoderGenerator {
 			BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 			hash = passwordEncoder.encode(input);
 
-			log.info(hash);
+			log.debug(hash);
 			i++;
 		}
 		return hash;

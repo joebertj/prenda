@@ -159,7 +159,7 @@ CREATE TABLE `page` (
 DROP TABLE IF EXISTS `pawn`;
 CREATE TABLE `pawn` (
   `pid` int unsigned NOT NULL auto_increment,
-  `serial` int unsigned NOT NULL default '0',
+  `serial` bigint unsigned NOT NULL default '0',
   `bcode` tinyint unsigned NOT NULL default '0',
   `create_date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `loan_date` date NOT NULL default '0000-00-00',

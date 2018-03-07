@@ -15,7 +15,8 @@
 			<TD align=center>
 
 <%@include file="common/msg.jsp"%>
-			<FORM name="pawn" method="post" action="CheckPawn">
+			<FORM name="pawn" method="post" action="CheckPawn.htm">
+			<input type="hidden" name="referer" value="pawndetail.jsp"/>
 			<TABLE border="1">
 				<TR>
 					<TH colspan="100%">Pawn Details</TH>
