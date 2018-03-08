@@ -13,6 +13,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Prenda 0.1.3 BETA</title>
+<link rel="icon" type="image/x-icon" href="/common/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="${contextPath}/common/css/style.css" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/common/css/ajaxtags.css" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/common/css/displaytag.css" />
