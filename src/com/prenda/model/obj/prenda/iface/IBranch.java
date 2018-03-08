@@ -71,7 +71,7 @@ public interface IBranch {
      * Return the value associated with the column: counter.
 	 * @return A Byte object (this.counter)
 	 */
-	Byte getCounter();
+	Integer getCounter();
 	
 
   
@@ -79,7 +79,7 @@ public interface IBranch {
      * Set the value related to the column: counter.
 	 * @param counter the counter value you wish to set
 	 */
-	void setCounter(final Byte counter);
+	void setCounter(final Integer counter);
 
     /**
      * Return the value associated with the column: extend.

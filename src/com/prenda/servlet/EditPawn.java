@@ -123,7 +123,7 @@ import com.prenda.helper.DatabaseConnection;
             log.info("SQLState: " + ex.getSQLState());
             log.info("VendorError: " + ex.getErrorCode());
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.info(e.getMessage());
 		}
     }   	  	    
 }

@@ -38,7 +38,7 @@ CREATE TABLE `branch` (
   `address` varchar(100) NOT NULL default 'none',
   `balance` float NOT NULL default '0',
   `extend` tinyint unsigned NOT NULL default '15',
-  `counter` tinyint unsigned NOT NULL default '0',
+  `counter` int unsigned NOT NULL default '0',
   `advance_interest` float NOT NULL default '0',
   `service_charge` float NOT NULL default '0',
   `reserve` tinyint unsigned NOT NULL default '15',

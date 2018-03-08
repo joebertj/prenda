@@ -109,7 +109,7 @@ public class NameService {
 		} 
 		return middleName;
 	}
-
+	
 	public List<Name> getNamesByPrefix(String lname,String fname,String mname) {
 		List<Name> l = new ArrayList<Name>();
 		try{

@@ -11,9 +11,14 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.apache.log4j.Logger;
+
 import com.prenda.helper.DatabaseConnection;
 
 public abstract class GenericService {
+	
+	private static Logger log =Logger.getLogger(GenericService.class);
+	
 	protected Connection conn;
 	protected PreparedStatement pstmt;
 	
@@ -135,7 +140,7 @@ public abstract class GenericService {
 		try {
 			filterDate = sdf.parse(filter);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.info(e.getMessage());
 		}
 		return filterDate;
 	}

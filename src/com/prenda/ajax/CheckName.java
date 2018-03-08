@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.ajaxtags.helpers.AjaxXmlBuilder;
 import org.ajaxtags.servlets.BaseAjaxServlet;
 
+import com.prenda.Mode;
 import com.prenda.Name;
 import com.prenda.service.NameService;
 
@@ -36,11 +37,11 @@ public class CheckName extends BaseAjaxServlet {
 		NameService service = new NameService();
 		List<Name> list = service.getNamesByPrefix(lname,fname,mname);
 		AjaxXmlBuilder xml=new AjaxXmlBuilder();
-		if(ntype==0){
+		if(ntype==Mode.LASTNAME){
 			xml.addItems(list, "lname", "nid");
-		}else if(ntype==1){
+		}else if(ntype==Mode.FIRSTNAME){
 			xml.addItems(list, "fname", "nid");
-		}else if(ntype==2){
+		}else if(ntype==Mode.MIDDLENAME){
 			xml.addItems(list, "mname", "nid");
 		}
 		return xml.toString();

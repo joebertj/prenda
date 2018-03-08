@@ -10,9 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import org.apache.log4j.Logger;
+
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.servlet.CheckPawn;
 
 public class AccountService {
+	
+	private static Logger log =Logger.getLogger(AccountService.class);
+	 
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
@@ -31,7 +37,9 @@ public class AccountService {
 				code=rs.getInt(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.info("SQLException: " + e.getMessage());
+            log.info("SQLState: " + e.getSQLState());
+            log.info("VendorError: " + e.getErrorCode());
 		}
 		return code;
 	}
@@ -46,7 +54,9 @@ public class AccountService {
 				name=rs.getString(1);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			log.info("SQLException: " + e.getMessage());
+            log.info("SQLState: " + e.getSQLState());
+            log.info("VendorError: " + e.getErrorCode());
 		}
 		return name;
 	}

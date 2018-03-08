@@ -47,7 +47,7 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 	/** Field mapping. */
 	private Double balance;
 	/** Field mapping. */
-	private Byte counter;
+	private Integer counter;
 	/** Field mapping. */
 	private Byte extend;
 	/** Field mapping. */
@@ -81,7 +81,7 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 	 * @param advanceInterest Double object;
 	 * @param archive Boolean object;
 	 * @param balance Double object;
-	 * @param counter Byte object;
+	 * @param counter Integer object;
 	 * @param extend Byte object;
 	 * @param id Integer object;
 	 * @param name String object;
@@ -91,7 +91,7 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 	 * @param serviceCharge Double object;
 	 */
 	public Branch(String address, Double advanceInterest, Boolean archive, 					
-			Double balance, Byte counter, Byte extend, 					
+			Double balance, Integer counter, Byte extend, 					
 			Integer id, String name, Byte owner, 					
 			Long ptNumber, Byte reserve, Double serviceCharge) {
 
@@ -212,7 +212,7 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 	 */
 	@Basic( optional = false )
 	@Column( nullable = false  )
-	public Byte getCounter() {
+	public Integer getCounter() {
 		return this.counter;
 		
 	}
@@ -223,7 +223,7 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
      * Set the value related to the column: counter.
 	 * @param counter the counter value you wish to set
 	 */
-	public void setCounter(final Byte counter) {
+	public void setCounter(final Integer counter) {
 		this.counter = counter;
 	}
 

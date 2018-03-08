@@ -9,7 +9,12 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 
+import org.apache.log4j.Logger;
+
 public class DateUtil {
+	
+	private static Logger log =Logger.getLogger(DateUtil.class);
+	
 	private String value;
 	private String effective;
 	private String maturity;
@@ -28,7 +33,7 @@ public class DateUtil {
 		try {
 			expiry.setTimeInMillis(sdfIn.parse(value).getTime());
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.info(e.getMessage());
 		}
 		expiry.add(java.util.GregorianCalendar.DAY_OF_MONTH, 120);
 		this.expiry=sdfOut.format(expiry.getTime());
@@ -46,7 +51,7 @@ public class DateUtil {
 		try {
 			loan.setTimeInMillis(sdfIn.parse(value).getTime());
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.info(e.getMessage());
 		}
 		this.effective=sdfOut.format(loan.getTime());
 		return this.effective;
@@ -63,7 +68,7 @@ public class DateUtil {
 		try {
 			maturity.setTimeInMillis(sdfIn.parse(value).getTime());
 		} catch (ParseException e) {
-			e.printStackTrace();
+			log.info(e.getMessage());
 		}
 		maturity.add(java.util.GregorianCalendar.DAY_OF_MONTH, 30);
 		this.maturity=sdfOut.format(maturity.getTime());

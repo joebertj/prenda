@@ -19,8 +19,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.prenda.helper.DatabaseConnection;
 import com.prenda.helper.EnglishDecimalFormat;
+import com.prenda.servlet.CheckPawn;
 
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -34,6 +37,7 @@ import net.sf.jasperreports.engine.JasperPrint;
     /**
 	 * 
 	 */
+	private static Logger log =Logger.getLogger(PawnTicketPdf.class);
 	private static final long serialVersionUID = 688550874715746378L;
 
 	/* (non-Java-doc)
@@ -56,8 +60,8 @@ import net.sf.jasperreports.engine.JasperPrint;
 			pawn = sdf.parse(request.getParameter("pawn"));
 			maturity=sdf.parse(request.getParameter("maturity"));
 			expire=sdf.parse(request.getParameter("expire"));
-		} catch (ParseException e1) {
-			e1.printStackTrace();
+		} catch (ParseException e) {
+			log.info(e.getMessage());
 		}
 		Integer pid=new Integer(request.getParameter("pid"));
 		Integer bpid=new Integer(request.getParameter("bpid"));

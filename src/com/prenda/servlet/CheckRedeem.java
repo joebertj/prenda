@@ -70,7 +70,7 @@ import com.prenda.helper.DatabaseConnection;
 			try {
 				redeemDate = new Date(sdf.parse(request.getParameter("redeemdate")).getTime());
 			} catch (ParseException e) {
-				e.printStackTrace();
+				log.info(e.getMessage());
 			}
 			float interest=new Float(request.getParameter("interest")).floatValue();
 			float net=new Float(request.getParameter("net")).floatValue();

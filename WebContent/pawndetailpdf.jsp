@@ -20,7 +20,7 @@
 SELECT * FROM pawn 
 LEFT JOIN genkey ON pawn.pid=genkey.pid
 LEFT JOIN customer ON pawn.nameid=customer.id
-WHERE pawn.pid=<c:out value="${param.pid}"/>
+WHERE pawn.pid=<c:out value="${pid}"/>
 </sql:query>
 			<TABLE border="1">
 				<TR>
