@@ -1,7 +1,10 @@
 # Prenda
 Joebert S. Jacaba
 joebertj@gmail.com
-https://ex.kenchlightyear.com
+Github https://github.com/joebertj/prenda
+Openshift Demo https://openshift.kenchlightyear.com
+Sourceforge http://prenda.sourceforge.net
+Author https://ex.kenchlightyear.com
 
 ## Overview
 
