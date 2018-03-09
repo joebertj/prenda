@@ -4,8 +4,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ListIterator;
 
+import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.model.obj.prenda.Jewelry;
+import com.prenda.model.obj.prenda.JewelryPK;
 
 public class JewelryService {
 	private Connection conn;
@@ -19,6 +28,37 @@ public class JewelryService {
 	public JewelryService(){
 		conn = DatabaseConnection.getConnection();
 	}
+	
+	@Transactional
+	public Jewelry getJewelryById(int branchId, int caratId) {
+		Jewelry jewelry = new Jewelry();
+		JewelryPK jpk = new JewelryPK();
+		jpk.setBranchid(branchId);
+		int[] cid = {10, 14, 18, 22, 24};
+		jpk.setCaratid((byte) (cid[0] & 0xff));
+		ListIterator<Jewelry> list = HibernatePrendaDaoFactory.getJewelryDao().findByCriteria(Restrictions.eq("id", jpk)).listIterator();
+		if(list.hasNext()) {
+			jewelry = (Jewelry) list.next();
+		}
+		return jewelry;
+	}
+	
+	@Transactional
+	public List<Jewelry> getJewelryById(int branchId) {
+		JewelryPK jpk = new JewelryPK();
+		jpk.setBranchid(branchId);
+		List<Jewelry> list = new ArrayList<Jewelry>();
+		int[] cid = {10, 14, 18, 22, 24};
+		for(int c: cid) {
+			jpk.setCaratid((byte) (c & 0xff));
+			list.addAll(HibernatePrendaDaoFactory.getJewelryDao().findByCriteria(Restrictions.eq("id", jpk)));
+		}
+		return list;
+	}
+	
+	public List<Jewelry> getJewelryById(){
+		return getJewelryById(branchId);
+	}	
 
 	public int getBranchId() {
 		return branchId;

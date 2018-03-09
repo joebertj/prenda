@@ -13,11 +13,11 @@ import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.prenda.Branch;
 import com.prenda.Level;
+import com.prenda.Mode;
 import com.prenda.Pawn;
-import com.prenda.SortOrder;
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.model.obj.prenda.Branch;
 
 public class InventoryService extends GenericService {
 	
@@ -51,7 +51,7 @@ public class InventoryService extends GenericService {
 		"AND redeem.pid IS NULL " +
 		"AND pullout.pid IS NULL";
 		if(level==Level.ADMIN){
-			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				pstmt.setInt(1,(page-1)*pageSize);
@@ -102,7 +102,7 @@ public class InventoryService extends GenericService {
 			if(branches.length()>0){
 				query += " and (" + branches + ")";
 			}
-			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				for(i=0;i<id.length;i++){
@@ -136,7 +136,7 @@ public class InventoryService extends GenericService {
 			}
 		}else if(level==Level.ENCODER || level==Level.MANAGER){
 			query += " and pawn.branch=?";
-			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				pstmt.setInt(1, branchId);

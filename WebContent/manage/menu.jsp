@@ -5,12 +5,12 @@
  	<tr>
     <td>
 
-<a href="userlist.jsp">Manage Users</a> <br/> 
-<a href="listcustomer.jsp">Manage Customers</a> <br/>
-<a href="settings.jsp">Interest Rates and Page Settings</a> <br/> 
-<a href="changebranch.jsp">Other Branch Settings</a> <br/> 
-<a href="auction.jsp">Auction Items</a><br/> 
-<a href="accountlist.jsp">Chart of Accounts</a> <br/> 
+<a href="${contextPath}/manage/userlist.jsp">Manage Users</a> <br/> 
+<a href="${contextPath}/manage/listcustomer.jsp">Manage Customers</a> <br/>
+<a href="${contextPath}/manage/changebranch.jsp">Branch Settings</a> <br/>
+<a href="${contextPath}/manage/settings.jsp">Interest Rates, Carats and Page Settings</a> <br/> 
+<a href="${contextPath}/manage/auction.jsp">Auction Items</a><br/> 
+<a href="${contextPath}/manage/accountlist.jsp">Chart of Accounts</a> <br/> 
    </td>
   </tr>
 </table>
@@ -22,20 +22,20 @@
   <tr>
     <td>
 Pawned Items<br/>
-<a href=pawnsummarystat.jsp>loan value</a><br/>
+<a href="${contextPath}/manage/pawnsummarystat.jsp">loan value</a><br/>
 Redeemed Items<br/>
-<a href=redeemsummarystat.jsp>loan value</a> | <a href=redeemsummarystatrate.jsp>interest rate</a><br/>
+<a href="${contextPath}/manage/redeemsummarystat.jsp">loan value</a> | <a href="${contextPath}/RedeemStatistics.htm?branchid=<c:out value='${user.branchId}'/>&userid=<c:out value='${user.id}'/>">interest rate</a><br/>
 Pulled-out Items<br/>
-<a href=pulloutsummarystat.jsp>loan value</a><br/>
+<a href="${contextPath}/manage/pulloutsummarystat.jsp">loan value</a><br/>
 Inventory Items<br/>
-<a href=inventoryitemstat.jsp>loan value</a><br/>
+<a href="${contextPath}/manage/inventoryitemstat.jsp">loan value</a><br/>
 Outstanding Items<br/>
-<a href=outstandingitemstat.jsp>loan value</a><br/>
+<a href="${contextPath}/manage/outstandingitemstat.jsp">loan value</a><br/>
 Foreclosed Items<br/>
-<a href=forecloseditemstat.jsp>loan value</a><br/><br/>
+<a href="${contextPath}/manage/forecloseditemstat.jsp">loan value</a><br/><br/>
 
-<a href="cashdisbursements.jsp">Cash Disbursements</a><br/>
-<a href="cashposition.jsp">Cash Position</a><br/>
+<a href="${contextPath}/manage/cashdisbursements.jsp">Cash Disbursements</a><br/>
+<a href="${contextPath}/manage/cashposition.jsp">Cash Position</a><br/>
    </tr>
 </table>
 

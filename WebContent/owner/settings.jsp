@@ -16,6 +16,7 @@
 <%@include file="../common/msg.jsp"%>
 			<jsp:setProperty property="id" name="branches" value="${param.branchid}"/>
 			<FORM method="post" action="${contextPath}/SaveSettings">
+			<INPUT type="hidden" name="referer" value="owner/">
 			<INPUT type="hidden" name="bname" value="${branches.name}">
 			<INPUT type="hidden" name="branchid" value="${branches.id}">
 			<TABLE border="1">
@@ -86,6 +87,33 @@ SELECT rate FROM interest WHERE interestid=<c:out value="${branches.id}"/> AND d
 				</c:forEach>
 				<TR>
 			</TABLE>
+			<br/>
+			<table border="1">
+				<tr>
+					<th colspan="100%">
+					Carats Price per Gram
+					</th>
+				</tr>
+				<tr>
+					<th>Carats</th>
+					<th>Minimum</th>
+					<th>Maximum</th>
+				</tr>
+				<c:forEach var="row" items="${jewelry}">
+				<tr>
+					<td>
+						<input type="hidden" name="caratid" value="${row.id.caratid}"/>
+						<c:out value="${row.id.caratid}"/>
+					</td>
+					<td>
+						<input size="4" type="text" name="minimum" value="${row.minimum}"/>
+					</td>
+					<td>
+						<input size="4" type="text" name="maximum" value="${row.maximum}"/>
+					</td>
+				</tr>
+				</c:forEach>
+			</table>
 			<br/>
 			<TABLE border="1">
 				<TR>

@@ -15,11 +15,10 @@ import java.util.ListIterator;
 
 import org.apache.log4j.Logger;
 
-import com.prenda.Branch;
 import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.Pawn;
-import com.prenda.SortOrder;
+import com.prenda.model.obj.prenda.Branch;
 
 public class PawnService extends GenericService {
 	
@@ -67,7 +66,7 @@ public class PawnService extends GenericService {
 		// Date is basically NOW() but there is a feature to use filterDate to override this for debugging
 		int datesMinimum = 3;
 		if(level==Level.ADMIN){
-			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				int i=1;
@@ -127,7 +126,7 @@ public class PawnService extends GenericService {
 			if(branches.length()>0){
 				query += " and (" + branches + ")";
 			}
-			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				i=1;
@@ -173,7 +172,7 @@ public class PawnService extends GenericService {
 			}
 		}else if(level==Level.ENCODER || level==Level.MANAGER){
 			query += " and pawn.branch=?";
-			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				int i=1;

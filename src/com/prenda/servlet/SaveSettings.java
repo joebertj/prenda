@@ -49,14 +49,14 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 		HttpSession session=request.getSession(true);
 		String redirectURL = null;
 		if(session.isNew()){
-			redirectURL = "/common/login.jsp";
+			redirectURL = "common/login.jsp";
 			response.sendRedirect(redirectURL);
 		}else{ 
 			String authenticated=(String) session.getAttribute("authenticated");
 			UserService us = new UserService();
 			int level= us.getLevelByUsername(authenticated);
 			if(authenticated == null){
-				redirectURL = "/common/login.jsp?msg=You have not logged in yet";
+				redirectURL = "common/login.jsp?msg=You have not logged in yet";
 				response.sendRedirect(redirectURL);
 			}else if(level==7){
 				try{
@@ -71,10 +71,10 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 					if(rs.first()){
 						int branch2=rs.getInt(1);
 						if(branch!=branch2){
-							redirectURL="/manage/settings.jsp?msg=You are not the manager of branch "+bname;
+							redirectURL="manage/settings.jsp?msg=You are not the manager of branch "+bname;
 						}
 					}else{
-						redirectURL="/manage/settings.jsp?msg=You are not the manager of branch "+bname;
+						redirectURL="manage/settings.jsp?msg=You are not the manager of branch "+bname;
 					}
 				} catch (SQLException ex) {
 		            log.info("SQLException: " + ex.getMessage());
@@ -101,7 +101,7 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 					if (rs.first()) {
 						continuePost(request, response);
 					} else {
-						redirectURL = "/common/login.jsp?msg=You do not own the selected branch";
+						redirectURL = "common/login.jsp?msg=You do not own the selected branch";
 						response.sendRedirect(redirectURL);
 					}
 				} catch (SQLException ex) {
@@ -112,10 +112,10 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 			}else if(level==9){
 				continuePost(request, response);
 			}else if(level<7){
-				redirectURL = "/common/login.jsp?msg=You are not a manager or an administrator";
+				redirectURL = "common/login.jsp?msg=You are not a manager or an administrator";
 				response.sendRedirect(redirectURL);
 			}else{
-				redirectURL = "/common/login.jsp?msg=You don't have access rights";
+				redirectURL = "common/login.jsp?msg=You don't have access rights";
 				response.sendRedirect(redirectURL);
 			}
 		}
@@ -148,12 +148,10 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
     				pstmt.executeUpdate();
     				log.info("branch" + branchId + " " + daynum + " " + rate );
     			}
-				// TODO Create interface for jewelry settings
-				/* 
 				int i=0;
 				int [] caratId = {10,14,18,22,24};
-				String [] mins = request.getParameterValues("min");
-				String [] maxs = request.getParameterValues("max");
+				String [] mins = request.getParameterValues("minimum");
+				String [] maxs = request.getParameterValues("maximum");
 				double [] min = new double [caratId.length];
 				double [] max = new double [caratId.length];
 				for(;i<caratId.length;i++){
@@ -168,8 +166,7 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 					pstmt.setInt(4, caratId[i]);
 					pstmt.executeUpdate();
     			}
-    			*/
-				int user=new Integer(request.getParameter("user")).intValue();
+    			int user=new Integer(request.getParameter("user")).intValue();
     			int customer=new Integer(request.getParameter("customer")).intValue();
     			int pawn=new Integer(request.getParameter("pawn")).intValue();
     			int redeem=new Integer(request.getParameter("redeem")).intValue();
@@ -199,15 +196,9 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 				pstmt.setInt(18, inventory);
 				pstmt.setInt(19, auction);
 				pstmt.executeUpdate();
-				String referer=(String) request.getContextPath();
-				if(referer.contains("owner")){
-					response.sendRedirect("/owner/branchlist.jsp?msg=Settings for branch "+bname+" saved");
-				}else if(referer.contains("manager")){
-					response.sendRedirect("/manage/settings.jsp?msg=Settings for branch "+bname+" saved");
-				}else{
-					response.sendRedirect("/admin/branchlist.jsp?msg=Settings for branch "+bname+" saved");
-				}
-    		}
+				String referer=(String) request.getParameter("referer");
+				response.sendRedirect(referer + "branchlist.jsp?msg=Settings for branch "+bname+" saved");
+			}
     	} catch (SQLException ex) {
     		ex.printStackTrace();
         }

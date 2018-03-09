@@ -9,10 +9,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.prenda.Branch;
 import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.model.obj.prenda.Branch;
 
 import java.sql.ResultSet;
 import java.util.List;

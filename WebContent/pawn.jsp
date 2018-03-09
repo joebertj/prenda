@@ -107,7 +107,7 @@
 					</td>
 				</tr>
 				<tr id="jewelry2">
-					<td colspan="3" align="center">Amount per Gram Based on Carats</td>
+					<td colspan="3" align="center">Carats Price per Gram</td>
 					<td>Minimum<INPUT type="text" name="minimum" id="minimum" size="5" disabled/></td>
 					<td>Maximum<INPUT type="text" name="maximum" id="maximum" size="5" disabled/></td>
 				</tr>

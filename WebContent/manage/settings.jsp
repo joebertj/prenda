@@ -15,6 +15,7 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 			<FORM method="post" action="${contextPath}/SaveSettings">
+			<INPUT type="hidden" name="referer" value="manage/">
 			<INPUT type="hidden" name="bname" value="${branches.name}">
 			<INPUT type="hidden" name="branchid" value="${branches.id}">
 			<TABLE border="1">

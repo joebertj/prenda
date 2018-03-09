@@ -25,4 +25,8 @@ public class Mode {
 	public static final int FIRSTNAME = 1;
 	
 	public static final int MIDDLENAME = 2;
+	
+	public static final int DESC = 1;
+	
+	public static final int ASC = 2;
 }

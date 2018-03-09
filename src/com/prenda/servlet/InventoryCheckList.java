@@ -15,8 +15,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.prenda.Mode;
 import com.prenda.Pawn;
-import com.prenda.SortOrder;
 import com.prenda.helper.StringUtil;
 import com.prenda.service.InventoryService;
 import com.prenda.service.UserService;
@@ -71,7 +71,7 @@ public class InventoryCheckList extends javax.servlet.http.HttpServlet implement
 		int level= us.getLevelByUsername(authenticated);
 		int branchId = us.getBranchIdByUsername(authenticated);
 		InventoryService is = new InventoryService();
-		List<Pawn> list = is.getAllInventory(level, branchId, userId, "pawn.pid", SortOrder.ASC, 1, Integer.MAX_VALUE);
+		List<Pawn> list = is.getAllInventory(level, branchId, userId, "pawn.pid", Mode.ASC, 1, Integer.MAX_VALUE);
 		int i = 0;
 		for(Pawn p: list){
 			String entry = "[ ] " + p.getPid() + " (" + p.getPtNumber()+ ") ";

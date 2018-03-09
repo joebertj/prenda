@@ -14,11 +14,10 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.apache.log4j.Logger;
-import com.prenda.Branch;
 import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.Redeem;
-import com.prenda.SortOrder;
+import com.prenda.model.obj.prenda.Branch;
 
 public class RedeemService extends GenericService{
 	
@@ -59,7 +58,7 @@ public class RedeemService extends GenericService{
 		}
 		java.sql.Date sqlDate = new java.sql.Date(filterDate.getTime());
 		if(level==Level.ADMIN){
-			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				log.info(query);
 				pstmt = conn.prepareStatement(query);
@@ -111,7 +110,7 @@ public class RedeemService extends GenericService{
 			if(branches.length()>0){
 				query += " and (" + branches + ")";
 			}
-			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				i=1;
@@ -148,7 +147,7 @@ public class RedeemService extends GenericService{
 			}
 		}else if(level==Level.ENCODER || level==Level.MANAGER){
 			query += " and pawn.branch=?";
-			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				int i=1;

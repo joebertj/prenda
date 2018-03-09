@@ -13,11 +13,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
-import com.prenda.Branch;
 import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.Pullout;
-import com.prenda.SortOrder;
+import com.prenda.model.obj.prenda.Branch;
 
 public class PulloutService extends GenericService{
 
@@ -56,7 +55,7 @@ public class PulloutService extends GenericService{
 		}
 		java.sql.Date sqlDate = new java.sql.Date(filterDate.getTime());
 		if(level==Level.ADMIN){
-			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				int i=1;
@@ -107,7 +106,7 @@ public class PulloutService extends GenericService{
 			if(branches.length()>0){
 				query += " and (" + branches + ")";
 			}
-			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				i=1;
@@ -144,7 +143,7 @@ public class PulloutService extends GenericService{
 			}
 		}else if(level==Level.ENCODER || level==Level.MANAGER){
 			query += " and pawn.branch=?";
-			query += " ORDER BY " + sort + " " + (order==SortOrder.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {
 				pstmt = conn.prepareStatement(query);
 				int i=1;
