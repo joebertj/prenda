@@ -52,7 +52,7 @@ public class PrendaDataPoolFactory {
         branch.setCounter(BasicDataGenerator.generateRandomInt());
         branch.setExtend((byte)(BasicDataGenerator.generateRandomTinyInt()));
         branch.setName(BasicDataGenerator.generateRandomString(50));
-        branch.setOwner((byte)(BasicDataGenerator.generateRandomTinyInt()));
+        branch.setOwner((BasicDataGenerator.generateRandomInt()));
         branch.setPtNumber(BasicDataGenerator.generateRandomLong());
         branch.setReserve((byte)(BasicDataGenerator.generateRandomTinyInt()));
         branch.setServiceCharge(BasicDataGenerator.generateRandomDouble());

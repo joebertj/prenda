@@ -55,7 +55,7 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 	/** Field mapping. */
 	private String name;
 	/** Field mapping. */
-	private Byte owner;
+	private Integer owner;
 	/** Field mapping. */
 	private Long ptNumber;
 	/** Field mapping. */
@@ -85,14 +85,14 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 	 * @param extend Byte object;
 	 * @param id Integer object;
 	 * @param name String object;
-	 * @param owner Byte object;
+	 * @param owner Integer object;
 	 * @param ptNumber Long object;
 	 * @param reserve Byte object;
 	 * @param serviceCharge Double object;
 	 */
 	public Branch(String address, Double advanceInterest, Boolean archive, 					
 			Double balance, Integer counter, Byte extend, 					
-			Integer id, String name, Byte owner, 					
+			Integer id, String name, Integer owner, 					
 			Long ptNumber, Byte reserve, Double serviceCharge) {
 
 		this.address = address;
@@ -306,7 +306,7 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 	 */
 	@Basic( optional = false )
 	@Column( nullable = false  )
-	public Byte getOwner() {
+	public Integer getOwner() {
 		return this.owner;
 		
 	}
@@ -317,7 +317,7 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
      * Set the value related to the column: owner.
 	 * @param owner the owner value you wish to set
 	 */
-	public void setOwner(final Byte owner) {
+	public void setOwner(final Integer owner) {
 		this.owner = owner;
 	}
 

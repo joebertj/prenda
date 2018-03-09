@@ -127,7 +127,7 @@ public interface IBranch {
      * Return the value associated with the column: owner.
 	 * @return A Byte object (this.owner)
 	 */
-	Byte getOwner();
+	Integer getOwner();
 	
 
   
@@ -135,7 +135,7 @@ public interface IBranch {
      * Set the value related to the column: owner.
 	 * @param owner the owner value you wish to set
 	 */
-	void setOwner(final Byte owner);
+	void setOwner(final Integer owner);
 
     /**
      * Return the value associated with the column: ptNumber.

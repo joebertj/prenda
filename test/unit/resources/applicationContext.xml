@@ -88,6 +88,7 @@
  		<property name="packagesToScan">
 			<list>
 				<value>com.prenda.**.*</value>
+				<value>unit.com.prenda.**.*</value>
 			</list>
 		</property>
 

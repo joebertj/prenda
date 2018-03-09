@@ -10,9 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Date;
+import java.util.ListIterator;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.model.obj.prenda.Users;
 
 public class UserService {
 	
@@ -31,6 +37,16 @@ public class UserService {
 	
 	public UserService(){
 		conn = DatabaseConnection.getConnection();
+	}
+	
+	@Transactional
+	public Users getUser(String username) {
+		Users user = new Users();
+		ListIterator <Users> li = HibernatePrendaDaoFactory.getUsersDao().findByCriteria(Restrictions.eq("username", username)).listIterator();
+		if(li.hasNext()) {
+			 user = (Users) li.next();
+		}
+		return user;
 	}
 	
 	public String getName(){
@@ -181,6 +197,8 @@ public class UserService {
 			rs=pstmt.executeQuery();
 			if(rs.first()){
 				branchId=rs.getInt(1);
+			}else {
+				branchId = -1; // indicates no match
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

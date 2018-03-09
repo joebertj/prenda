@@ -43,7 +43,7 @@ CREATE TABLE `branch` (
   `service_charge` float NOT NULL default '0',
   `reserve` tinyint unsigned NOT NULL default '15',
   `archive` boolean NOT NULL default '0',
-  `owner` tinyint unsigned NOT NULL,
+  `owner` smallint unsigned NOT NULL,
   `pt_number` int unsigned NOT NULL,
   PRIMARY KEY  (`branchid`),
   UNIQUE KEY `name` (`name`),
