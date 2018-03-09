@@ -277,7 +277,7 @@ import com.prenda.service.LevelService;
     			pstmt.setInt(7, reserve);
     			pstmt.executeUpdate();
     			if(request.getContextPath().toString().contains("manager")){
-    				response.sendRedirect("/manager/changebranch.jsp?msg=Details for branch "+bname+" successfully changed");
+    				response.sendRedirect("/manage/changebranch.jsp?msg=Details for branch "+bname+" successfully changed");
     			}else if(request.getContextPath().toString().contains("owner")){
     				response.sendRedirect("/owner/branchlist.jsp?msg=Details for branch "+bname+" successfully changed");
     			}else{

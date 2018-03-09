@@ -71,10 +71,10 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 					if(rs.first()){
 						int branch2=rs.getInt(1);
 						if(branch!=branch2){
-							redirectURL="/manager/settings.jsp?msg=You are not the manager of branch "+bname;
+							redirectURL="/manage/settings.jsp?msg=You are not the manager of branch "+bname;
 						}
 					}else{
-						redirectURL="/manager/settings.jsp?msg=You are not the manager of branch "+bname;
+						redirectURL="/manage/settings.jsp?msg=You are not the manager of branch "+bname;
 					}
 				} catch (SQLException ex) {
 		            log.info("SQLException: " + ex.getMessage());
@@ -203,7 +203,7 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 				if(referer.contains("owner")){
 					response.sendRedirect("/owner/branchlist.jsp?msg=Settings for branch "+bname+" saved");
 				}else if(referer.contains("manager")){
-					response.sendRedirect("/manager/settings.jsp?msg=Settings for branch "+bname+" saved");
+					response.sendRedirect("/manage/settings.jsp?msg=Settings for branch "+bname+" saved");
 				}else{
 					response.sendRedirect("/admin/branchlist.jsp?msg=Settings for branch "+bname+" saved");
 				}

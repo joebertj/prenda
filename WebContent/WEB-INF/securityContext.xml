@@ -14,7 +14,7 @@
 		
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
-		<intercept-url pattern="/manager/**" access="hasAnyRole('ROLE_MANAGER','ROLE_OWNER','ROLE_ADMIN')"/>
+		<intercept-url pattern="/manage/**" access="hasAnyRole('ROLE_MANAGER','ROLE_OWNER','ROLE_ADMIN')"/>
 		<intercept-url pattern="/owner/**" access="hasAnyRole('ROLE_OWNER','ROLE_ADMIN')"/>
 		<intercept-url pattern="/**" access="hasAnyRole('ROLE_ENCODER','ROLE_MANAGER','ROLE_OWNER','ROLE_ADMIN')"/>
 		<form-login login-page="/common/login.jsp" authentication-failure-url="/common/login.jsp?msg=No+such+user+or+bad+password!"
