@@ -15,7 +15,7 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 			<FORM method="post" action="${contextPath}/UserModify.htm">
-				<INPUT type="hidden" name="referer" value="${contextPath}/admin/newuser.jsp">
+				<INPUT type="hidden" name="referer" value="admin/newuser">
 				<INPUT type="hidden" name="pass" value="">
 				<INPUT type="hidden" name="modtype" value="0">
 			<TABLE border="1">

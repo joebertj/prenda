@@ -25,6 +25,7 @@ WHERE username="${authenticated}"
 SELECT count(uid) as numid FROM users
 LEFT JOIN branch ON users.branch=branch.branchid 
 WHERE branch.owner=<c:out value="${owner.rows[0].uid}"/>
+AND level < 9
 </sql:query>
 <c:set var="numid" value="${pageable.rows[0].numid}" />
 <c:set var="pages" value="${numid/perpage}" />
@@ -59,6 +60,7 @@ WHERE branch.owner=<c:out value="${owner.rows[0].uid}"/>
 SELECT uid,username,level,branch,users.archive,name FROM users
 LEFT JOIN branch ON users.branch=branch.branchid 
 WHERE branch.owner=<c:out value="${owner.rows[0].uid}"/>
+AND users.level < 9
 ORDER BY username
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 </sql:query>
