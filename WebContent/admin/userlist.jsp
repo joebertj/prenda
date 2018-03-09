@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -30,7 +30,7 @@ SELECT count(uid) as numid FROM users
 <c:if test="${pagenum==null || pagenum<1 || pagenum>pages}">
 				<c:set var="pagenum" value="1" />
 			</c:if>
-<BR>
+<br/>
 			Page 
 <c:if test="${pagenum>1}">
 				<A href='userlist.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
@@ -112,18 +112,18 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 					</TD>
 					<TD>
 						<FORM method="post" action="changeuser.jsp">
-							<INPUT name="uid" type="hidden" value='<c:out value="${row.uid}"/>'> 
-							<INPUT name="user" type="hidden" value='<c:out value="${row.username}"/>'>
-							<INPUT name="password" type="hidden" value='<c:out value="${row.password}"/>'>
-							<INPUT name="level" type="hidden" value='<c:out value="${row.level}"/>'>
-							<INPUT name="branch" type="hidden" value='<c:out value="${row.branch}"/>'>
+							<INPUT name="uid" type="hidden" value="${row.uid}"> 
+							<INPUT name="user" type="hidden" value="${row.username}">
+							<INPUT name="password" type="hidden" value="${row.password}">
+							<INPUT name="level" type="hidden" value="${row.level}">
+							<INPUT name="branch" type="hidden" value="${row.branch}">
 							<INPUT type="submit" value="Edit">
 						</FORM>
 					</TD>
 					<TD>
 						<FORM method="post" action="deluser.jsp">
-							<INPUT name="uid" type="hidden" value='<c:out value="${row.uid}"/>'> 
-							<INPUT name="user" type="hidden" value='<c:out value="${row.username}"/>'>
+							<INPUT name="uid" type="hidden" value="${row.uid}"> 
+							<INPUT name="user" type="hidden" value="${row.username}">
 							<INPUT type="submit" value="Archive">
 						</FORM>
 					</TD>

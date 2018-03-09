@@ -1,4 +1,4 @@
-<%@include file="common/header.jsp"%>
+<%@include file="../common/header.jsp"%>
 </head>
 <body>
 
@@ -6,14 +6,14 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="common/msg.jsp"%>
+<%@include file="../common/msg.jsp"%>
 <jsp:useBean id="pageS" class="com.prenda.service.PageService" />
 <jsp:setProperty name="pageS" property="branchId" value="${user.branchId}" />
 <c:set var="perpage" value="${pageS.foreclose}"/>
@@ -27,7 +27,7 @@ LEFT JOIN users ON branch.owner=users.uid
 </c:if>
 WHERE redeem.pid IS NULL
 <c:if test="${users.rows[0].level==8}">
-AND users.username='<c:out value="${authenticated}"/>'
+AND users.username="${authenticated}"
 </c:if>
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -48,7 +48,7 @@ AND pawn.branch=<c:out value="${users.rows[0].branch}"/>
 <c:if test="${pagenum==null || pagenum<1 || pagenum>pages}">
 				<c:set var="pagenum" value="1" />
 			</c:if>
-<BR>
+<br/>
 			Page 
 <c:if test="${pagenum>1}">
 				<A href='forecloseditems.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
@@ -81,7 +81,7 @@ LEFT JOIN users ON branch.owner=users.uid
 </c:if>
 WHERE (day=DATEDIFF(NOW(),pawn.loan_date) OR (day=34 AND DATEDIFF(NOW(),pawn.loan_date)>34))
 <c:if test="${users.rows[0].level==8}">
-AND users.username='<c:out value="${authenticated}"/>'
+AND users.username="${authenticated}"
 </c:if>
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
@@ -96,9 +96,9 @@ ORDER BY pawn.pid
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 </sql:query>
 			<form method="post" action="foreclosed.pdf">
-				<input type="hidden" name="branch" value='<c:out value="${users.rows[0].branch}"/>'/>
-				<input type="hidden" name="bname" value='<c:out value="${branch.rows[0].name}"/>'/>
-				<input type="hidden" name="baddress" value='<c:out value="${branch.rows[0].address}"/>'/>
+				<input type="hidden" name="branch" value="${users.rows[0].branch}"/>
+				<input type="hidden" name="bname" value="${branch.rows[0].name}"/>
+				<input type="hidden" name="baddress" value="${branch.rows[0].address}"/>
 				<input type="submit" value="Generate PDF"/>
 			</form>
 			<TABLE border="1">

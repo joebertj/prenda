@@ -51,7 +51,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 		param.put("name",bname);
 		param.put("address",baddress);
 		String path = request.getSession().getServletContext().getRealPath("/common");
-		param.put("logo", path+"/img/logo2.png");
+		param.put("logo", path+"/img/logo.png");
 		try {
 			Connection conn = DatabaseConnection.getConnection();
 			JasperPrint jprint=JasperFillManager.fillReport(path+"/jasper/redeemitems.jasper",param,conn);

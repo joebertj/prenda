@@ -5,7 +5,7 @@
 	<c:when test="${minutelapsed<15}">
 		<TD>
 		<form method="post" action="pawnedit.jsp">
-			<input type="hidden" name="pid" value='<c:out value="${row.pid}"/>'/>
+			<input type="hidden" name="pid" value="${row.pid}"/>
 			<input type="submit" value="Edit"/>
 		</form>
 		</TD>

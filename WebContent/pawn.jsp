@@ -1,28 +1,28 @@
-<%@include file="common/header.jsp"%>
-<script type="text/javascript" src="common/js/pawn.js"></script>
-<script type="text/javascript" src="common/js/prototype-1.4.0.js"></script>
-<script type="text/javascript" src="common/js/scriptaculous.js"></script>
-<script type="text/javascript" src="common/js/overlibmws.js"></script>
-<script type="text/javascript" src="common/js/overlibmws_exclusive.js"></script>
-<script type="text/javascript" src="common/js/ajaxtags-1.2-beta2.js"></script>
-<script type="text/javascript" src="common/js/calendarmws_lang.js"></script>
-<script type="text/javascript" src="common/js/sprintf.js"></script>
-<script type="text/javascript" src="common/js/slider.js"></script>
-<script type="text/javascript" src="common/js/pawnslide.js"></script>
+<%@include file="../common/header.jsp"%>
+<script type="text/javascript" src="${contextPath}/common/js/pawn.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/prototype-1.4.0.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/scriptaculous.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/overlibmws.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/overlibmws_exclusive.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/ajaxtags-1.2-beta2.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/calendarmws_lang.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/sprintf.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/slider.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/pawnslide.js"></script>
 </head>
 <body>
 
 <TABLE border="1" class="main" style="width:100%;">
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="common/msg.jsp"%>
+<%@include file="../common/msg.jsp"%>
 <div id="errorMsg" style="display:none;border:1px solid #e00;background-color:#fee;padding:2px;margin-top:8px;width:300px;font:normal 12px Arial;color:#900"></div>
 			<FORM name="pawn" method="post" action="pawndetail.jsp" onSubmit="updatePawn()">
 			<input type="hidden" id="branchid" value="${user.branchId}"/><!-- used by ajax only -->
@@ -49,7 +49,7 @@
 					<input type="hidden" id="sldate" name="sldate" value="<c:out value="${now}"/>"/>
 					<input type="text" name="loandate" id="loandate" value="<c:out value="${ldate.effective}"/>" size="10"/>
 					<a href="javascript:ggLang='eng';show_calendar('pawn.sldate')">
-					<img src="common/img/showcalendar.gif" align="top" border="0"/></a>
+					<img src="${contextPath}/common/img/showcalendar.gif" align="top" border="0"/></a>
 					<input type="hidden" id="sdfin" value="MM/dd/yyyy"/>
 					<input type="hidden" id="sdfout" value="MMM dd, yyyy"/>
 					</TD>
@@ -57,26 +57,26 @@
 				<TR>
 					<TD>PT Number</TD>
 					<TD colspan="3"><fmt:formatNumber value="${branches.pawnTicket}" minIntegerDigits="6" groupingUsed="false"/>
-					<input type="hidden" id="pt" name="pt" value='<c:out value="${branches.pawnTicket}"/>' />
+					<input type="hidden" id="pt" name="pt" value="${branches.pawnTicket}" />
 					</TD>
 					<TD>Maturity Date</TD>
-					<TD><input type="text" id="maturity" value='<c:out value="${ldate.maturity}"/>' size="10"/>
+					<TD><input type="text" id="maturity" value="${ldate.maturity}" size="10"/>
 					</TD>
 				</TR>
 				<TR>
 					<TD colspan="4"></TD>
 					<TD>Expiry Date</TD>
-					<TD><input type="text" id="expiry" value='<c:out value="${ldate.expiry}"/>' size="10"/>
+					<TD><input type="text" id="expiry" value="${ldate.expiry}" size="10"/>
 					</TD>
 				</TR>
 				<TR>
 					<TD colspan="5">
 					Last Name <INPUT id="lname" name="lname" type="text"/> 
-					<span id="indicator1" style="display:none;"><img src="common/img/indicator.gif" /></span>
+					<span id="indicator1" style="display:none;"><img src="${contextPath}/common/img/indicator.gif" /></span>
 					First Name <INPUT id="fname" name="fname" type="text"/>
-					<span id="indicator2" style="display:none;"><img src="common/img/indicator.gif" /></span>
+					<span id="indicator2" style="display:none;"><img src="${contextPath}/common/img/indicator.gif" /></span>
 					Middle <INPUT id="mname" name="mname" type="text"/>
-					<span id="indicator3" style="display:none;"><img src="common/img/indicator.gif" /></span>
+					<span id="indicator3" style="display:none;"><img src="${contextPath}/common/img/indicator.gif" /></span>
 					<input type="hidden" id="cid" name="cid"/>
 					</TD>
 				</TR>

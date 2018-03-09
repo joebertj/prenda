@@ -1,4 +1,4 @@
-<%@include file="common/header.jsp"%>
+<%@include file="../common/header.jsp"%>
 </head>
 <body>
 
@@ -6,15 +6,15 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
 
-<%@include file="common/msg.jsp"%>
+<%@include file="../common/msg.jsp"%>
 			<FORM name="pawn" method="post" action="CheckPawn.htm">
 			<input type="hidden" name="referer" value="pawndetail.jsp"/>
 			<TABLE border="1">
@@ -34,14 +34,14 @@
 					<jsp:setProperty property="sdfIn" name="uldate" value="MMM dd, yyyy"/>
 					<jsp:setProperty property="sdfOut" name="uldate" value="MM/dd/yyyy"/>
 					<jsp:setProperty property="value" name="uldate" value="${param.loandate}"/>
-					<input type="hidden" name="loandate" value='<c:out value="${uldate.effective}"/>'/>
+					<input type="hidden" name="loandate" value="${uldate.effective}"/>
 					<c:out value="${ldate.effective}"/>
 					</TD>
 				</TR>
 				<TR>
 					<TD>PT Number</TD>
 					<TD colspan="3"><fmt:formatNumber value="${branches.pawnTicket}" minIntegerDigits="6" groupingUsed="false"/>
-					<input type="hidden" id="pt" name="pt" value='<c:out value="${branches.pawnTicket}"/>' /></TD>
+					<input type="hidden" id="pt" name="pt" value="${branches.pawnTicket}" /></TD>
 					<TD>Maturity Date</TD>
 					<TD>: <c:out value="${ldate.maturity}"/>
 				</TR>
@@ -53,22 +53,22 @@
 				<TR>
 					<TD>Name</TD>
 					<TD colspan="5">: <c:out value="${param.lname}"/>, <c:out value="${param.fname}"/> <c:out value="${param.mname}"/>
-					<INPUT type="hidden" name="cid" value='<c:out value="${param.cid}"/>'/>
-					<INPUT type="hidden" name="lname" value='<c:out value="${param.lname}"/>'/>
-					<INPUT type="hidden" name="fname" value='<c:out value="${param.fname}"/>'/>
-					<INPUT type="hidden" name="mname" value='<c:out value="${param.mname}"/>'/>
+					<INPUT type="hidden" name="cid" value="${param.cid}"/>
+					<INPUT type="hidden" name="lname" value="${param.lname}"/>
+					<INPUT type="hidden" name="fname" value="${param.fname}"/>
+					<INPUT type="hidden" name="mname" value="${param.mname}"/>
 					</TD>
 				</TR>
 				<TR>
 					<TD>Address</TD>
 					<TD colspan="3">: <c:out value="${param.address}"/>
-					<INPUT type="hidden" name="address" value='<c:out value="${param.address}"/>'/>
+					<INPUT type="hidden" name="address" value="${param.address}"/>
 					</TD>
 				</TR>
 				<TR>
 					<TD>Appraised Amount</TD>
 					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.appamt}" />
-					<INPUT type="hidden" name="appamt" size="10" value='<c:out value="${param.appamt}"/>'>
+					<INPUT type="hidden" name="appamt" size="10" value="${param.appamt}">
 					</TD>
 					<TD>In Words</TD>
 					<TD colspan="3">: <c:out value="${param.appword}"/></TD>
@@ -76,7 +76,7 @@
 				<TR>
 					<TD>Loan Amount</TD>
 					<TD width="100">: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.loanamt}" />
-					<INPUT type="hidden" name="loanamt" value='<c:out value="${param.loanamt}"/>'>
+					<INPUT type="hidden" name="loanamt" value="${param.loanamt}">
 					</TD>
 					<TD>In Words</TD>
 					<TD colspan="3">: <c:out value="${param.loanword}"/></TD>
@@ -84,7 +84,7 @@
 				<TR>
 					<TD>Description</TD>
 					<TD colspan="4">: <c:out value="${param.desc}"/>
-					<INPUT type="hidden" name="desc" size="10" value='<c:out value="${param.desc}"/>'>
+					<INPUT type="hidden" name="desc" size="10" value="${param.desc}">
 					</TD>
 				</TR>
 				<TR>
@@ -96,13 +96,13 @@
 					<TD colspan="4">
 					<TD>Interest</TD>
 					<TD>: <c:out value="${param.interest}"/>
-					<INPUT type="hidden" name="interest" size="10" value='<c:out value="${param.interest}"/>'></TD>
+					<INPUT type="hidden" name="interest" size="10" value="${param.interest}"></TD>
 				</TR>
 				<TR>
 					<TD colspan="4">
 					<TD>Service Charge</TD>
 					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.service}" />
-					<INPUT type="hidden" name="service" size="10" value='<c:out value="${param.service}"/>'>
+					<INPUT type="hidden" name="service" size="10" value="${param.service}">
 					</TD>
 				</TR>
 				<TR>

@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -15,7 +15,7 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 			<FORM method="post" action="${contextPath}/UserModify.htm">
-			<INPUT type="hidden" name="referer" value="admin/userlist.jsp">
+			<INPUT type="hidden" name="referer" value="${contextPath}/admin/userlist.jsp">
 			<INPUT type="hidden" name="uid" value="${param.uid}">
 			<INPUT type="hidden" name="modtype" value="2">
 			<TABLE border="1">
@@ -90,10 +90,10 @@ SELECT branchid,name FROM branch
 					<c:forEach var="row" items="${branch.rows}">
 					<c:choose>
 						<c:when test="${param.branch==row.branchid}">
-						<option value='<c:out value="${row.branchid}"/>' selected><c:out value="${row.name}"/></option>
+						<option value="${row.branchid}" selected><c:out value="${row.name}"/></option>
 						</c:when>
 						<c:otherwise>
-						<option value='<c:out value="${row.branchid}"/>'><c:out value="${row.name}"/></option>
+						<option value="${row.branchid}"><c:out value="${row.name}"/></option>
 						</c:otherwise>
 					</c:choose>
 					</c:forEach>

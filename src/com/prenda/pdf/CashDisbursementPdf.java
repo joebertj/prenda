@@ -49,7 +49,7 @@ import com.prenda.helper.DatabaseConnection;
 		param.put("address",baddress);
 		param.put("group",group);
 		String path = request.getSession().getServletContext().getRealPath("/common");
-		param.put("logo", path+"/img/logo2.png");
+		param.put("logo", path+"/img/logo.png");
 		try {
 			Connection conn = DatabaseConnection.getConnection();
 			JasperPrint jprint=JasperFillManager.fillReport(path+"/jasper/disbursement.jasper",param,conn);

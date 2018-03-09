@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -20,7 +20,7 @@
 <sql:query var="pageable" dataSource="${prenda}">
 SELECT count(branchid) as numid FROM branch
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 </sql:query>
 <c:set var="numid" value="${pageable.rows[0].numid}" />
 <c:set var="pages" value="${numid/perpage}" />
@@ -32,7 +32,7 @@ WHERE users.username='<c:out value="${authenticated}"/>'
 <c:if test="${pagenum==null || pagenum<1 || pagenum>pages}">
 				<c:set var="pagenum" value="1" />
 			</c:if>
-<BR>
+<br/>
 			Page 
 <c:if test="${pagenum>1}">
 				<A href='branchlist.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
@@ -54,7 +54,7 @@ WHERE users.username='<c:out value="${authenticated}"/>'
 <sql:query var="branchlist" dataSource="${prenda}">
 SELECT branchid,name,address,balance,branch.archive FROM branch
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 </sql:query>
 			<TABLE border="1">
@@ -91,20 +91,20 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 					</TD>
 					<TD>
 						<FORM method="post" action="settings.jsp">
-							<INPUT name="branchid" type="hidden" value='<c:out value="${row.branchid}"/>'> 
+							<INPUT name="branchid" type="hidden" value="${row.branchid}"> 
 							<INPUT type="submit" value="Details">
 						</FORM>
 					</TD>
 					<TD>
 						<FORM method="post" action="changebranch.jsp">
-							<INPUT name="branchid" type="hidden" value='<c:out value="${row.branchid}"/>'> 
+							<INPUT name="branchid" type="hidden" value="${row.branchid}"> 
 							<INPUT type="submit" value="Edit">
 						</FORM>
 					</TD>
 					<TD>
 						<FORM method="post" action="delbranch.jsp">
-							<INPUT name="branchid" type="hidden" value='<c:out value="${row.branchid}"/>'> 
-							<INPUT name="bname" type="hidden" value='<c:out value="${row.name}"/>'> 
+							<INPUT name="branchid" type="hidden" value="${row.branchid}"> 
+							<INPUT name="bname" type="hidden" value="${row.name}"> 
 							<INPUT type="submit" value="Archive">
 						</FORM>
 					</TD>

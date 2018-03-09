@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -20,7 +20,7 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -34,7 +34,7 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -48,7 +48,7 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -63,7 +63,7 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -78,7 +78,7 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -93,7 +93,7 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -108,7 +108,7 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -123,7 +123,7 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -138,7 +138,7 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -153,7 +153,7 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -168,7 +168,7 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -183,7 +183,7 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
@@ -193,9 +193,9 @@ AND loan>5000
 </c:if>
 </sql:query>
 			<form method="post" action="foreclosedstat.pdf">
-				<input type="hidden" name="branch" value='<c:out value="${users.rows[0].branch}"/>'/>
-				<input type="hidden" name="bname" value='<c:out value="${branch.rows[0].name}"/>'/>
-				<input type="hidden" name="baddress" value='<c:out value="${branch.rows[0].address}"/>'/>
+				<input type="hidden" name="branch" value="${users.rows[0].branch}"/>
+				<input type="hidden" name="bname" value="${branch.rows[0].name}"/>
+				<input type="hidden" name="baddress" value="${branch.rows[0].address}"/>
 				<input type="submit" value="Generate PDF"/>
 			</form>
 			<TABLE border="1">

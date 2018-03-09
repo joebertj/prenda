@@ -44,12 +44,12 @@ import com.prenda.helper.PasswordEncoderGenerator;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
 		if(session.isNew()){
-			String redirectURL = "common/login.jsp";
+			String redirectURL = "/common/login.jsp";
 			response.sendRedirect(redirectURL);
 		}else{ 
 			String authenticated=(String) session.getAttribute("authenticated");
 			if(authenticated == null){
-				String redirectURL = "common/login.jsp";
+				String redirectURL = "/common/login.jsp";
 				response.sendRedirect(redirectURL);
 			}else{
 				continuePost(request, response);

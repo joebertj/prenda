@@ -1,4 +1,4 @@
-<%@include file="common/header.jsp"%>
+<%@include file="../common/header.jsp"%>
 </head>
 <body>
 
@@ -6,23 +6,23 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="common/msg.jsp"%>
+<%@include file="../common/msg.jsp"%>
 <sql:query var="group" dataSource="${prenda}">
 SELECT * FROM journal 
 LEFT JOIN accounts ON journal.accountid=accounts.accountid 
 WHERE journal_group=<c:out value="${param.group}"/>
 </sql:query>
 			<form name="disburse" action="cashdisbursement.pdf" method="post">
-			<input type="hidden" name="branch" value='<c:out value="${user.branchId}"/>'/>
-			<input type="hidden" name="bname" value='<c:out value="${branches.name}"/>'/>
-			<input type="hidden" name="baddress" value='<c:out value="${branches.address}"/>'/>
+			<input type="hidden" name="branch" value="${user.branchId}"/>
+			<input type="hidden" name="bname" value="${branches.name}"/>
+			<input type="hidden" name="baddress" value="${branches.address}"/>
 			<TABLE border="1">
 				<TR>
 					<TH colspan="100%">Cash Disbursement</TH>
@@ -52,7 +52,7 @@ WHERE journal_group=<c:out value="${param.group}"/>
 				</c:forEach>
 				<TR>
 					<TD colspan="100%" align="center">
-					<input type="hidden" name="group" value='<c:out value="${param.group}"/>'/>
+					<input type="hidden" name="group" value="${param.group}"/>
 					<input type="submit" value="Print"/>
 					</TD>
 				</TR>			

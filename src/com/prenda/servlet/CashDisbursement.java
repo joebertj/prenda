@@ -48,12 +48,12 @@ import com.prenda.helper.DatabaseConnection;
 		HttpSession session=request.getSession(true);
 		String redirectURL;
 		if(session.isNew()){
-			redirectURL = "common/login.jsp";
+			redirectURL = "/common/login.jsp";
 			response.sendRedirect(redirectURL);
 		}else{ 
 			String authenticated=(String) session.getAttribute("authenticated");
 			if(authenticated == null){
-				redirectURL = "common/login.jsp?msg=You have not logged in yet";
+				redirectURL = "/common/login.jsp?msg=You have not logged in yet";
 				response.sendRedirect(redirectURL);
 			}else{
 				continuePost(request, response);

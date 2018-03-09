@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -14,7 +14,7 @@
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
-			<FORM method="post" action="../BranchModify">
+			<FORM method="post" action="${contextPath}/BranchModify">
 			<INPUT type="hidden" name="modtype" value="0">
 			<TABLE border="1">
 				<TR>
@@ -60,7 +60,7 @@
 					</sql:query>
 					<select name="uid">
 					<c:forEach items="${owner.rows}" var="row">
-					<option value='<c:out value="${row.uid}"/>'><c:out value="${row.username}"/></option>
+					<option value="${row.uid}"><c:out value="${row.username}"/></option>
 					</c:forEach>
 					</select></TD>
 				</TR>

@@ -45,15 +45,15 @@ import com.prenda.helper.DatabaseConnection;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
 		if(session.isNew()){
-			String redirectURL = "customer/item.jsp";
+			String redirectURL = "/customer/item.jsp";
 			response.sendRedirect(redirectURL);
 		}else{ 
 			Boolean allow=(Boolean) session.getAttribute("allow");
 			if(allow==null){
-				String redirectURL = "customer/item.jsp";
+				String redirectURL = "/customer/item.jsp";
 				response.sendRedirect(redirectURL);
 			}else if(!allow.booleanValue()){
-				String redirectURL = "customer/item.jsp?Item not yet qualified to be extended";
+				String redirectURL = "/customer/item.jsp?Item not yet qualified to be extended";
 				response.sendRedirect(redirectURL);
 			}else{
 				continuePost(request, response);
@@ -68,7 +68,7 @@ import com.prenda.helper.DatabaseConnection;
     		pstmt = conn.prepareStatement("SELECT extend FROM pawn WHERE pid=?");
     		pstmt.setInt(1,pid);
     		ResultSet rs=pstmt.executeQuery();
-    		String redirectURL="customer/itemdetail.jsp?pid="+pid+"&msg=The expiration of pawn item with id "+pid+" was successfully extended";
+    		String redirectURL="/customer/itemdetail.jsp?pid="+pid+"&msg=The expiration of pawn item with id "+pid+" was successfully extended";
     		int extend;
     		if(rs.next()){
     			extend=rs.getInt(1);

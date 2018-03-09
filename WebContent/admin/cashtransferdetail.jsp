@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -18,7 +18,7 @@
 SELECT name FROM branch
 WHERE branchid=<c:out value="${param.frombranch}"/> OR branchid=<c:out value="${param.tobranch}"/>
 </sql:query>
-			<FORM method="post" action="../TransferCash">
+			<FORM method="post" action="${contextPath}/TransferCash">
 			<INPUT type="hidden" name="modtype" value="0">
 			<TABLE border="1">
 				<TR>
@@ -31,13 +31,13 @@ WHERE branchid=<c:out value="${param.frombranch}"/> OR branchid=<c:out value="${
 				</TR>
 				<TR>
 					<TD><c:out value="${branch.rows[0].name}"/>
-						<input type="hidden" name="frombranch" value='<c:out value="${param.frombranch}"/>'/>
+						<input type="hidden" name="frombranch" value="${param.frombranch}"/>
 					</TD>
 					<TD><c:out value="${branch.rows[1].name}"/>
-						<input type="hidden" name="tobranch" value='<c:out value="${param.tobranch}"/>'/>
+						<input type="hidden" name="tobranch" value="${param.tobranch}"/>
 					</TD>
 					<TD><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.amount}" />
-						<input type="hidden" name="amount" value='<c:out value="${param.amount}"/>'/>
+						<input type="hidden" name="amount" value="${param.amount}"/>
 					</TD>
 				</TR>
 				<TR>

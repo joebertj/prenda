@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -46,11 +46,11 @@
 <sql:query var="branch" dataSource="${prenda}">
 SELECT branchid,name FROM branch
 LEFT JOIN users ON branch.owner=users.uid
-WHERE username='<c:out value="${authenticated}"/>'
+WHERE username="${authenticated}"
 </sql:query>
 					<select name="branch">
 					<c:forEach var="row" items="${branch.rows}">
-					<option value='<c:out value="${row.branchid}"/>'><c:out value="${row.name}"/></option>
+					<option value="${row.branchid}"><c:out value="${row.name}"/></option>
 					</c:forEach>
 					</select>
 					</TD>

@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -15,10 +15,10 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 <c:if test="${param.type==-1}">
-<img src="../common/img/redeemhistory-1.jpg">
+<img src="${contextPath}/common/img/redeemhistory-1.jpg">
 </c:if>
 <c:if test="${param.type==0}">
-<img src="../common/img/redeemhistory0.jpg">
+<img src="${contextPath}/common/img/redeemhistory0.jpg">
 </c:if>
 </TD>
 		</TR>

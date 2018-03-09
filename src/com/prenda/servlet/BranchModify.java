@@ -54,7 +54,7 @@ import com.prenda.service.LevelService;
 		HttpSession session=request.getSession(true);
 		String redirectURL=null;
 		if(session.isNew()){
-			redirectURL = "common/login.jsp";
+			redirectURL = "/common/login.jsp";
 			response.sendRedirect(redirectURL);
 		}else{ 
 			Authentication auth = SecurityContextHolder.getContext()
@@ -71,7 +71,7 @@ import com.prenda.service.LevelService;
 			Integer level = ls.getId(role.replace("ROLE_", ""));
 			log.info("role: " + role + " level: " + level);
 			if(authenticated == null){
-				redirectURL = "common/login.jsp?msg=You have not logged in yet";
+				redirectURL = "/common/login.jsp?msg=You have not logged in yet";
 				response.sendRedirect(redirectURL);
 			}else if(level==Level.ADMIN){
 				continuePost(request, response, authenticated, level);
@@ -93,7 +93,7 @@ import com.prenda.service.LevelService;
 							if (rs.first()) {
 								continuePost(request, response, authenticated, level);
 							} else {
-								redirectURL = "common/login.jsp?msg=You do not own the selected branch";
+								redirectURL = "/common/login.jsp?msg=You do not own the selected branch";
 								response.sendRedirect(redirectURL);
 							}
 						} else if (modtype == 2 && level==Level.OWNER) {
@@ -106,7 +106,7 @@ import com.prenda.service.LevelService;
 							if (rs.first()) {
 								continuePost(request, response, authenticated, level);
 							} else {
-								redirectURL = "common/login.jsp?msg=You do not own the selected branch";
+								redirectURL = "/common/login.jsp?msg=You do not own the selected branch";
 								response.sendRedirect(redirectURL);
 							}
 
@@ -120,11 +120,11 @@ import com.prenda.service.LevelService;
 								if(branchid==rs.getInt(1)){
 									continuePost(request, response, authenticated, level);
 								}else{
-									redirectURL = "common/login.jsp?msg=You are not the manager of this branch";
+									redirectURL = "/common/login.jsp?msg=You are not the manager of this branch";
 									response.sendRedirect(redirectURL);
 								}
 							} else {
-								redirectURL = "common/login.jsp?msg=You are not the manager of this branch";
+								redirectURL = "/common/login.jsp?msg=You are not the manager of this branch";
 								response.sendRedirect(redirectURL);
 							}
 						}
@@ -137,10 +137,10 @@ import com.prenda.service.LevelService;
 					continuePost(request, response, authenticated, level);
 				}
 			}else if(level<Level.ADMIN){
-				redirectURL = "common/login.jsp?msg=You are not an administrator";
+				redirectURL = "/common/login.jsp?msg=You are not an administrator";
 				response.sendRedirect(redirectURL);
 			}else{
-				redirectURL = "common/login.jsp?msg=You don't have access rights";
+				redirectURL = "/common/login.jsp?msg=You don't have access rights";
 				response.sendRedirect(redirectURL);
 			}
 		}
@@ -170,7 +170,7 @@ import com.prenda.service.LevelService;
     				if(rs.first()){
     					owner=rs.getInt(1);
     				}else{
-    					response.sendRedirect("owner/newbranch.jsp?msg=You are not the owner of "+bname);
+    					response.sendRedirect("/owner/newbranch.jsp?msg=You are not the owner of "+bname);
     				}
     			}
     			pstmt = conn.prepareStatement("SELECT name FROM branch WHERE name=?");
@@ -178,7 +178,7 @@ import com.prenda.service.LevelService;
     			rs=pstmt.executeQuery();
     			if(rs.first()){
     				if(request.getContextPath().toString().contains("owner")){
-    					response.sendRedirect("owner/newbranch.jsp?msg=Branch "+bname+" already exists");
+    					response.sendRedirect("/owner/newbranch.jsp?msg=Branch "+bname+" already exists");
     				}else{
     					response.sendRedirect("newbranch.jsp?msg=Branch "+bname+" already exists");
     				}	
@@ -213,7 +213,7 @@ import com.prenda.service.LevelService;
     			pstmt.setInt(1, branchid);
     			pstmt.executeUpdate();
     			if(request.getContextPath().toString().contains("owner")){
-    				response.sendRedirect("owner/newbranch.jsp?msg=Branch "+bname+" successfully added");
+    				response.sendRedirect("/owner/newbranch.jsp?msg=Branch "+bname+" successfully added");
     			}else{
     				response.sendRedirect("newbranch.jsp?msg=Branch "+bname+" successfully added");
     			}
@@ -232,15 +232,15 @@ import com.prenda.service.LevelService;
     				pstmt.setInt(1, branchid);
     				pstmt.executeUpdate();
     				if(request.getContextPath().toString().contains("owner")){
-    					response.sendRedirect("owner/branchlist.jsp?msg=Branch "+bname+" archived");
+    					response.sendRedirect("/owner/branchlist.jsp?msg=Branch "+bname+" archived");
     				}else{
-    					response.sendRedirect("admin/branchlist.jsp?msg=Branch "+bname+" archived");
+    					response.sendRedirect("/admin/branchlist.jsp?msg=Branch "+bname+" archived");
     				}
     			}else{
     				if(request.getContextPath().toString().contains("owner")){
-    					response.sendRedirect("owner/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
+    					response.sendRedirect("/owner/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
     				}else{
-    					response.sendRedirect("admin/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
+    					response.sendRedirect("/admin/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
     				}
     			}
     		}else if(modtype.equals("2")){
@@ -277,11 +277,11 @@ import com.prenda.service.LevelService;
     			pstmt.setInt(7, reserve);
     			pstmt.executeUpdate();
     			if(request.getContextPath().toString().contains("manager")){
-    				response.sendRedirect("manager/changebranch.jsp?msg=Details for branch "+bname+" successfully changed");
+    				response.sendRedirect("/manager/changebranch.jsp?msg=Details for branch "+bname+" successfully changed");
     			}else if(request.getContextPath().toString().contains("owner")){
-    				response.sendRedirect("owner/branchlist.jsp?msg=Details for branch "+bname+" successfully changed");
+    				response.sendRedirect("/owner/branchlist.jsp?msg=Details for branch "+bname+" successfully changed");
     			}else{
-    				response.sendRedirect("admin/branchlist.jsp?msg=Details for branch "+bname+" successfully changed");
+    				response.sendRedirect("/admin/branchlist.jsp?msg=Details for branch "+bname+" successfully changed");
     			}
     		}
 		} catch (SQLException ex) {

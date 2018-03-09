@@ -1,4 +1,4 @@
-<%@include file="common/header.jsp"%>
+<%@include file="../common/header.jsp"%>
 </head>
 <body>
 
@@ -6,15 +6,15 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
 
-<%@include file="common/msg.jsp"%>
+<%@include file="../common/msg.jsp"%>
 <jsp:useBean id="pageS" class="com.prenda.service.PageService" />
 <jsp:setProperty name="pageS" property="branchId" value="${user.branchId}" />
 <c:set var="perpage" value="${pageS.customer}"/>
@@ -35,7 +35,7 @@ AND archive=0
 <c:if test="${pagenum==null || pagenum<1 || pagenum>pages}">
 				<c:set var="pagenum" value="1" />
 			</c:if>
-<BR>
+<br/>
 			Page 
 <c:if test="${pagenum>1}">
 				<A href='customer.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
@@ -105,11 +105,11 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 					</TD>
 					</c:if>
 					<!-- FORM method="post" action="pawn.jsp"> 
-					<INPUT name="cid" type="hidden" value='<c:out value="${row.id}"/>'> 
-					<INPUT name="lname" type="hidden" value='<c:out value="${row.last_name}"/>'> 
-					<INPUT name="fname" type="hidden" value='<c:out value="${row.first_name}"/>'> 
-					<INPUT name="mname" type="hidden" value='<c:out value="${row.middle_name}"/>'> 
-					<INPUT name="cadd" type="hidden" value='<c:out value="${row.address}"/>'>
+					<INPUT name="cid" type="hidden" value="${row.id}"> 
+					<INPUT name="lname" type="hidden" value="${row.last_name}"> 
+					<INPUT name="fname" type="hidden" value="${row.first_name}"> 
+					<INPUT name="mname" type="hidden" value="${row.middle_name}"> 
+					<INPUT name="cadd" type="hidden" value="${row.address}">
 					</TD>
 					<TD><INPUT name="modtype" type="submit" value="Select">
 					</FORM-->

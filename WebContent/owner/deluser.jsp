@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -23,12 +23,12 @@
 		</c:redirect>
 	</c:if>
 </c:if>
-			<FORM method="post" action="${contextPath}/UserModify.htm">Delete User <c:out value="${param.user}" /> <BR>
-			<BR>
+			<FORM method="post" action="${contextPath}/UserModify.htm">Delete User <c:out value="${param.user}" /> <br/>
+			<br/>
 			Are you sure? 
 			<INPUT type="hidden" name="modtype" value="1"> 
-			<INPUT type="hidden" name="uid" value='<c:out value="${param.uid}"/>'> 
-			<INPUT type="hidden" name="user" value='<c:out value="${param.user}"/>'> 
+			<INPUT type="hidden" name="uid" value="${param.uid}"> 
+			<INPUT type="hidden" name="user" value="${param.user}"> 
 			<INPUT name="delresp" type="submit" value="Cancel"> 
 			<INPUT name="delresp" type="submit" value="Confirm"></FORM>
 			</TD>

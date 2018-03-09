@@ -1,4 +1,4 @@
-<%@include file="common/header.jsp"%>
+<%@include file="../common/header.jsp"%>
 </head>
 <body>
 
@@ -6,14 +6,14 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="common/msg.jsp"%>
+<%@include file="../common/msg.jsp"%>
 <c:set var="perpage" value="10"/>
 <sql:query var="pageable" dataSource="${prenda}">
 SELECT count(journalid) as numid FROM journal
@@ -33,7 +33,7 @@ AND branchid=<c:out value="${users.rows[0].branch}"/>
 <c:if test="${pagenum==null || pagenum<1 || pagenum>pages}">
 				<c:set var="pagenum" value="1" />
 			</c:if>
-<BR>
+<br/>
 			Page 
 <c:if test="${pagenum>1}">
 				<A href='pawnsummary.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
@@ -89,7 +89,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 					<TD><c:out value="${row.accountname}"/></TD>
 					<TD><c:out value="${row.description}"/></TD>
 					<TD><c:out value="${row.amount}"/></TD>
-					<TD><input type="hidden" name="journalid" value='<c:out value="${row.journalid}"/>'/>
+					<TD><input type="hidden" name="journalid" value="${row.journalid}"/>
 					<input type="submit" value="Post"/></TD>
 				</TR>			
 				</c:forEach>

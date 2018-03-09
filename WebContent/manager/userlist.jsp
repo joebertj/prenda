@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -32,7 +32,7 @@ AND level<=<c:out value="${users.rows[0].level}"/>
 <c:if test="${pagenum==null || pagenum<1 || pagenum>pages}">
 				<c:set var="pagenum" value="1" />
 			</c:if>
-<BR>
+<br/>
 			Page 
 <c:if test="${pagenum>1}">
 				<A href='userlist.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
@@ -111,16 +111,16 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 					</TD>
 					<TD>
 						<FORM method="post" action="changepass.jsp">
-							<INPUT name="uid" type="hidden" value='<c:out value="${row.uid}"/>'> 
-							<INPUT name="user" type="hidden" value='<c:out value="${row.username}"/>'>
-							<INPUT name="password" type="hidden" value='<c:out value="${row.password}"/>'>
+							<INPUT name="uid" type="hidden" value="${row.uid}"> 
+							<INPUT name="user" type="hidden" value="${row.username}">
+							<INPUT name="password" type="hidden" value="${row.password}">
 							<INPUT type="submit" value="Change Password">
 						</FORM>
 					</TD>
 					<TD>
 						<FORM method="post" action="deluser.jsp">
-							<INPUT name="uid" type="hidden" value='<c:out value="${row.uid}"/>'> 
-							<INPUT name="user" type="hidden" value='<c:out value="${row.username}"/>'>
+							<INPUT name="uid" type="hidden" value="${row.uid}"> 
+							<INPUT name="user" type="hidden" value="${row.username}">
 							<INPUT type="submit" value="Archive">
 						</FORM>
 					</TD>

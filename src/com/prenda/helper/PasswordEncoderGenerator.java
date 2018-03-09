@@ -22,4 +22,9 @@ public class PasswordEncoderGenerator {
 		}
 		return hash;
 	}
+	
+	public static boolean matches(String input, String hash) {
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		return passwordEncoder.matches(input, hash);
+	}
 }

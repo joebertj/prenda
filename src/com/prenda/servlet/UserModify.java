@@ -135,7 +135,7 @@ public class UserModify {
 			if(verifyPassword(targetUser,oldPassword,newPassword,verifyPassword,false)) {
 				message=savePassword(user, newPassword);
 			}else {
-				message = "New password does not match";
+				message = "Either the old password is not correct or the new password does not match";
 			}
 			log.info("actionUser " + actionUser + " targetUser " + targetUser + " oldPassword " + oldPassword + " newPassword " + newPassword + " verifyPassword " + verifyPassword + " message " + message);
 		}else {
@@ -190,7 +190,8 @@ public class UserModify {
 			}else {
 				if(li.hasNext()) {
 					user = (Users) li.next();
-					if(user.getPassword().equals(oldPassword)) {
+					String passwordHash = user.getPassword();
+					if(PasswordEncoderGenerator.matches(oldPassword, passwordHash)) {
 						passwordTest = true; 
 						this.user = user;
 					}

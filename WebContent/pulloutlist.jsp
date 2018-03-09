@@ -1,5 +1,5 @@
-<%@include file="common/header.jsp"%>
-<script type="text/javascript" src="common/js/pawn.js"></script>
+<%@include file="../common/header.jsp"%>
+<script type="text/javascript" src="${contextPath}/common/js/pawn.js"></script>
 </head>
 <body>
 
@@ -7,14 +7,14 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="common/msg.jsp"%>
+<%@include file="../common/msg.jsp"%>
 <sql:query var="page" dataSource="${prenda}">
 SELECT foreclose FROM page WHERE pageid=<c:out value="${users.rows[0].branch}"/>
 </sql:query>
@@ -29,7 +29,7 @@ LEFT JOIN users ON branch.owner=users.uid
 </c:if>
 WHERE redeem.pid IS NULL
 <c:if test="${users.rows[0].level==8}">
-AND users.username='<c:out value="${authenticated}"/>'
+AND users.username="${authenticated}"
 </c:if>
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*extend) <= NOW()
@@ -50,7 +50,7 @@ AND branch=<c:out value="${users.rows[0].branch}"/>
 <c:if test="${pagenum==null || pagenum<1 || pagenum>pages}">
 				<c:set var="pagenum" value="1" />
 			</c:if>
-<BR>
+<br/>
 			Page 
 <c:if test="${pagenum>1}">
 				<A href='forecloseditems.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
@@ -83,7 +83,7 @@ LEFT JOIN users ON branch.owner=users.uid
 </c:if>
 WHERE (day=DATEDIFF(NOW(),loan_date) OR (day=34 AND DATEDIFF(NOW(),loan_date)>34))
 <c:if test="${users.rows[0].level==8}">
-AND users.username='<c:out value="${authenticated}"/>'
+AND users.username="${authenticated}"
 </c:if>
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
@@ -127,7 +127,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 							<TR>
 						</c:otherwise>
 					</c:choose>
-					<TD><input type="checkbox" name="pid" value='<c:out value="${row.pid}"/>' onClick="uncheckAll(this.checked,this.form);"/></TD>
+					<TD><input type="checkbox" name="pid" value="${row.pid}" onClick="uncheckAll(this.checked,this.form);"/></TD>
 					<TD><fmt:formatNumber value="${row.pid}" minIntegerDigits="10" groupingUsed="false"/></TD>
 					<TD><fmt:formatNumber value="${row.branch}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${row.bpid}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD><fmt:formatDate value="${row.loan_date}" dateStyle="long" /></TD>

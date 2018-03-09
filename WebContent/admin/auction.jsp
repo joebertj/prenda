@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -14,7 +14,9 @@
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
-<c:set var="perpage" value="${10}"/><!--page.rows[0].pullout-->
+<jsp:useBean id="pageS" class="com.prenda.service.PageService" />
+<jsp:setProperty name="pageS" property="branchId" value="${branches.id}" />
+<c:set var="perpage" value="${pageS.auction}"/>
 <sql:query var="pageable" dataSource="${prenda}">
 SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
@@ -34,7 +36,7 @@ AND auction=1
 <c:if test="${pagenum==null || pagenum<1 || pagenum>pages}">
 				<c:set var="pagenum" value="1" />
 			</c:if>
-<BR>
+<br/>
 			Page 
 <c:if test="${pagenum>1}">
 				<A href='pulloutsummary.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
@@ -68,9 +70,9 @@ ORDER BY pawn.pid
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 </sql:query>
 			<form method="post" action="auction.pdf">
-				<input type="hidden" name="branch" value='<c:out value="${users.rows[0].branch}"/>'/>
-				<input type="hidden" name="bname" value='<c:out value="${branch.rows[0].name}"/>'/>
-				<input type="hidden" name="baddress" value='<c:out value="${branch.rows[0].address}"/>'/>
+				<input type="hidden" name="branch" value="${users.rows[0].branch}"/>
+				<input type="hidden" name="bname" value="${branch.rows[0].name}"/>
+				<input type="hidden" name="baddress" value="${branch.rows[0].address}"/>
 				<input type="submit" value="Generate PDF"/>
 			</form>
 			<TABLE border="1">

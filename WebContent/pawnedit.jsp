@@ -1,9 +1,9 @@
-<%@include file="common/header.jsp"%>
-<script type="text/javascript" src="common/js/pawn.js"></script>
-<script type="text/javascript" src="common/js/prototype-1.4.0.js"></script>
-<script type="text/javascript" src="common/js/scriptaculous.js"></script>
-<script type="text/javascript" src="common/js/overlibmws.js"></script>
-<script type="text/javascript" src="common/js/ajaxtags-1.2-beta2.js"></script>
+<%@include file="../common/header.jsp"%>
+<script type="text/javascript" src="${contextPath}/common/js/pawn.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/prototype-1.4.0.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/scriptaculous.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/overlibmws.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/ajaxtags-1.2-beta2.js"></script>
 </head>
 <body>
 
@@ -11,14 +11,14 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="common/msg.jsp"%>
+<%@include file="../common/msg.jsp"%>
 <sql:query var="pawn" dataSource="${prenda}">
 SELECT * FROM pawn 
 LEFT JOIN customer ON pawn.nameid=customer.id
@@ -32,8 +32,8 @@ WHERE pid=<c:out value="${param.pid}"/>
 </c:if>
 <div id="errorMsg" style="display:none;border:1px solid #e00;background-color:#fee;padding:2px;margin-top:8px;width:300px;font:normal 12px Arial;color:#900"></div>
 			<FORM name="pawn" method="post" action="pawneditdetail.jsp">
-			<input type="hidden" name="pid" value='<c:out value="${pawn.rows[0].pid}"/>'/>
-			<input type="hidden" name="cdate" value='<c:out value="${pawn.rows[0].create_date}"/>'/>
+			<input type="hidden" name="pid" value="${pawn.rows[0].pid}"/>
+			<input type="hidden" name="cdate" value="${pawn.rows[0].create_date}"/>
 			<TABLE border="1">
 				<TR>
 					<TH colspan="100%">Edit Pawn</TH>
@@ -48,13 +48,13 @@ WHERE pid=<c:out value="${param.pid}"/>
 					<jsp:setProperty property="sdfOut" name="ldate" value="MMM dd, yyyy"/>
 					<jsp:setProperty property="value" name="ldate" value="${pawn.rows[0].loan_date}"/>
 					<c:out value="${ldate.effective}"/>
-					<input type="hidden" name="loandate" value='<c:out value="${ldate.value}"/>'/>
+					<input type="hidden" name="loandate" value="${ldate.value}"/>
 					</TD>
 				</TR>
 				<TR>
 					<TD>PT Number</TD>
 					<TD colspan="3"><fmt:formatNumber value="${pawn.rows[0].pt}" minIntegerDigits="6" groupingUsed="false"/>
-					<input type="hidden" id="pt" name="pt" value='<c:out value="${pawn.rows[0].pt}"/>' /></TD>
+					<input type="hidden" id="pt" name="pt" value="${pawn.rows[0].pt}" /></TD>
 					<TD>Maturity Date</TD>
 					<TD>: <c:out value="${ldate.maturity}"/></TD>
 				</TR>
@@ -66,11 +66,11 @@ WHERE pid=<c:out value="${param.pid}"/>
 				<TR>
 					<TD colspan="5">
 					Last Name<INPUT id="lname" name="lname" type="text"/> 
-					<span id="indicator1" style="display:none;"><img src="common/img/indicator.gif" /></span>
+					<span id="indicator1" style="display:none;"><img src="${contextPath}/common/img/indicator.gif" /></span>
 					First Name<INPUT id="fname" name="fname" type="text"/>
-					<span id="indicator2" style="display:none;"><img src="common/img/indicator.gif" /></span>
+					<span id="indicator2" style="display:none;"><img src="${contextPath}/common/img/indicator.gif" /></span>
 					Middle<INPUT id="mname" name="mname" type="text"/>
-					<span id="indicator3" style="display:none;"><img src="common/img/indicator.gif" /></span>
+					<span id="indicator3" style="display:none;"><img src="${contextPath}/common/img/indicator.gif" /></span>
 					<input type="hidden" id="cid" name="cid"/>
 					</TD>
 				</TR>
@@ -212,14 +212,14 @@ WHERE pid=<c:out value="${param.pid}"/>
   parser="new ResponseXmlParser()" />
 
 <script type="text/javascript">
-	var last='<c:out value="${pawn.rows[0].last_name}"/>';
-	var first='<c:out value="${pawn.rows[0].first_name}"/>';
-	var mid='<c:out value="${pawn.rows[0].middle_name}"/>';
+	var last="${pawn.rows[0].last_name}";
+	var first="${pawn.rows[0].first_name}";
+	var mid="${pawn.rows[0].middle_name}";
 	document.forms["pawn"].lname.value=last;
 	document.forms["pawn"].fname.value=first;
 	document.forms["pawn"].mname.value=mid;
-	document.forms["pawn"].address.value='<c:out value="${pawn.rows[0].address}"/>';
-	document.forms["pawn"].desc.value='<c:out value="${pawn.rows[0].description}"/>';
+	document.forms["pawn"].address.value="${pawn.rows[0].address}";
+	document.forms["pawn"].desc.value="${pawn.rows[0].description}";
 	document.forms["pawn"].loanamt.value=<c:out value="${pawn.rows[0].loan}"/>;
 	document.forms["pawn"].loanword.value=AmtInWords(document.forms["pawn"].loanamt.value,'Pesos Only');
 	document.forms["pawn"].appamt.value=<c:out value="${pawn.rows[0].appraised}"/>;

@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -19,7 +19,7 @@ SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -31,7 +31,7 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND pullout_date=NOW()
 <c:if test="${param.bcode==1}">
@@ -43,7 +43,7 @@ SELECT sum(loan) as sumloan FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -55,7 +55,7 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND pullout_date=NOW()
 <c:if test="${param.bcode==1}">
@@ -67,7 +67,7 @@ SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND loan<=500
 <c:if test="${param.bcode==1}">
@@ -80,7 +80,7 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan<=500
@@ -93,7 +93,7 @@ SELECT sum(loan) as sumloan FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND loan<=500
 <c:if test="${param.bcode==1}">
@@ -106,7 +106,7 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan<=500
@@ -119,7 +119,7 @@ SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND loan>500 AND loan<=1000
 <c:if test="${param.bcode==1}">
@@ -132,7 +132,7 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>500 AND loan<=1000
@@ -145,7 +145,7 @@ SELECT sum(loan) as sumloan FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND loan>500 AND loan<=1000
 <c:if test="${param.bcode==1}">
@@ -158,7 +158,7 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>500 AND loan<=1000
@@ -171,7 +171,7 @@ SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND loan>1000 AND loan<=2000
 <c:if test="${param.bcode==1}">
@@ -184,7 +184,7 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>1000 AND loan<=2000
@@ -197,7 +197,7 @@ SELECT sum(loan) as sumloan FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND loan>1000 AND loan<=2000
 <c:if test="${param.bcode==1}">
@@ -210,7 +210,7 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>1000 AND loan<=2000
@@ -223,7 +223,7 @@ SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND loan>2000 AND loan<=5000
 <c:if test="${param.bcode==1}">
@@ -236,7 +236,7 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>2000 AND loan<=5000
@@ -249,7 +249,7 @@ SELECT sum(loan) as sumloan FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND loan>2000 AND loan<=5000
 <c:if test="${param.bcode==1}">
@@ -262,7 +262,7 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND pawn.loan_date=NOW()
 AND loan>2000 AND loan<=5000
@@ -275,7 +275,7 @@ SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND loan>5000
 <c:if test="${param.bcode==1}">
@@ -288,7 +288,7 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>5000
@@ -301,7 +301,7 @@ SELECT sum(loan) as sumloan FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND loan>5000
 <c:if test="${param.bcode==1}">
@@ -314,7 +314,7 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
-WHERE users.username='<c:out value="${authenticated}"/>'
+WHERE users.username="${authenticated}"
 AND pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>5000
@@ -323,9 +323,9 @@ AND loan>5000
 </c:if>
 </sql:query>
 			<form method="post" action="pulloutstat.pdf">
-				<input type="hidden" name="branch" value='<c:out value="${users.rows[0].branch}"/>'/>
-				<input type="hidden" name="bname" value='<c:out value="${branch.rows[0].name}"/>'/>
-				<input type="hidden" name="baddress" value='<c:out value="${branch.rows[0].address}"/>'/>
+				<input type="hidden" name="branch" value="${users.rows[0].branch}"/>
+				<input type="hidden" name="bname" value="${branch.rows[0].name}"/>
+				<input type="hidden" name="baddress" value="${branch.rows[0].address}"/>
 				<input type="submit" value="Generate PDF"/>
 			</form>
 			<TABLE border="1">

@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -95,8 +95,8 @@ WHERE pid=<c:out value="${param.pid}" />
 				<c:set var="allow" scope="session" value="${true}"/>
 				<TR>
 					<TD colspan=2 align=center>
-						<FORM method=post action=../ExtendItem>
-						<INPUT type=hidden name=pid value='<c:out value="${pawn.rows[0].pid}" />'>
+						<FORM method=post action=/ExtendItem>
+						<INPUT type=hidden name=pid value="${pawn.rows[0].pid}" >
 						<INPUT type=submit value=Extend>
 						</FORM>
 					</TD>

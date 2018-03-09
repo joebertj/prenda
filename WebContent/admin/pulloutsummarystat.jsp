@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -323,9 +323,9 @@ AND branch=<c:out value="${users.rows[0].branch}"/>
 </c:if>
 </sql:query>
 			<form method="post" action="pulloutstat.pdf">
-				<input type="hidden" name="branch" value='<c:out value="${users.rows[0].branch}"/>'/>
-				<input type="hidden" name="bname" value='<c:out value="${branch.rows[0].name}"/>'/>
-				<input type="hidden" name="baddress" value='<c:out value="${branch.rows[0].address}"/>'/>
+				<input type="hidden" name="branch" value="${users.rows[0].branch}"/>
+				<input type="hidden" name="bname" value="${branch.rows[0].name}"/>
+				<input type="hidden" name="baddress" value="${branch.rows[0].address}"/>
 				<input type="submit" value="Generate PDF"/>
 			</form>
 			<TABLE border="1">

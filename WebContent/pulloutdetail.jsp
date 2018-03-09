@@ -1,4 +1,4 @@
-<%@include file="common/header.jsp"%>
+<%@include file="../common/header.jsp"%>
 </head>
 <body>
 
@@ -6,14 +6,14 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="common/msg.jsp"%>
+<%@include file="../common/msg.jsp"%>
 <sql:query var="testpawn" dataSource="${prenda}">
 SELECT count(pid) as numid 
 FROM pawn 
@@ -91,7 +91,7 @@ WHERE pid=<c:out value="${param.pid}" />
 				<TR>
 					<TD colspan="2" align=center>
 						<FORM method="post" action="pulloutlogin.jsp">
-							<INPUT type="hidden" name="pid" value='<c:out value="${pawn.rows[0].pid}"/>'> 
+							<INPUT type="hidden" name="pid" value="${pawn.rows[0].pid}"> 
 							<INPUT type="hidden" name="pulloutdate" value="<%= now.getTime() %>"> 
 							<INPUT type="button" value="Cancel" onclick="location.href='pullout.jsp'">
 							<INPUT type="submit" value="Continue">

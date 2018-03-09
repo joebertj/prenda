@@ -1,4 +1,4 @@
-<%@include file="common/header.jsp"%>
+<%@include file="../common/header.jsp"%>
 </head>
 <body>
 
@@ -6,14 +6,14 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="common/msg.jsp"%>
+<%@include file="../common/msg.jsp"%>
 <sql:query var="foreclose" dataSource="${prenda}">
 SELECT pawn.pid,branch,loan_date,loan,service_charge,bpid,first_name,last_name,middle_name,rate,
 ADDDATE(pawn.loan_date,120+15*extend) AS expire 
@@ -77,7 +77,7 @@ AND (
 							<TR>
 						</c:otherwise>
 					</c:choose>
-					<TD><input type="hidden" name="pid" value='<c:out value="${row.pid}"/>'/>
+					<TD><input type="hidden" name="pid" value="${row.pid}"/>
 					<fmt:formatNumber value="${row.pid}" minIntegerDigits="10" groupingUsed="false"/></TD>
 					<TD><fmt:formatNumber value="${row.branch}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${row.bpid}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD><fmt:formatDate value="${row.loan_date}" dateStyle="long" /></TD>

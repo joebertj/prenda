@@ -1,4 +1,4 @@
-<%@include file="common/header.jsp"%>
+<%@include file="../common/header.jsp"%>
 </head>
 <body>
 
@@ -6,16 +6,16 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="common/msg.jsp"%>
+<%@include file="../common/msg.jsp"%>
 			<form name="disburse" action="CashDisbursement" method="post">
-			<input type="hidden" name="branch" value='<c:out value="${user.branchId}"/>'/>
+			<input type="hidden" name="branch" value="${user.branchId}"/>
 			<TABLE border="1">
 				<TR>
 					<TH colspan="100%">Cash Disbursement</TH>
@@ -36,9 +36,9 @@
 							<TR>
 						</c:otherwise>
 					</c:choose>
-					<input type="hidden" name="code" value='<c:out value="${code}"/>'/>
-					<input type="hidden" name="particulars" value='<c:out value="${paramValues.particulars[i]}"/>'/>
-					<input type="hidden" name="amount" value='<c:out value="${paramValues.amount[i]}"/>'/>
+					<input type="hidden" name="code" value="${code}"/>
+					<input type="hidden" name="particulars" value="${paramValues.particulars[i]}"/>
+					<input type="hidden" name="amount" value="${paramValues.amount[i]}"/>
 					<TD><c:out value="${code}"/></TD>
 					<TD><c:out value='${paramValues.account[i]}'/></TD>
 					<TD><c:out value='${paramValues.particulars[i]}'/></TD>

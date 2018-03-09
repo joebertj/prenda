@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -16,9 +16,9 @@
 <%@include file="../common/msg.jsp"%>
 			<jsp:useBean id="service" class="com.prenda.service.StatisticsService"/>
 			<form method="post" action="redeemstatrate.pdf">
-				<input type="hidden" name="branch" value='<c:out value="${user.branchId}"/>'/>
-				<input type="hidden" name="bname" value='<c:out value="${branches.name}"/>'/>
-				<input type="hidden" name="baddress" value='<c:out value="${branches.address}"/>'/>
+				<input type="hidden" name="branch" value="${user.branchId}"/>
+				<input type="hidden" name="bname" value="${branches.name}"/>
+				<input type="hidden" name="baddress" value="${branches.address}"/>
 				<input type="submit" value="Generate PDF"/>
 			</form>
 			<TABLE border="1">

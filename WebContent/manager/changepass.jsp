@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="../common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -15,13 +15,14 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 <sql:query var="users" dataSource="${prenda}">
-SELECT branch FROM users WHERE username='<c:out value="${authenticated}"/>'
+SELECT branch FROM users WHERE username="${authenticated}"
 </sql:query>
 			<FORM method="post" action="${contextPath}/UserModify.htm">
 			<INPUT type="hidden" name="modtype" value="2"> 
-			<INPUT type="hidden" name="uid"	value='<c:out value="${param.uid}"/>'> 
-			<INPUT type="hidden" name="user" value='<c:out value="${param.user}"/>'>
-			<INPUT type="hidden" name="branch" value='<c:out value="${users.rows[0].branch}"/>'>
+			<input type="hidden" name="referer" value="changepass"/>
+			<INPUT type="hidden" name="uid"	value="${param.uid}"> 
+			<INPUT type="hidden" name="user" value="${param.user}">
+			<INPUT type="hidden" name="branch" value="${users.rows[0].branch}">
 			<TABLE border="1">
 				<TR>
 					<TH colspan="2">Change Password <c:out value="${param.user}" /></TH>

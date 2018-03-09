@@ -1,4 +1,4 @@
-<%@include file="common/header.jsp"%>
+<%@include file="../common/header.jsp"%>
 </head>
 <body>
 
@@ -6,14 +6,14 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="common/img/logo2.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="common/msg.jsp"%>
+<%@include file="../common/msg.jsp"%>
 <c:choose>
 	<c:when test="${param.pid>0}">
 		<c:set var="pid" value="${param.pid}"/>
@@ -100,11 +100,11 @@ AND pid=<c:out value="${pid}" />
 					<jsp:setProperty property="sdfOut" name="rdate" value="MMM dd, yyyy"/>
 					<jsp:setProperty property="value" name="rdate" value="${now}"/>
 					<FORM method="post" action="CheckRedeem">
-						<INPUT type="hidden" name="pid" value='<c:out value="${pawn.rows[0].pid}"/>'> 
-						<INPUT type="hidden" name="branch" value='<c:out value="${users.rows[0].branch}"/>'> 
+						<INPUT type="hidden" name="pid" value="${pawn.rows[0].pid}"> 
+						<INPUT type="hidden" name="branch" value="${users.rows[0].branch}"> 
 						<INPUT type="hidden" name="redeemdate" value="<c:out value='${rdate.effective}'/>"> 
-						<INPUT type="hidden" name="interest" value='<c:out value="${pawn.rows[0].loan*pawn.rows[0].rate/100}"/>'/>
-						<INPUT type="hidden" name="net" value='<c:out value="${(1 + pawn.rows[0].rate/100 )*pawn.rows[0].loan+pawn.rows[0].service_charge}" />'/>
+						<INPUT type="hidden" name="interest" value="${pawn.rows[0].loan*pawn.rows[0].rate/100}"/>
+						<INPUT type="hidden" name="net" value="${(1 + pawn.rows[0].rate/100 )*pawn.rows[0].loan+pawn.rows[0].service_charge}" />
 						<INPUT type="button" value="Cancel" onclick="location.href='redeem.jsp'">
 						<INPUT type="submit" value="Continue">
 					</FORM>
