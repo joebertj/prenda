@@ -6,12 +6,10 @@
 package com.prenda.servlet;
 
 import java.util.Date;
-import java.util.ListIterator;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.math.RandomUtils;
 import org.apache.log4j.Logger;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,13 +20,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.helper.PasswordGenerator;
 import com.prenda.model.obj.prenda.Branch;
 import com.prenda.model.obj.prenda.Customer;
 import com.prenda.model.obj.prenda.Genkey;
 import com.prenda.model.obj.prenda.Pawn;
 import com.prenda.model.obj.prenda.Users;
+import com.prenda.service.BranchService;
+import com.prenda.service.CustomerService;
+import com.prenda.service.UserService;
 import com.prenda.services.data.DataLayerPrenda;
 import com.prenda.services.data.DataLayerPrendaImpl;
 
@@ -69,13 +69,9 @@ public class CheckPawn {
 		Random generator = RandomUtils.JVM_RANDOM;
 		int bcode = generator.nextInt(5) + 1;
 		int nameid = -1;
-		Customer customer = new Customer();
-		ListIterator<Customer> li = HibernatePrendaDaoFactory.getCustomerDao()
-				.findByCriteria(Restrictions.and(Restrictions.eq("lastName", lname),
-						Restrictions.and(Restrictions.eq("firstName", fname), Restrictions.eq("middleName", mname))))
-				.listIterator();
-		if (li.hasNext()) {
-			customer = (Customer) li.next();
+		CustomerService cs = new CustomerService();
+		Customer customer = cs.getCustomerbyNames(lname, fname, mname);
+		if (customer.getId() > 0) {
 			nameid = customer.getId().intValue();
 		} else {
 			customer.setId(0L);
@@ -86,30 +82,23 @@ public class CheckPawn {
 			customer.setArchive(false);
 			dataLayerPrenda.save(customer);
 		}
-		ListIterator<Users> liu = HibernatePrendaDaoFactory.getUsersDao()
-				.findByCriteria(Restrictions.eq("username", encoder)).listIterator();
-		Users user;
+		UserService us = new UserService();
+		Users user = us.getUser(encoder);
 		Branch branch;
 		int branchId = 0;
 		long bpid = 0;
 		long pt = 0;
-		if (liu.hasNext()) {
-			user = (Users) liu.next();
-			branchId = user.getBranch();
+		branchId = user.getBranch();
 			user.setLoanDate(new java.sql.Date(loandate.getTime()));
 			dataLayerPrenda.update(user);
-		}
-		ListIterator<Branch> lib = HibernatePrendaDaoFactory.getBranchDao()
-				.findByCriteria(Restrictions.eq("id", branchId)).listIterator();
-		if (lib.hasNext()) {
-			branch = (Branch) lib.next();
+		BranchService bs = new BranchService();
+			branch = bs.getBranchbyId(branchId);
 			bpid = branch.getCounter() + 1;
 			pt = branch.getPtNumber();
 			branch.setBalance(branch.getBalance() - loan);
 			branch.setCounter(bpid);
 			branch.setPtNumber(pt + 1);
 			dataLayerPrenda.update(branch);
-		}
 		Pawn pawn = new Pawn();
 		pawn.setSerial(serial);
 		log.info("serial " + serial);

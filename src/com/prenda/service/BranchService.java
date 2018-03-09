@@ -11,7 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
+
+import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.model.obj.prenda.Branch;
 
 public class BranchService {
 	private Connection conn;
@@ -248,6 +255,17 @@ public class BranchService {
 			e.printStackTrace();
 		}
 		return list;
+	}
+	
+	@Transactional
+	public Branch getBranchbyId(int branchId){
+		Branch branch = new Branch();
+		ListIterator<Branch> li = HibernatePrendaDaoFactory.getBranchDao()
+				.findByCriteria(Restrictions.eq("id", branchId)).listIterator();
+		if (li.hasNext()) {
+			branch = (Branch) li.next();
+		}
+		return branch;
 	}
 	
 }

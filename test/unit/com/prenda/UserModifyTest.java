@@ -52,25 +52,25 @@ public class UserModifyTest extends UserModify {
 	@Test
 	@Transactional
 	public void testVerifyPassword() {
-		String targetUser = "ownercopy";
+		String targetUser = PasswordGenerator.getPassword();
 		String password = PasswordGenerator.getPassword();
 		String password2 = PasswordGenerator.getPassword();
 		init(targetUser);
-		Assert.assertTrue(verifyPassword("ownercopy", password, password, password, true));
-		Assert.assertTrue(verifyPassword("ownercopy", password2, password, password, true));
-		Assert.assertFalse(verifyPassword("ownercopy", password, password, password2, true));
-		Assert.assertFalse(verifyPassword("ownercopy", password2, password, password2, true));
-		Assert.assertTrue(verifyPassword("ownercopy", "123", password, password, false));
-		Assert.assertFalse(verifyPassword("ownercopy", password, password, password, false));
-		Assert.assertFalse(verifyPassword("ownercopy", "123", password, password2, false));
-		Assert.assertFalse(verifyPassword("ownercopy", password, password, password2, false));
+		Assert.assertTrue(verifyPassword(targetUser, password, password, password, true));
+		Assert.assertTrue(verifyPassword(targetUser, password2, password, password, true));
+		Assert.assertFalse(verifyPassword(targetUser, password, password, password2, true));
+		Assert.assertFalse(verifyPassword(targetUser, password2, password, password2, true));
+		Assert.assertTrue(verifyPassword(targetUser, "123", password, password, false));
+		Assert.assertFalse(verifyPassword(targetUser, password, password, password, false));
+		Assert.assertFalse(verifyPassword(targetUser, "123", password, password2, false));
+		Assert.assertFalse(verifyPassword(targetUser, password, password, password2, false));
 		cleanUp(targetUser);
 	}
 
 	@Test
 	@Transactional
 	public void testSavePassword() {
-		String targetUser = "ownercopy1";
+		String targetUser = PasswordGenerator.getPassword();
 		String password = PasswordGenerator.getPassword();
 		init(targetUser);
 		UserService us = new UserService();
@@ -83,7 +83,7 @@ public class UserModifyTest extends UserModify {
 	@Test
 	@Transactional
 	public void testSaveUser() {
-		String targetUser = "ownercopy2";
+		String targetUser = PasswordGenerator.getPassword();
 		String password = PasswordGenerator.getPassword();
 		init(targetUser);
 		UserService us = new UserService();
@@ -96,7 +96,7 @@ public class UserModifyTest extends UserModify {
 	@Test
 	@Transactional
 	public void testCreateNewUser() {
-		String targetUser = "ownercopy3";
+		String targetUser = PasswordGenerator.getPassword();
 		String password = PasswordGenerator.getPassword();
 		String password2 = PasswordGenerator.getPassword();
 		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("admin", "admincopy", password, password, Level.ADMIN, 1));
@@ -120,7 +120,7 @@ public class UserModifyTest extends UserModify {
 	@Test
 	@Transactional
 	public void testChangePassword() {
-		String targetUser = "ownercopy4";
+		String targetUser = PasswordGenerator.getPassword();
 		String password = PasswordGenerator.getPassword();
 		String password2 = PasswordGenerator.getPassword();
 		init(targetUser);

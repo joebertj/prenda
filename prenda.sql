@@ -34,8 +34,8 @@ CREATE TABLE `accounts` (
 DROP TABLE IF EXISTS `branch`;
 CREATE TABLE `branch` (
   `branchid` smallint unsigned NOT NULL auto_increment,
-  `name` varchar(50) NOT NULL,
-  `address` varchar(100) NOT NULL default 'none',
+  `name` varchar(50) NOT NULL default "Default Branch",
+  `address` varchar(100) NOT NULL default 'Default Address',
   `balance` float NOT NULL default '0',
   `extend` tinyint unsigned NOT NULL default '15',
   `counter` int unsigned NOT NULL default '0',
@@ -43,8 +43,8 @@ CREATE TABLE `branch` (
   `service_charge` float NOT NULL default '0',
   `reserve` tinyint unsigned NOT NULL default '15',
   `archive` boolean NOT NULL default '0',
-  `owner` smallint unsigned NOT NULL,
-  `pt_number` int unsigned NOT NULL,
+  `owner` smallint unsigned NOT NULL default '1',
+  `pt_number` int unsigned NOT NULL default '1',
   PRIMARY KEY  (`branchid`),
   UNIQUE KEY `name` (`name`),
   FOREIGN KEY `owner` (`owner`) REFERENCES users (`uid`)
@@ -256,7 +256,7 @@ CREATE TABLE `limits` (
 INSERT INTO `users` VALUES (1,'admin','$2a$10$xjahs1aLp6l2pjNtN6GTseil9bj5eWRiSP.l0SmCzXdyEHX/IQY1e',NULL,NULL,NULL,9,1,0,'2007-06-12');
 INSERT INTO `users` VALUES (2,'owner','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGVlXdII76vlXuaDWYOwTW',NULL,NULL,NULL,8,1,0,'2007-06-12');
 
-insert into branch (branchid,archive) values (1,0);
+insert into branch (branchid,archive,owner) values (1,0,2);
 
 insert into page values (1,10,10,10,10,10,10,10,10,10);
 
