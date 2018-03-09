@@ -18,7 +18,7 @@ import org.apache.log4j.Logger;
 import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.Pawn;
-import com.prenda.model.obj.prenda.Branch;
+import com.prenda.Branch;
 
 public class PawnService extends GenericService {
 	

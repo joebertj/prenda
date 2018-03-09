@@ -106,12 +106,12 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 						document.getElementById("appword").innerHTML=appinwords;
 					</script>
 					<form method="post" action="pawnticket.pdf">
-						<input type="hidden" name="pid" value="${param.pid}"/>
+						<input type="hidden" name="pid" value="${pid}"/>
 						<input type="hidden" name="bpid" value="${pawn.rows[0].bpid}"/>
 						<input type="hidden" name="pawn" value="${ldate.effective}"/>
 						<input type="hidden" name="maturity" value="${ldate.maturity}"/>
 						<input type="hidden" name="expire" value="${ldate.expiry}"/>
-						<input type="hidden" name="name" value="${pawn.rows[0].last_name}"/>, <c:out value="${pawn.rows[0].first_name}"/> <c:out value="${pawn.rows[0].middle_name}"/>
+						<input type="hidden" name="name" value="${pawn.rows[0].last_name}, ${pawn.rows[0].first_name} ${pawn.rows[0].middle_name}"/>
 						<input type="hidden" name="address" value="${pawn.rows[0].address}"/>
 						<input type="hidden" name="appraised" value="${pawn.rows[0].appraised}"/>
 						<input type="hidden" name="loan" value="${pawn.rows[0].loan}"/>

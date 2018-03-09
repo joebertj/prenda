@@ -17,7 +17,7 @@ import org.apache.log4j.Logger;
 import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.Redeem;
-import com.prenda.model.obj.prenda.Branch;
+import com.prenda.Branch;
 
 public class RedeemService extends GenericService{
 	

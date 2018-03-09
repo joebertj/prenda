@@ -89,7 +89,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 					</c:choose>
 					</TD>
 					<TD>
-						<FORM method="post" action="settings.jsp">
+						<FORM method="post" action="../BranchSettings.htm">
 							<INPUT name="branchid" type="hidden" value="${row.branchid}"> 
 							<INPUT type="submit" value="Details">
 						</FORM>

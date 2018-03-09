@@ -16,7 +16,7 @@ import java.util.ListIterator;
 import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.Pullout;
-import com.prenda.model.obj.prenda.Branch;
+import com.prenda.Branch;
 
 public class PulloutService extends GenericService{
 

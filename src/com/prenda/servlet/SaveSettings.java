@@ -196,8 +196,7 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 				pstmt.setInt(18, inventory);
 				pstmt.setInt(19, auction);
 				pstmt.executeUpdate();
-				String referer=(String) request.getParameter("referer");
-				response.sendRedirect(referer + "branchlist.jsp?msg=Settings for branch "+bname+" saved");
+				response.sendRedirect("BranchSettings.htm?branchid=" + branchId + "&msg=Settings for branch "+bname+" saved");
 			}
     	} catch (SQLException ex) {
     		ex.printStackTrace();

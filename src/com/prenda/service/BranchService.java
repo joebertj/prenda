@@ -24,9 +24,9 @@ public class BranchService {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
-	
+
 	private int id;
-	
+
 	private String name;
 	private String address;
 	private int counter;
@@ -36,16 +36,16 @@ public class BranchService {
 	private int minDaysToExtend;
 	private int reserveDuration;
 	private float balance;
-	
+
 	private int ownerId;
-	
+
 	public int getOwnerId() {
 		try {
 			pstmt = conn.prepareStatement("SELECT owner FROM branch WHERE branchid=?");
 			pstmt.setInt(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				ownerId=rs.getInt(1);
+			rs = pstmt.executeQuery();
+			if (rs.first()) {
+				ownerId = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -57,38 +57,38 @@ public class BranchService {
 		this.ownerId = ownerId;
 	}
 
-	public BranchService(){
+	public BranchService() {
 		conn = DatabaseConnection.getConnection();
 	}
-	
-	public String getName(){
+
+	public String getName() {
 		try {
 			pstmt = conn.prepareStatement("SELECT name FROM branch WHERE branchid=?");
 			pstmt.setInt(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				name=rs.getString(1);
+			rs = pstmt.executeQuery();
+			if (rs.first()) {
+				name = rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return name;
 	}
-	
-	public String getAddress(){
+
+	public String getAddress() {
 		try {
 			pstmt = conn.prepareStatement("SELECT address FROM branch WHERE branchid=?");
 			pstmt.setInt(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				address=rs.getString(1);
+			rs = pstmt.executeQuery();
+			if (rs.first()) {
+				address = rs.getString(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return address;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -104,14 +104,14 @@ public class BranchService {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public int getCounter() {
 		try {
 			pstmt = conn.prepareStatement("SELECT counter FROM branch WHERE branchid=?");
 			pstmt.setInt(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				counter=rs.getInt(1);
+			rs = pstmt.executeQuery();
+			if (rs.first()) {
+				counter = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -123,9 +123,9 @@ public class BranchService {
 		try {
 			pstmt = conn.prepareStatement("SELECT pt_number FROM branch WHERE branchid=?");
 			pstmt.setInt(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				pawnTicket=rs.getInt(1);
+			rs = pstmt.executeQuery();
+			if (rs.first()) {
+				pawnTicket = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -145,9 +145,9 @@ public class BranchService {
 		try {
 			pstmt = conn.prepareStatement("SELECT advance_interest FROM branch WHERE branchid=?");
 			pstmt.setInt(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				advanceInterest=rs.getFloat(1);
+			rs = pstmt.executeQuery();
+			if (rs.first()) {
+				advanceInterest = rs.getFloat(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -163,9 +163,9 @@ public class BranchService {
 		try {
 			pstmt = conn.prepareStatement("SELECT extend FROM branch WHERE branchid=?");
 			pstmt.setInt(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				minDaysToExtend=rs.getInt(1);
+			rs = pstmt.executeQuery();
+			if (rs.first()) {
+				minDaysToExtend = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -181,9 +181,9 @@ public class BranchService {
 		try {
 			pstmt = conn.prepareStatement("SELECT reserve FROM branch WHERE branchid=?");
 			pstmt.setInt(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				reserveDuration=rs.getInt(1);
+			rs = pstmt.executeQuery();
+			if (rs.first()) {
+				reserveDuration = rs.getInt(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -199,9 +199,9 @@ public class BranchService {
 		try {
 			pstmt = conn.prepareStatement("SELECT service_charge FROM branch WHERE branchid=?");
 			pstmt.setInt(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				serviceCharge=rs.getFloat(1);
+			rs = pstmt.executeQuery();
+			if (rs.first()) {
+				serviceCharge = rs.getFloat(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -212,14 +212,14 @@ public class BranchService {
 	public void setServiceCharge(float serviceCharge) {
 		this.serviceCharge = serviceCharge;
 	}
-	
+
 	public float getBalance() {
 		try {
 			pstmt = conn.prepareStatement("SELECT balance FROM branch WHERE branchid=?");
 			pstmt.setInt(1, id);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				balance=rs.getFloat(1);
+			rs = pstmt.executeQuery();
+			if (rs.first()) {
+				balance = rs.getFloat(1);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -230,22 +230,41 @@ public class BranchService {
 	public void setBalance(float balance) {
 		this.balance = balance;
 	}
-	
-	public List<Branch> getBranches(){
-		List<Branch> list = new ArrayList<Branch>();
+
+	public List<com.prenda.Branch> getBranches() {
+		List<com.prenda.Branch> list = new ArrayList<com.prenda.Branch>();
 		list = getBranches(ownerId);
 		return list;
 	}
-	
-	@Transactional
-	public List<Branch> getBranches(int ownerId){
-		List<Branch> list = HibernatePrendaDaoFactory.getBranchDao()
-		.findByCriteria(Restrictions.eq("owner", ownerId));
+
+	@Deprecated
+	public List<com.prenda.Branch> getBranches(int ownerId) {
+		List<com.prenda.Branch> list = new ArrayList<com.prenda.Branch>();
+		try {
+			pstmt = conn.prepareStatement("SELECT branchid,name,address FROM branch WHERE owner=?");
+			pstmt.setInt(1, ownerId);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				id = rs.getInt(1);
+				name = rs.getString(2);
+				address = rs.getString(3);
+				com.prenda.Branch b = new com.prenda.Branch(id, name, address);
+				list.add(b);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return list;
 	}
-	
+
 	@Transactional
-	public Branch getBranchbyId(int branchId){
+	public List<Branch> getBranchesByOwnerId(int ownerId) {
+		List<Branch> list = HibernatePrendaDaoFactory.getBranchDao().findByCriteria(Restrictions.eq("owner", ownerId));
+		return list;
+	}
+
+	@Transactional
+	public Branch getBranchbyId(int branchId) {
 		Branch branch = new Branch();
 		ListIterator<Branch> li = HibernatePrendaDaoFactory.getBranchDao()
 				.findByCriteria(Restrictions.eq("id", branchId)).listIterator();
@@ -254,5 +273,5 @@ public class BranchService {
 		}
 		return branch;
 	}
-	
+
 }

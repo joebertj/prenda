@@ -17,7 +17,7 @@ import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.Pawn;
 import com.prenda.helper.DatabaseConnection;
-import com.prenda.model.obj.prenda.Branch;
+import com.prenda.Branch;
 
 public class InventoryService extends GenericService {
 	

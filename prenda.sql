@@ -56,7 +56,7 @@ CREATE TABLE `branch` (
 
 DROP TABLE IF EXISTS `customer`;
 CREATE TABLE `customer` (
-  `id` mediumint unsigned NOT NULL auto_increment,
+  `id` int unsigned NOT NULL auto_increment,
   `last_name` varchar(20) NOT NULL,
   `first_name` varchar(30) NOT NULL,
   `middle_name` varchar(20) NOT NULL,
@@ -97,7 +97,7 @@ CREATE TABLE `interest` (
 DROP TABLE IF EXISTS `journal`;
 CREATE TABLE `journal` (
   `journalid` int unsigned NOT NULL auto_increment,
-  `journal_date` date NOT NULL default '0000-00-00',
+  `journal_date` date NOT NULL default '2008-01-01',
   `accountid` tinyint(4) NOT NULL default '0',
   `branchid` tinyint(4) NOT NULL default '0',
   `description` varchar(100) default NULL,
@@ -162,7 +162,7 @@ CREATE TABLE `pawn` (
   `serial` bigint unsigned NOT NULL default '0',
   `bcode` tinyint unsigned NOT NULL default '0',
   `create_date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `loan_date` date NOT NULL default '0000-00-00',
+  `loan_date` date NOT NULL default '2008-01-01',
   `nameid` int unsigned NOT NULL,
   `loan` float NOT NULL default '0',
   `appraised` float NOT NULL default '0',
@@ -188,7 +188,7 @@ DROP TABLE IF EXISTS `pullout`;
 CREATE TABLE `pullout` (
   `pid` int unsigned NOT NULL default '0',
   `create_date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `pullout_date` date NOT NULL default '0000-00-00',
+  `pullout_date` date NOT NULL default '2008-01-01',
   `username` varchar(20) default NULL,
   `encoder` varchar(20) default NULL,
   `auction` boolean NOT NULL default '0',
@@ -205,7 +205,7 @@ DROP TABLE IF EXISTS `redeem`;
 CREATE TABLE `redeem` (
   `pid` int unsigned NOT NULL default '0',
   `create_date` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  `redeem_date` date NOT NULL default '0000-00-00',
+  `redeem_date` date NOT NULL default '2008-01-01',
   `encoder` varchar(20) default NULL,
   `interest` float NOT NULL,
   PRIMARY KEY  (`pid`),
@@ -260,7 +260,7 @@ insert into branch (branchid,archive,owner) values (1,0,2);
 
 insert into page values (1,10,10,10,10,10,10,10,10,10);
 
-insert into jewelry values (1,10,100,150),(1,14,150,200),(1,18,200,250),(1,22,250,300),(1,24,300,350);
+insert into jewelry values (1,10,100,200),(1,14,200,400),(1,18,400,800),(1,22,800,1500),(1,24,1500,2000);
 
 insert into level values(1,"ENCODER");
 insert into level values(3,"LIAISON");

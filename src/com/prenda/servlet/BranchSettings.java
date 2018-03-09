@@ -16,12 +16,26 @@ import com.prenda.service.JewelryService;
 public class BranchSettings {
 	
 	@RequestMapping(value = "BranchSettings.htm", method = RequestMethod.POST)
-	@Secured({ "ROLE_ADMIN", "ROLE_OWNER", "ROLE_MANAGER" })
+	@Secured({ "ROLE_ADMIN", "ROLE_OWNER" })
 	@Transactional
 	private String jewelryService(HttpSession session, ModelMap map,
 			@RequestParam("branchid") int branchId) {
+		map = add(map,branchId);
+		return "owner/settings";
+	}
+	
+	@RequestMapping(value = "BranchSettings.htm", method = RequestMethod.GET)
+	@Secured({ "ROLE_MANAGER" })
+	@Transactional
+	private String jewelryServiceManager(HttpSession session, ModelMap map,
+			@RequestParam("branchid") int branchId) {
+		map = add(map,branchId);
+		return "manage/settings";
+	}
+	
+	private ModelMap add(ModelMap map, int branchId) {
 		JewelryService js = new JewelryService();
 		map.addAttribute("jewelry",js.getJewelryById(branchId));
-		return "owner/settings";
+		return map;
 	}
 }

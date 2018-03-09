@@ -93,7 +93,7 @@ public class StatisticsService {
 			}
 		}else if(level==Level.OWNER){
 			String branches = "";
-			List<Branch> list = new BranchService().getBranches(userId);
+			List<Branch> list = new BranchService().getBranchesByOwnerId(userId);
 			ListIterator<Branch> li = list.listIterator();
 			int [] id = new int[list.size()];
 			int i = 0;

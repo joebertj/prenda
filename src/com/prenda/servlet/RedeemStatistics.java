@@ -18,6 +18,7 @@ public class RedeemStatistics {
 	@Secured({ "ROLE_ADMIN", "ROLE_OWNER", "ROLE_MANAGER" })
 	@Transactional
 	private String jewelryService(HttpSession session, ModelMap map,
+			@RequestParam("referer") String referer,
 			@RequestParam("branchid") int branchId,
 			@RequestParam("userid") int userId) {
 		StatisticsService ss = new StatisticsService();
@@ -29,6 +30,6 @@ public class RedeemStatistics {
 			redeemstat[i][3] = ss.getRedeemCountByInterestRate(i+1, branchId, userId, 1);
 		}
 		map.addAttribute("redeemstat",redeemstat);
-		return "manage/redeemsummarystatrate";
+		return referer + "/redeemsummarystatrate";
 	}
 }

@@ -50,7 +50,7 @@ public class CheckPawn {
 	protected String pawnItem(HttpSession session, ModelMap map, @RequestParam("referer") String redirectUrl,
 			@RequestParam("loandate") String loanDate, @RequestParam("lname") String lname,
 			@RequestParam("fname") String fname, @RequestParam("mname") String mname,
-			@RequestParam("mname") String address, @RequestParam("loanamt") float loan,
+			@RequestParam("address") String address, @RequestParam("loanamt") float loan,
 			@RequestParam("appamt") float appraised, @RequestParam("desc") String description,
 			@RequestParam("service") float serviceCharge, @RequestParam("interest") float interest) {
 

@@ -14,9 +14,9 @@
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
-			<jsp:useBean id="service" class="com.prenda.service.StatisticsService"/>
 			<form method="post" action="redeemstatrate.pdf">
 				<input type="hidden" name="branch" value="${user.branchId}"/>
+				<input type="hidden" name="userid" value="${user.id}"/>
 				<input type="hidden" name="bname" value="${branches.name}"/>
 				<input type="hidden" name="baddress" value="${branches.address}"/>
 				<input type="submit" value="Generate PDF"/>
@@ -36,7 +36,7 @@
 					<TH>This Month</TH>					
 					<TH>Today</TH>
 				</TR>
-				<c:forEach var="i" begin="0" end="20"varStatus="line">
+				<c:forEach var="i" begin="1" end="20" varStatus="line">
 					<c:choose>
 						<c:when test="${line.count % 2 == 1}">
 							<TR bgcolor="#3366FF">
@@ -45,14 +45,11 @@
 							<TR>
 						</c:otherwise>
 					</c:choose>
-					<jsp:setProperty name="service" property="rate" value="${i}"/>
-					<jsp:setProperty name="service" property="branchId" value="${user.branchId}"/>
-					<jsp:setProperty name="service" property="userId" value="${user.id}"/>
 					<td><c:out value="${i}"/>%</td>
-					<td><jsp:setProperty name="service" property="mode" value="99"/><c:out value="${service.redeemCountByInterestRate}"/></td>
-					<td><jsp:setProperty name="service" property="mode" value="3"/><c:out value="${service.redeemCountByInterestRate}"/></td>
-					<td><jsp:setProperty name="service" property="mode" value="2"/><c:out value="${service.redeemCountByInterestRate}"/></td>
-					<td><jsp:setProperty name="service" property="mode" value="1"/><c:out value="${service.redeemCountByInterestRate}"/></td>
+					<td><c:out value="${redeemstat[i-1][0]}"/></td>
+					<td><c:out value="${redeemstat[i-1][1]}"/></td>
+					<td><c:out value="${redeemstat[i-1][2]}"/></td>
+					<td><c:out value="${redeemstat[i-1][3]}"/></td>
 				</tr>
 				</c:forEach>
 			</TABLE>
