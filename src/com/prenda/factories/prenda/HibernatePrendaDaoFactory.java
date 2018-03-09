@@ -143,6 +143,14 @@ public class HibernatePrendaDaoFactory implements ApplicationContextAware, BeanN
 		return (LevelDao) getBean("levelDaoImpl"); 
 	}
 	/**
+	 * Returns a LimitsDao instance.
+	 * 
+	 * @return a LimitsDao instance
+	 */
+	public static LimitsDao getLimitsDao() {
+		return (LimitsDao) getBean("limitsDaoImpl"); 
+	}
+	/**
 	 * Returns a PageDao instance.
 	 * 
 	 * @return a PageDao instance

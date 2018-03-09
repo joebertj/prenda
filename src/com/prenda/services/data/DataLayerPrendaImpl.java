@@ -12,6 +12,7 @@ import com.prenda.model.obj.prenda.JewelryPK;
 import com.prenda.model.obj.prenda.Journal;
 import com.prenda.model.obj.prenda.Ledger;
 import com.prenda.model.obj.prenda.Level;
+import com.prenda.model.obj.prenda.Limits;
 import com.prenda.model.obj.prenda.Page;
 import com.prenda.model.obj.prenda.Pawn;
 import com.prenda.model.obj.prenda.Pullout;
@@ -94,6 +95,7 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
 	 	   		daoMap.put(Journal.class, HibernatePrendaDaoFactory.getJournalDao());
 	 	   		daoMap.put(Ledger.class, HibernatePrendaDaoFactory.getLedgerDao());
 	 	   		daoMap.put(Level.class, HibernatePrendaDaoFactory.getLevelDao());
+	 	   		daoMap.put(Limits.class, HibernatePrendaDaoFactory.getLimitsDao());
 	 	   		daoMap.put(Page.class, HibernatePrendaDaoFactory.getPageDao());
 	 	   		daoMap.put(Pawn.class, HibernatePrendaDaoFactory.getPawnDao());
 	 	   		daoMap.put(Pullout.class, HibernatePrendaDaoFactory.getPulloutDao());
@@ -379,6 +381,31 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
      */
      public Level getLevel(final Byte id) {
         return HibernatePrendaDaoFactory.getLevelDao().get(id);
+    }  
+
+    /** Deletes an object of a given Id. 
+     * Will load the object internally so consider using delete (Limits obj) directly
+     * @param id Identifier to delete
+     */
+    public void deleteLimits(final Integer id)  {
+        HibernatePrendaDaoFactory.getLimitsDao().delete(loadLimits(id));
+    }
+	
+    /**
+     * Loads the given Object.
+     * @param id Identifier to load
+     * @return a Limits object
+     */
+    public Limits loadLimits(final Integer id) {
+        return HibernatePrendaDaoFactory.getLimitsDao().load(id);
+    }
+    /**
+     * Loads the given Object.
+     * @param id Id to load
+     * @return An object of type T
+     */
+     public Limits getLimits(final Integer id) {
+        return HibernatePrendaDaoFactory.getLimitsDao().get(id);
     }  
 
     /** Deletes an object of a given Id. 

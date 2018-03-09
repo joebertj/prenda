@@ -91,7 +91,7 @@ public class CheckPawn {
 		Users user;
 		Branch branch;
 		int branchId = 0;
-		int bpid = 0;
+		long bpid = 0;
 		long pt = 0;
 		if (liu.hasNext()) {
 			user = (Users) liu.next();

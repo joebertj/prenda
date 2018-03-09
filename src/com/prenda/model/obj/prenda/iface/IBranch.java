@@ -69,9 +69,9 @@ public interface IBranch {
 
     /**
      * Return the value associated with the column: counter.
-	 * @return A Byte object (this.counter)
+	 * @return A Long object (this.counter)
 	 */
-	Integer getCounter();
+	Long getCounter();
 	
 
   
@@ -79,7 +79,7 @@ public interface IBranch {
      * Set the value related to the column: counter.
 	 * @param counter the counter value you wish to set
 	 */
-	void setCounter(final Integer counter);
+	void setCounter(final Long counter);
 
     /**
      * Return the value associated with the column: extend.
@@ -125,7 +125,7 @@ public interface IBranch {
 
     /**
      * Return the value associated with the column: owner.
-	 * @return A Byte object (this.owner)
+	 * @return A Integer object (this.owner)
 	 */
 	Integer getOwner();
 	

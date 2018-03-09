@@ -25,7 +25,7 @@ import org.hibernate.proxy.HibernateProxy;
 public class Page implements Cloneable, Serializable, IPojoGenEntity, IPage {
 
 	/** Serial Version UID. */
-	private static final long serialVersionUID = -559018147L;
+	private static final long serialVersionUID = -559018146L;
 
 	/** Use a WeakHashMap so entries will be garbage collected once all entities 
 		referring to a saved hash are garbage collected themselves. */

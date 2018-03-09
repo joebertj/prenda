@@ -28,7 +28,7 @@ import org.hibernate.proxy.HibernateProxy;
 public class Pawn implements Cloneable, Serializable, IPojoGenEntity, IPawn {
 
 	/** Serial Version UID. */
-	private static final long serialVersionUID = -559018146L;
+	private static final long serialVersionUID = -559018145L;
 
 	/** Use a WeakHashMap so entries will be garbage collected once all entities 
 		referring to a saved hash are garbage collected themselves. */

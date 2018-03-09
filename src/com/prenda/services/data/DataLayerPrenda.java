@@ -11,6 +11,7 @@ import com.prenda.model.obj.prenda.JewelryPK;
 import com.prenda.model.obj.prenda.Journal;
 import com.prenda.model.obj.prenda.Ledger;
 import com.prenda.model.obj.prenda.Level;
+import com.prenda.model.obj.prenda.Limits;
 import com.prenda.model.obj.prenda.Page;
 import com.prenda.model.obj.prenda.Pawn;
 import com.prenda.model.obj.prenda.Pullout;
@@ -235,6 +236,25 @@ public interface DataLayerPrenda {
      * @return An object of type T
      */
      Level getLevel(final Byte id);  
+
+    /** Deletes an object of a given Id. 
+     * Will load the object internally so consider using delete (Limits obj) directly
+     * @param id Identifier to delete
+     */
+    void deleteLimits(final Integer id);
+	
+    /**
+     * Loads the given Object.
+     * @param id Identifier to load
+     * @return a Limits object
+     */
+    Limits loadLimits(final Integer id);
+    /**
+     * Loads the given Object.
+     * @param id Id to load
+     * @return An object of type T
+     */
+     Limits getLimits(final Integer id);  
 
     /** Deletes an object of a given Id. 
      * Will load the object internally so consider using delete (Page obj) directly

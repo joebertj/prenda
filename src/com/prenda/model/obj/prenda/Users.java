@@ -28,7 +28,7 @@ import org.hibernate.proxy.HibernateProxy;
 public class Users implements Cloneable, Serializable, IPojoGenEntity, IUsers {
 
 	/** Serial Version UID. */
-	private static final long serialVersionUID = -559018143L;
+	private static final long serialVersionUID = -559018142L;
 
 	/** Use a WeakHashMap so entries will be garbage collected once all entities 
 		referring to a saved hash are garbage collected themselves. */

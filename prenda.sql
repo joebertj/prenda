@@ -243,6 +243,16 @@ CREATE TABLE `jewelry` (
   FOREIGN KEY `branchid` (`branchid`) REFERENCES branch (`branchid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS `limits`;
+CREATE TABLE `limits` (
+  `limitid` smallint unsigned NOT NULL,
+  `owner` tinyint unsigned NOT NULL default '1',
+  `manager` tinyint unsigned NOT NULL default '1',
+  `encoder` tinyint unsigned NOT NULL default '1',
+  PRIMARY KEY  (`limitid`),
+  FOREIGN KEY `limitid` (`limitid`) REFERENCES branch (`branchid`)
+) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
 INSERT INTO `users` VALUES (1,'admin','$2a$10$xjahs1aLp6l2pjNtN6GTseil9bj5eWRiSP.l0SmCzXdyEHX/IQY1e',NULL,NULL,NULL,9,1,0,'2007-06-12');
 INSERT INTO `users` VALUES (2,'owner','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGVlXdII76vlXuaDWYOwTW',NULL,NULL,NULL,8,1,0,'2007-06-12');
 
@@ -257,6 +267,8 @@ insert into level values(3,"LIAISON");
 insert into level values(7,"MANAGER");
 insert into level values(8,"OWNER");
 insert into level values(9,"ADMIN");
+
+insert into limits values (1,1,1,1);
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;

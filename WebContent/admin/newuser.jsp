@@ -41,7 +41,6 @@
 						<OPTION value="3">Liaison</OPTION>
 						<OPTION value="7">Manager</OPTION>
 						<OPTION value="8">Owner</OPTION>
-						<OPTION value="9">Admin</OPTION>
 					</SELECT></TD>
 				</TR>
 				<TR>

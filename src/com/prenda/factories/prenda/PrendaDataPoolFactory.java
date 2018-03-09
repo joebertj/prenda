@@ -17,7 +17,7 @@ public class PrendaDataPoolFactory {
 	/** Table commit order. */
     private static final Multimap<String, String> tableDeps = ArrayListMultimap.create();
 	/** DB commit order. */
-	private static final String[] commitOrder = new String[]{"Users", "Redeem", "Pullout", "Pawn", "Page", "Level", "Ledger", "Journal", "Jewelry", "Interest", "Genkey", "Customer", "Branch", "Accounts"};
+	private static final String[] commitOrder = new String[]{"Users", "Redeem", "Pullout", "Pawn", "Page", "Limits", "Level", "Ledger", "Journal", "Jewelry", "Interest", "Genkey", "Customer", "Branch", "Accounts"};
 	static{
 		// Store table deps for possible use. 
 	}
@@ -49,10 +49,10 @@ public class PrendaDataPoolFactory {
         branch.setAdvanceInterest(BasicDataGenerator.generateRandomDouble());
         branch.setArchive(BasicDataGenerator.generateRandomBoolean());
         branch.setBalance(BasicDataGenerator.generateRandomDouble());
-        branch.setCounter(BasicDataGenerator.generateRandomInt());
+        branch.setCounter(BasicDataGenerator.generateRandomLong());
         branch.setExtend((byte)(BasicDataGenerator.generateRandomTinyInt()));
         branch.setName(BasicDataGenerator.generateRandomString(50));
-        branch.setOwner((BasicDataGenerator.generateRandomInt()));
+        branch.setOwner(BasicDataGenerator.generateRandomInt());
         branch.setPtNumber(BasicDataGenerator.generateRandomLong());
         branch.setReserve((byte)(BasicDataGenerator.generateRandomTinyInt()));
         branch.setServiceCharge(BasicDataGenerator.generateRandomDouble());
@@ -193,6 +193,22 @@ public class PrendaDataPoolFactory {
         level.setId((byte)(BasicDataGenerator.generateRandomTinyInt()));
 
         return level;
+    }
+
+    /**
+     * Data pool factory for Limits.
+     * @return LimitsA Limits object
+     */
+    public static Limits getLimits() {
+
+        Limits limits = new Limits();    
+        
+        limits.setEncoder((byte)(BasicDataGenerator.generateRandomTinyInt()));
+        limits.setId(BasicDataGenerator.generateRandomInt());
+        limits.setManager((byte)(BasicDataGenerator.generateRandomTinyInt()));
+        limits.setOwner((byte)(BasicDataGenerator.generateRandomTinyInt()));
+
+        return limits;
     }
 
     /**

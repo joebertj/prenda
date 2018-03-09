@@ -26,7 +26,7 @@ import org.hibernate.proxy.HibernateProxy;
 public class Pullout implements Cloneable, Serializable, IPojoGenEntity, IPullout {
 
 	/** Serial Version UID. */
-	private static final long serialVersionUID = -559018145L;
+	private static final long serialVersionUID = -559018144L;
 
 	/** Use a WeakHashMap so entries will be garbage collected once all entities 
 		referring to a saved hash are garbage collected themselves. */
