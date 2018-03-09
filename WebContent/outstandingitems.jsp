@@ -83,7 +83,7 @@ WHERE redeem.pid IS NULL
 AND users.username="${authenticated}"
 </c:if>
 AND NOW() < ADDDATE(pawn.loan_date,120+15*pawn.extend) 
-AND (day=DATEDIFF(NOW(),loan_date) OR (day=34 AND DATEDIFF(NOW(),loan_date)>34))
+AND (day=DATEDIFF(NOW(),pawn.loan_date) OR (day=34 AND DATEDIFF(NOW(),pawn.loan_date)>34))
 <c:if test="${users.rows[0].level<8}">
 AND pawn.branch=<c:out value="${users.rows[0].branch}"/>
 </c:if>
