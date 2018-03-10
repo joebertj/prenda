@@ -25,7 +25,7 @@ Auction Items<br/>
 Pawned Items<br/>
 <a href="${contextPath}/owner/pawnsummarystat.jsp">loan value</a><br/>
 Redeemed Items<br/>
-<a href="${contextPath}/owner/redeemsummarystat.jsp">loan value</a> | <a href="${contextPath}/RedeemStatistics.htm?branchid=<c:out value='${user.branchId}'/>&userid=<c:out value='${user.id}'/>&referer=owner">interest rate</a><br/>
+<a href="${contextPath}/owner/redeemsummarystat.jsp">loan value</a> | <a href="${contextPath}/RedeemStatistics.htm?branchid=<c:out value='${user.branchId}'/>&userid=<c:out value='${user.id}'/>&referer=owner">Rate</a><br/>
 Pulled-out Items<br/>
 <a href="${contextPath}/owner/pulloutsummarystat.jsp">loan value</a><br/>
 Inventory Items<br/>

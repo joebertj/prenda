@@ -23,10 +23,10 @@
 			</form>
 			<TABLE border="1">
 				<TR>
-					<TH colspan="100%">Redeemed Items By Interest Rate Statistics</TH>
+					<TH colspan="100%">Redeemed Items By Rate Statistics</TH>
 				</TR>
 				<TR>
-					<TH>Interest Rate</TH>					
+					<TH>Rate</TH>					
 					<TH colspan="4">Count</TH>
 				</TR>
 				<TR>

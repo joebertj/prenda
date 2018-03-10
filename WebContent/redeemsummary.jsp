@@ -76,7 +76,7 @@
 					<TH>Redeem Date</TH>
 					<TH>Customer</TH>
 					<TH>Loan Amount</TH>
-					<TH>Interest Rate</TH>
+					<TH>Rate</TH>
 					<TH>Interest</TH>
 					<TH>Net</TH>
 				</TR>

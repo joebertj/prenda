@@ -44,7 +44,7 @@
 			<br/>
 			<TABLE border="1">
 				<TR>
-					<TH colspan="100%">Interest Rates</TH>
+					<TH colspan="100%">Rates</TH>
 				</TR>
 				<c:forEach var="i" begin="0" end="6">
 				<TR>

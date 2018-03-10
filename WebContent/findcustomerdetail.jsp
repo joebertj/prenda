@@ -54,18 +54,6 @@ AND archive=0
 <c:if test="${pagenum<(pages-(adjust/perpage))}">
 				<A href='customer.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
 			</c:if>
-<sql:query var="customer" dataSource="${prenda}">
-SELECT * FROM customer 
-WHERE (last_name like '%<c:out value="${param.customer}" />%'
-OR first_name like '%<c:out value="${param.customer}" />%'
-OR middle_name like '%<c:out value="${param.customer}" />%')
-<c:if test="${users.rows[0].level<7}">
-AND archive=0
-</c:if>
-ORDER BY last_name
-LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
-					value="${perpage}" />
-			</sql:query>
 			<TABLE border="1">
 				<TR>
 					<TH colspan="4">Find Customer Detail</TH>
@@ -79,7 +67,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 					<TH>Archived</TH>
 					</c:if>
 				</TR>
-				<c:forEach var="row" items="${customer.rows}" varStatus="line">
+				<c:forEach var="row" items="${customers}" varStatus="line">
 					<c:choose>
 						<c:when test="${line.count % 2 == 1}">
 							<TR bgcolor="#3366FF">
@@ -88,31 +76,31 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 							<TR>
 						</c:otherwise>
 					</c:choose>
-					<TD><c:out value="${row.last_name}" /></TD>
-					<TD><c:out value="${row.first_name}" /></TD>
-					<TD><c:out value="${row.middle_name}" /></TD>
+					<TD><c:out value="${row.lastName}" /></TD>
+					<TD><c:out value="${row.firstName}" /></TD>
+					<TD><c:out value="${row.middleName}" /></TD>
 					<TD><c:out value="${row.address}" />
 					<c:if test="${users.rows[0].level>=7}">
 					<TD>
 					<c:choose>
-						<c:when test="${row.archive==false}">
-						No
+						<c:when test="${row.isArchive()}">
+						Yes
 						</c:when>
 						<c:otherwise>
-						Yes
+						No
 						</c:otherwise>
 					</c:choose>
 					</TD>
 					</c:if>
-					<!-- FORM method="post" action="pawn.jsp"> 
+					<TD>
+					<FORM method="post" action="pawn.jsp"> 
 					<INPUT name="cid" type="hidden" value="${row.id}"> 
-					<INPUT name="lname" type="hidden" value="${row.last_name}"> 
-					<INPUT name="fname" type="hidden" value="${row.first_name}"> 
-					<INPUT name="mname" type="hidden" value="${row.middle_name}"> 
+					<INPUT name="lname" type="hidden" value="${row.lastName}"> 
+					<INPUT name="fname" type="hidden" value="${row.firstName}"> 
+					<INPUT name="mname" type="hidden" value="${row.middleName}"> 
 					<INPUT name="cadd" type="hidden" value="${row.address}">
-					</TD>
-					<TD><INPUT name="modtype" type="submit" value="Select">
-					</FORM-->
+					<INPUT name="modtype" type="submit" value="Pawn">
+					</FORM>
 					</TD>
 				</TR>
 				</c:forEach>

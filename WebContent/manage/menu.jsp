@@ -8,7 +8,7 @@
 <a href="${contextPath}/manage/userlist.jsp">Manage Users</a> <br/> 
 <a href="${contextPath}/manage/listcustomer.jsp">Manage Customers</a> <br/>
 <a href="${contextPath}/manage/changebranch.jsp">Branch Settings</a> <br/>
-<a href="${contextPath}/BranchSettings.htm?branchid=<c:out value='${user.branchId}'/>">Interest Rates, Carats and Page Settings</a> <br/> 
+<a href="${contextPath}/BranchSettings.htm?branchid=<c:out value='${user.branchId}'/>">Rates, Carats and Page Settings</a> <br/> 
 <a href="${contextPath}/manage/auction.jsp">Auction Items</a><br/> 
 <a href="${contextPath}/manage/accountlist.jsp">Chart of Accounts</a> <br/> 
    </td>
@@ -24,7 +24,7 @@
 Pawned Items<br/>
 <a href="${contextPath}/manage/pawnsummarystat.jsp">loan value</a><br/>
 Redeemed Items<br/>
-<a href="${contextPath}/manage/redeemsummarystat.jsp">loan value</a> | <a href="${contextPath}/RedeemStatistics.htm?branchid=<c:out value='${user.branchId}'/>&userid=<c:out value='${user.id}'/>&referer=manage">interest rate</a><br/>
+<a href="${contextPath}/manage/redeemsummarystat.jsp">loan value</a> | <a href="${contextPath}/RedeemStatistics.htm?branchid=<c:out value='${user.branchId}'/>&userid=<c:out value='${user.id}'/>&referer=manage">Rate</a><br/>
 Pulled-out Items<br/>
 <a href="${contextPath}/manage/pulloutsummarystat.jsp">loan value</a><br/>
 Inventory Items<br/>

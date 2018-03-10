@@ -78,18 +78,18 @@
 				</TR>
 				<TR>
 					<TD colspan="5">
-					Last Name <INPUT id="lname" name="lname" type="text"/> 
+					Last Name <INPUT id="lname" name="lname" type="text" value="${param.lname}"/> 
 					<span id="indicator1" style="display:none;"><img src="${contextPath}/common/img/indicator.gif" /></span>
-					First Name <INPUT id="fname" name="fname" type="text"/>
+					First Name <INPUT id="fname" name="fname" type="text" value="${param.fname}"/>
 					<span id="indicator2" style="display:none;"><img src="${contextPath}/common/img/indicator.gif" /></span>
-					Middle <INPUT id="mname" name="mname" type="text"/>
+					Middle <INPUT id="mname" name="mname" type="text" value="${param.mname}"/>
 					<span id="indicator3" style="display:none;"><img src="${contextPath}/common/img/indicator.gif" /></span>
-					<input type="hidden" id="cid" name="cid"/>
+					<input type="hidden" id="cid" name="cid" value="${param.cid}"/>
 					</TD>
 				</TR>
 				<TR>
 					<TD>Address</TD>
-					<TD colspan="3"><INPUT type="text" id="address" name="address" size="60"/>
+					<TD colspan="3"><INPUT type="text" id="address" name="address" size="60" value="${param.cadd}"/>
 					</TD>
 				</TR>
 				<tr>

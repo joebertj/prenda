@@ -44,7 +44,7 @@ Pullout History <br/>
 Pawned Items<br/>
 <a href=${contextPath}/admin/pawnsummarystat.jsp>loan value</a><br/>
 Redeemed Items<br/>
-<a href=${contextPath}/admin/redeemsummarystat.jsp>loan value</a> | <a href="${contextPath}/admin/redeemsummarystatrate.jsp">interest rate</a><br/>
+<a href=${contextPath}/admin/redeemsummarystat.jsp>loan value</a> | <a href="${contextPath}/admin/redeemsummarystatrate.jsp">Rate</a><br/>
 Pulled-out Items<br/>
 <a href=${contextPath}/admin/pulloutsummarystat.jsp>loan value</a><br/>
 Inventory Items<br/>

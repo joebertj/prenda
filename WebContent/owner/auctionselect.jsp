@@ -97,7 +97,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 					<TH>Availability Date</TH>
 					<TH>Description</TH>
 					<TH>Price</TH>
-					<!--TH>Interest Rate</TH>
+					<!--TH>Rate</TH>
 					<TH>Interest</TH>
 					<TH>Net</TH-->
 				</TR>

@@ -78,7 +78,7 @@ WHERE pid=<c:out value="${param.pid}" />
 					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${pawn.rows[0].loan}" /></TD>
 				</TR>
 				<TR>
-					<TD>Interest Rate</TD>
+					<TD>Rate</TD>
 					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${pawn.rows[0].rate}" /></TD>
 				</TR>
 				<TR>
