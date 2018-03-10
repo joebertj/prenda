@@ -47,14 +47,14 @@
 					Branch PID</TD>
 					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branches.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD width="200" align="right">
-					<input type="button" value="  " style="background: url(common/img/revert.png) no-repeat; cursor:pointer; border: none;" 
+					<input class="revert" type="button" value="  " style="background: url(common/img/revert.png) no-repeat; cursor:pointer; border: none;" 
 					onClick='document.pawn.dateInJs.value="<c:out value="${sqlToJs.effective}"/>";document.pawn.loandate.focus();'/></TD>
 					<TD>Date of Loan</TD>
 					<TD> 
 					<input type="hidden" id="dateInJs" name="dateInJs" value="${htmlToJs.effective}" onChange="document.pawn.loandate.focus();"/>
 					<input type="text" name="loandate" id="loandate" value="${javaToHtml.effective}" size="10" readonly/>
 					<a href="javascript:ggLang='eng';show_calendar('pawn.dateInJs',pawn.month.value,pawn.year.value);">
-					<img src="${contextPath}/common/img/showcalendar.gif" align="top" border="0"/></a>
+							<img src="${contextPath}/common/img/showcalendar.gif" align="top" border="0"/></a>
 					<input type="hidden" id="sdfin" value="MM/dd/yyyy"/>
 					<input type="hidden" id="sdfout" value="MMM dd, yyyy"/>
 					<input type="hidden" id="month" value="${htmlToJs.month}"/>
@@ -260,6 +260,13 @@
   eventType="blur"
   parser="new ResponseXmlParser()" 
   postFunction="initPawn" />
+
+<ajax:callout
+  baseUrl="${contextPath}/common/xml/revert.xml"
+  sourceClass="revert"
+  parameters=""
+  title="Tooltip"
+  overlib="STICKY,CLOSECLICK,DELAY,100,TIMEOUT,1000,VAUTO,WRAPMAX,240" />
 
 </body>
 </html>

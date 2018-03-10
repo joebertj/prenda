@@ -8,31 +8,35 @@ body {
 
 table {
 	border-style: none ridge ridge none;	
-	background: #3399FF;
+	background: #ffff80;
+	box-shadow: 10px 15px 20px #444422;
 }
 
 table.main {
 	font: normal 1em Verdana, Arial, Helvetica, sans-serif;
 	background: #99CCFF;
-	border-style: none
+	border-style: none;
+	box-shadow: none;
 }
 
 table.navi {
 	background: #99CCFF;
-	border-style: none
+	border-style: none;
+	box-shadow: none;
 }
 
 table.branch {
 	font: normal 1.1em Verdana, Arial, Helvetica, sans-serif;
-	background: #FF8080;
-	border-color: #FF8080;
+	background: #0080ff;
+	box-shadow: 2px 2px;
 }
 
 table.menu {
 	font: normal 0.8em Verdana, Arial, Helvetica, sans-serif;
 	border-width: thin thin thin thin;	
-	background: #FF8080;
-	border-style: solid
+	background: #ffff80;
+	border-style: solid;
+	box-shadow: 5px 5px 5px #808040;
 }
 
 td {
