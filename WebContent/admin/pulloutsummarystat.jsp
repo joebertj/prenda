@@ -351,7 +351,7 @@ AND branch=<c:out value="${users.rows[0].branch}"/>
 					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${allamountA.rows[0].sumloan}"/></TD>
 					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${allamountdailyA.rows[0].sumloan}"/></TD>
 				</TR>
-				<TR bgcolor="#3366FF">
+				<TR bgcolor="#99CCFF">
 					<TD>Loan Greater Than Php 500 And At Most Php 1000</TD>
 					<TD align="right"><c:out value="${allB.rows[0].numid}"/></TD>
 					<TD align="right"><c:out value="${alldailyB.rows[0].numid}"/></TD>
@@ -365,7 +365,7 @@ AND branch=<c:out value="${users.rows[0].branch}"/>
 					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${allamountC.rows[0].sumloan}"/></TD>
 					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${allamountdailyC.rows[0].sumloan}"/></TD>
 				</TR>
-				<TR bgcolor="#3366FF">
+				<TR bgcolor="#99CCFF">
 					<TD>Loan Greater Than Php 2000 And At Most Php 5000</TD>
 					<TD align="right"><c:out value="${allD.rows[0].numid}"/></TD>
 					<TD align="right"><c:out value="${alldailyD.rows[0].numid}"/></TD>
@@ -379,7 +379,7 @@ AND branch=<c:out value="${users.rows[0].branch}"/>
 					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${allamountE.rows[0].sumloan}"/></TD>
 					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${allamountdailyE.rows[0].sumloan}"/></TD>
 				</TR>
-				<TR bgcolor="#3366FF">
+				<TR bgcolor="#99CCFF">
 					<TD>Total</TD>
 					<TD align="right"><c:out value="${all.rows[0].numid}"/></TD>
 					<TD align="right"><c:out value="${alldaily.rows[0].numid}"/></TD>

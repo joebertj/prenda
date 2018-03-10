@@ -121,7 +121,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 				<c:forEach var="row" items="${foreclose.rows}" varStatus="line">
 					<c:choose>
 						<c:when test="${line.count % 2 == 1}">
-							<TR bgcolor="#3366FF">
+							<TR bgcolor="#99CCFF">
 						</c:when>
 						<c:otherwise>
 							<TR>

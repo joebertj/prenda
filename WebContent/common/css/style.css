@@ -7,7 +7,7 @@ body {
 }
 
 table {
-	border-style: none ridge ridge none;	
+	border-style: solid;	
 	background: #ffff80;
 	box-shadow: 10px 15px 20px #444422;
 }
@@ -27,7 +27,7 @@ table.navi {
 
 table.branch {
 	font: normal 1.1em Verdana, Arial, Helvetica, sans-serif;
-	background: #0080ff;
+	background: #ffff80;
 	box-shadow: 2px 2px;
 }
 

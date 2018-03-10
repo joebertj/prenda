@@ -48,7 +48,7 @@ TABLE.displaytag TH.sorted {
 TABLE.displaytag TH.sorted a,
 TABLE.displaytag TH.sortable a {
 	display: block;
-	background: url(/img/displaytag/arrow_off.png) no-repeat right;
+	background: url(/common/img/displaytag/arrow_off.png) no-repeat right;
 	color: #000;
 	text-decoration: none;
 }
@@ -59,11 +59,11 @@ TABLE.displaytag TH.sortable a:hover {
 }
 
 TABLE.displaytag TH.order1 a {
-	background-image: url(/img/displaytag/arrow_down.png);
+	background-image: url(/common/img/displaytag/arrow_down.png);
 }
 
 TABLE.displaytag TH.order2 a {
-	background-image: url(/img/displaytag/arrow_up.png);
+	background-image: url(/common/img/displaytag/arrow_up.png);
 }
 
 span.pagebanner {
@@ -113,13 +113,13 @@ span.export {
 }
 
 span.excel {
-	background: url(/img/displaytag/ico_file_excel.png) no-repeat;
+	background: url(/common/img/displaytag/ico_file_excel.png) no-repeat;
 }
 span.csv {
-	background: url(/img/displaytag/ico_file_csv.png) no-repeat;
+	background: url(/common/img/displaytag/ico_file_csv.png) no-repeat;
 }
 span.xml {
-	background: url(/img/displaytag/ico_file_xml.png) no-repeat;
+	background: url(/common/img/displaytag/ico_file_xml.png) no-repeat;
 }
 
 

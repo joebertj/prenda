@@ -39,7 +39,7 @@
 				<c:forEach var="i" begin="0" end="20" varStatus="line">
 					<c:choose>
 						<c:when test="${line.count % 2 == 1}">
-							<TR bgcolor="#3366FF">
+							<TR bgcolor="#99CCFF">
 						</c:when>
 						<c:otherwise>
 							<TR>
