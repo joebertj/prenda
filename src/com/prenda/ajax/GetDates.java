@@ -19,16 +19,18 @@ public class GetDates extends BaseAjaxServlet {
 
 	public String getXmlContent(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		AjaxXmlBuilder xml=new AjaxXmlBuilder();
-		String value=request.getParameter("date");
+		String dateString=request.getParameter("dateString");
 		String sdfIn=request.getParameter("sdfin");
 		String sdfOut=request.getParameter("sdfout");
 		DateUtil l=new DateUtil();
 		l.setSdfIn(sdfIn);
 		l.setSdfOut(sdfOut);
-		l.setValue(value);
+		l.setValue(dateString);
 		xml.addItem("effective",l.getEffective());
 		xml.addItem("maturity",l.getMaturity());
 		xml.addItem("expiry",l.getExpiry());
+		xml.addItem("month",l.getMonth());
+		xml.addItem("year",l.getYear());
 		return xml.toString();
 	}
 }

@@ -32,26 +32,33 @@
 				</TR>
 				<TR>
 					<TD><jsp:useBean id="now" class="java.util.Date" />
-					<jsp:useBean id="ldate" class="com.prenda.helper.DateUtil" /> 
-					<jsp:setProperty property="sdfIn" name="ldate" value="E MMM dd hh:mm:ss z yyyy"/>
-					<jsp:setProperty property="sdfOut" name="ldate" value="MMM dd, yyyy"/>
-					<jsp:setProperty property="value" name="ldate" value="${now}"/>
-					<jsp:useBean id="uldate" class="com.prenda.helper.DateUtil" /> 
-					<jsp:setProperty property="sdfIn" name="uldate" value="yyyy-MM-dd"/>
-					<jsp:setProperty property="sdfOut" name="uldate" value="MM/dd/yyyy"/>
-					<jsp:setProperty property="value" name="uldate" value="${user.loanDate}"/>
+					<jsp:useBean id="javaToHtml" class="com.prenda.helper.DateUtil" /> 
+					<jsp:setProperty property="sdfIn" name="javaToHtml" value="E MMM dd hh:mm:ss z yyyy"/>
+					<jsp:setProperty property="sdfOut" name="javaToHtml" value="MMM dd, yyyy"/>
+					<jsp:setProperty property="value" name="javaToHtml" value="${now}"/>
+					<jsp:useBean id="htmlToJs" class="com.prenda.helper.DateUtil" /> 
+					<jsp:setProperty property="sdfIn" name="htmlToJs" value="MMM dd, yyyy"/>
+					<jsp:setProperty property="sdfOut" name="htmlToJs" value="MM/dd/yyyy"/>
+					<jsp:setProperty property="value" name="htmlToJs" value="${now}"/>
+					<jsp:useBean id="sqlToJs" class="com.prenda.helper.DateUtil" /> 
+					<jsp:setProperty property="sdfIn" name="sqlToJs" value="yyyy-MM-dd"/>
+					<jsp:setProperty property="sdfOut" name="sqlToJs" value="MM/dd/yyyy"/>
+					<jsp:setProperty property="value" name="sqlToJs" value="${user.loanDate}"/>
 					Branch PID</TD>
 					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branches.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD width="200" align="right">
-					<input type="button" value="  " style="background: url(common/img/revert.png) no-repeat; cursor:pointer; border: none;" onClick='document.pawn.sldate.value="<c:out value="${uldate.effective}"/>";document.pawn.loandate.focus()'/></TD>
+					<input type="button" value="  " style="background: url(common/img/revert.png) no-repeat; cursor:pointer; border: none;" 
+					onClick='document.pawn.dateInJs.value="<c:out value="${sqlToJs.effective}"/>";document.pawn.loandate.focus();'/></TD>
 					<TD>Date of Loan</TD>
 					<TD> 
-					<input type="hidden" id="sldate" name="sldate" value="<c:out value="${now}"/>"/>
-					<input type="text" name="loandate" id="loandate" value="<c:out value="${ldate.effective}"/>" size="10"/>
-					<a href="javascript:ggLang='eng';show_calendar('pawn.sldate')">
+					<input type="hidden" id="dateInJs" name="dateInJs" value="${htmlToJs.effective}" onChange="document.pawn.loandate.focus();"/>
+					<input type="text" name="loandate" id="loandate" value="${javaToHtml.effective}" size="10" readonly/>
+					<a href="javascript:ggLang='eng';show_calendar('pawn.dateInJs',pawn.month.value,pawn.year.value);">
 					<img src="${contextPath}/common/img/showcalendar.gif" align="top" border="0"/></a>
 					<input type="hidden" id="sdfin" value="MM/dd/yyyy"/>
 					<input type="hidden" id="sdfout" value="MMM dd, yyyy"/>
+					<input type="hidden" id="month" value="${htmlToJs.month}"/>
+					<input type="hidden" id="year" value="${htmlToJs.year}"/>
 					</TD>
 				</TR>
 				<TR>
@@ -60,13 +67,13 @@
 					<input type="hidden" id="pt" name="pt" value="${branches.pawnTicket}" />
 					</TD>
 					<TD>Maturity Date</TD>
-					<TD><input type="text" id="maturity" value="${ldate.maturity}" size="10"/>
+					<TD><input type="text" id="maturity" value="${javaToHtml.maturity}" size="10" disabled/>
 					</TD>
 				</TR>
 				<TR>
 					<TD colspan="4"></TD>
 					<TD>Expiry Date</TD>
-					<TD><input type="text" id="expiry" value="${ldate.expiry}" size="10"/>
+					<TD><input type="text" id="expiry" value="${javaToHtml.expiry}" size="10" disabled/>
 					</TD>
 				</TR>
 				<TR>
@@ -92,7 +99,14 @@
 				<tr id="jewelry1">
 					<td colspan="2">
 						Weight<INPUT type="text" name="weight" size="5" onChange="updatePawn()"/>grams
-						Carats<INPUT type="text" name="carats" id="carats" size="3" onChange="updatePawn()"/>K
+						Carats
+						<select name="carats" id="carats" onChange="updatePawn()">
+							<option value="10">10K</option>
+							<option value="14">14K</option>
+							<option value="18" selected="selected">18K</option>
+							<option value="22">22K</option>
+							<option value="24">24K</option>
+						</select>
 					</td>
 					<td align="right">
 						Adjust Amount 
@@ -230,10 +244,10 @@
   
 <ajax:updateField
   baseUrl="GetDates"
-  source="sldate"
-  target="loandate,maturity,expiry"
+  source="dateInJs"
+  target="loandate,maturity,expiry,month,year"
   action="loandate"
-  parameters="sdfin={sdfin},sdfout={sdfout},date={sldate}"
+  parameters="sdfin={sdfin},sdfout={sdfout},dateString={dateInJs}"
   eventType="focus"
   parser="new ResponseXmlParser()" />
   

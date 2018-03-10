@@ -26,6 +26,28 @@ public class DateUtil {
 		
 	}
 	
+	public String getMonth() {
+		SimpleDateFormat sdfIn= new SimpleDateFormat(this.sdfIn);
+		GregorianCalendar loan=new GregorianCalendar();
+		try {
+			loan.setTimeInMillis(sdfIn.parse(value).getTime());
+		} catch (ParseException e) {
+			log.info(e.getMessage());
+		}
+		return new Integer(loan.get(java.util.GregorianCalendar.MONTH)).toString();
+	}
+	
+	public String getYear() {
+		SimpleDateFormat sdfIn= new SimpleDateFormat(this.sdfIn);
+		GregorianCalendar loan=new GregorianCalendar();
+		try {
+			loan.setTimeInMillis(sdfIn.parse(value).getTime());
+		} catch (ParseException e) {
+			log.info(e.getMessage());
+		}
+		return new Integer(loan.get(java.util.GregorianCalendar.YEAR)).toString();
+	}
+	
 	public String getExpiry() {
 		SimpleDateFormat sdfIn= new SimpleDateFormat(this.sdfIn);
 		SimpleDateFormat sdfOut= new SimpleDateFormat(this.sdfOut);

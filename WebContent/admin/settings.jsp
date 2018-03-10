@@ -103,7 +103,7 @@ SELECT rate FROM interest WHERE interestid=<c:out value="${branches.id}"/> AND d
 				<tr>
 					<td>
 						<input type="hidden" name="caratid" value="${row.id.caratid}"/>
-						<c:out value="${row.id.caratid}"/>
+						<c:out value="${row.id.caratid}K"/>
 					</td>
 					<td>
 						<input size="4" type="text" name="minimum" value="${row.minimum}"/>

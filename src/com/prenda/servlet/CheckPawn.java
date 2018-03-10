@@ -68,7 +68,7 @@ public class CheckPawn {
 		long serial = loandate.getTime();
 		Random generator = RandomUtils.JVM_RANDOM;
 		int bcode = generator.nextInt(5) + 1;
-		int nameid = -1;
+		long nameid = 0;
 		CustomerService cs = new CustomerService();
 		Customer customer = cs.getCustomerbyNames(lname, fname, mname);
 		if (customer.getId() > 0) {
@@ -81,6 +81,7 @@ public class CheckPawn {
 			customer.setAddress(address);
 			customer.setArchive(false);
 			dataLayerPrenda.save(customer);
+			nameid=customer.getId();
 		}
 		UserService us = new UserService();
 		Users user = us.getUser(encoder);
@@ -104,7 +105,7 @@ public class CheckPawn {
 		log.info("serial " + serial);
 		pawn.setBcode((byte) (bcode & 0xFF));
 		pawn.setLoanDate(loandate);
-		pawn.setNameid(nameid*1L);
+		pawn.setNameid(nameid);
 		pawn.setLoan(loan*1.0d);
 		pawn.setAppraised(appraised*1.0d);
 		pawn.setDescription(description);
