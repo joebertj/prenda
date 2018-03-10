@@ -100,10 +100,6 @@ public class StatisticsService {
 			while(li.hasNext()){
 				Branch b = (Branch) li.next();
 				id[i]=b.getId();
-				i++;
-			}
-			i = 0;
-			while(li.hasNext()){
 				if(i>0){
 					branches += " or ";
 				}

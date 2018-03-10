@@ -75,7 +75,7 @@ public class UserModifyTest extends UserModify {
 		init(targetUser);
 		UserService us = new UserService();
 		Users user = us.getUser(targetUser);
-		savePassword(user, password);
+		Assert.assertEquals("Password changed successfully", savePassword(user, password));
 		Assert.assertTrue(PasswordEncoderGenerator.matches(password, user.getPassword()));
 		cleanUp(targetUser);
 	}
@@ -88,7 +88,7 @@ public class UserModifyTest extends UserModify {
 		init(targetUser);
 		UserService us = new UserService();
 		Users user = us.getUser(targetUser);
-		saveUser(user, password);
+		Assert.assertEquals("User added successfully", saveUser(user, password));
 		Assert.assertTrue(PasswordEncoderGenerator.matches(password, user.getPassword()));
 		cleanUp(targetUser);
 	}
@@ -100,16 +100,16 @@ public class UserModifyTest extends UserModify {
 		String password = PasswordGenerator.getPassword();
 		String password2 = PasswordGenerator.getPassword();
 		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("admin", "admincopy", password, password, Level.ADMIN, 1));
-		Assert.assertEquals("Password changed successfully", createNewUser("admin", targetUser, password, password, Level.OWNER, 1));
+		Assert.assertEquals("User added successfully", createNewUser("admin", targetUser, password, password, Level.OWNER, 1));
 		Assert.assertEquals("New password does not match", createNewUser("admin", targetUser, password, password2, Level.OWNER, 1));
 		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("owner", "admincopy", password, password, Level.ADMIN, 1));
 		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("owner", targetUser, password, password, Level.OWNER, 1));
-		Assert.assertEquals("Password changed successfully", createNewUser("owner", "manager", password, password, Level.MANAGER, 1));
-		Assert.assertEquals("Password changed successfully", createNewUser("admin","encoder",password,password,Level.ENCODER, 1));
-		Assert.assertEquals("Password changed successfully", createNewUser("admin","managercopy",password,password,Level.MANAGER, 1));
+		Assert.assertEquals("User added successfully", createNewUser("owner", "manager", password, password, Level.MANAGER, 1));
+		Assert.assertEquals("User added successfully", createNewUser("admin","encoder",password,password,Level.ENCODER, 1));
+		Assert.assertEquals("User added successfully", createNewUser("admin","managercopy",password,password,Level.MANAGER, 1));
 		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("encoder","encodercopy",password,password,Level.ENCODER, 1));
 		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("manager","managercopy",password,password,Level.MANAGER, 1));
-		Assert.assertEquals("Password changed successfully", createNewUser("manager","encodercopy",password,password,Level.ENCODER, 1));
+		Assert.assertEquals("User added successfully", createNewUser("manager","encodercopy",password,password,Level.ENCODER, 1));
 		cleanUp("encoder");
 		cleanUp("encodercopy");
 		cleanUp("manager");
@@ -141,7 +141,7 @@ public class UserModifyTest extends UserModify {
 		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
 		dataLayerPrenda.update(user);
 		dataLayerPrenda.flushAndClearSession();
-		Assert.assertEquals("Password changed successfully", createNewUser("owner","encoder",password,password,Level.ENCODER, 1));
+		Assert.assertEquals("User added successfully", createNewUser("owner","encoder",password,password,Level.ENCODER, 1));
 		Assert.assertEquals("Password changed successfully", changePassword("encoder", "encoder", password, password2, password2));
 		Assert.assertEquals("Either the old password is not correct or the new password does not match", changePassword("encoder", "encoder", password, password, password));
 		cleanUp("encoder");

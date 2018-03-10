@@ -118,7 +118,7 @@ public class UserModify {
 
 	@Transactional
 	protected String saveUser(Users user, String newPassword) {
-		String message = "Password changed successfully";
+		String message = "User added successfully";
 		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
 		String hashedNewPassword = PasswordEncoderGenerator.getHash(newPassword);
 		user.setPassword(hashedNewPassword);

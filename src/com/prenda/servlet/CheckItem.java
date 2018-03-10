@@ -55,17 +55,17 @@ public class CheckItem extends javax.servlet.http.HttpServlet implements javax.s
 					String password2 = rs.getString(1);
 					if(password.equals(password2)){
 						session.setAttribute("pid",pid);
-						response.sendRedirect("/customer/itemdetail.jsp?pid="+pid);
+						response.sendRedirect("customer/itemdetail.jsp?pid="+pid);
 					}else{
-						String redirectURL = "/customer/item.jsp?msg="+badLogin;
+						String redirectURL = "customer/item.jsp?msg="+badLogin;
 						response.sendRedirect(redirectURL);
 					}
 				}else{
 					session.setAttribute("pid",pid);
-					response.sendRedirect("itemdetail.jsp?pid="+pid);
+					response.sendRedirect("customer/itemdetail.jsp?pid="+pid);
 				}
 			}else{
-				String redirectURL = "/customer/item.jsp?msg="+badLogin;
+				String redirectURL = "customer/item.jsp?msg="+badLogin;
 				response.sendRedirect(redirectURL);
 			}
 		} catch (SQLException ex) {

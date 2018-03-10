@@ -140,7 +140,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 					<TD colspan="3" align="center">FORECLOSED</TD>
 					</c:when>
 					<c:otherwise>
-					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${row.rate}" />					</TD>
+					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${row.rate}" />%					</TD>
 					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${row.loan*row.rate/100}" /></TD>
 					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${(1 + row.rate/100 )*row.loan+row.service_charge}" /></TD>
 					</c:otherwise>

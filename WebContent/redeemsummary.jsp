@@ -98,9 +98,9 @@
 					<jsp:setProperty name="name" property="id" value="${row.nameId}"/>
 					<c:out value="${name.lastName}"/>, <c:out value="${name.firstName}"/> <c:out value="${name.middleName}"/></TD>
 					<TD><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${row.loanAmount}" /></TD>
-					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${row.interestRate}" /> %</TD>
-					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${row.loanAmount*row.interestRate/100}" /></TD>
-					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${(1 + row.interestRate/100 )*row.loanAmount+row.serviceCharge}" /></TD>
+					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${row.loanAmount*row.interestRate}" /> %</TD>
+					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${row.loanAmount*row.loanAmount*row.interestRate/100}" /></TD>
+					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${row.loanAmount*(1+row.loanAmount*row.interestRate/100)}" /></TD>
 				</c:forEach>
 			</TABLE>
 			</TD>

@@ -170,7 +170,7 @@ import com.prenda.service.LevelService;
     				if(rs.first()){
     					owner=rs.getInt(1);
     				}else{
-    					response.sendRedirect("/owner/newbranch.jsp?msg=You are not the owner of "+bname);
+    					response.sendRedirect("owner/newbranch.jsp?msg=You are not the owner of "+bname);
     				}
     			}
     			pstmt = conn.prepareStatement("SELECT name FROM branch WHERE name=?");
@@ -178,7 +178,7 @@ import com.prenda.service.LevelService;
     			rs=pstmt.executeQuery();
     			if(rs.first()){
     				if(request.getContextPath().toString().contains("owner")){
-    					response.sendRedirect("/owner/newbranch.jsp?msg=Branch "+bname+" already exists");
+    					response.sendRedirect("owner/newbranch.jsp?msg=Branch "+bname+" already exists");
     				}else{
     					response.sendRedirect("newbranch.jsp?msg=Branch "+bname+" already exists");
     				}	
@@ -213,7 +213,7 @@ import com.prenda.service.LevelService;
     			pstmt.setInt(1, branchid);
     			pstmt.executeUpdate();
     			if(request.getContextPath().toString().contains("owner")){
-    				response.sendRedirect("/owner/newbranch.jsp?msg=Branch "+bname+" successfully added");
+    				response.sendRedirect("owner/newbranch.jsp?msg=Branch "+bname+" successfully added");
     			}else{
     				response.sendRedirect("newbranch.jsp?msg=Branch "+bname+" successfully added");
     			}
@@ -232,15 +232,15 @@ import com.prenda.service.LevelService;
     				pstmt.setInt(1, branchid);
     				pstmt.executeUpdate();
     				if(request.getContextPath().toString().contains("owner")){
-    					response.sendRedirect("/owner/branchlist.jsp?msg=Branch "+bname+" archived");
+    					response.sendRedirect("owner/branchlist.jsp?msg=Branch "+bname+" archived");
     				}else{
-    					response.sendRedirect("/admin/branchlist.jsp?msg=Branch "+bname+" archived");
+    					response.sendRedirect("admin/branchlist.jsp?msg=Branch "+bname+" archived");
     				}
     			}else{
     				if(request.getContextPath().toString().contains("owner")){
-    					response.sendRedirect("/owner/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
+    					response.sendRedirect("owner/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
     				}else{
-    					response.sendRedirect("/admin/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
+    					response.sendRedirect("admin/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
     				}
     			}
     		}else if(modtype.equals("2")){
@@ -277,11 +277,11 @@ import com.prenda.service.LevelService;
     			pstmt.setInt(7, reserve);
     			pstmt.executeUpdate();
     			if(request.getContextPath().toString().contains("manager")){
-    				response.sendRedirect("/manage/changebranch.jsp?msg=Details for branch "+bname+" successfully changed");
+    				response.sendRedirect("manage/changebranch.jsp?msg=Details for branch "+bname+" successfully changed");
     			}else if(request.getContextPath().toString().contains("owner")){
-    				response.sendRedirect("/owner/branchlist.jsp?msg=Details for branch "+bname+" successfully changed");
+    				response.sendRedirect("owner/branchlist.jsp?msg=Details for branch "+bname+" successfully changed");
     			}else{
-    				response.sendRedirect("/admin/branchlist.jsp?msg=Details for branch "+bname+" successfully changed");
+    				response.sendRedirect("admin/branchlist.jsp?msg=Details for branch "+bname+" successfully changed");
     			}
     		}
 		} catch (SQLException ex) {

@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.apache.log4j.Logger;
+
 import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.Pawn;
@@ -20,6 +22,8 @@ import com.prenda.helper.DatabaseConnection;
 import com.prenda.Branch;
 
 public class InventoryService extends GenericService {
+	
+	private static Logger log =Logger.getLogger(InventoryService.class);
 	
 	public InventoryService(){
 		conn = DatabaseConnection.getConnection();
@@ -89,10 +93,6 @@ public class InventoryService extends GenericService {
 			while(li.hasNext()){
 				Branch b = (Branch) li.next();
 				id[i]=b.getId();
-				i++;
-			}
-			i = 0;
-			while(li.hasNext()){
 				if(i>0){
 					branches += " or ";
 				}
@@ -103,10 +103,12 @@ public class InventoryService extends GenericService {
 				query += " and (" + branches + ")";
 			}
 			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
+			log.info("query " + query);
 			try {
 				pstmt = conn.prepareStatement(query);
 				for(i=0;i<id.length;i++){
 					pstmt.setInt(1+i, id[i]);
+					log.info("i "+ i + " id " + id.length + " " + id[i]);
 				}
 				pstmt.setInt(i+1,(page-1)*pageSize);
 				pstmt.setInt(i+2, pageSize);

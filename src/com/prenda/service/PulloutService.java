@@ -45,7 +45,7 @@ public class PulloutService extends GenericService{
 		"LEFT JOIN interest ON pawn.branch=interest.interestid " +
 		"LEFT JOIN branch ON pawn.branch=branch.branchid " +
 		"LEFT JOIN pullout ON pullout.pid=pawn.pid "+
-		"WHERE pawn.pid=pullout.pid ";
+		"WHERE pawn.pid=pullout.pid AND day=34";
 		if(mode==Mode.DAILY){
 			query += " and pullout_date=?";
 		}else if(mode==Mode.MONTHLY){

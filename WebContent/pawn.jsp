@@ -142,7 +142,7 @@
 				</TR>
 				<TR>
 					<TD>Description</TD>
-					<TD colspan="4"><INPUT type="text" name="desc" size="78"/></TD>
+					<TD colspan="4"><INPUT type="text" name="desc" size="78" onChange="updatePawn()"/></TD>
 				</TR>
 				<TR>
 					<TD colspan="4"></TD>

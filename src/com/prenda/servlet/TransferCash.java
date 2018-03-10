@@ -127,7 +127,7 @@ import com.prenda.service.UserService;
     		pstmt.setString(2,desc);
     		pstmt.setFloat(3,amount);
     		pstmt.executeUpdate();
-    		response.sendRedirect("/admin/cashtransfer.jsp?msg=Cash amounting to Php "+amount+" successfully journalled");
+    		response.sendRedirect("admin/cashtransfer.jsp?msg=Cash amounting to Php "+amount+" successfully journalled");
     	}catch (SQLException ex) {
             log.info("SQLException: " + ex.getMessage());
             log.info("SQLState: " + ex.getSQLState());

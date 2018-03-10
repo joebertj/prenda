@@ -32,7 +32,7 @@ WHERE redeem.pid IS NULL
 AND users.username="${authenticated}"
 </c:if>
 AND pullout.pid IS NULL
-AND ADDDATE(pawn.loan_date,120+15*extend) <= NOW()
+AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
 <c:if test="${users.rows[0].level<8}">
 AND branch=<c:out value="${users.rows[0].branch}"/>
 </c:if>
@@ -70,8 +70,8 @@ AND branch=<c:out value="${users.rows[0].branch}"/>
 				<A href='forecloseditems.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
 			</c:if>
 <sql:query var="foreclose" dataSource="${prenda}">
-SELECT pawn.pid,branch,loan_date,loan,service_charge,bpid,first_name,last_name,middle_name,rate,
-ADDDATE(pawn.loan_date,120+15*extend) AS expire 
+SELECT pawn.pid,pawn.branch,pawn.loan_date,loan,pawn.service_charge,bpid,first_name,last_name,middle_name,rate,
+ADDDATE(pawn.loan_date,120+15*pawn.extend) AS expire 
 FROM pawn
 LEFT JOIN customer ON pawn.nameid=customer.id
 LEFT JOIN redeem ON pawn.pid=redeem.pid
@@ -81,15 +81,15 @@ LEFT JOIN interest ON pawn.branch=interest.interestid
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
 </c:if>
-WHERE (day=DATEDIFF(NOW(),loan_date) OR (day=34 AND DATEDIFF(NOW(),loan_date)>34))
+WHERE (day=DATEDIFF(NOW(),pawn.loan_date) OR (day=34 AND DATEDIFF(NOW(),pawn.loan_date)>34))
 <c:if test="${users.rows[0].level==8}">
 AND users.username="${authenticated}"
 </c:if>
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
-AND ADDDATE(pawn.loan_date,120+15*extend) <= NOW()
+AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
 <c:if test="${users.rows[0].level<8}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+AND pawn.branch=<c:out value="${users.rows[0].branch}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
