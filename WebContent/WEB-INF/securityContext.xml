@@ -11,6 +11,7 @@
 	 
 	<http pattern="/common/**" security="none"/>
 	<http pattern="/customer/**" security="none"/>
+	<http pattern="/register/**" security="none"/>
 		
 	<http auto-config="true" use-expressions="true">
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>

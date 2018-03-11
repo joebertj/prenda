@@ -39,5 +39,11 @@ SELECT name,address FROM branch WHERE branchid=<c:out value="${users.rows[0].bra
     	<img align="absbottom" border="0" src="${contextPath}/common/img/logout.png" id="fpAnimswapImgFP6" name="fpAnimswapImgFP6" dynamicanimation="fpAnimswapImgFP6" lowsrc="${contextPath}/common/img/logout-mo.png"></a>
    	</sec:authorize>
 		</td>
+		<td>
+			<a href="?locale=en_US"><img height="30px" src="${contextPath}/common/img/lang/usa.png"/></a>
+			<a href="?locale=es_ES"><img height="30px" src="${contextPath}/common/img/lang/spain.png"/></a>
+			<a href="?locale=fr_FR"><img height="30px" src="${contextPath}/common/img/lang/france.png"/></a>
+			<fmt:setLocale value ="${param.locale}"/>
+		</td>
   	</tr>
 </table>

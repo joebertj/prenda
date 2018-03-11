@@ -53,7 +53,7 @@ public class UserModify {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String actionUser = auth.getName();
 		if (mode == Mode.CREATENEW) {
-			message = createNewUser(actionUser, targetUser, newPassword, verifyPassword, targetLevel, targetBranch);
+			message = createNewUser(actionUser, targetUser, newPassword, verifyPassword, targetLevel, targetBranch, false);
 		} else if (mode == Mode.DELETE) {
 			message = "Under construction";
 		} else if (mode == Mode.UPDATE) {
@@ -63,10 +63,21 @@ public class UserModify {
 		log.info("message: " + message + " redirectUrl: " + redirectUrl);
 		return redirectUrl;
 	}
+	
+	@Transactional
+	protected String createNewOwner(String targetUser, String newPassword, String verifyPassword,
+			int targetLevel) {
+		int targetBranch = 0;
+		String message = createNewUser("admin", targetUser, newPassword, verifyPassword, targetLevel, targetBranch, true);
+		if(message.equals("User added successfully")) {
+			// TODO confirm email
+		}
+		return message;
+	}
 
 	@Transactional
 	protected String createNewUser(String actionUser, String targetUser, String newPassword, String verifyPassword,
-			int targetLevel, int targetBranch) {
+			int targetLevel, int targetBranch, boolean archive) {
 		String message = "Your restriction level does not allow you to perform such action";
 		byte actionUserLevel;
 		byte targetUserLevel;
@@ -83,7 +94,16 @@ public class UserModify {
 		if (actionUserLevel > targetUserLevel) {
 			if (actionUserLevel == Level.ADMIN) {
 				if (verifyPassword(targetUser, "", newPassword, verifyPassword, true)) {
-					message = saveUser(user, newPassword);
+					if (targetBranch==0) {
+						user.setArchive(true);
+						user = saveUser(user);
+						Branch branch = new Branch();
+						branch.setOwner(user.getId());
+						branch.setArchive(true);
+						saveBranch(branch);
+					}else {
+						message = saveUser(user, newPassword);
+					}
 				} else {
 					message = "New password does not match";
 				}
@@ -115,15 +135,29 @@ public class UserModify {
 		}
 		return message;
 	}
+	
+	@Transactional
+	protected Branch saveBranch(Branch branch) {
+		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
+		dataLayerPrenda.save(branch);
+		dataLayerPrenda.flushAndClearSession();
+		return branch;
+	}
+	
+	@Transactional
+	protected Users saveUser(Users user) {
+		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
+		dataLayerPrenda.save(user);
+		dataLayerPrenda.flushAndClearSession();
+		return user;
+	}
 
 	@Transactional
 	protected String saveUser(Users user, String newPassword) {
 		String message = "User added successfully";
-		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
 		String hashedNewPassword = PasswordEncoderGenerator.getHash(newPassword);
 		user.setPassword(hashedNewPassword);
-		dataLayerPrenda.save(user);
-		dataLayerPrenda.flushAndClearSession();
+		saveUser(user);
 		return message;
 	}
 

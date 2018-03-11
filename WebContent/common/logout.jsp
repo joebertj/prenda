@@ -12,9 +12,13 @@
 			<TD width=200></TD>
 			<TD>
 <%@include file="msg.jsp"%>
-You have logged out. Click on a any navigation button above to login.
+<fmt:bundle basename="messages">
+	<fmt:message key="common.logout" />
+</fmt:bundle>
 <br/><br/>
-Thank you for using the system! It's been a pleasure working with you. 
+<fmt:bundle basename="messages">
+	<fmt:message key="common.thanks" />
+</fmt:bundle> 
 </TD>
 		</TR>
 	</TBODY>
