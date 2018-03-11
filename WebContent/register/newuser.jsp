@@ -8,14 +8,14 @@
 		<TR>
 			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="../common/navi.jsp"%></TD>
+			<TD><%@include file="navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top></TD>
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
-			<FORM method="post" action="${contextPath}/UserModify.htm">
-				<INPUT type="hidden" name="referer" value="owner/">
+			<FORM method="post" action="RegisterOwner.htm">
+				<INPUT type="hidden" name="referer" value="register/newuser">
 				<INPUT type="hidden" name="pass" value="">
 				<INPUT type="hidden" name="modtype" value="0">
 				<INPUT type="hidden" name="level" value="8">
@@ -25,11 +25,11 @@
 				</TR>
 				<TR>
 					<TD>Username</TD>
-					<TD>: <INPUT type="text" name="email"></TD>
+					<TD>: <INPUT type="text" name="user"></TD>
 				</TR>
 				<TR>
-					<TD>Username</TD>
-					<TD>: <INPUT type="text" name="user"></TD>
+					<TD>Email</TD>
+					<TD>: <INPUT type="text" name="email"></TD>
 				</TR>
 				<TR>
 					<TD>Password</TD>

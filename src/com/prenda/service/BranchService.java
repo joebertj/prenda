@@ -13,12 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.helper.DatabaseConnection;
 import com.prenda.model.obj.prenda.Branch;
+import com.prenda.services.data.DataLayerPrenda;
+import com.prenda.services.data.DataLayerPrendaImpl;
 
 public class BranchService {
 	private Connection conn;
@@ -272,6 +277,15 @@ public class BranchService {
 			branch = (Branch) li.next();
 		}
 		return branch;
+	}
+	
+	@Transactional
+	public int getNextBranchId() {
+		DataLayerPrenda instance = DataLayerPrendaImpl.getInstance();
+		Session s = instance.getCurrentSession();
+		Criteria c = s.createCriteria(Branch.class).setProjection(Projections.max("id"));
+		Integer id = (Integer) c.list().listIterator().next();
+		return id;
 	}
 
 }

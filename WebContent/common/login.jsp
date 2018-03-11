@@ -8,8 +8,8 @@
 			<TD><%@include file="navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD width=200></TD>
-			<TD align=center>
+			<td width="200"></td>
+			<TD align="center">
 <%@include file="msg.jsp"%>
 			<FORM method="post" action="${contextPath}/j_spring_security_check">
 			<TABLE border="1">

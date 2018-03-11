@@ -103,6 +103,14 @@ public class HibernatePrendaDaoFactory implements ApplicationContextAware, BeanN
 		return (GenkeyDao) getBean("genkeyDaoImpl"); 
 	}
 	/**
+	 * Returns a RegisterDao instance.
+	 * 
+	 * @return a RegisterDao instance
+	 */
+	public static RegisterDao getRegisterDao() {
+		return (RegisterDao) getBean("registerDaoImpl"); 
+	}
+	/**
 	 * Returns a InterestDao instance.
 	 * 
 	 * @return a InterestDao instance

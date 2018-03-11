@@ -24,8 +24,11 @@ import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.helper.PasswordEncoderGenerator;
+import com.prenda.helper.PasswordGenerator;
 import com.prenda.model.obj.prenda.Branch;
+import com.prenda.model.obj.prenda.Register;
 import com.prenda.model.obj.prenda.Users;
+import com.prenda.service.BranchService;
 import com.prenda.service.UserService;
 import com.prenda.services.data.DataLayerPrenda;
 import com.prenda.services.data.DataLayerPrendaImpl;
@@ -68,9 +71,17 @@ public class UserModify {
 	protected String createNewOwner(String targetUser, String newPassword, String verifyPassword,
 			int targetLevel) {
 		int targetBranch = 0;
-		String message = createNewUser("admin", targetUser, newPassword, verifyPassword, targetLevel, targetBranch, true);
+		String message;
+		message = createNewUser("admin", targetUser, newPassword, verifyPassword, targetLevel, targetBranch, true);
 		if(message.equals("User added successfully")) {
-			// TODO confirm email
+			UserService us = new UserService();
+			long id = us.getIdByUsername(targetUser);
+			String key = PasswordGenerator.getPassword(200);
+			Register register = new Register();
+			register.setId(id);
+			register.setPassword(key);
+			saveRegister(register);
+			message = "Please check your email and follow instructions to complete registration";
 		}
 		return message;
 	}
@@ -95,11 +106,25 @@ public class UserModify {
 			if (actionUserLevel == Level.ADMIN) {
 				if (verifyPassword(targetUser, "", newPassword, verifyPassword, true)) {
 					if (targetBranch==0) {
+						BranchService bs = new BranchService();
+						int branchId = bs.getNextBranchId();
+						user.setBranch(branchId+1);
 						user.setArchive(true);
+						log.info("branchId " + branchId);
 						user = saveUser(user);
 						Branch branch = new Branch();
+						branch.setId(branchId);
 						branch.setOwner(user.getId());
 						branch.setArchive(true);
+						branch.setAddress("Default Address");
+						branch.setAdvanceInterest(0.0d);
+						branch.setBalance(0.0d);
+						branch.setCounter(0L);
+						branch.setExtend((byte) (15 & 0xff));
+						branch.setName("Default Pawnshop");
+						branch.setPtNumber(0L);
+						branch.setReserve((byte) (15 & 0xff));
+						branch.setServiceCharge(0.0d);
 						saveBranch(branch);
 					}else {
 						message = saveUser(user, newPassword);
@@ -134,6 +159,14 @@ public class UserModify {
 			}
 		}
 		return message;
+	}
+	
+	@Transactional
+	protected Register saveRegister(Register register) {
+		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
+		dataLayerPrenda.save(register);
+		dataLayerPrenda.flushAndClearSession();
+		return register;
 	}
 	
 	@Transactional

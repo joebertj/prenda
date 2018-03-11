@@ -72,7 +72,7 @@ CREATE TABLE `customer` (
 DROP TABLE IF EXISTS `genkey`;
 CREATE TABLE `genkey` (
   `pid` int(10) unsigned NOT NULL default '0',
-  `password` char(10) NOT NULL default '',
+  `password` char(10) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '',
   PRIMARY KEY  (`pid`),
   FOREIGN KEY `pid` (`pid`) REFERENCES pawn (`pid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -220,14 +220,14 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `uid` smallint NOT NULL auto_increment,
   `username` varchar(20) default NULL,
-  `password` varchar(60) default NULL,
+  `password` varchar(60) CHARACTER SET utf8 COLLATE utf8_bin default NULL,
   `lastname` varchar(20) default NULL,
   `firstname` varchar(50) default NULL,
   `mi` varchar(2) default NULL,
   `level` tinyint unsigned default NULL,
   `branch` smallint unsigned NOT NULL default '0',
   `archive` boolean NOT NULL default '0',
-  `loan_date` date default NULL,
+  `loan_date` date default '2018-01-01',
   PRIMARY KEY  (`uid`),
   UNIQUE KEY `username` (`username`),
   FOREIGN KEY `branch` (`branch`) REFERENCES branch (`branchid`)
@@ -252,6 +252,14 @@ CREATE TABLE `limits` (
   PRIMARY KEY  (`limitid`),
   FOREIGN KEY `limitid` (`limitid`) REFERENCES branch (`branchid`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `register`;
+CREATE TABLE `register` (
+  `rid` int(10) unsigned NOT NULL default '0',
+  `password` char(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '',
+  PRIMARY KEY  (`rid`),
+  FOREIGN KEY `rid` (`rid`) REFERENCES pawn (`pid`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `users` VALUES (1,'admin','$2a$10$xjahs1aLp6l2pjNtN6GTseil9bj5eWRiSP.l0SmCzXdyEHX/IQY1e',NULL,NULL,NULL,9,1,0,'2007-06-12');
 INSERT INTO `users` VALUES (2,'owner','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGVlXdII76vlXuaDWYOwTW',NULL,NULL,NULL,8,1,0,'2007-06-12');

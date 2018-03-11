@@ -5,6 +5,7 @@ import com.prenda.model.obj.prenda.Accounts;
 import com.prenda.model.obj.prenda.Branch;
 import com.prenda.model.obj.prenda.Customer;
 import com.prenda.model.obj.prenda.Genkey;
+import com.prenda.model.obj.prenda.Register;
 import com.prenda.model.obj.prenda.Interest;
 import com.prenda.model.obj.prenda.InterestPK;
 import com.prenda.model.obj.prenda.Jewelry;
@@ -90,6 +91,7 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
 	 	   		daoMap.put(Branch.class, HibernatePrendaDaoFactory.getBranchDao());
 	 	   		daoMap.put(Customer.class, HibernatePrendaDaoFactory.getCustomerDao());
 	 	   		daoMap.put(Genkey.class, HibernatePrendaDaoFactory.getGenkeyDao());
+	 	   		daoMap.put(Register.class, HibernatePrendaDaoFactory.getRegisterDao());
 	 	   		daoMap.put(Interest.class, HibernatePrendaDaoFactory.getInterestDao());
 	 	   		daoMap.put(Jewelry.class, HibernatePrendaDaoFactory.getJewelryDao());
 	 	   		daoMap.put(Journal.class, HibernatePrendaDaoFactory.getJournalDao());
@@ -240,6 +242,14 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
     public void deleteGenkey(final Long id)  {
         HibernatePrendaDaoFactory.getGenkeyDao().delete(loadGenkey(id));
     }
+    
+    /** Deletes an object of a given Id. 
+     * Will load the object internally so consider using delete (Register obj) directly
+     * @param id Identifier to delete
+     */
+    public void deleteRegister(final Long id)  {
+        HibernatePrendaDaoFactory.getRegisterDao().delete(loadRegister(id));
+    }
 	
     /**
      * Loads the given Object.
@@ -254,9 +264,26 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
      * @param id Id to load
      * @return An object of type T
      */
-     public Genkey getGenkey(final Long id) {
+    
+    public Genkey getGenkey(final Long id) {
         return HibernatePrendaDaoFactory.getGenkeyDao().get(id);
-    }  
+    } 
+     /**
+      * Loads the given Object.
+      * @param id Identifier to load
+      * @return a Genkey object
+      */
+     public Register loadRegister(final Long id) {
+         return HibernatePrendaDaoFactory.getRegisterDao().load(id);
+     }
+     /**
+      * Loads the given Object.
+      * @param id Id to load
+      * @return An object of type T
+      */
+      public Register getRegister(final Long id) {
+         return HibernatePrendaDaoFactory.getRegisterDao().get(id);
+     }
 
     /** Deletes an object of a given Id. 
      * Will load the object internally so consider using delete (Interest obj) directly

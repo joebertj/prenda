@@ -17,7 +17,7 @@ public class PrendaDataPoolFactory {
 	/** Table commit order. */
     private static final Multimap<String, String> tableDeps = ArrayListMultimap.create();
 	/** DB commit order. */
-	private static final String[] commitOrder = new String[]{"Users", "Redeem", "Pullout", "Pawn", "Page", "Limits", "Level", "Ledger", "Journal", "Jewelry", "Interest", "Genkey", "Customer", "Branch", "Accounts"};
+	private static final String[] commitOrder = new String[]{"Users", "Redeem", "Pullout", "Pawn", "Page", "Limits", "Level", "Ledger", "Journal", "Jewelry", "Interest", "Genkey", "Register", "Customer", "Branch", "Accounts"};
 	static{
 		// Store table deps for possible use. 
 	}
@@ -89,6 +89,20 @@ public class PrendaDataPoolFactory {
         genkey.setPassword(BasicDataGenerator.generateRandomStringChar(10));
 
         return genkey;
+    }
+    
+    /**
+     * Data pool factory for Register.
+     * @return RegisterA Register object
+     */
+    public static Register getRegister() {
+
+    	Register register = new Register();    
+        
+    	register.setId(BasicDataGenerator.generateRandomLong());
+    	register.setPassword(BasicDataGenerator.generateRandomStringChar(10));
+
+        return register;
     }
 
     /**

@@ -4,6 +4,7 @@ import com.prenda.model.obj.prenda.Accounts;
 import com.prenda.model.obj.prenda.Branch;
 import com.prenda.model.obj.prenda.Customer;
 import com.prenda.model.obj.prenda.Genkey;
+import com.prenda.model.obj.prenda.Register;
 import com.prenda.model.obj.prenda.Interest;
 import com.prenda.model.obj.prenda.InterestPK;
 import com.prenda.model.obj.prenda.Jewelry;
@@ -128,6 +129,12 @@ public interface DataLayerPrenda {
      * @param id Identifier to delete
      */
     void deleteGenkey(final Long id);
+    
+    /** Deletes an object of a given Id. 
+    * Will load the object internally so consider using delete (Register obj) directly
+    * @param id Identifier to delete
+    */
+   void deleteRegister(final Long id);
 	
     /**
      * Loads the given Object.
@@ -140,7 +147,20 @@ public interface DataLayerPrenda {
      * @param id Id to load
      * @return An object of type T
      */
-     Genkey getGenkey(final Long id);  
+    Genkey getGenkey(final Long id); 
+     
+     /**
+      * Loads the given Object.
+      * @param id Identifier to load
+      * @return a Genkey object
+      */
+     Register loadRegister(final Long id);
+     /**
+      * Loads the given Object.
+      * @param id Id to load
+      * @return An object of type T
+      */
+     Register getRegister(final Long id);
 
     /** Deletes an object of a given Id. 
      * Will load the object internally so consider using delete (Interest obj) directly

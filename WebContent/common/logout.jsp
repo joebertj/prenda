@@ -9,8 +9,8 @@
 			<TD><%@include file="navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD width=200></TD>
-			<TD>
+			<td width="200"></td>
+			<TD align="center">
 <%@include file="msg.jsp"%>
 <fmt:bundle basename="messages">
 	<fmt:message key="common.logout" />
