@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>prenda</groupId>
 	<artifactId>prenda</artifactId>
-	<version>0.1.3-SNAPSHOT</version>
+	<version>0.1.4-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<dependencies>
 		<dependency>
@@ -379,7 +379,7 @@
 				<configuration>
 					<descriptor>package.xml</descriptor>
 					<outputDirectory>${project.basedir}</outputDirectory>
-					<finalName>prenda-0.1.3</finalName>
+					<finalName>prenda-0.1.4</finalName>
 				</configuration>
 				<executions>
 					<execution>
