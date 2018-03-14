@@ -134,7 +134,7 @@ public interface DataLayerPrenda {
     * Will load the object internally so consider using delete (Register obj) directly
     * @param id Identifier to delete
     */
-   void deleteRegister(final Long id);
+   void deleteRegister(final Integer id);
 	
     /**
      * Loads the given Object.
@@ -154,13 +154,13 @@ public interface DataLayerPrenda {
       * @param id Identifier to load
       * @return a Genkey object
       */
-     Register loadRegister(final Long id);
+     Register loadRegister(final Integer id);
      /**
       * Loads the given Object.
       * @param id Id to load
       * @return An object of type T
       */
-     Register getRegister(final Long id);
+     Register getRegister(final Integer id);
 
     /** Deletes an object of a given Id. 
      * Will load the object internally so consider using delete (Interest obj) directly

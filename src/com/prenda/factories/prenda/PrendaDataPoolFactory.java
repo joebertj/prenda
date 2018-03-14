@@ -99,7 +99,7 @@ public class PrendaDataPoolFactory {
 
     	Register register = new Register();    
         
-    	register.setId(BasicDataGenerator.generateRandomLong());
+    	register.setId(BasicDataGenerator.generateRandomInt());
     	register.setPassword(BasicDataGenerator.generateRandomStringChar(10));
 
         return register;

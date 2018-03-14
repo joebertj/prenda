@@ -15,7 +15,7 @@ public interface IRegister {
      * Return the value associated with the column: id.
 	 * @return A Long object (this.id)
 	 */
-	Long getId();
+	Integer getId();
 	
 
   
@@ -23,7 +23,7 @@ public interface IRegister {
      * Set the value related to the column: id.
 	 * @param id the id value you wish to set
 	 */
-	void setId(final Long id);
+	void setId(final Integer id);
 
     /**
      * Return the value associated with the column: password.

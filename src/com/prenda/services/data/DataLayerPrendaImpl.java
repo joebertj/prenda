@@ -247,7 +247,7 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
      * Will load the object internally so consider using delete (Register obj) directly
      * @param id Identifier to delete
      */
-    public void deleteRegister(final Long id)  {
+    public void deleteRegister(final Integer id)  {
         HibernatePrendaDaoFactory.getRegisterDao().delete(loadRegister(id));
     }
 	
@@ -273,7 +273,7 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
       * @param id Identifier to load
       * @return a Genkey object
       */
-     public Register loadRegister(final Long id) {
+     public Register loadRegister(final Integer id) {
          return HibernatePrendaDaoFactory.getRegisterDao().load(id);
      }
      /**
@@ -281,7 +281,7 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
       * @param id Id to load
       * @return An object of type T
       */
-      public Register getRegister(final Long id) {
+      public Register getRegister(final Integer id) {
          return HibernatePrendaDaoFactory.getRegisterDao().get(id);
      }
 

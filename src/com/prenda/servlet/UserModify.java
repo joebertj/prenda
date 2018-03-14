@@ -73,14 +73,20 @@ public class UserModify {
 		int targetBranch = 0;
 		String message;
 		message = createNewUser("admin", targetUser, newPassword, verifyPassword, targetLevel, targetBranch, true);
+		log.info("createNewOwner message " + message);
 		if(message.equals("User added successfully")) {
 			UserService us = new UserService();
-			long id = us.getIdByUsername(targetUser);
-			String key = PasswordGenerator.getPassword(200);
+			int id = us.getIdByUsername(targetUser);
+			String key = PasswordGenerator.getPassword(128);
 			Register register = new Register();
 			register.setId(id);
 			register.setPassword(key);
 			saveRegister(register);
+			// TODO send email
+						// POST register/ActivateOwner.htm
+						// ?referer=../common/login.jsp
+						// &user=targetUser
+						// &key=key
 			message = "Please check your email and follow instructions to complete registration";
 		}
 		return message;
@@ -111,17 +117,17 @@ public class UserModify {
 						user.setBranch(branchId+1);
 						user.setArchive(true);
 						log.info("branchId " + branchId);
-						user = saveUser(user);
+						message = saveUser(user, newPassword);
 						Branch branch = new Branch();
 						branch.setId(branchId);
 						branch.setOwner(user.getId());
 						branch.setArchive(true);
-						branch.setAddress("Default Address");
+						branch.setAddress("Default Address of " + targetUser + "'s Default Pawnshop");
 						branch.setAdvanceInterest(0.0d);
 						branch.setBalance(0.0d);
 						branch.setCounter(0L);
 						branch.setExtend((byte) (15 & 0xff));
-						branch.setName("Default Pawnshop");
+						branch.setName("Default Pawnshop of " + targetUser);
 						branch.setPtNumber(0L);
 						branch.setReserve((byte) (15 & 0xff));
 						branch.setServiceCharge(0.0d);

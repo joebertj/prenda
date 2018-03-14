@@ -14,33 +14,25 @@
 			<TD valign=top></TD>
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
-			<FORM method="post" action="RegisterOwner.htm">
-				<INPUT type="hidden" name="referer" value="register/activate">
+			<FORM method="post" action="ActivateOwner.htm">
+				<INPUT type="hidden" name="referer" value="../common/login.jsp">
 				<INPUT type="hidden" name="pass" value="">
 				<INPUT type="hidden" name="modtype" value="0">
 				<INPUT type="hidden" name="level" value="8">
 			<TABLE border="1">
 				<TR>
-					<TH colspan="2">Register New User</TH>
+					<TH colspan="2">Activate User</TH>
 				</TR>
 				<TR>
 					<TD>Username</TD>
 					<TD>: <INPUT type="text" name="user"></TD>
 				</TR>
 				<TR>
-					<TD>Email</TD>
-					<TD>: <INPUT type="text" name="email"></TD>
+					<TD>Key</TD>
+					<TD>: <INPUT type="password" name="key" size="128"></TD>
 				</TR>
 				<TR>
-					<TD>Password</TD>
-					<TD>: <INPUT type="password" name="pass1"></TD>
-				</TR>
-				<TR>
-					<TD>Verify Password</TD>
-					<TD>: <INPUT type="password" name="pass2"></TD>
-				</TR>
-				<TR>
-					<TD colspan="2" align="center"><INPUT type="submit" value="Register"></TD>
+					<TD colspan="2" align="center"><INPUT type="submit" value="Activate"></TD>
 				</TR>
 			</TABLE>
 			</FORM>

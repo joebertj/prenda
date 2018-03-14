@@ -1,7 +1,8 @@
 package com.prenda.model.obj.prenda;
 
 import com.github.wwadge.hbnpojogen.persistence.IPojoGenEntity;
-import com.prenda.model.obj.prenda.iface.IGenkey;
+import com.prenda.model.obj.prenda.iface.IRegister;
+
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.Map;
@@ -22,22 +23,22 @@ import org.hibernate.proxy.HibernateProxy;
 
 @Entity
 @Table(name = "register", catalog = "prenda")
-public class Register implements Cloneable, Serializable, IPojoGenEntity, IGenkey {
+public class Register implements Cloneable, Serializable, IPojoGenEntity, IRegister {
 
 	/** Serial Version UID. */
 	private static final long serialVersionUID = -559018158L;
 
 	/** Use a WeakHashMap so entries will be garbage collected once all entities 
 		referring to a saved hash are garbage collected themselves. */
-	private static final Map<Serializable, Long> SAVED_HASHES =
-		Collections.synchronizedMap(new WeakHashMap<Serializable, Long>());
+	private static final Map<Serializable, Integer> SAVED_HASHES =
+		Collections.synchronizedMap(new WeakHashMap<Serializable, Integer>());
 	
 	/** hashCode temporary storage. */
-	private volatile Long hashCode;
+	private volatile Integer hashCode;
 	
 
 	/** Field mapping. */
-	private Long id;
+	private Integer id;
 	/** Field mapping. */
 	private String password;
 	/**
@@ -50,7 +51,7 @@ public class Register implements Cloneable, Serializable, IPojoGenEntity, IGenke
 	/** Constructor taking a given ID.
 	 * @param id to set
 	 */
-	public Register(Long id) {
+	public Register(Integer id) {
 		this.id = id;
 	}
 	
@@ -58,7 +59,7 @@ public class Register implements Cloneable, Serializable, IPojoGenEntity, IGenke
 	 * @param id Long object;
 	 * @param password String object;
 	 */
-	public Register(Long id, String password) {
+	public Register(Integer id, String password) {
 
 		this.id = id;
 		this.password = password;
@@ -79,12 +80,12 @@ public class Register implements Cloneable, Serializable, IPojoGenEntity, IGenke
 
     /**
      * Return the value associated with the column: id.
-	 * @return A Long object (this.id)
+	 * @return A Integer object (this.id)
 	 */
     @Id 
 	@Basic( optional = false )
-	@Column( name = "pid", nullable = false  )
-	public Long getId() {
+	@Column( name = "rid", nullable = false  )
+	public Integer getId() {
 		return this.id;
 		
 	}
@@ -95,7 +96,7 @@ public class Register implements Cloneable, Serializable, IPojoGenEntity, IGenke
      * Set the value related to the column: id.
 	 * @param id the id value you wish to set
 	 */
-	public void setId(final Long id) {
+	public void setId(final Integer id) {
 		// If we've just been persisted and hashCode has been
 		// returned then make sure other entities with this
 		// ID return the already returned hash code
@@ -214,17 +215,16 @@ public class Register implements Cloneable, Serializable, IPojoGenEntity, IGenke
 		if ( this.hashCode == null ) {
 			synchronized ( this ) {
 				if ( this.hashCode == null ) {
-					Long newHashCode = null;
+					Integer newHashCode = null;
 
 					if ( getId() != null ) {
 					newHashCode = SAVED_HASHES.get( getId() );
 					}
 					
 					if ( newHashCode == null ) {
-						if ( getId() != null && getId() != 0L) {
+						if ( getId() != null && getId() != 0) {
 							newHashCode = getId();
 						} else {
-							newHashCode = (long) super.hashCode();
 
 						}
 					}
@@ -233,7 +233,7 @@ public class Register implements Cloneable, Serializable, IPojoGenEntity, IGenke
 				}
 			}
 		}
-		return (int) (this.hashCode & 0xffffff);
+	return this.hashCode;
 	}
 	
 
