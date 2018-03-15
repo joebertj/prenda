@@ -298,6 +298,11 @@
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.2.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.simplejavamail</groupId>
+			<artifactId>simple-java-mail</artifactId>
+			<version>5.0.1</version>
+		</dependency>
 	</dependencies>
 	<profiles>
 		<profile>
@@ -311,7 +316,7 @@
 						<version>1.0</version>
 						<executions>
 							<execution>
-								<id>copy-file</id>
+								<id>copy-file-app</id>
 								<phase>generate-sources</phase>
 								<goals>
 									<goal>copy</goal>
@@ -319,6 +324,17 @@
 								<configuration>
 									<sourceFile>src/main/resources/application-openshift.properties</sourceFile>
 									<destinationFile>src/main/resources/application.properties</destinationFile>
+								</configuration>
+							</execution>
+							<execution>
+								<id>copy-file-sjm</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>copy</goal>
+								</goals>
+								<configuration>
+									<sourceFile>src/main/resources/sjm-openshift.properties</sourceFile>
+									<destinationFile>src/main/resources/sjm.properties</destinationFile>
 								</configuration>
 							</execution>
 						</executions>

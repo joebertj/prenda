@@ -25,6 +25,7 @@ import com.prenda.Mode;
 import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.helper.PasswordEncoderGenerator;
 import com.prenda.helper.PasswordGenerator;
+import com.prenda.helper.SimpleJavaMailUtil;
 import com.prenda.model.obj.prenda.Branch;
 import com.prenda.model.obj.prenda.Register;
 import com.prenda.model.obj.prenda.Users;
@@ -69,7 +70,7 @@ public class UserModify {
 	
 	@Transactional
 	protected String createNewOwner(String targetUser, String newPassword, String verifyPassword,
-			int targetLevel) {
+			int targetLevel, String email) {
 		int targetBranch = 0;
 		String message;
 		message = createNewUser("admin", targetUser, newPassword, verifyPassword, targetLevel, targetBranch, true);
@@ -82,11 +83,7 @@ public class UserModify {
 			register.setId(id);
 			register.setPassword(key);
 			saveRegister(register);
-			// TODO send email
-						// POST register/ActivateOwner.htm
-						// ?referer=../common/login.jsp
-						// &user=targetUser
-						// &key=key
+			SimpleJavaMailUtil.send(targetUser, email, key);
 			message = "Please check your email and follow instructions to complete registration";
 		}
 		return message;

@@ -29,14 +29,13 @@ public class RegisterOwner {
 			@RequestParam("pass1") String newPassword,
 			@RequestParam("pass2") String verifyPassword) {
 		UserModify um = new UserModify();
-		map.addAttribute("msg",um.createNewOwner(targetUser, newPassword, verifyPassword, Level.OWNER));
+		map.addAttribute("msg",um.createNewOwner(targetUser, newPassword, verifyPassword, Level.OWNER, email));
 		return redirectUrl;
 	}
 	
-	@RequestMapping(value = "register/ActivateOwner.htm", method = RequestMethod.POST)
+	@RequestMapping(value = "register/ActivateOwner.htm", method = {RequestMethod.GET,RequestMethod.POST})
 	@Transactional
-	private String activate(HttpSession session, ModelMap map,
-			@RequestParam("referer") String redirectUrl,
+	private String activatePost(HttpSession session, ModelMap map,
 			@RequestParam("user") String targetUser,
 			@RequestParam("key") String password) {
 		String message = "Either key is invalid or user is not registered";
@@ -56,6 +55,6 @@ public class RegisterOwner {
 			}
 		}
 		map.addAttribute("msg",message);
-		return "redirect:" + redirectUrl;
+		return "redirect:../common/login.jsp";
 	}
 }

@@ -15,7 +15,6 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 			<FORM method="post" action="ActivateOwner.htm">
-				<INPUT type="hidden" name="referer" value="../common/login.jsp">
 				<INPUT type="hidden" name="pass" value="">
 				<INPUT type="hidden" name="modtype" value="0">
 				<INPUT type="hidden" name="level" value="8">
