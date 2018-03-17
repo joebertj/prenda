@@ -1,10 +1,10 @@
 # Prenda
-Joebert S. Jacaba
-joebertj@gmail.com
-Github https://github.com/joebertj/prenda
-Openshift Demo https://openshift.kenchlightyear.com
-Sourceforge http://prenda.sourceforge.net
-Author https://ex.kenchlightyear.com
+Joebert S. Jacaba  
+joebertj@gmail.com  
+Github https://github.com/joebertj/prenda  
+Openshift Demo https://openshift.kenchlightyear.com  
+Sourceforge http://prenda.sourceforge.net  
+Author https://ex.kenchlightyear.com  
 
 ## Overview
 
@@ -29,13 +29,13 @@ Author https://ex.kenchlightyear.com
 ## Prerequisites
 ### Server
 #### v0.1.2 BETA and older
-Apache Tomcat 5.5
-MySQL 5.0
+Apache Tomcat 5.5  
+MySQL 5.0  
 #### v0.1.3 BETA and newer
-Apache Tomcat 8.0
-MySQL 5.7<br/>
+Apache Tomcat 8.0  
+MySQL 5.7  
 ### Client
-Chrome <br/>
+Chrome  
 
 ## Installation
 
@@ -69,80 +69,80 @@ Chrome <br/>
 	on windows,
 		`startup.bat`
 
-7. Point your browser to http://localhost:8080/prenda (adjust port on Tomcat's server.xml)
-####v0.1.2 BETA and older:		admin/123
-####v0.1.3 BETA and newer:		owner/123
-####v0.1.4 BETA and newer has a Self-Registration feature. Valid email needed to activate.	
+7. Point your browser to http://localhost:8080/prenda (adjust port on Tomcat's server.xml)  
+v0.1.2 BETA and older:		admin/123  
+v0.1.3 BETA and newer:		owner/123  
+v0.1.4 BETA and newer has a Self-Registration feature. Valid email needed to activate.  	
 	
 ## Changelog
 
-March 3, 2018
-Converted to Maven
+March 3, 2018  
+Converted to Maven  
 
-January 27, 2013
-Fixed prenda.sql to add required initial values.
+January 27, 2013  
+Fixed prenda.sql to add required initial values.  
 
-October 20, 2008
-Added reports.
-Various bug fixes.
+October 20, 2008  
+Added reports.  
+Various bug fixes.  
 
-October 2, 2008
-Made mandatory for admin and owner to select pulled-out items for auction.
-Bug fixes on owner views.
+October 2, 2008  
+Made mandatory for admin and owner to select pulled-out items for auction.  
+Bug fixes on owner views.  
 
-October 1, 2008
-Updated jasperreports to latest version.
-Bug fixes on disbursement.
+October 1, 2008  
+Updated jasperreports to latest version.  
+Bug fixes on disbursement.  
 
-July 10, 2007
-Added yearly and monthly in redeem view.
+July 10, 2007  
+Added yearly and monthly in redeem view.  
 
-May 5, 2007
-Added yearly and monthly in pawn view.
+May 5, 2007  
+Added yearly and monthly in pawn view.  
 
-May 4, 2007
+May 4, 2007  
 Fixed a bug which when adding or updating a user with owner level, 
 the owner of the branch becomes off sync.
 
-May 3, 2007
+May 3, 2007  
 Added option to use previously used date for loan date
-other than current date (default).
+other than current date (default).  
 
-May 2, 2007
-Added advance interest on pawn table
-Added name columns on users table
-Added loan date in users table
-Fixed pawn edit bug
+May 2, 2007  
+Added advance interest on pawn table  
+Added name columns on users table  
+Added loan date in users table  
+Fixed pawn edit bug  
 
-April 27, 2007
-Created roll over images for navigation menu
+April 27, 2007  
+Created roll over images for navigation menu  
 
-March 22, 2007
-Modified logo to blend with background
+March 22, 2007  
+Modified logo to blend with background  
 
-February 21, 2007
-Completed Branch Service
-Added Page Service
-Applied Page and Branch services to JSP pages
+February 21, 2007  
+Completed Branch Service  
+Added Page Service  
+Applied Page and Branch services to JSP pages  
 
-February 19, 2007
-Added Cash Disbursements Report
-Added Account Service
+February 19, 2007  
+Added Cash Disbursements Report  
+Added Account Service  
 
-February 18, 2007
-Added PT number option in redeem
-Added Branch PID and PT number in pawn
-Added breakdown of redeem in cash position
+February 18, 2007  
+Added PT number option in redeem  
+Added Branch PID and PT number in pawn  
+Added breakdown of redeem in cash position  
 
-February 15, 2007
-Added overriding of loan date
-Added support for specifying pawn ticket start number
-Added logging facility
-Added new graphs
-Added new PDF for printing
-Added RSS support
-Collated classes to packages
-Used JavaBeans for separation of presentation from logic
+February 15, 2007  
+Added overriding of loan date  
+Added support for specifying pawn ticket start number  
+Added logging facility  
+Added new graphs  
+Added new PDF for printing  
+Added RSS support  
+Collated classes to packages  
+Used JavaBeans for separation of presentation from logic  
 
 ## License
 GNU GENERAL PUBLIC LICENSE Version 3
