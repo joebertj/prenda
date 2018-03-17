@@ -1,4 +1,4 @@
-#Prenda
+# Prenda
 Joebert S. Jacaba
 joebertj@gmail.com
 Github https://github.com/joebertj/prenda
@@ -6,7 +6,7 @@ Openshift Demo https://openshift.kenchlightyear.com
 Sourceforge http://prenda.sourceforge.net
 Author https://ex.kenchlightyear.com
 
-##Overview
+## Overview
 
 1. Container-ready - Tested on Openshift (Enterprise Kubernetes/Docker). Easily deployed to cloud for load balancing and high availability.
 2. Highly secure - Uses Spring Security, Passay password validator and bcrypt password hash
@@ -26,18 +26,18 @@ Author https://ex.kenchlightyear.com
 16. Daily cash position report and cash disbursements (Basic Accounting)
 17. Customer Self-service - possible for customers to securely check status of pawned items and renew expiring items online 
 
-##Prerequisites
-###Server
-####v0.1.2 BETA and older
+## Prerequisites
+### Server
+#### v0.1.2 BETA and older
 Apache Tomcat 5.5
 MySQL 5.0
-####v0.1.3 BETA and newer
+#### v0.1.3 BETA and newer
 Apache Tomcat 8.0
 MySQL 5.7<br/>
-###Client
+### Client
 Chrome <br/>
 
-##Installation
+## Installation
 
 1. Download Apache Tomcat 5 (tested on apache-tomcat-5.5.25)
 	`tar xvzf apache-tomcat-5.5.25.tar.gz`
@@ -74,7 +74,7 @@ Chrome <br/>
 ####v0.1.3 BETA and newer:		owner/123
 ####v0.1.4 BETA and newer has a Self-Registration feature. Valid email needed to activate.	
 	
-##Changelog
+## Changelog
 
 March 3, 2018
 Converted to Maven
@@ -144,10 +144,10 @@ Added RSS support
 Collated classes to packages
 Used JavaBeans for separation of presentation from logic
 
-##License
+## License
 GNU GENERAL PUBLIC LICENSE Version 3
 
-##Todo
+## Todo
 
 * SaaS features. Free-tier is 1 branch/owner/manager/encoder.
 * Add power encoder role to be able to adjust dates.
