@@ -27,14 +27,22 @@
 					<TD>: <INPUT type="password" name="pass"></TD>
 				</TR>
 				<tr>
-					<td colspan="2" align="center"><input type='checkbox' name='_spring_security_remember_me'/>Remember Me</td>
+					<td colspan="2" align="center"><input type='checkbox' name='_spring_security_remember_me'/>
+						<fmt:bundle basename="messages">
+							<fmt:message key="common.rememberMe" />
+						</fmt:bundle>
+					</td>
 				</tr>
 				<TR>
 					<TD align="center" colspan="2"><INPUT type="submit" value="Login"></TD>
 				</TR>
 			</TABLE>
 			</FORM>
-			<a href="${contextPath}/register/newuser.jsp">Register</a>
+			<a href="${contextPath}/register/newuser.jsp">
+				<fmt:bundle basename="messages">
+					<fmt:message key="common.register" />
+				</fmt:bundle>
+			</a>
 			</TD>
 		</TR>
 	</TBODY>
