@@ -27,7 +27,7 @@
 					<TD>: <INPUT type="password" name="pass"></TD>
 				</TR>
 				<tr>
-					<td colspan="2" align="center"><input type='checkbox' name='remember-me'/>Remember Me</td>
+					<td colspan="2" align="center"><input type='checkbox' name='_spring_security_remember_me'/>Remember Me</td>
 				</tr>
 				<TR>
 					<TD align="center" colspan="2"><INPUT type="submit" value="Login"></TD>

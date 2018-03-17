@@ -27,12 +27,13 @@ public class SuccessHandler extends
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
 		String username = auth.getName();
-		// TODO For backward compatibility. Remove when fully updated to Spring Security Roles
+		// To make it easy to retrieve the authenticated username
 		session.setAttribute("authenticated", username);
+		// This just redirects the page to the original request
 		DefaultSavedRequest defaultSavedRequest = (DefaultSavedRequest) session.getAttribute("SPRING_SECURITY_SAVED_REQUEST_KEY");
         if( defaultSavedRequest != null) {
             String requestUrl = defaultSavedRequest.getRequestURL();
-            log.info(requestUrl);
+            log.info("requestUrl " + requestUrl);
             getRedirectStrategy().sendRedirect(request, response, requestUrl);
         } else {
             super.onAuthenticationSuccess(request, response, authentication);
