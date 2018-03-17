@@ -23,7 +23,7 @@ SELECT count(id) as numid FROM customer
 WHERE last_name like '%<c:out value="${param.customer}" />%'
 OR first_name like '%<c:out value="${param.customer}" />%'
 OR middle_name like '%<c:out value="${param.customer}" />%'
-<c:if test="${users.rows[0].level<7}">
+<c:if test="${user.level<7}">
 AND archive=0
 </c:if>
 </sql:query>
@@ -63,7 +63,7 @@ AND archive=0
 					<TH>First Name</TH>
 					<TH>Middle Name</TH>
 					<TH>Address</TH>
-					<c:if test="${users.rows[0].level>=7}">
+					<c:if test="${user.level>=7}">
 					<TH>Archived</TH>
 					</c:if>
 				</TR>
@@ -80,7 +80,7 @@ AND archive=0
 					<TD><c:out value="${row.firstName}" /></TD>
 					<TD><c:out value="${row.middleName}" /></TD>
 					<TD><c:out value="${row.address}" />
-					<c:if test="${users.rows[0].level>=7}">
+					<c:if test="${user.level>=7}">
 					<TD>
 					<c:choose>
 						<c:when test="${row.isArchive()}">

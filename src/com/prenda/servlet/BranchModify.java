@@ -53,6 +53,7 @@ import com.prenda.service.LevelService;
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
 		String redirectURL=null;
+				
 		if(session.isNew()){
 			redirectURL = "/common/login.jsp";
 			response.sendRedirect(redirectURL);
@@ -149,8 +150,12 @@ import com.prenda.service.LevelService;
 		try{
 			Connection conn = DatabaseConnection.getConnection();
     		PreparedStatement pstmt = null;
-    		String modtype = request.getParameter("modtype");
-			if(modtype.equals("0")){
+    		int modtype = new Integer(request.getParameter("modtype"))
+					.intValue();
+    		String referer = request.getParameter("referer");
+    		log.info("referer " + referer);
+    		
+			if(modtype==0){
     			String bname = request.getParameter("bname");
     			String address = request.getParameter("address");
     			float balance = new Float(request.getParameter("balance")).floatValue();
@@ -217,7 +222,7 @@ import com.prenda.service.LevelService;
     			}else{
     				response.sendRedirect("newbranch.jsp?msg=Branch "+bname+" successfully added");
     			}
-    		}else if(modtype.equals("1")){
+    		}else if(modtype==1){
     			int branchid = new Integer(request.getParameter("branchid")).intValue();
     			String bname = request.getParameter("bname");
     			String delresp=request.getParameter("delresp");
@@ -243,7 +248,7 @@ import com.prenda.service.LevelService;
     					response.sendRedirect("admin/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
     				}
     			}
-    		}else if(modtype.equals("2")){
+    		}else if(modtype==2){
     			int branchid = new Integer(request.getParameter("branchid")).intValue();
     			String bname = request.getParameter("bname");
     			String address = request.getParameter("address");
@@ -276,13 +281,7 @@ import com.prenda.service.LevelService;
     			pstmt.setFloat(6, sc);
     			pstmt.setInt(7, reserve);
     			pstmt.executeUpdate();
-    			if(request.getContextPath().toString().contains("manager")){
-    				response.sendRedirect("manage/changebranch.jsp?msg=Details for branch "+bname+" successfully changed");
-    			}else if(request.getContextPath().toString().contains("owner")){
-    				response.sendRedirect("owner/branchlist.jsp?msg=Details for branch "+bname+" successfully changed");
-    			}else{
-    				response.sendRedirect("admin/branchlist.jsp?msg=Details for branch "+bname+" successfully changed");
-    			}
+    			response.sendRedirect(referer + "?msg=Details for branch "+bname+" successfully changed");
     		}
 		} catch (SQLException ex) {
             log.info("SQLException: " + ex.getMessage());

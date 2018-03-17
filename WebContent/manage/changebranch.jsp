@@ -15,7 +15,8 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 			<FORM method="post" action="${contextPath}/BranchModify">
-			<INPUT type="hidden" name="branchid" value="${branches.id}">
+			<INPUT type="hidden" name="referer" value="manage/changebranch.jsp">
+			<INPUT type="hidden" name="branchid" value="${branch.id}">
 			<INPUT type="hidden" name="modtype" value="2">
 			<TABLE border="1">
 				<TR>
@@ -23,35 +24,35 @@
 				</TR>
 				<TR>
 					<TD>Name</TD>
-					<TD>: <INPUT type="text" name="bname" size="20" value="${branches.name}"></TD>
+					<TD>: <INPUT type="text" name="bname" size="20" value="${branch.name}"></TD>
 				</TR>
 				<TR>
 					<TD>Address</TD>
-					<TD>: <INPUT type="text" name="address" size="50" value="${branches.address}"></TD>
+					<TD>: <INPUT type="text" name="address" size="50" value="${branch.address}"></TD>
 				</TR>
 				<TR>
 					<TD>Balance</TD>
-					<TD>: <INPUT type="text" name="balance" value="${branches.balance}"></TD>
+					<TD>: <INPUT type="text" name="balance" value="${branch.balance}"></TD>
 				</TR>
 				<TR>
 					<TD>PT Number Start</TD>
-					<TD>: <INPUT type="text" name="pt" value="${branches.pawnTicket}"></TD>
+					<TD>: <INPUT type="text" name="pt" value="${branch.pawnTicket}"></TD>
 				</TR>
 				<TR>
 					<TD>Advance Interest</TD>
-					<TD>: <INPUT type="text" name="ai" size="4" value="${branches.advanceInterest}"></TD>
+					<TD>: <INPUT type="text" name="ai" size="4" value="${branch.advanceInterest}"></TD>
 				</TR>
 				<TR>
 					<TD>Service Charge</TD>
-					<TD>: <INPUT type="text" name="sc" size="4" value="${branches.serviceCharge}"></TD>
+					<TD>: <INPUT type="text" name="sc" size="4" value="${branch.serviceCharge}"></TD>
 				</TR>
 				<TR>
 					<TD>Days Left to Reserve</TD>
-					<TD>: <INPUT type="text" name="extend" size="2" value="${branches.minDaysToExtend}"></TD>
+					<TD>: <INPUT type="text" name="extend" size="2" value="${branch.minDaysToExtend}"></TD>
 				</TR>
 				<TR>
 					<TD>Reserve Duration</TD>
-					<TD>: <INPUT type="text" name="reserve" size="3" value="${branches.reserveDuration}"></TD>
+					<TD>: <INPUT type="text" name="reserve" size="3" value="${branch.reserveDuration}"></TD>
 				</TR>
 				<TR>
 					<TD colspan="2" align="center"><INPUT type="submit" value="Save Changes"></TD>

@@ -36,7 +36,7 @@
 				</TR>
 				<TR>
 					<input type="hidden" name="level" value="1"/>
-					<input type="hidden" name="branch" value="${users.rows[0].branch}"/>
+					<input type="hidden" name="branch" value="${user.branchId}"/>
 					<TD colspan="2" align="center"><INPUT type="submit" value="Add"></TD>
 				</TR>
 			</TABLE>

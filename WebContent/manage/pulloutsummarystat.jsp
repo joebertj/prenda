@@ -18,8 +18,8 @@
 SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -31,8 +31,8 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND pullout_date=NOW()
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -42,8 +42,8 @@ AND branch=<c:out value="${users.rows[0].branch}"/>
 SELECT sum(loan) as sumloan FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -55,8 +55,8 @@ FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND pullout_date=NOW()
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -67,8 +67,8 @@ SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND loan<=500
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -81,8 +81,8 @@ LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan<=500
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -93,8 +93,8 @@ SELECT sum(loan) as sumloan FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND loan<=500
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -107,8 +107,8 @@ LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan<=500
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -119,8 +119,8 @@ SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND loan>500 AND loan<=1000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -133,8 +133,8 @@ LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>500 AND loan<=1000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -145,8 +145,8 @@ SELECT sum(loan) as sumloan FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND loan>500 AND loan<=1000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -159,8 +159,8 @@ LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>500 AND loan<=1000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -171,8 +171,8 @@ SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND loan>1000 AND loan<=2000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -185,8 +185,8 @@ LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>1000 AND loan<=2000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -197,8 +197,8 @@ SELECT sum(loan) as sumloan FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND loan>1000 AND loan<=2000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -211,8 +211,8 @@ LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>1000 AND loan<=2000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -223,8 +223,8 @@ SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND loan>2000 AND loan<=5000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -237,8 +237,8 @@ LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>2000 AND loan<=5000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -249,8 +249,8 @@ SELECT sum(loan) as sumloan FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND loan>2000 AND loan<=5000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -263,8 +263,8 @@ LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND loan_date=NOW()
 AND loan>2000 AND loan<=5000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -275,8 +275,8 @@ SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND loan>5000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -289,8 +289,8 @@ LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>5000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -301,8 +301,8 @@ SELECT sum(loan) as sumloan FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND loan>5000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -315,17 +315,17 @@ LEFT JOIN pullout ON pawn.pid=pullout.pid
 WHERE pawn.pid=pullout.pid
 AND pullout_date=NOW()
 AND loan>5000
-<c:if test="${users.rows[0].level<9}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
 </c:if>
 </sql:query>
 			<form method="post" action="pulloutstat.pdf">
-				<input type="hidden" name="branch" value="${users.rows[0].branch}"/>
-				<input type="hidden" name="bname" value="${branch.rows[0].name}"/>
-				<input type="hidden" name="baddress" value="${branch.rows[0].address}"/>
+				<input type="hidden" name="branch" value="${user.branchId}"/>
+				<input type="hidden" name="bname" value="${branch.name}"/>
+				<input type="hidden" name="baddress" value="${branch.address}"/>
 				<input type="submit" value="Generate PDF"/>
 			</form>
 			<TABLE border="1">

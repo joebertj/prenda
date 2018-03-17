@@ -28,7 +28,7 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 				</TR>
 				<TR>
 					<TD>Branch PID</TD>
-					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branches.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
+					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branch.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD width="200"></TD>
 					<TD>Date of Loan</TD>
 					<TD>:<jsp:useBean id="ldate" class="com.prenda.helper.DateUtil" /> 
@@ -80,22 +80,29 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 				<TR>
 					<TD colspan="4">
 					<TD>Principal</TD>
-					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${pawn.rows[0].loan}" /></TD>
+					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${pawn.rows[0].loan}" />
+					<jsp:useBean id="loans" class="com.prenda.service.LoanService"/>
+					<c:set var="margin" value="100"/>
+					<jsp:setProperty property="appraised" name="loans" value="${pawn.rows[0].loan + margin}"/>
+					<jsp:setProperty property="advanceInterest" name="loans" value="${pawn.rows[0].advance_interest}"/>
+					<jsp:setProperty property="serviceCharge" name="loans" value="${pawn.rows[0].service_charge}"/>
+					<jsp:setProperty property="margin" name="loans" value="${margin}"/>
+					</TD>
 				</TR>
 				<TR>
 					<TD colspan="4">
 					<TD>Interest</TD>
-					<TD>: 0.00</TD>
+					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${loans.interest}" /></TD>
 				</TR>
 				<TR>
 					<TD colspan="4">
 					<TD>Service Charge</TD>
-					<TD>: 0.00</TD>
+					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${pawn.rows[0].service_charge}" /></TD>
 				</TR>
 				<TR>
 					<TD colspan="4">
 					<TD>Net Proceeds</TD>
-					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${pawn.rows[0].loan}" /></TD>
+					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${loans.netProceeds}" /></TD>
 				</TR>
 				<TR>
 					<TD colspan="100%" align="center">
@@ -125,7 +132,7 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 						<input type="hidden" name="description" value="${pawn.rows[0].description}"/>
 						<input type="hidden" name="password" value="${pawn.rows[0].password}"/>
 						<input type="hidden" name="encoder" value="${pawn.rows[0].encoder}"/>
-						<input type="hidden" name="branch" value="${users.rows[0].branch}"/>
+						<input type="hidden" name="branch" value="${user.branchId}"/>
 						<input type="submit" value="Print on Preprinted Receipt" onClick='
 							document.getElementsByName("ratew").value=AmtInWords(document.getElementsByName("rate").value,"Pesos Only");
 							document.getElementsByName("loanw").value=AmtInWords(document.getElementsByName("loan").value,"Pesos Only");

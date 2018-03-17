@@ -323,9 +323,9 @@ AND loan>5000
 </c:if>
 </sql:query>
 			<form method="post" action="pulloutstat.pdf">
-				<input type="hidden" name="branch" value="${users.rows[0].branch}"/>
-				<input type="hidden" name="bname" value="${branch.rows[0].name}"/>
-				<input type="hidden" name="baddress" value="${branch.rows[0].address}"/>
+				<input type="hidden" name="branch" value="${user.branchId}"/>
+				<input type="hidden" name="bname" value="${branch.name}"/>
+				<input type="hidden" name="baddress" value="${branch.address}"/>
 				<input type="submit" value="Generate PDF"/>
 			</form>
 			<TABLE border="1">

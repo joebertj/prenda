@@ -16,25 +16,25 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 <sql:query var="page" dataSource="${prenda}">
-SELECT foreclose FROM page WHERE pageid=<c:out value="${users.rows[0].branch}"/>
+SELECT foreclose FROM page WHERE pageid=<c:out value="${user.branchId}"/>
 </sql:query>
 <c:set var="perpage" value="${page.rows[0].foreclose}"/>
 <sql:query var="pageable" dataSource="${prenda}">
 SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
-<c:if test="${users.rows[0].level==8}">
+<c:if test="${user.level==8}">
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
 </c:if>
 WHERE redeem.pid IS NULL
-<c:if test="${users.rows[0].level==8}">
+<c:if test="${user.level==8}">
 AND users.username="${authenticated}"
 </c:if>
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
-<c:if test="${users.rows[0].level<8}">
-AND branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<8}">
+AND branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -77,19 +77,19 @@ LEFT JOIN customer ON pawn.nameid=customer.id
 LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN interest ON pawn.branch=interest.interestid
-<c:if test="${users.rows[0].level==8}">
+<c:if test="${user.level==8}">
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
 </c:if>
 WHERE (day=DATEDIFF(NOW(),pawn.loan_date) OR (day=34 AND DATEDIFF(NOW(),pawn.loan_date)>34))
-<c:if test="${users.rows[0].level==8}">
+<c:if test="${user.level==8}">
 AND users.username="${authenticated}"
 </c:if>
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
 AND ADDDATE(pawn.loan_date,120+15*pawn.extend) <= NOW()
-<c:if test="${users.rows[0].level<8}">
-AND pawn.branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<8}">
+AND pawn.branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />

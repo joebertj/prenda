@@ -15,7 +15,7 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 <jsp:useBean id="pageS" class="com.prenda.service.PageService" />
-<jsp:setProperty name="pageS" property="branchId" value="${branches.id}" />
+<jsp:setProperty name="pageS" property="branchId" value="${branch.id}" />
 <c:set var="perpage" value="${pageS.redeem}"/>
 <c:set var="pagenum" value="${param.pagenum}" />
 <c:if test="${pagenum==null || pagenum<1 || pagenum>pages}">
@@ -60,8 +60,8 @@
 			</c:if>
 			<form method="post" action="redeem.pdf">
 				<input type="hidden" name="branch" value="${user.branchId}"/>
-				<input type="hidden" name="bname" value="${branches.name}"/>
-				<input type="hidden" name="baddress" value="${branches.address}"/>
+				<input type="hidden" name="bname" value="${branch.name}"/>
+				<input type="hidden" name="baddress" value="${branch.address}"/>
 				<input type="submit" value="Generate PDF"/>
 			</form>
 			<TABLE border="1">

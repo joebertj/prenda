@@ -22,7 +22,7 @@ SELECT branch FROM users WHERE username="${authenticated}"
 			<input type="hidden" name="referer" value="changepass"/>
 			<INPUT type="hidden" name="uid"	value="${param.uid}"> 
 			<INPUT type="hidden" name="user" value="${param.user}">
-			<INPUT type="hidden" name="branch" value="${users.rows[0].branch}">
+			<INPUT type="hidden" name="branch" value="${user.branchId}">
 			<TABLE border="1">
 				<TR>
 					<TH colspan="2">Change Password <c:out value="${param.user}" /></TH>

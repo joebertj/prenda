@@ -18,7 +18,7 @@
 SELECT count(pid) as numid 
 FROM pawn 
 WHERE pid=<c:out value="${param.pid}"/> 
-AND branch=<c:out value="${users.rows[0].branch}"/>
+AND branch=<c:out value="${user.branchId}"/>
 </sql:query>
 <c:if test="${testpawn.rows[0].numid==0}">
 	<c:redirect url="redeem.jsp?msg=Item does not exist or does not belong to branch"></c:redirect>

@@ -21,8 +21,8 @@ WHERE journal_group=<c:out value="${param.group}"/>
 </sql:query>
 			<form name="disburse" action="cashdisbursement.pdf" method="post">
 			<input type="hidden" name="branch" value="${user.branchId}"/>
-			<input type="hidden" name="bname" value="${branches.name}"/>
-			<input type="hidden" name="baddress" value="${branches.address}"/>
+			<input type="hidden" name="bname" value="${branch.name}"/>
+			<input type="hidden" name="baddress" value="${branch.address}"/>
 			<TABLE border="1">
 				<TR>
 					<TH colspan="100%">Cash Disbursement</TH>

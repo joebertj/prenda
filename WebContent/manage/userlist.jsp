@@ -19,8 +19,8 @@
 <c:set var="perpage" value="${pageS.user}"/>
 <sql:query var="pageable" dataSource="${prenda}">
 SELECT count(uid) as numid FROM users 
-WHERE branch=<c:out value="${users.rows[0].branch}"/>
-AND level<=<c:out value="${users.rows[0].level}"/>
+WHERE branch=<c:out value="${user.branchId}"/>
+AND level<=<c:out value="${user.level}"/>
 </sql:query>
 <c:set var="numid" value="${pageable.rows[0].numid}" />
 <c:set var="pages" value="${numid/perpage}" />
@@ -53,8 +53,8 @@ AND level<=<c:out value="${users.rows[0].level}"/>
 			</c:if>
 <sql:query var="userlist" dataSource="${prenda}">
 SELECT * FROM users 
-WHERE branch=<c:out value="${users.rows[0].branch}"/> 
-AND level<=<c:out value="${users.rows[0].level}"/>
+WHERE branch=<c:out value="${user.branchId}"/> 
+AND level<=<c:out value="${user.level}"/>
 ORDER BY username
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 </sql:query>

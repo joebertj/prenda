@@ -14,7 +14,7 @@
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
-<sql:query var="branch" dataSource="${prenda}">
+<sql:query var="branches" dataSource="${prenda}">
 SELECT name FROM branch
 WHERE branchid=<c:out value="${param.frombranch}"/> OR branchid=<c:out value="${param.tobranch}"/>
 </sql:query>
@@ -30,10 +30,10 @@ WHERE branchid=<c:out value="${param.frombranch}"/> OR branchid=<c:out value="${
 					<TH>Amount</TH>
 				</TR>
 				<TR>
-					<TD><c:out value="${branch.rows[0].name}"/>
+					<TD><c:out value="${branches.rows[0].name}"/>
 						<input type="hidden" name="frombranch" value="${param.frombranch}"/>
 					</TD>
-					<TD><c:out value="${branch.rows[1].name}"/>
+					<TD><c:out value="${branches.rows[1].name}"/>
 						<input type="hidden" name="tobranch" value="${param.tobranch}"/>
 					</TD>
 					<TD><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.amount}" />

@@ -45,7 +45,7 @@
 					<jsp:setProperty property="sdfOut" name="sqlToJs" value="MM/dd/yyyy"/>
 					<jsp:setProperty property="value" name="sqlToJs" value="${user.loanDate}"/>
 					Branch PID</TD>
-					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branches.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
+					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branch.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD width="200" align="right">
 					<input class="revert" type="button" value="  " style="background: url(common/img/revert.png) no-repeat; cursor:pointer; border: none;" 
 					onClick='document.pawn.dateInJs.value="<c:out value="${sqlToJs.effective}"/>";document.pawn.loandate.focus();'/></TD>
@@ -63,8 +63,8 @@
 				</TR>
 				<TR>
 					<TD>PT Number</TD>
-					<TD colspan="3"><fmt:formatNumber value="${branches.pawnTicket}" minIntegerDigits="6" groupingUsed="false"/>
-					<input type="hidden" id="pt" name="pt" value="${branches.pawnTicket}" />
+					<TD colspan="3"><fmt:formatNumber value="${branch.pawnTicket}" minIntegerDigits="6" groupingUsed="false"/>
+					<input type="hidden" id="pt" name="pt" value="${branch.pawnTicket}" />
 					</TD>
 					<TD>Maturity Date</TD>
 					<TD><input type="text" id="maturity" value="${javaToHtml.maturity}" size="10" disabled/>
@@ -135,14 +135,14 @@
 				</TR>
 				<TR>
 					<TD>Appraised Amount</TD>
-					<TD><INPUT type="text" name="appamt" size="10" disabled/>
+					<TD><INPUT type="text" name="appamt" id="appamt" size="10" readonly/>
 					</TD>
 					<TD>In Words</TD>
 					<TD colspan="3"><INPUT type="text" name="appword" size="50" disabled/></TD>
 				</TR>
 				<TR>
 					<TD>Description</TD>
-					<TD colspan="4"><INPUT type="text" name="desc" size="78" onChange="updatePawn()"/></TD>
+					<TD colspan="4"><INPUT type="text" name="desc" id="desc" size="78" onChange="updatePawn()"/></TD>
 				</TR>
 				<TR>
 					<TD colspan="4"></TD>
@@ -152,18 +152,20 @@
 				<TR>
 					<TD colspan="4"></TD>
 					<TD>Advance Interest</TD>
-					<TD><INPUT type="text" name="interest" size="10" value="0.00" disabled/></TD>
+					<TD><INPUT type="hidden" name="interest" id="interest" size="10" value="${branch.advanceInterest}"/>
+						<INPUT type="text" name="loaninterest" id="loaninterest" size="10" value="0" readonly/>
+					</TD>
 				</TR>
 				<TR>
 					<TD colspan="4"></TD>
 					<TD>Service Charge</TD>
-					<TD><INPUT type="text" name="service" size="10" value="0.00" disabled/>
+					<TD><INPUT type="text" name="service" id="service" size="10" value="${branch.serviceCharge}" readonly/>
 					</TD>
 				</TR>
 				<TR>
 					<TD colspan="4"></TD>
 					<TD>Net Proceeds</TD>
-					<TD><INPUT type="text" name="net" size="10" disabled/></TD>
+					<TD><INPUT type="text" name="net" id="net" size="10" readonly/></TD>
 				</TR>
 				<TR>
 					<TD colspan="6" align="center">
@@ -260,6 +262,15 @@
   eventType="blur"
   parser="new ResponseXmlParser()" 
   postFunction="initPawn" />
+  
+<ajax:updateField
+  baseUrl="NetProceeds"
+  source="desc"
+  target="net,loaninterest"
+  action="desc"
+  parameters="appraised={appamt},advanceInterest={interest},serviceCharge={service},margin=100"
+  eventType="focus"
+  parser="new ResponseXmlParser()" />
 
 <ajax:callout
   baseUrl="${contextPath}/common/xml/revert.xml"

@@ -17,8 +17,8 @@
 			<jsp:useBean id="service" class="com.prenda.service.StatisticsService"/>
 			<form method="post" action="redeemstatrate.pdf">
 				<input type="hidden" name="branch" value="${user.branchId}"/>
-				<input type="hidden" name="bname" value="${branches.name}"/>
-				<input type="hidden" name="baddress" value="${branches.address}"/>
+				<input type="hidden" name="bname" value="${branch.name}"/>
+				<input type="hidden" name="baddress" value="${branch.address}"/>
 				<input type="submit" value="Generate PDF"/>
 			</form>
 			<TABLE border="1">

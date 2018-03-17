@@ -45,13 +45,13 @@
 				<TR>
 					<TD>Branch</TD>
 					<TD>: 
-<sql:query var="branch" dataSource="${prenda}">
+<sql:query var="branches" dataSource="${prenda}">
 SELECT branchid,name FROM branch
 LEFT JOIN users ON branch.owner=users.uid
 WHERE username="${authenticated}"
 </sql:query>
 					<select name="branch">
-					<c:forEach var="row" items="${branch.rows}">
+					<c:forEach var="row" items="${branches.rows}">
 					<option value="${row.branchid}"><c:out value="${row.name}"/></option>
 					</c:forEach>
 					</select>

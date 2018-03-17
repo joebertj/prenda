@@ -23,7 +23,7 @@
 				</TR>
 				<TR>
 					<TD>Branch PID</TD>
-					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branches.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
+					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branch.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD width="200"></TD>
 					<TD>Date of Loan</TD>
 					<TD>: <jsp:useBean id="ldate" class="com.prenda.helper.DateUtil" /> 
@@ -40,8 +40,8 @@
 				</TR>
 				<TR>
 					<TD>PT Number</TD>
-					<TD colspan="3"><fmt:formatNumber value="${branches.pawnTicket}" minIntegerDigits="6" groupingUsed="false"/>
-					<input type="hidden" id="pt" name="pt" value="${branches.pawnTicket}" /></TD>
+					<TD colspan="3"><fmt:formatNumber value="${branch.pawnTicket}" minIntegerDigits="6" groupingUsed="false"/>
+					<input type="hidden" id="pt" name="pt" value="${branch.pawnTicket}" /></TD>
 					<TD>Maturity Date</TD>
 					<TD>: <c:out value="${ldate.maturity}"/>
 				</TR>
@@ -90,25 +90,25 @@
 				<TR>
 					<TD colspan="4">
 					<TD>Principal</TD>
-					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.pri}" /></TD>
+					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.pri}" /></TD>
 				</TR>
 				<TR>
 					<TD colspan="4">
 					<TD>Interest</TD>
-					<TD>: <c:out value="${param.interest}"/>
-					<INPUT type="hidden" name="interest" size="10" value="${param.interest}"></TD>
+					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.loaninterest}"/>
+					<INPUT type="hidden" name="interest" size="10" value="${param.loaninterest}"></TD>
 				</TR>
 				<TR>
 					<TD colspan="4">
 					<TD>Service Charge</TD>
-					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.service}" />
+					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.service}" />
 					<INPUT type="hidden" name="service" size="10" value="${param.service}">
 					</TD>
 				</TR>
 				<TR>
 					<TD colspan="4">
 					<TD>Net Proceeds</TD>
-					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.net}" /></TD>
+					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.net}" /></TD>
 				</TR>
 				<TR>
 					<TD colspan="100%" align="center">

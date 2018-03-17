@@ -19,7 +19,7 @@
 <c:set var="perpage" value="${pageS.disburse}"/>
 <sql:query var="pageable" dataSource="${prenda}">
 SELECT count(journal.journalid) as numid FROM journal WHERE journal_date=CURDATE()
-<c:if test="${users.rows[0].level<9}">
+<c:if test="${user.level<9}">
 AND branchid=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">

@@ -3,8 +3,8 @@
 <sec:authorize access="isAuthenticated()"> 
 <jsp:useBean id="user" class="com.prenda.service.UserService"/>
 <jsp:setProperty property="name" name="user" value="${authenticated}"/>
-<jsp:useBean id="branches" class="com.prenda.service.BranchService"/>
-<jsp:setProperty property="id" name="branches" value="${user.branchId}"/>
+<jsp:useBean id="branch" class="com.prenda.service.BranchService"/>
+<jsp:setProperty property="id" name="branch" value="${user.branchId}"/>
 </sec:authorize>
 <table class="navi" style="width:100%;">
 	<tr>
@@ -18,8 +18,8 @@
 <sec:authorize access="isAuthenticated()"> 
 	<tr><td>
 		<table align="center" class="branch">
-			<tr><td align="center"><b><jsp:getProperty property="name" name="branches"/></b></td></tr>
-			<tr><td align="center"><jsp:getProperty property="address" name="branches"/></td></tr>
+			<tr><td align="center"><b><jsp:getProperty property="name" name="branch"/></b></td></tr>
+			<tr><td align="center"><jsp:getProperty property="address" name="branch"/></td></tr>
 		</table>
 	</td></tr>
 </sec:authorize>

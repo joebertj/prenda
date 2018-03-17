@@ -21,8 +21,8 @@
 </c:if>
 			<FORM method="post" action="../cashposition.pdf">
 			<input type="hidden" name="branch" value="${user.branchId}"/>
-			<input type="hidden" name="name" value="${branches.name}"/>
-			<input type="hidden" name="address" value="${branches.address}"/>
+			<input type="hidden" name="name" value="${branch.name}"/>
+			<input type="hidden" name="address" value="${branch.address}"/>
 			<TABLE border="1">
 				<TR>
 					<TH colspan="100%">Cash Position</TH>

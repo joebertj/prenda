@@ -21,17 +21,17 @@
 SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
-<c:if test="${users.rows[0].level==8}">
+<c:if test="${user.level==8}">
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
 </c:if>
 WHERE redeem.pid IS NULL
-<c:if test="${users.rows[0].level==8}">
+<c:if test="${user.level==8}">
 AND users.username="${authenticated}"
 </c:if>
 AND pullout.pid IS NULL
-<c:if test="${users.rows[0].level<8}">
-AND pawn.branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<8}">
+AND pawn.branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -77,17 +77,17 @@ LEFT JOIN redeem ON pawn.pid=redeem.pid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN interest ON pawn.branch=interest.interestid
 LEFT JOIN branch ON pawn.branch=branch.branchid
-<c:if test="${users.rows[0].level==8}">
+<c:if test="${user.level==8}">
 LEFT JOIN users ON branch.owner=users.uid 
 </c:if>
 WHERE (day=DATEDIFF(NOW(),pawn.loan_date) OR (day=34 AND DATEDIFF(NOW(),pawn.loan_date)>34))
-<c:if test="${users.rows[0].level==8}">
+<c:if test="${user.level==8}">
 AND users.username="${authenticated}"
 </c:if>
 AND redeem.pid IS NULL
 AND pullout.pid IS NULL
-<c:if test="${users.rows[0].level<8}">
-AND pawn.branch=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<8}">
+AND pawn.branch=<c:out value="${user.branchId}"/>
 </c:if>
 <c:if test="${param.bcode==1}">
 <c:out value="AND bcode=1" />
@@ -96,9 +96,9 @@ ORDER BY pawn.pid
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 </sql:query>
 			<form method="post" action="inventory.pdf">
-				<input type="hidden" name="branch" value="${users.rows[0].branch}"/>
-				<input type="hidden" name="bname" value="${branch.rows[0].name}"/>
-				<input type="hidden" name="baddress" value="${branch.rows[0].address}"/>
+				<input type="hidden" name="branch" value="${user.branchId}"/>
+				<input type="hidden" name="bname" value="${branch.name}"/>
+				<input type="hidden" name="baddress" value="${branch.address}"/>
 				<input type="submit" value="Generate PDF"/>
 			</form>
 			<TABLE border="1">

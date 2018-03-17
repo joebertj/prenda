@@ -14,14 +14,14 @@
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
-			<jsp:setProperty property="id" name="branches" value="${param.branchid}"/>
+			<jsp:setProperty property="id" name="branch" value="${param.branchid}"/>
 			<FORM method="post" action="${contextPath}/SaveSettings">
 			<INPUT type="hidden" name="referer" value="manage/">
-			<INPUT type="hidden" name="bname" value="${branches.name}">
-			<INPUT type="hidden" name="branchid" value="${branches.id}">
+			<INPUT type="hidden" name="bname" value="${branch.name}">
+			<INPUT type="hidden" name="branchid" value="${branch.id}">
 			<TABLE border="1">
 				<TR>
-					<TH colspan="100%"><c:out value="${branches.name}"/></TH>
+					<TH colspan="100%"><c:out value="${branch.name}"/></TH>
 				</TR>
 			</TABLE>
 			<br/>
@@ -33,35 +33,35 @@
 				<TR>
 					<TD>Day <c:out value="${i}"/>
 <sql:query var="interest" dataSource="${prenda}">
-SELECT rate FROM interest WHERE interestid=<c:out value="${branches.id}"/> AND day=<c:out value="${i}"/>
+SELECT rate FROM interest WHERE interestid=<c:out value="${branch.id}"/> AND day=<c:out value="${i}"/>
 </sql:query>
 					</TD>
 					<TD><INPUT type="text" name="day<c:out value="${i}"/>" size="2" value="${interest.rows[0].rate + 0}">
 					</TD>
 					<TD>Day <c:out value="${i+7}"/>
 <sql:query var="interest" dataSource="${prenda}">
-SELECT rate FROM interest WHERE interestid=<c:out value="${branches.id}"/> AND day=<c:out value="${i+7}"/>
+SELECT rate FROM interest WHERE interestid=<c:out value="${branch.id}"/> AND day=<c:out value="${i+7}"/>
 </sql:query>
 					</TD>
 					<TD><INPUT type="text" name="day<c:out value="${i+7}"/>" size="2" value="${interest.rows[0].rate + 0}">
 					</TD>
 					<TD>Day <c:out value="${i+14}"/>
 <sql:query var="interest" dataSource="${prenda}">
-SELECT rate FROM interest WHERE interestid=<c:out value="${branches.id}"/> AND day=<c:out value="${i+14}"/>
+SELECT rate FROM interest WHERE interestid=<c:out value="${branch.id}"/> AND day=<c:out value="${i+14}"/>
 </sql:query>
 					</TD>
 					<TD><INPUT type="text" name="day<c:out value="${i+14}"/>" size="2" value="${interest.rows[0].rate + 0}">
 					</TD>
 					<TD>Day <c:out value="${i+21}"/>
 <sql:query var="interest" dataSource="${prenda}">
-SELECT rate FROM interest WHERE interestid=<c:out value="${branches.id}"/> AND day=<c:out value="${i+21}"/>
+SELECT rate FROM interest WHERE interestid=<c:out value="${branch.id}"/> AND day=<c:out value="${i+21}"/>
 </sql:query>
 					</TD>
 					<TD><INPUT type="text" name="day<c:out value="${i+21}"/>" size="2" value="${interest.rows[0].rate + 0}">
 					</TD>
 					<TD>Day <c:out value="${i+28}"/>
 <sql:query var="interest" dataSource="${prenda}">
-SELECT rate FROM interest WHERE interestid=<c:out value="${branches.id}"/> AND day=<c:out value="${i+28}"/>
+SELECT rate FROM interest WHERE interestid=<c:out value="${branch.id}"/> AND day=<c:out value="${i+28}"/>
 </sql:query>
 					</TD>
 					<TD><INPUT type="text" name="day<c:out value="${i+28}"/>" size="2" value="${interest.rows[0].rate + 0}">

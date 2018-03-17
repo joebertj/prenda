@@ -26,7 +26,7 @@
 	</c:otherwise>
 </c:choose>
 <sql:query var="testpawn" dataSource="${prenda}">
-SELECT count(pid) as numid FROM pawn WHERE pid=<c:out value="${pid}"/> AND branch=<c:out value="${users.rows[0].branch}"/>
+SELECT count(pid) as numid FROM pawn WHERE pid=<c:out value="${pid}"/> AND branch=<c:out value="${user.branchId}"/>
 </sql:query>
 <c:if test="${testpawn.rows[0].numid==0}">
 	<c:redirect url="redeem.jsp?msg=Item does not exist or does not belong to branch"></c:redirect>
@@ -101,7 +101,7 @@ AND pid=<c:out value="${pid}" />
 					<jsp:setProperty property="value" name="rdate" value="${now}"/>
 					<FORM method="post" action="CheckRedeem">
 						<INPUT type="hidden" name="pid" value="${pawn.rows[0].pid}"> 
-						<INPUT type="hidden" name="branch" value="${users.rows[0].branch}"> 
+						<INPUT type="hidden" name="branch" value="${user.branchId}"> 
 						<INPUT type="hidden" name="redeemdate" value="<c:out value='${rdate.effective}'/>"> 
 						<INPUT type="hidden" name="interest" value="${pawn.rows[0].loan*pawn.rows[0].rate/100}"/>
 						<INPUT type="hidden" name="net" value="${(1 + pawn.rows[0].rate/100 )*pawn.rows[0].loan+pawn.rows[0].service_charge}" />

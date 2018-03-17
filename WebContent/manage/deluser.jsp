@@ -29,7 +29,7 @@
 			<INPUT type="hidden" name="modtype" value="1"> 
 			<INPUT type="hidden" name="uid" value="${param.uid}"> 
 			<INPUT type="hidden" name="user" value="${param.user}">
-			<INPUT type="hidden" name="branch" value="${users.rows[0].branch}"> 
+			<INPUT type="hidden" name="branch" value="${user.branchId}"> 
 			<INPUT name="delresp" type="submit" value="Cancel"> 
 			<INPUT name="delresp" type="submit" value="Confirm"></FORM>
 			</TD>

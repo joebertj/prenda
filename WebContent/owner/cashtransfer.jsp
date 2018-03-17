@@ -14,7 +14,7 @@
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
-<sql:query var="branch" dataSource="${prenda}">
+<sql:query var="branches" dataSource="${prenda}">
 SELECT name,branchid FROM branch
 LEFT JOIN users ON branch.owner=users.uid 
 WHERE users.username="${authenticated}"
@@ -32,14 +32,14 @@ WHERE users.username="${authenticated}"
 				<TR>
 					<TD>
 					<select size="10" name="frombranch">
-					<c:forEach var="row" items="${branch.rows}">
+					<c:forEach var="row" items="${branches.rows}">
 					<option value="${row.branchid}"><c:out value="${row.name}"/></option>
 					</c:forEach>
 					</select>
 					</TD>
 					<TD>
 					<select size="10" name="tobranch">
-					<c:forEach var="row" items="${branch.rows}">
+					<c:forEach var="row" items="${branches.rows}">
 					<option value="${row.branchid}"><c:out value="${row.name}"/></option>
 					</c:forEach>
 					</select>

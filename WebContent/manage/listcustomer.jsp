@@ -19,7 +19,7 @@
 <c:set var="perpage" value="${pageS.customer}"/>
 <sql:query var="pageable" dataSource="${prenda}">
 SELECT count(id) as numid FROM customer
-<c:if test="${users.rows[0].level<7}">
+<c:if test="${user.level<7}">
 WHERE archive=0
 </c:if>
 </sql:query>
@@ -54,7 +54,7 @@ WHERE archive=0
 			</c:if>
 <sql:query var="customer" dataSource="${prenda}">
 SELECT * FROM customer 
-<c:if test="${users.rows[0].level<7}">
+<c:if test="${user.level<7}">
 WHERE archive=0
 </c:if>
 ORDER BY last_name
@@ -70,7 +70,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 					<TH>First Name</TH>
 					<TH>Middle Name</TH>
 					<TH>Address</TH>
-					<c:if test="${users.rows[0].level>=7}">
+					<c:if test="${user.level>=7}">
 					<TH>Archived</TH>
 					</c:if>
 				</TR>
@@ -87,7 +87,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 					<TD><c:out value="${row.first_name}" /></TD>
 					<TD><c:out value="${row.middle_name}" /></TD>
 					<TD><c:out value="${row.address}" /></TD>
-					<c:if test="${users.rows[0].level>=7}">
+					<c:if test="${user.level>=7}">
 					<TD>
 					<c:choose>
 						<c:when test="${row.archive==false}">
@@ -109,7 +109,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 					<INPUT name="modtype" type="submit" value="Edit">
 					</FORM>
 					</TD>
-					<c:if test="${users.rows[0].level>=7}">
+					<c:if test="${user.level>=7}">
 					<TD>
 					<FORM method="post" action="delcustomer.jsp">
 					<INPUT name="cid" type="hidden" value="${row.id}">

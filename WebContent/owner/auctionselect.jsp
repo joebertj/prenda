@@ -16,17 +16,17 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 <jsp:useBean id="pageS" class="com.prenda.service.PageService" />
-<jsp:setProperty name="pageS" property="branchId" value="${branches.id}" />
+<jsp:setProperty name="pageS" property="branchId" value="${branch.id}" />
 <c:set var="perpage" value="${pageS.auction}"/>
 <sql:query var="pageable" dataSource="${prenda}">
 SELECT count(pawn.pid) as numid FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
-<c:if test="${users.rows[0].level==8}">
+<c:if test="${user.level==8}">
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
 </c:if>
 WHERE pawn.pid=pullout.pid
-<c:if test="${users.rows[0].level==8}">
+<c:if test="${user.level==8}">
 AND users.username="${authenticated}"
 </c:if>
 AND auction=0
@@ -68,12 +68,12 @@ SELECT pawn.pid,pawn.branch,pawn.loan_date,loan,pullout_date,bpid,description,pa
 FROM pawn
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN interest ON pawn.branch=interest.interestid
-<c:if test="${users.rows[0].level==8}">
+<c:if test="${user.level==8}">
 LEFT JOIN branch ON pawn.branch=branch.branchid 
 LEFT JOIN users ON branch.owner=users.uid 
 </c:if>
 WHERE day=34
-<c:if test="${users.rows[0].level==8}">
+<c:if test="${user.level==8}">
 AND users.username="${authenticated}"
 </c:if>
 AND pawn.pid=pullout.pid

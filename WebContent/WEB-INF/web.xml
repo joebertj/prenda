@@ -340,6 +340,15 @@
 		<servlet-class>
 		com.prenda.ajax.GetMinMax</servlet-class>
 	</servlet>
+	<servlet>
+		<description>
+		</description>
+		<display-name>
+		NetProceeds</display-name>
+		<servlet-name>NetProceeds</servlet-name>
+		<servlet-class>
+		com.prenda.ajax.NetProceeds</servlet-class>
+	</servlet>
 	<servlet-mapping>
 		<servlet-name>CustomerModify</servlet-name>
 		<url-pattern>/CustomerModify</url-pattern>
@@ -475,5 +484,9 @@
 	<servlet-mapping>
 		<servlet-name>GetMinMax</servlet-name>
 		<url-pattern>/GetMinMax</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>NetProceeds</servlet-name>
+		<url-pattern>/NetProceeds</url-pattern>
 	</servlet-mapping>
 </web-app>

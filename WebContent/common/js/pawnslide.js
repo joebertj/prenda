@@ -19,13 +19,13 @@ function initPawn() {
 function updatePawn() {
 	document.pawn.loanamt.value = document.pawn.slide.value
 			* document.pawn.weight.value;
-	document.pawn.net.value = document.pawn.loanamt.value;
 	document.pawn.loanword.value = AmtInWords(document.pawn.loanamt.value,
 			'Pesos Only');
 	document.pawn.appamt.value = parseFloat(document.pawn.loanamt.value) + 100;
 	document.pawn.appword.value = AmtInWords(document.pawn.appamt.value,
 			'Pesos Only');
 	document.pawn.pri.value = document.pawn.loanamt.value;
+	document.pawn.desc.click();
 
 }
 function modeJewelry(){

@@ -19,8 +19,8 @@
 SELECT count(journalid) as numid FROM journal
 LEFT JOIN ledger on journal.journalid=ledger.ledgerid
 WHERE ledgerid IS NULL
-<c:if test="${users.rows[0].level<9}">
-AND branchid=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branchid=<c:out value="${user.branchId}"/>
 </c:if>
 </sql:query>
 <c:set var="numid" value="${pageable.rows[0].numid}" />
@@ -58,8 +58,8 @@ FROM journal
 LEFT JOIN ledger on journal.journalid=ledger.ledgerid
 LEFT JOIN accounts on journal.accountid=accounts.accountid
 WHERE ledgerid IS NULL
-<c:if test="${users.rows[0].level<9}">
-AND branchid=<c:out value="${users.rows[0].branch}"/>
+<c:if test="${user.level<9}">
+AND branchid=<c:out value="${user.branchId}"/>
 </c:if>
 ORDER BY journalid
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out

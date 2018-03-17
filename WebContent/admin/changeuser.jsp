@@ -83,11 +83,11 @@
 				<TR>
 					<TD>Branch</TD>
 					<TD>: 
-<sql:query var="branch" dataSource="${prenda}">
+<sql:query var="branches" dataSource="${prenda}">
 SELECT branchid,name FROM branch
 </sql:query>
 					<select name="branch">
-					<c:forEach var="row" items="${branch.rows}">
+					<c:forEach var="row" items="${branches.rows}">
 					<c:choose>
 						<c:when test="${param.branch==row.branchid}">
 						<option value="${row.branchid}" selected><c:out value="${row.name}"/></option>
