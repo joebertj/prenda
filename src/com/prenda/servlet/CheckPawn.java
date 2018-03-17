@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.prenda.helper.PasswordGenerator;
+import com.prenda.helper.CustomPasswordGenerator;
 import com.prenda.model.obj.prenda.Branch;
 import com.prenda.model.obj.prenda.Customer;
 import com.prenda.model.obj.prenda.Genkey;
@@ -122,7 +122,7 @@ public class CheckPawn {
 		log.info("pid: " + pid);
 		Genkey gk = new Genkey();
 		gk.setId(pid);
-		gk.setPassword(PasswordGenerator.getPassword());
+		gk.setPassword(CustomPasswordGenerator.getPassword());
 		dataLayerPrenda.save(gk);
 		dataLayerPrenda.flushAndClearSession();
 		map.addAttribute("pid", pid);

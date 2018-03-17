@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
+import org.passay.RuleResult;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,7 +25,7 @@ import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.helper.PasswordEncoderGenerator;
-import com.prenda.helper.PasswordGenerator;
+import com.prenda.helper.CustomPasswordGenerator;
 import com.prenda.helper.SimpleJavaMailUtil;
 import com.prenda.model.obj.prenda.Branch;
 import com.prenda.model.obj.prenda.Register;
@@ -33,6 +34,7 @@ import com.prenda.service.BranchService;
 import com.prenda.service.UserService;
 import com.prenda.services.data.DataLayerPrenda;
 import com.prenda.services.data.DataLayerPrendaImpl;
+import com.prenda.validation.CustomPasswordValidator;
 
 /**
  * Servlet implementation class for Servlet: UserModify
@@ -78,7 +80,7 @@ public class UserModify {
 		if(message.equals("User added successfully")) {
 			UserService us = new UserService();
 			int id = us.getIdByUsername(targetUser);
-			String key = PasswordGenerator.getPassword(128);
+			String key = CustomPasswordGenerator.getPassword(128);
 			Register register = new Register();
 			register.setId(id);
 			register.setPassword(key);
@@ -108,37 +110,56 @@ public class UserModify {
 		if (actionUserLevel > targetUserLevel) {
 			if (actionUserLevel == Level.ADMIN) {
 				if (verifyPassword(targetUser, "", newPassword, verifyPassword, true)) {
-					if (targetBranch==0) {
-						BranchService bs = new BranchService();
-						int branchId = bs.getNextBranchId();
-						user.setBranch(branchId);
-						user.setArchive(true);
-						log.info("branchId " + branchId);
-						message = saveUser(user, newPassword);
-						Branch branch = new Branch();
-						branch.setId(branchId);
-						branch.setOwner(user.getId());
-						branch.setArchive(true);
-						branch.setAddress("Default Address of " + targetUser + "'s Default Pawnshop");
-						branch.setAdvanceInterest(0.0d);
-						branch.setBalance(0.0d);
-						branch.setCounter(0L);
-						branch.setExtend((byte) (15 & 0xff));
-						branch.setName("Default Pawnshop of " + targetUser);
-						branch.setPtNumber(0L);
-						branch.setReserve((byte) (15 & 0xff));
-						branch.setServiceCharge(0.0d);
-						saveBranch(branch);
+					CustomPasswordValidator cpv = new CustomPasswordValidator();
+					RuleResult result = cpv.validate(newPassword);
+					if(result.isValid()) {
+						if (targetBranch==0) {
+							BranchService bs = new BranchService();
+							int branchId = bs.getNextBranchId();
+							user.setBranch(branchId);
+							user.setArchive(true);
+							log.info("branchId " + branchId);
+							message = saveUser(user, newPassword);
+							Branch branch = new Branch();
+							branch.setId(branchId);
+							branch.setOwner(user.getId());
+							branch.setArchive(true);
+							branch.setAddress("Default Address of " + targetUser + "'s Default Pawnshop");
+							branch.setAdvanceInterest(0.0d);
+							branch.setBalance(0.0d);
+							branch.setCounter(0L);
+							branch.setExtend((byte) (15 & 0xff));
+							branch.setName("Default Pawnshop of " + targetUser);
+							branch.setPtNumber(0L);
+							branch.setReserve((byte) (15 & 0xff));
+							branch.setServiceCharge(0.0d);
+							saveBranch(branch);
+						}else {
+							message = saveUser(user, newPassword);
+						}
 					}else {
-						message = saveUser(user, newPassword);
+						message = "Invalid password:";
+						for(String msg: cpv.getMessages(result)) {
+							message += " " + msg;
+						}
 					}
+					
 				} else {
 					message = "New password does not match";
 				}
 			} else if (actionUserLevel == Level.MANAGER) {
 				if (us.getBranchIdByUsername(actionUser) == targetBranch) {
 					if (verifyPassword(targetUser, "", newPassword, verifyPassword, true)) {
-						message = saveUser(user, newPassword);
+						CustomPasswordValidator cpv = new CustomPasswordValidator();
+						RuleResult result = cpv.validate(newPassword);
+						if(result.isValid()) {
+							message = saveUser(user, newPassword);
+						}else {
+							message = "Invalid password:";
+							for(String msg: cpv.getMessages(result)) {
+								message += " " + msg;
+							}
+						}
 					} else {
 						message = "New password does not match";
 					}
@@ -152,7 +173,16 @@ public class UserModify {
 					branch = (Branch) li.next();
 					if (branch.getId() == targetBranch) {
 						if (verifyPassword(targetUser, "", newPassword, verifyPassword, true)) {
-							message = saveUser(user, newPassword);
+							CustomPasswordValidator cpv = new CustomPasswordValidator();
+							RuleResult result = cpv.validate(newPassword);
+							if(result.isValid()) {
+								message = saveUser(user, newPassword);
+							}else {
+								message = "Invalid password:";
+								for(String msg: cpv.getMessages(result)) {
+									message += " " + msg;
+								}
+							}
 						} else {
 							message = "New password does not match";
 						}
@@ -210,7 +240,16 @@ public class UserModify {
 		}
 		if (actionUser.equals(targetUser)) {
 			if (verifyPassword(targetUser, oldPassword, newPassword, verifyPassword, false)) {
-				message = savePassword(user, newPassword);
+				CustomPasswordValidator cpv = new CustomPasswordValidator();
+				RuleResult result = cpv.validate(newPassword);
+				if(result.isValid()) {
+					message = savePassword(user, newPassword);
+				}else {
+					message = "Invalid password:";
+					for(String msg: cpv.getMessages(result)) {
+						message += " " + msg;
+					}
+				}
 			} else {
 				message = "Either the old password is not correct or the new password does not match";
 			}
@@ -222,15 +261,32 @@ public class UserModify {
 			if (actionUserLevel > targetUserLevel) {
 				if (actionUserLevel == Level.ADMIN) {
 					if (verifyPassword(targetUser, oldPassword, newPassword, verifyPassword, true)) {
-						message = savePassword(user, newPassword);
+						CustomPasswordValidator cpv = new CustomPasswordValidator();
+						RuleResult result = cpv.validate(newPassword);
+						if(result.isValid()) {
+							message = savePassword(user, newPassword);
+						}else {
+							message = "Invalid password:";
+							for(String msg: cpv.getMessages(result)) {
+								message += " " + msg;
+							}
+						}
 					} else {
 						message = "New password does not match";
 					}
 				} else if (actionUserLevel == Level.MANAGER) {
 					if (us.getBranchIdByUsername(actionUser) == targetUserBranchId) {
 						if (verifyPassword(targetUser, oldPassword, newPassword, verifyPassword, true)) {
-							message = savePassword(user, newPassword);
-						} else {
+							CustomPasswordValidator cpv = new CustomPasswordValidator();
+							RuleResult result = cpv.validate(newPassword);
+							if(result.isValid()) {
+								message = savePassword(user, newPassword);
+							}else {
+								message = "Invalid password:";
+								for(String msg: cpv.getMessages(result)) {
+									message += " " + msg;
+								}
+							}
 							message = "New password does not match";
 						}
 					}
@@ -244,7 +300,16 @@ public class UserModify {
 						branch = (Branch) li.next();
 						if (branch.getId() == targetUserBranchId) {
 							if (verifyPassword(targetUser, oldPassword, newPassword, verifyPassword, true)) {
-								message = savePassword(user, newPassword);
+								CustomPasswordValidator cpv = new CustomPasswordValidator();
+								RuleResult result = cpv.validate(newPassword);
+								if(result.isValid()) {
+									message = savePassword(user, newPassword);
+								}else {
+									message = "Invalid password:";
+									for(String msg: cpv.getMessages(result)) {
+										message += " " + msg;
+									}
+								}
 							} else {
 								message = "New password does not match";
 							}

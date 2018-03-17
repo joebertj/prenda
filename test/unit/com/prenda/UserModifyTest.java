@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.prenda.Level;
 import com.prenda.helper.PasswordEncoderGenerator;
-import com.prenda.helper.PasswordGenerator;
+import com.prenda.helper.CustomPasswordGenerator;
 import com.prenda.model.obj.prenda.Users;
 import com.prenda.service.UserService;
 import com.prenda.services.data.DataLayerPrenda;
@@ -52,9 +52,9 @@ public class UserModifyTest extends UserModify {
 	@Test
 	@Transactional
 	public void testVerifyPassword() {
-		String targetUser = PasswordGenerator.getPassword();
-		String password = PasswordGenerator.getPassword();
-		String password2 = PasswordGenerator.getPassword();
+		String targetUser = CustomPasswordGenerator.getPassword();
+		String password = CustomPasswordGenerator.getPassword(20);
+		String password2 = CustomPasswordGenerator.getPassword(20);
 		init(targetUser);
 		Assert.assertTrue(verifyPassword(targetUser, password, password, password, true));
 		Assert.assertTrue(verifyPassword(targetUser, password2, password, password, true));
@@ -70,8 +70,8 @@ public class UserModifyTest extends UserModify {
 	@Test
 	@Transactional
 	public void testSavePassword() {
-		String targetUser = PasswordGenerator.getPassword();
-		String password = PasswordGenerator.getPassword();
+		String targetUser = CustomPasswordGenerator.getPassword();
+		String password = CustomPasswordGenerator.getPassword(20,true);
 		init(targetUser);
 		UserService us = new UserService();
 		Users user = us.getUser(targetUser);
@@ -83,8 +83,8 @@ public class UserModifyTest extends UserModify {
 	@Test
 	@Transactional
 	public void testSaveUser() {
-		String targetUser = PasswordGenerator.getPassword();
-		String password = PasswordGenerator.getPassword();
+		String targetUser = CustomPasswordGenerator.getPassword();
+		String password = CustomPasswordGenerator.getPassword(20,true);
 		init(targetUser);
 		UserService us = new UserService();
 		Users user = us.getUser(targetUser);
@@ -96,33 +96,36 @@ public class UserModifyTest extends UserModify {
 	@Test
 	@Transactional
 	public void testCreateNewUser() {
-		String targetUser = PasswordGenerator.getPassword();
-		String password = PasswordGenerator.getPassword();
-		String password2 = PasswordGenerator.getPassword();
-		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("admin", "admincopy", password, password, Level.ADMIN, 1, false));
+		String targetUser = CustomPasswordGenerator.getPassword();
+		String password = CustomPasswordGenerator.getPassword(20,true);
+		String password2 = CustomPasswordGenerator.getPassword(20,true);
+		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("admin", targetUser, password, password, Level.ADMIN, 1, false));
 		Assert.assertEquals("User added successfully", createNewUser("admin", targetUser, password, password, Level.OWNER, 1, false));
+		cleanUp(targetUser);
 		Assert.assertEquals("New password does not match", createNewUser("admin", targetUser, password, password2, Level.OWNER, 1, false));
-		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("owner", "admincopy", password, password, Level.ADMIN, 1, false));
+		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("owner", targetUser, password, password, Level.ADMIN, 1, false));
 		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("owner", targetUser, password, password, Level.OWNER, 1, false));
-		Assert.assertEquals("User added successfully", createNewUser("owner", "manager", password, password, Level.MANAGER, 1, false));
-		Assert.assertEquals("User added successfully", createNewUser("admin","encoder",password,password,Level.ENCODER, 1, false));
-		Assert.assertEquals("User added successfully", createNewUser("admin","managercopy",password,password,Level.MANAGER, 1, false));
-		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("encoder","encodercopy",password,password,Level.ENCODER, 1, false));
-		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser("manager","managercopy",password,password,Level.MANAGER, 1, false));
-		Assert.assertEquals("User added successfully", createNewUser("manager","encodercopy",password,password,Level.ENCODER, 1, false));
-		cleanUp("encoder");
-		cleanUp("encodercopy");
-		cleanUp("manager");
-		cleanUp("managercopy");
+		String targetManager = CustomPasswordGenerator.getPassword();
+		Assert.assertEquals("User added successfully", createNewUser("owner", targetManager, password, password, Level.MANAGER, 2, false));
+		String targetEncoder = CustomPasswordGenerator.getPassword();
+		Assert.assertEquals("User added successfully", createNewUser("admin",targetEncoder,password,password,Level.ENCODER, 1, false));
+		String targetManager2 = CustomPasswordGenerator.getPassword();
+		Assert.assertEquals("User added successfully", createNewUser("admin",targetManager2,password,password,Level.MANAGER, 1, false));
+		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser(targetEncoder,targetUser,password,password,Level.ENCODER, 2, false));
+		Assert.assertEquals("Your restriction level does not allow you to perform such action", createNewUser(targetManager,targetUser,password,password,Level.MANAGER, 2, false));
+		Assert.assertEquals("User added successfully", createNewUser(targetManager,targetUser,password,password,Level.ENCODER, 2, false));
+		cleanUp(targetManager);
+		cleanUp(targetEncoder);
+		cleanUp(targetManager2);
 		cleanUp(targetUser);
 	}
 
 	@Test
 	@Transactional
 	public void testChangePassword() {
-		String targetUser = PasswordGenerator.getPassword();
-		String password = PasswordGenerator.getPassword();
-		String password2 = PasswordGenerator.getPassword();
+		String targetUser = CustomPasswordGenerator.getPassword();
+		String password = CustomPasswordGenerator.getPassword(20,true);
+		String password2 = CustomPasswordGenerator.getPassword(20,true);
 		init(targetUser);
 		UserService us = new UserService();
 		Users user = us.getUser("admin");
@@ -141,11 +144,10 @@ public class UserModifyTest extends UserModify {
 		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
 		dataLayerPrenda.update(user);
 		dataLayerPrenda.flushAndClearSession();
-		Assert.assertEquals("User added successfully", createNewUser("owner","encoder",password,password,Level.ENCODER, 1, false));
-		Assert.assertEquals("Password changed successfully", changePassword("encoder", "encoder", password, password2, password2));
-		Assert.assertEquals("Either the old password is not correct or the new password does not match", changePassword("encoder", "encoder", password, password, password));
-		cleanUp("encoder");
-		Assert.assertEquals("Invalid user", changePassword("encoder", "encoder", password, password2, password2));
+		cleanUp(targetUser);
+		Assert.assertEquals("User added successfully", createNewUser("owner",targetUser,password,password,Level.ENCODER, 2, false));
+		Assert.assertEquals("Password changed successfully", changePassword(targetUser, targetUser, password, password2, password2));
+		Assert.assertEquals("Either the old password is not correct or the new password does not match", changePassword(targetUser, targetUser, password, password, password));
 		cleanUp(targetUser);
 		Assert.assertEquals("Invalid user", changePassword(targetUser, targetUser, password, password2, password2));
 	}
