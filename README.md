@@ -1,4 +1,4 @@
-# Prenda
+#Prenda
 Joebert S. Jacaba
 joebertj@gmail.com
 Github https://github.com/joebertj/prenda
@@ -6,25 +6,38 @@ Openshift Demo https://openshift.kenchlightyear.com
 Sourceforge http://prenda.sourceforge.net
 Author https://ex.kenchlightyear.com
 
-## Overview
+##Overview
 
-1. Web-based - Unlimited branches possible, no setup necessary for branches (PCs at the branches will only need internet connection and a web-browser (Firefox is officially supported)
-2. Centralized Database, management and reporting - No need for main office to solicit reports from branches (the Head office can generate any report of any branch at any time), the main server will be secured at the client's main office
-3. Real-time access and monitoring of activities - eliminates the possibility of fraudulent activities from branches
-4. Granularized access control -  possible to set-up unlimited Encoder, Manager, Branch Owner and Administrator Accounts
-5. Automated aging of pawned items
-6. Highly configurable interest rates per Branch on a daily basis
-7. Supports secure pullout of items from Branch (thru a Liaison account)
-8. Supports inter-branch cash replenishments
-9. Foreclosed items available for auction
-10. Supports pawn renewals
-11. Redeemed, Outstanding, Inventory, Foreclosed and Pulled-out item views
-12. Verbose statistics organized through various time periods
-13. Graphical activity reports
-14. Daily cash position report and cash disbursements (Basic Accounting)
-15. Customer Self-service - possible for customers to securely check status of pawned items and renew expiring items online 
+1. Container-ready - Tested on Openshift (Enterprise Kubernetes/Docker). Easily deployed to cloud for load balancing and high availability.
+2. Highly secure - Uses Spring Security, Passay password validator and bcrypt password hash
+3. Web-based - Unlimited branches possible, no setup necessary for branches (PCs at the branches will only need internet connection and a web-browser (Tested using Chrome)
+4. Centralized Database, management and reporting - No need for main office to solicit reports from branches (the Head office can generate any report of any branch at any time), the main server will be secured at the client's main office
+5. Real-time access and monitoring of activities - eliminates the possibility of fraudulent activities from branches
+6. Granularized access control -  possible to set-up unlimited Encoder, Manager, Branch Owner and Administrator Accounts
+7. Automated aging of pawned items
+8. Highly configurable interest rates per Branch on a daily basis
+9. Supports secure pullout of items from Branch (thru a Liaison account)
+10. Supports inter-branch cash replenishments
+11. Foreclosed items available for auction
+12. Supports pawn renewals
+13. Redeemed, Outstanding, Inventory, Foreclosed and Pulled-out item views
+14. Verbose statistics organized through various time periods
+15. Graphical activity reports
+16. Daily cash position report and cash disbursements (Basic Accounting)
+17. Customer Self-service - possible for customers to securely check status of pawned items and renew expiring items online 
 
-## Install
+##Prerequisites
+###Server
+####v0.1.2 BETA and older
+Apache Tomcat 5.5
+MySQL 5.0
+####v0.1.3 BETA and newer
+Apache Tomcat 8.0
+MySQL 5.7<br/>
+###Client
+Chrome <br/>
+
+##Installation
 
 1. Download Apache Tomcat 5 (tested on apache-tomcat-5.5.25)
 	`tar xvzf apache-tomcat-5.5.25.tar.gz`
@@ -57,9 +70,11 @@ Author https://ex.kenchlightyear.com
 		`startup.bat`
 
 7. Point your browser to http://localhost:8080/prenda (adjust port on Tomcat's server.xml)
-	Admin:		admin/123
+####v0.1.2 BETA and older:		admin/123
+####v0.1.3 BETA and newer:		owner/123
+####v0.1.4 BETA and newer has a Self-Registration feature. Valid email needed to activate.	
 	
-## Changelog
+##Changelog
 
 March 3, 2018
 Converted to Maven
@@ -129,25 +144,20 @@ Added RSS support
 Collated classes to packages
 Used JavaBeans for separation of presentation from logic
 
-## License
+##License
 GNU GENERAL PUBLIC LICENSE Version 3
 
-## Todo
+##Todo
 
+* SaaS features. Free-tier is 1 branch/owner/manager/encoder.
+* Add power encoder role to be able to adjust dates.
 * Adjustable redeem dates.
-* Add jewelry and non-jewelry option to pawn. Jewelry items will have weight in grams, carats(K) and min/max appraisal.
-* Review interest rate of redeem. (interest is in table)
-* PDF for all periods in reports.
-* PDF for all disbursements.
-* PDF for auction.
-* PDF for statistics.
-* Factor in advance interest (0%) and service charge (0) in computation of net.
+* Review interest rate of redeem.
 * Adjustable auction markup (10%).
 * Adjustable edit minute (15).
 * Adjustable maturity (30 days) and expiry (120 days)
 * Name entry for user.
-* User should not be able to delete or archive himself.
+* User should not be able to delete or archive himself. (unit test)
 * Admin should have unarchive functionality.
-* Displaytag functionality
 * Eliminate all sql:query and convert to JavaBeans.
-* Hibernate support
+* Displaytag-like functionality
