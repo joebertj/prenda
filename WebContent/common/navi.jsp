@@ -1,12 +1,6 @@
 <%@include file="datasource.jsp"%>
 <sec:authentication property="principal.username" var="authenticated"/>
 <sec:authorize access="isAuthenticated()"> 
-<sql:query var="users" dataSource="${prenda}">
-SELECT branch,level FROM users WHERE username="${authenticated}"
-</sql:query>
-<sql:query var="branch" dataSource="${prenda}">
-SELECT name,address FROM branch WHERE branchid=<c:out value="${users.rows[0].branch}"/>
-</sql:query>
 <jsp:useBean id="user" class="com.prenda.service.UserService"/>
 <jsp:setProperty property="name" name="user" value="${authenticated}"/>
 <jsp:useBean id="branches" class="com.prenda.service.BranchService"/>

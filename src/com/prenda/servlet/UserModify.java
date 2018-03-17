@@ -111,7 +111,7 @@ public class UserModify {
 					if (targetBranch==0) {
 						BranchService bs = new BranchService();
 						int branchId = bs.getNextBranchId();
-						user.setBranch(branchId+1);
+						user.setBranch(branchId);
 						user.setArchive(true);
 						log.info("branchId " + branchId);
 						message = saveUser(user, newPassword);

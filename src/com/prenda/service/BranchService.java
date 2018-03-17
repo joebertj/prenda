@@ -285,6 +285,7 @@ public class BranchService {
 		Session s = instance.getCurrentSession();
 		Criteria c = s.createCriteria(Branch.class).setProjection(Projections.max("id"));
 		Integer id = (Integer) c.list().listIterator().next();
+		id++;
 		return id;
 	}
 

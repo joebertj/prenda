@@ -262,13 +262,16 @@ CREATE TABLE `register` (
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `users` VALUES (1,'admin','$2a$10$xjahs1aLp6l2pjNtN6GTseil9bj5eWRiSP.l0SmCzXdyEHX/IQY1e',NULL,NULL,NULL,9,1,0,'2007-06-12');
-INSERT INTO `users` VALUES (2,'owner','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGVlXdII76vlXuaDWYOwTW',NULL,NULL,NULL,8,1,0,'2007-06-12');
+INSERT INTO `users` VALUES (2,'owner','$2a$12$tAAhe7xEy9cJIyoth/d3bOau8Cs04wXxGVlXdII76vlXuaDWYOwTW',NULL,NULL,NULL,8,2,0,'2007-06-12');
 
-insert into branch (branchid,archive,owner) values (1,0,2);
+insert into branch (branchid,archive,owner,name) values (1,0,1,'Admin Branch');
+insert into branch (branchid,archive,owner) values (2,0,2);
 
 insert into page values (1,10,10,10,10,10,10,10,10,10);
+insert into page values (2,10,10,10,10,10,10,10,10,10);
 
 insert into jewelry values (1,10,100,200),(1,14,200,400),(1,18,400,800),(1,22,800,1500),(1,24,1500,2000);
+insert into jewelry values (2,10,100,200),(2,14,200,400),(2,18,400,800),(2,22,800,1500),(2,24,1500,2000);
 
 insert into level values(1,"ENCODER");
 insert into level values(3,"LIAISON");
@@ -277,6 +280,7 @@ insert into level values(8,"OWNER");
 insert into level values(9,"ADMIN");
 
 insert into limits values (1,1,1,1);
+insert into limits values (2,1,1,1);
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
