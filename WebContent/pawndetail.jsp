@@ -96,7 +96,7 @@
 					<TD colspan="4">
 					<TD>Interest</TD>
 					<TD align="right"><fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${param.loaninterest}"/>
-					<INPUT type="hidden" name="interest" size="10" value="${param.loaninterest}"></TD>
+					<INPUT type="hidden" name="interest" size="10" value="${param.interest}"></TD>
 				</TR>
 				<TR>
 					<TD colspan="4">

@@ -5,6 +5,30 @@ public class LoanService {
 	double loan, interestRate;
 	double interest, netProceeds;
 	
+	public double getAppraised() {
+		return appraised;
+	}
+
+	public double getAdvanceInterest() {
+		return advanceInterest;
+	}
+
+	public double getServiceCharge() {
+		return serviceCharge;
+	}
+
+	public double getMargin() {
+		return margin;
+	}
+
+	public double getLoan() {
+		return loan;
+	}
+
+	public double getInterestRate() {
+		return interestRate;
+	}
+
 	public void setInterest(double interest) {
 		this.interest = interest;
 	}
@@ -42,11 +66,11 @@ public class LoanService {
 	}
 	
 	public double getInterest(){
-		return this.getInterest(appraised, advanceInterest, margin);
+		return getInterest(appraised, advanceInterest, margin);
 	}
 	
 	public double getRedeemAmount(){
-		return this.getRedeemAmount(loan, interestRate);
+		return getRedeemAmount(loan, interestRate);
 	}
 	
 	public double getNetProceeds(double appraised, double advanceInterest, double serviceCharge, double margin){

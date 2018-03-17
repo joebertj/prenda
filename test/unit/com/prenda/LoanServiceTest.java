@@ -22,4 +22,9 @@ public class LoanServiceTest extends LoanService {
 		Assert.assertEquals(1179.94,getRedeemAmount(1134.56,4),0.01);
 		Assert.assertEquals(1162.92,getRedeemAmount(1134.56,2.5),0.01);
 	}
+	
+	@Test
+	public void testInterest() {
+		Assert.assertEquals(20,getInterest(2100,1,100),0.01);
+	}
 }

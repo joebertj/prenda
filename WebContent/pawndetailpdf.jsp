@@ -1,7 +1,19 @@
 <%@include file="../common/header.jsp"%>
-<script type="text/javascript" src="${contextPath}/common/js/pawn.js"></script>
+<script type="text/javascript" src="${contextPath}/common/js/pawn.js"/>
+<script type="text/javascript">
+   function initPawn(){
+		var loaninwords="In Words: " + AmtInWords(document.getElementById("loanamt").value,'Pesos Only');
+		var appinwords="In Words: " + AmtInWords(document.getElementById("appamt").value,'Pesos Only');
+		var ratewords=AmtInWords(document.getElementByName("rate").value,'Percent');
+		document.getElementById("loanword").innerHTML=loaninwords;
+		document.getElementById("appword").innerHTML=appinwords;
+		document.getElementByName("loanw").value=loaninwords;
+		document.getElementByName("appraisedw").value=appinwords;
+		document.getElementByName("ratew").value=ratewords;
+	}
+</script>
 </head>
-<body>
+<body onload="initPawn()">
 
 
 <TABLE border="1" width=100% class=main>
@@ -106,12 +118,6 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 				</TR>
 				<TR>
 					<TD colspan="100%" align="center">
-					<script type="text/javascript">
-						var loaninwords="In Words: " + AmtInWords(document.getElementById("loanamt").value,'Pesos Only');
-						var appinwords="In Words: " + AmtInWords(document.getElementById("appamt").value,'Pesos Only');
-						document.getElementById("loanword").innerHTML=loaninwords;
-						document.getElementById("appword").innerHTML=appinwords;
-					</script>
 					<form method="post" action="pawnticket.pdf">
 						<input type="hidden" name="pid" value="${pid}"/>
 						<input type="hidden" name="bpid" value="${pawn.rows[0].bpid}"/>
@@ -125,19 +131,15 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 						<input type="hidden" name="ratew"/>
 						<input type="hidden" name="loanw"/>
 						<input type="hidden" name="appraisedw"/>
-						<input type="hidden" name="rate" value='0'/>
-						<input type="hidden" name="interest" value='0.00'/>
-						<input type="hidden" name="sc" value='0.00'/>
-						<input type="hidden" name="net" value="${pawn.rows[0].loan}"/>
+						<input type="hidden" name="rate" value="${pawn.rows[0].advance_interest}"/>
+						<input type="hidden" name="interest" value="${loans.interest}"/>
+						<input type="hidden" name="sc" value="${pawn.rows[0].service_charge}"/>
+						<input type="hidden" name="net" value="${loans.netProceeds}"/>
 						<input type="hidden" name="description" value="${pawn.rows[0].description}"/>
 						<input type="hidden" name="password" value="${pawn.rows[0].password}"/>
 						<input type="hidden" name="encoder" value="${pawn.rows[0].encoder}"/>
 						<input type="hidden" name="branch" value="${user.branchId}"/>
-						<input type="submit" value="Print on Preprinted Receipt" onClick='
-							document.getElementsByName("ratew").value=AmtInWords(document.getElementsByName("rate").value,"Pesos Only");
-							document.getElementsByName("loanw").value=AmtInWords(document.getElementsByName("loan").value,"Pesos Only");
-							document.getElementsByName("appraisedw").value=AmtInWords(document.getElementsByName("appraised").value,"Pesos Only")'
-							/>
+						<input type="submit" value="Print on Preprinted Receipt"/>
 						<input type="submit" value="Print on Empty Paper" onClick="alert('Not yet available');return false;"/>
 					</form>
 					</TD>

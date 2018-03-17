@@ -8,7 +8,6 @@ package com.prenda.pdf;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -21,10 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.prenda.helper.DatabaseConnection;
 import com.prenda.helper.EnglishDecimalFormat;
-import com.prenda.servlet.CheckPawn;
-
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -69,11 +65,11 @@ import net.sf.jasperreports.engine.JasperPrint;
 		String address=request.getParameter("address");
 		Float appraised=new Float(request.getParameter("appraised"));
 		Float loan=new Float(request.getParameter("loan"));
-		Integer rate=new Integer(request.getParameter("rate"));
+		Float rate=new Float(request.getParameter("rate"));
 		EnglishDecimalFormat edf=new EnglishDecimalFormat();
 		String appraisedw=edf.convert(appraised.intValue()) + " pesos only";
 		String loanw=edf.convert(loan.intValue()) + " pesos only";
-		String ratew=edf.convert(rate.intValue());
+		String ratew=edf.convert(rate.intValue()) + " percent";
 		Float interest=new Float(request.getParameter("interest"));
 		Float sc=new Float(request.getParameter("sc"));
 		Float net=new Float(request.getParameter("net"));
@@ -101,10 +97,29 @@ import net.sf.jasperreports.engine.JasperPrint;
 		param.put("password",password);
 		param.put("encoder",encoder);
 		param.put("branch",branch);
+		log.info("pid "+pid);
+		log.info("bpid "+bpid);
+		log.info("pawn "+pawn);
+		log.info("maturity "+maturity);
+		log.info("expire "+expire);
+		log.info("name "+name);
+		log.info("address "+address);
+		log.info("loan "+loan);
+		log.info("loanw "+loanw);
+		log.info("appraised "+appraised);
+		log.info("appraisedw "+appraisedw);
+		log.info("rate "+rate);
+		log.info("ratew "+ratew);
+		log.info("interest "+interest);
+		log.info("sc "+sc);
+		log.info("net "+net);
+		log.info("description "+description);
+		log.info("password "+password);
+		log.info("encoder "+encoder);
+		log.info("branch "+branch);
 		try {
-			Connection conn = DatabaseConnection.getConnection();
 			String jasper = request.getSession().getServletContext().getRealPath("/common");
-			JasperPrint jprint=JasperFillManager.fillReport(jasper+"/jasper/pawnticket.jasper",param,conn);
+			JasperPrint jprint=JasperFillManager.fillReport(jasper+"/jasper/pawnticket.jasper",param);
 			OutputStream out=response.getOutputStream();
 			JasperExportManager.exportReportToPdfStream(jprint,out);
 		} catch (Exception e) {
