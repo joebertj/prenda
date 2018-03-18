@@ -8,6 +8,7 @@ package com.prenda.pdf;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.Connection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.prenda.helper.DatabaseConnection;
 import com.prenda.helper.EnglishDecimalFormat;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -118,8 +120,9 @@ import net.sf.jasperreports.engine.JasperPrint;
 		log.info("encoder "+encoder);
 		log.info("branch "+branch);
 		try {
+			Connection conn = DatabaseConnection.getConnection();
 			String jasper = request.getSession().getServletContext().getRealPath("/common");
-			JasperPrint jprint=JasperFillManager.fillReport(jasper+"/jasper/pawnticket.jasper",param);
+			JasperPrint jprint=JasperFillManager.fillReport(jasper+"/jasper/pawnticket.jasper",param,conn);
 			OutputStream out=response.getOutputStream();
 			JasperExportManager.exportReportToPdfStream(jprint,out);
 		} catch (Exception e) {

@@ -28,8 +28,8 @@
 	<parameter name="ratew" class="java.lang.String"/>
 	<parameter name="appraisedw" class="java.lang.String"/>
 	<parameter name="rate" class="java.lang.Float"/>
-	<queryString language="SQL">
-		<![CDATA[]]>
+	<queryString>
+		<![CDATA[SELECT 1]]>
 	</queryString>
 	<field name="1" class="java.lang.Long"/>
 	<background>
