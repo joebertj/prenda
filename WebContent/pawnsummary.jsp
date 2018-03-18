@@ -94,7 +94,7 @@
 						</c:otherwise>
 					</c:choose>
 					<TD align="right"><fmt:formatNumber value="${row.pid}" minIntegerDigits="10" groupingUsed="false"/></TD>
-					<TD align="right"><fmt:formatNumber value="${row.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${row.branchPid}" minIntegerDigits="8" groupingUsed="false"/></TD>
+					<TD align="right"><fmt:formatNumber value="${row.branchId}" minIntegerDigits="4" groupingUsed="false"/>-<fmt:formatNumber value="${row.branchPid}" minIntegerDigits="6" groupingUsed="false"/></TD>
 					<TD align="right"><fmt:formatNumber value="${row.ptNumber}" minIntegerDigits="6" groupingUsed="false"/></TD>
 					<TD><fmt:formatDate value="${row.loanDate}" dateStyle="long" /></TD>
 					<TD><fmt:formatDate value="${row.expiryDate}" dateStyle="long" /></TD>

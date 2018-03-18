@@ -132,7 +132,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 						</c:otherwise>
 					</c:choose>
 					<TD><fmt:formatNumber value="${row.pid}" minIntegerDigits="10" groupingUsed="false"/></TD>
-					<TD><fmt:formatNumber value="${row.branch}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${row.bpid}" minIntegerDigits="8" groupingUsed="false"/></TD>
+					<TD><fmt:formatNumber value="${row.branch}" minIntegerDigits="4" groupingUsed="false"/>-<fmt:formatNumber value="${row.bpid}" minIntegerDigits="6" groupingUsed="false"/></TD>
 					<TD><fmt:formatNumber value="${row.pt}" minIntegerDigits="6" groupingUsed="false"/></TD>
 					<TD><c:out value="${row.password}" /></TD>
 					<TD><fmt:formatDate value="${row.loan_date}" dateStyle="long"/></TD>
