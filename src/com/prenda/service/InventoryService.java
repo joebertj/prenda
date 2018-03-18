@@ -39,7 +39,7 @@ public class InventoryService extends GenericService {
 		return list;
 	}
 	
-	public List<Pawn> getAllInventory(int level,int branchId,int userId,String sort,int order,int page,int pageSize){
+	public List<Pawn> getAllInventory(int level,int branchId,long userId,String sort,int order,int page,int pageSize){
 		List<Pawn> list = new ArrayList<Pawn>();
 		String query = "SELECT pawn.pid,branch,loan_date,nameid,loan,bpid,rate,pawn.service_charge,pt,bcode,"+
 		"pawn.create_date AS cdate,"+

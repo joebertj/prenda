@@ -111,18 +111,18 @@ public interface IUsers {
 	void setLoanDate(final Date loanDate);
 
     /**
-     * Return the value associated with the column: mi.
-	 * @return A String object (this.mi)
+     * Return the value associated with the column: middlename.
+	 * @return A String object (this.middlename)
 	 */
-	String getMi();
+	String getMiddlename();
 	
 
   
     /**  
-     * Set the value related to the column: mi.
-	 * @param mi the mi value you wish to set
+     * Set the value related to the column: middlename.
+	 * @param middlename the middlename value you wish to set
 	 */
-	void setMi(final String mi);
+	void setMiddlename(final String middlename);
 
     /**
      * Return the value associated with the column: password.

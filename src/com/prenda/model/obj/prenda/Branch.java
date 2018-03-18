@@ -43,15 +43,25 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 	/** Field mapping. */
 	private Double advanceInterest;
 	/** Field mapping. */
+	private Double appraisedMargin;
+	/** Field mapping. */
 	private Boolean archive;
+	/** Field mapping. */
+	private Byte auctionMarkup;
 	/** Field mapping. */
 	private Double balance;
 	/** Field mapping. */
 	private Long counter;
 	/** Field mapping. */
+	private Byte editMinute;
+	/** Field mapping. */
+	private Byte expiry;
+	/** Field mapping. */
 	private Byte extend;
 	/** Field mapping. */
 	private Integer id = 0; // init for hibernate bug workaround
+	/** Field mapping. */
+	private Byte maturity;
 	/** Field mapping. */
 	private String name;
 	/** Field mapping. */
@@ -79,29 +89,41 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 	/** Constructor taking a given ID.
 	 * @param address String object;
 	 * @param advanceInterest Double object;
+	 * @param appraisedMargin Double object;
 	 * @param archive Boolean object;
+	 * @param auctionMarkup Byte object;
 	 * @param balance Double object;
 	 * @param counter Long object;
+	 * @param editMinute Byte object;
+	 * @param expiry Byte object;
 	 * @param extend Byte object;
 	 * @param id Integer object;
+	 * @param maturity Byte object;
 	 * @param name String object;
 	 * @param owner Integer object;
 	 * @param ptNumber Long object;
 	 * @param reserve Byte object;
 	 * @param serviceCharge Double object;
 	 */
-	public Branch(String address, Double advanceInterest, Boolean archive, 					
-			Double balance, Long counter, Byte extend, 					
-			Integer id, String name, Integer owner, 					
-			Long ptNumber, Byte reserve, Double serviceCharge) {
+	public Branch(String address, Double advanceInterest, Double appraisedMargin, 					
+			Boolean archive, Byte auctionMarkup, Double balance, 					
+			Long counter, Byte editMinute, Byte expiry, 					
+			Byte extend, Integer id, Byte maturity, 					
+			String name, Integer owner, Long ptNumber, 					
+			Byte reserve, Double serviceCharge) {
 
 		this.address = address;
 		this.advanceInterest = advanceInterest;
+		this.appraisedMargin = appraisedMargin;
 		this.archive = archive;
+		this.auctionMarkup = auctionMarkup;
 		this.balance = balance;
 		this.counter = counter;
+		this.editMinute = editMinute;
+		this.expiry = expiry;
 		this.extend = extend;
 		this.id = id;
+		this.maturity = maturity;
 		this.name = name;
 		this.owner = owner;
 		this.ptNumber = ptNumber;
@@ -165,6 +187,27 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 	}
 
     /**
+     * Return the value associated with the column: appraisedMargin.
+	 * @return A Double object (this.appraisedMargin)
+	 */
+	@Basic( optional = false )
+	@Column( name = "appraised_margin", nullable = false  )
+	public Double getAppraisedMargin() {
+		return this.appraisedMargin;
+		
+	}
+	
+
+  
+    /**  
+     * Set the value related to the column: appraisedMargin.
+	 * @param appraisedMargin the appraisedMargin value you wish to set
+	 */
+	public void setAppraisedMargin(final Double appraisedMargin) {
+		this.appraisedMargin = appraisedMargin;
+	}
+
+    /**
      * Return the value associated with the column: archive.
 	 * @return A Boolean object (this.archive)
 	 */
@@ -183,6 +226,27 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 	 */
 	public void setArchive(final Boolean archive) {
 		this.archive = archive;
+	}
+
+    /**
+     * Return the value associated with the column: auctionMarkup.
+	 * @return A Byte object (this.auctionMarkup)
+	 */
+	@Basic( optional = false )
+	@Column( name = "auction_markup", nullable = false  )
+	public Byte getAuctionMarkup() {
+		return this.auctionMarkup;
+		
+	}
+	
+
+  
+    /**  
+     * Set the value related to the column: auctionMarkup.
+	 * @param auctionMarkup the auctionMarkup value you wish to set
+	 */
+	public void setAuctionMarkup(final Byte auctionMarkup) {
+		this.auctionMarkup = auctionMarkup;
 	}
 
     /**
@@ -225,6 +289,48 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 	 */
 	public void setCounter(final Long counter) {
 		this.counter = counter;
+	}
+
+    /**
+     * Return the value associated with the column: editMinute.
+	 * @return A Byte object (this.editMinute)
+	 */
+	@Basic( optional = false )
+	@Column( name = "edit_minute", nullable = false  )
+	public Byte getEditMinute() {
+		return this.editMinute;
+		
+	}
+	
+
+  
+    /**  
+     * Set the value related to the column: editMinute.
+	 * @param editMinute the editMinute value you wish to set
+	 */
+	public void setEditMinute(final Byte editMinute) {
+		this.editMinute = editMinute;
+	}
+
+    /**
+     * Return the value associated with the column: expiry.
+	 * @return A Byte object (this.expiry)
+	 */
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	public Byte getExpiry() {
+		return this.expiry;
+		
+	}
+	
+
+  
+    /**  
+     * Set the value related to the column: expiry.
+	 * @param expiry the expiry value you wish to set
+	 */
+	public void setExpiry(final Byte expiry) {
+		this.expiry = expiry;
 	}
 
     /**
@@ -277,6 +383,27 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 		SAVED_HASHES.put( id, this.hashCode );
 		}
 		this.id = id;
+	}
+
+    /**
+     * Return the value associated with the column: maturity.
+	 * @return A Byte object (this.maturity)
+	 */
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	public Byte getMaturity() {
+		return this.maturity;
+		
+	}
+	
+
+  
+    /**  
+     * Set the value related to the column: maturity.
+	 * @param maturity the maturity value you wish to set
+	 */
+	public void setMaturity(final Byte maturity) {
+		this.maturity = maturity;
 	}
 
     /**
@@ -397,11 +524,16 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 
 		copy.setAddress(this.getAddress());
 		copy.setAdvanceInterest(this.getAdvanceInterest());
+		copy.setAppraisedMargin(this.getAppraisedMargin());
 		copy.setArchive(this.isArchive());
+		copy.setAuctionMarkup(this.getAuctionMarkup());
 		copy.setBalance(this.getBalance());
 		copy.setCounter(this.getCounter());
+		copy.setEditMinute(this.getEditMinute());
+		copy.setExpiry(this.getExpiry());
 		copy.setExtend(this.getExtend());
 		copy.setId(this.getId());
+		copy.setMaturity(this.getMaturity());
 		copy.setName(this.getName());
 		copy.setOwner(this.getOwner());
 		copy.setPtNumber(this.getPtNumber());
@@ -422,11 +554,16 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 		
 		sb.append("address: " + this.getAddress() + ", ");
 		sb.append("advanceInterest: " + this.getAdvanceInterest() + ", ");
+		sb.append("appraisedMargin: " + this.getAppraisedMargin() + ", ");
 		sb.append("archive: " + this.isArchive() + ", ");
+		sb.append("auctionMarkup: " + this.getAuctionMarkup() + ", ");
 		sb.append("balance: " + this.getBalance() + ", ");
 		sb.append("counter: " + this.getCounter() + ", ");
+		sb.append("editMinute: " + this.getEditMinute() + ", ");
+		sb.append("expiry: " + this.getExpiry() + ", ");
 		sb.append("extend: " + this.getExtend() + ", ");
 		sb.append("id: " + this.getId() + ", ");
+		sb.append("maturity: " + this.getMaturity() + ", ");
 		sb.append("name: " + this.getName() + ", ");
 		sb.append("owner: " + this.getOwner() + ", ");
 		sb.append("ptNumber: " + this.getPtNumber() + ", ");
@@ -479,10 +616,15 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 		result = result && (((this.getId() == null) && ( that.getId() == null)) || (this.getId() != null  && this.getId().equals(that.getId())));
 		result = result && (((getAddress() == null) && (that.getAddress() == null)) || (getAddress() != null && getAddress().equals(that.getAddress())));
 		result = result && (((getAdvanceInterest() == null) && (that.getAdvanceInterest() == null)) || (getAdvanceInterest() != null && getAdvanceInterest().equals(that.getAdvanceInterest())));
+		result = result && (((getAppraisedMargin() == null) && (that.getAppraisedMargin() == null)) || (getAppraisedMargin() != null && getAppraisedMargin().equals(that.getAppraisedMargin())));
 		result = result && (((isArchive() == null) && (that.isArchive() == null)) || (isArchive() != null && isArchive().equals(that.isArchive())));
+		result = result && (((getAuctionMarkup() == null) && (that.getAuctionMarkup() == null)) || (getAuctionMarkup() != null && getAuctionMarkup().equals(that.getAuctionMarkup())));
 		result = result && (((getBalance() == null) && (that.getBalance() == null)) || (getBalance() != null && getBalance().equals(that.getBalance())));
 		result = result && (((getCounter() == null) && (that.getCounter() == null)) || (getCounter() != null && getCounter().equals(that.getCounter())));
+		result = result && (((getEditMinute() == null) && (that.getEditMinute() == null)) || (getEditMinute() != null && getEditMinute().equals(that.getEditMinute())));
+		result = result && (((getExpiry() == null) && (that.getExpiry() == null)) || (getExpiry() != null && getExpiry().equals(that.getExpiry())));
 		result = result && (((getExtend() == null) && (that.getExtend() == null)) || (getExtend() != null && getExtend().equals(that.getExtend())));
+		result = result && (((getMaturity() == null) && (that.getMaturity() == null)) || (getMaturity() != null && getMaturity().equals(that.getMaturity())));
 		result = result && (((getName() == null) && (that.getName() == null)) || (getName() != null && getName().equals(that.getName())));
 		result = result && (((getOwner() == null) && (that.getOwner() == null)) || (getOwner() != null && getOwner().equals(that.getOwner())));
 		result = result && (((getPtNumber() == null) && (that.getPtNumber() == null)) || (getPtNumber() != null && getPtNumber().equals(that.getPtNumber())));

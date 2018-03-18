@@ -113,13 +113,14 @@ import net.sf.jasperreports.engine.JasperPrint;
 		log.info("branch "+branch);
 		try {
 			Connection conn = DatabaseConnection.getConnection();
-			String jasper = request.getSession().getServletContext().getRealPath("/common");
+			String path = request.getSession().getServletContext().getRealPath("/common");
 			String print=request.getParameter("print");
 			JasperPrint jprint;
 			if(print.equals("Print on Empty Paper")) {
-				jprint=JasperFillManager.fillReport(jasper+"/jasper/pawnticketverbose.jasper",param,conn);
+				param.put("logo", path+"/img/logo.png");
+				jprint=JasperFillManager.fillReport(path+"/jasper/pawnticketverbose.jasper",param,conn);
 			}else {
-				jprint=JasperFillManager.fillReport(jasper+"/jasper/pawnticket.jasper",param,conn);
+				jprint=JasperFillManager.fillReport(path+"/jasper/pawnticket.jasper",param,conn);
 			}
 			OutputStream out=response.getOutputStream();
 			JasperExportManager.exportReportToPdfStream(jprint,out);

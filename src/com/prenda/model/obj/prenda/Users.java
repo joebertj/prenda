@@ -28,7 +28,7 @@ import org.hibernate.proxy.HibernateProxy;
 public class Users implements Cloneable, Serializable, IPojoGenEntity, IUsers {
 
 	/** Serial Version UID. */
-	private static final long serialVersionUID = -559018142L;
+	private static final long serialVersionUID = -559018141L;
 
 	/** Use a WeakHashMap so entries will be garbage collected once all entities 
 		referring to a saved hash are garbage collected themselves. */
@@ -54,7 +54,7 @@ public class Users implements Cloneable, Serializable, IPojoGenEntity, IUsers {
 	/** Field mapping. */
 	private Date loanDate;
 	/** Field mapping. */
-	private String mi;
+	private String middlename;
 	/** Field mapping. */
 	private String password;
 	/** Field mapping. */
@@ -254,24 +254,24 @@ public class Users implements Cloneable, Serializable, IPojoGenEntity, IUsers {
 	}
 
     /**
-     * Return the value associated with the column: mi.
-	 * @return A String object (this.mi)
+     * Return the value associated with the column: middlename.
+	 * @return A String object (this.middlename)
 	 */
 	@Basic( optional = true )
-	@Column( length = 2  )
-	public String getMi() {
-		return this.mi;
+	@Column( length = 20  )
+	public String getMiddlename() {
+		return this.middlename;
 		
 	}
 	
 
   
     /**  
-     * Set the value related to the column: mi.
-	 * @param mi the mi value you wish to set
+     * Set the value related to the column: middlename.
+	 * @param middlename the middlename value you wish to set
 	 */
-	public void setMi(final String mi) {
-		this.mi = mi;
+	public void setMiddlename(final String middlename) {
+		this.middlename = middlename;
 	}
 
     /**
@@ -334,7 +334,7 @@ public class Users implements Cloneable, Serializable, IPojoGenEntity, IUsers {
 		copy.setLastname(this.getLastname());
 		copy.setLevel(this.getLevel());
 		copy.setLoanDate(this.getLoanDate());
-		copy.setMi(this.getMi());
+		copy.setMiddlename(this.getMiddlename());
 		copy.setPassword(this.getPassword());
 		copy.setUsername(this.getUsername());
 		return copy;
@@ -357,7 +357,7 @@ public class Users implements Cloneable, Serializable, IPojoGenEntity, IUsers {
 		sb.append("lastname: " + this.getLastname() + ", ");
 		sb.append("level: " + this.getLevel() + ", ");
 		sb.append("loanDate: " + this.getLoanDate() + ", ");
-		sb.append("mi: " + this.getMi() + ", ");
+		sb.append("middlename: " + this.getMiddlename() + ", ");
 		sb.append("password: " + this.getPassword() + ", ");
 		sb.append("username: " + this.getUsername());
 		return sb.toString();		
@@ -411,7 +411,7 @@ public class Users implements Cloneable, Serializable, IPojoGenEntity, IUsers {
 		result = result && (((getLastname() == null) && (that.getLastname() == null)) || (getLastname() != null && getLastname().equals(that.getLastname())));
 		result = result && (((getLevel() == null) && (that.getLevel() == null)) || (getLevel() != null && getLevel().equals(that.getLevel())));
 		result = result && (((getLoanDate() == null) && (that.getLoanDate() == null)) || (getLoanDate() != null && getLoanDate().equals(that.getLoanDate())));
-		result = result && (((getMi() == null) && (that.getMi() == null)) || (getMi() != null && getMi().equals(that.getMi())));
+		result = result && (((getMiddlename() == null) && (that.getMiddlename() == null)) || (getMiddlename() != null && getMiddlename().equals(that.getMiddlename())));
 		result = result && (((getPassword() == null) && (that.getPassword() == null)) || (getPassword() != null && getPassword().equals(that.getPassword())));
 		result = result && (((getUsername() == null) && (that.getUsername() == null)) || (getUsername() != null && getUsername().equals(that.getUsername())));
 		return result;

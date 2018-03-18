@@ -74,7 +74,7 @@ import com.prenda.helper.PasswordEncoderGenerator;
                 if(!PasswordEncoderGenerator.matches(password, password2)){
                 	String redirectURL = "pullout.jsp?msg="+badLogin;
         			response.sendRedirect(redirectURL);
-            	}else if(level<Level.LIAISON){
+            	}else if(level!=Level.LIAISON && level<Level.OWNER){
             		String redirectURL = "pullout.jsp?msg=Access level not authorized";
         			response.sendRedirect(redirectURL);
             	}else{

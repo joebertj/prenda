@@ -1,5 +1,4 @@
 package com.prenda.model.obj.prenda.iface;
-import java.sql.Timestamp;
 import java.util.Date;
 import javax.persistence.Basic;
 
@@ -15,9 +14,9 @@ public interface IRedeem {
 
     /**
      * Return the value associated with the column: createDate.
-	 * @return A Timestamp object (this.createDate)
+	 * @return A Date object (this.createDate)
 	 */
-	Timestamp getCreateDate();
+	Date getCreateDate();
 	
 
   
@@ -25,7 +24,7 @@ public interface IRedeem {
      * Set the value related to the column: createDate.
 	 * @param createDate the createDate value you wish to set
 	 */
-	void setCreateDate(final Timestamp createDate);
+	void setCreateDate(final Date createDate);
 
     /**
      * Return the value associated with the column: encoder.

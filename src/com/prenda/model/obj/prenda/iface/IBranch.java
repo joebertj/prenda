@@ -40,6 +40,20 @@ public interface IBranch {
 	void setAdvanceInterest(final Double advanceInterest);
 
     /**
+     * Return the value associated with the column: appraisedMargin.
+	 * @return A Double object (this.appraisedMargin)
+	 */
+	Double getAppraisedMargin();
+	
+
+  
+    /**  
+     * Set the value related to the column: appraisedMargin.
+	 * @param appraisedMargin the appraisedMargin value you wish to set
+	 */
+	void setAppraisedMargin(final Double appraisedMargin);
+
+    /**
      * Return the value associated with the column: archive.
 	 * @return A Boolean object (this.archive)
 	 */
@@ -52,6 +66,20 @@ public interface IBranch {
 	 * @param archive the archive value you wish to set
 	 */
 	void setArchive(final Boolean archive);
+
+    /**
+     * Return the value associated with the column: auctionMarkup.
+	 * @return A Byte object (this.auctionMarkup)
+	 */
+	Byte getAuctionMarkup();
+	
+
+  
+    /**  
+     * Set the value related to the column: auctionMarkup.
+	 * @param auctionMarkup the auctionMarkup value you wish to set
+	 */
+	void setAuctionMarkup(final Byte auctionMarkup);
 
     /**
      * Return the value associated with the column: balance.
@@ -82,6 +110,34 @@ public interface IBranch {
 	void setCounter(final Long counter);
 
     /**
+     * Return the value associated with the column: editMinute.
+	 * @return A Byte object (this.editMinute)
+	 */
+	Byte getEditMinute();
+	
+
+  
+    /**  
+     * Set the value related to the column: editMinute.
+	 * @param editMinute the editMinute value you wish to set
+	 */
+	void setEditMinute(final Byte editMinute);
+
+    /**
+     * Return the value associated with the column: expiry.
+	 * @return A Byte object (this.expiry)
+	 */
+	Byte getExpiry();
+	
+
+  
+    /**  
+     * Set the value related to the column: expiry.
+	 * @param expiry the expiry value you wish to set
+	 */
+	void setExpiry(final Byte expiry);
+
+    /**
      * Return the value associated with the column: extend.
 	 * @return A Byte object (this.extend)
 	 */
@@ -108,6 +164,20 @@ public interface IBranch {
 	 * @param id the id value you wish to set
 	 */
 	void setId(final Integer id);
+
+    /**
+     * Return the value associated with the column: maturity.
+	 * @return A Byte object (this.maturity)
+	 */
+	Byte getMaturity();
+	
+
+  
+    /**  
+     * Set the value related to the column: maturity.
+	 * @param maturity the maturity value you wish to set
+	 */
+	void setMaturity(final Byte maturity);
 
     /**
      * Return the value associated with the column: name.

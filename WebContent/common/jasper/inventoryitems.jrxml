@@ -6,8 +6,8 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
-	<import value="com.google.common.base.*"/>
 	<import value="java.util.*"/>
+	<import value="com.google.common.base.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="branch" class="java.lang.Integer"/>
 	<parameter name="name" class="java.lang.String" isForPrompting="false">
@@ -125,7 +125,7 @@ ORDER BY pawn.pid]]>
 					<bottomPen lineWidth="0.0" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Inventory Items]]></text>

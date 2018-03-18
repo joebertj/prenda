@@ -3,7 +3,6 @@ package com.prenda.model.obj.prenda;
 import com.github.wwadge.hbnpojogen.persistence.IPojoGenEntity;
 import com.prenda.model.obj.prenda.iface.IPullout;
 import java.io.Serializable;
-import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
@@ -41,7 +40,7 @@ public class Pullout implements Cloneable, Serializable, IPojoGenEntity, IPullou
 	/** Field mapping. */
 	private Boolean auction;
 	/** Field mapping. */
-	private Timestamp createDate;
+	private Date createDate;
 	/** Field mapping. */
 	private String encoder;
 	/** Field mapping. */
@@ -66,11 +65,11 @@ public class Pullout implements Cloneable, Serializable, IPojoGenEntity, IPullou
 	
 	/** Constructor taking a given ID.
 	 * @param auction Boolean object;
-	 * @param createDate Timestamp object;
+	 * @param createDate Date object;
 	 * @param id Long object;
 	 * @param pulloutDate Date object;
 	 */
-	public Pullout(Boolean auction, Timestamp createDate, Long id, 					
+	public Pullout(Boolean auction, Date createDate, Long id, 					
 			Date pulloutDate) {
 
 		this.auction = auction;
@@ -115,11 +114,11 @@ public class Pullout implements Cloneable, Serializable, IPojoGenEntity, IPullou
 
     /**
      * Return the value associated with the column: createDate.
-	 * @return A Timestamp object (this.createDate)
+	 * @return A Date object (this.createDate)
 	 */
 	@Basic( optional = false )
 	@Column( name = "create_date", nullable = false  )
-	public Timestamp getCreateDate() {
+	public Date getCreateDate() {
 		return this.createDate;
 		
 	}
@@ -130,7 +129,7 @@ public class Pullout implements Cloneable, Serializable, IPojoGenEntity, IPullou
      * Set the value related to the column: createDate.
 	 * @param createDate the createDate value you wish to set
 	 */
-	public void setCreateDate(final Timestamp createDate) {
+	public void setCreateDate(final Date createDate) {
 		this.createDate = createDate;
 	}
 

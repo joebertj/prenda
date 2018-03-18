@@ -19,6 +19,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+
+import com.prenda.Level;
 import com.prenda.helper.DatabaseConnection;
 import com.prenda.helper.PasswordEncoderGenerator;
 
@@ -68,14 +70,13 @@ import com.prenda.helper.PasswordEncoderGenerator;
             ResultSet rs = pstmt.executeQuery();
             String badLogin="No such user or bad password!";
             if(rs.first()){
-            	String pass = request.getParameter("password");
-            	String password = PasswordEncoderGenerator.getHash(pass);
-                String password2 = rs.getString(1);
+            	String password = request.getParameter("password");
+            	String password2 = rs.getString(1);
                 int level = rs.getInt(2);
-                if(!password.equals(password2)){
+                if(!PasswordEncoderGenerator.matches(password, password2)){
                 	String redirectURL = "pullout.jsp?msg="+badLogin;
         			response.sendRedirect(redirectURL);
-            	}else if(level!=3 && level<8){
+            	}else if(level!=Level.LIAISON && level<Level.OWNER){
             		String redirectURL = "pullout.jsp?msg=Access level not authorized";
         			response.sendRedirect(redirectURL);
             	}else{

@@ -243,11 +243,11 @@ public class BranchService {
 	}
 
 	@Deprecated
-	public List<com.prenda.Branch> getBranches(int ownerId) {
+	public List<com.prenda.Branch> getBranches(long ownerId) {
 		List<com.prenda.Branch> list = new ArrayList<com.prenda.Branch>();
 		try {
 			pstmt = conn.prepareStatement("SELECT branchid,name,address FROM branch WHERE owner=?");
-			pstmt.setInt(1, ownerId);
+			pstmt.setLong(1, ownerId);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				id = rs.getInt(1);

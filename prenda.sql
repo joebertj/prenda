@@ -228,7 +228,7 @@ CREATE TABLE `users` (
   `password` varchar(60) CHARACTER SET utf8 COLLATE utf8_bin default NULL,
   `lastname` varchar(20) default NULL,
   `firstname` varchar(50) default NULL,
-  `mi` varchar(2) default NULL,
+  `middlename` varchar(20) default NULL,
   `level` tinyint unsigned default NULL,
   `branch` smallint unsigned NOT NULL default '0',
   `archive` boolean NOT NULL default '0',
@@ -260,7 +260,7 @@ CREATE TABLE `limits` (
 
 DROP TABLE IF EXISTS `register`;
 CREATE TABLE `register` (
-  `rid` int(10) unsigned NOT NULL default '0',
+  `rid` smallint unsigned NOT NULL default '0',
   `password` char(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '',
   PRIMARY KEY  (`rid`),
   FOREIGN KEY `rid` (`rid`) REFERENCES pawn (`pid`)

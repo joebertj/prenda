@@ -17,7 +17,7 @@ public class PrendaDataPoolFactory {
 	/** Table commit order. */
     private static final Multimap<String, String> tableDeps = ArrayListMultimap.create();
 	/** DB commit order. */
-	private static final String[] commitOrder = new String[]{"Users", "Redeem", "Pullout", "Pawn", "Page", "Limits", "Level", "Ledger", "Journal", "Jewelry", "Interest", "Genkey", "Register", "Customer", "Branch", "Accounts"};
+	private static final String[] commitOrder = new String[]{"Users", "Register", "Redeem", "Pullout", "Pawn", "Page", "Limits", "Level", "Ledger", "Journal", "Jewelry", "Interest", "Genkey", "Customer", "Branch", "Accounts"};
 	static{
 		// Store table deps for possible use. 
 	}
@@ -47,10 +47,15 @@ public class PrendaDataPoolFactory {
         
         branch.setAddress(BasicDataGenerator.generateRandomString(100));
         branch.setAdvanceInterest(BasicDataGenerator.generateRandomDouble());
+        branch.setAppraisedMargin(BasicDataGenerator.generateRandomDouble());
         branch.setArchive(BasicDataGenerator.generateRandomBoolean());
+        branch.setAuctionMarkup((byte)(BasicDataGenerator.generateRandomTinyInt()));
         branch.setBalance(BasicDataGenerator.generateRandomDouble());
         branch.setCounter(BasicDataGenerator.generateRandomLong());
+        branch.setEditMinute((byte)(BasicDataGenerator.generateRandomTinyInt()));
+        branch.setExpiry((byte)(BasicDataGenerator.generateRandomTinyInt()));
         branch.setExtend((byte)(BasicDataGenerator.generateRandomTinyInt()));
+        branch.setMaturity((byte)(BasicDataGenerator.generateRandomTinyInt()));
         branch.setName(BasicDataGenerator.generateRandomString(50));
         branch.setOwner(BasicDataGenerator.generateRandomInt());
         branch.setPtNumber(BasicDataGenerator.generateRandomLong());
@@ -89,20 +94,6 @@ public class PrendaDataPoolFactory {
         genkey.setPassword(BasicDataGenerator.generateRandomStringChar(10));
 
         return genkey;
-    }
-    
-    /**
-     * Data pool factory for Register.
-     * @return RegisterA Register object
-     */
-    public static Register getRegister() {
-
-    	Register register = new Register();    
-        
-    	register.setId(BasicDataGenerator.generateRandomInt());
-    	register.setPassword(BasicDataGenerator.generateRandomStringChar(10));
-
-        return register;
     }
 
     /**
@@ -310,6 +301,20 @@ public class PrendaDataPoolFactory {
     }
 
     /**
+     * Data pool factory for Register.
+     * @return RegisterA Register object
+     */
+    public static Register getRegister() {
+
+        Register register = new Register();    
+        
+        register.setId(BasicDataGenerator.generateRandomInt());
+        register.setPassword(BasicDataGenerator.generateRandomStringChar(128));
+
+        return register;
+    }
+
+    /**
      * Data pool factory for Users.
      * @return UsersA Users object
      */
@@ -323,7 +328,7 @@ public class PrendaDataPoolFactory {
         users.setLastname(BasicDataGenerator.generateRandomString(20));
         users.setLevel((byte)(BasicDataGenerator.generateRandomTinyInt()));
         users.setLoanDate(BasicDataGenerator.generateDate());
-        users.setMi(BasicDataGenerator.generateRandomString(2));
+        users.setMiddlename(BasicDataGenerator.generateRandomString(20));
         users.setPassword(BasicDataGenerator.generateRandomString(60));
         users.setUsername(BasicDataGenerator.generateRandomString(20));
 

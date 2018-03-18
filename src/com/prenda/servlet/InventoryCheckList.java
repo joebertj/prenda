@@ -67,7 +67,7 @@ public class InventoryCheckList extends javax.servlet.http.HttpServlet implement
 		BufferedWriter bw = new BufferedWriter(pw);
 		String authenticated=(String) session.getAttribute("authenticated");
 		UserService us = new UserService();
-		int userId = us.getIdByUsername(authenticated);
+		long userId = us.getIdByUsername(authenticated);
 		int level= us.getLevelByUsername(authenticated);
 		int branchId = us.getBranchIdByUsername(authenticated);
 		InventoryService is = new InventoryService();

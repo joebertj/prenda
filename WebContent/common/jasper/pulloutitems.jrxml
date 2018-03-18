@@ -2,9 +2,12 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="pulloutitems" pageWidth="612" pageHeight="792" columnWidth="552" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" uuid="79642c8e-d8dd-4ff6-9052-5a7bc8ed3a1c">
 	<property name="ireport.scriptlethandling" value="0"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<import value="net.sf.jasperreports.engine.data.*"/>
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="branch" class="java.lang.Integer"/>
 	<parameter name="name" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["Branch Name"]]></defaultValueExpression>
@@ -21,8 +24,8 @@ LEFT JOIN customer ON pawn.nameid=customer.id
 LEFT JOIN branch ON pawn.branch=branch.branchid
 LEFT JOIN pullout ON pawn.pid=pullout.pid
 LEFT JOIN interest ON pawn.branch=interest.interestid
-WHERE pawn.pid=pullout.pid 
-AND (day=DATEDIFF(pullout_date,loan_date) OR (DATEDIFF(pullout_date,loan_date)>34 AND day=34)) 
+WHERE pawn.pid=pullout.pid
+AND (day=DATEDIFF(pullout_date,loan_date) OR (DATEDIFF(pullout_date,loan_date)>34 AND day=34))
 AND pawn.branch=interest.interestid
 AND (branch=$P{branch} OR ($P{branch}=1 AND branch>0))
 ORDER BY pawn.pid]]>
@@ -132,7 +135,7 @@ ORDER BY pawn.pid]]>
 					<bottomPen lineWidth="0.0" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
 				<text><![CDATA[Pulled-out Items]]></text>
