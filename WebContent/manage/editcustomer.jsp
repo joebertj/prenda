@@ -14,8 +14,8 @@
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
-			<FORM method="post" action="CustomerModify">
-			<INPUT type="hidden" name="referer" value="listcustomer.jsp"> 
+			<FORM method="post" action="../CustomerModify">
+			<INPUT type="hidden" name="referer" value="manage/listcustomer.jsp">
 			<INPUT type="hidden" name="modtype" value="2"> 
 			<INPUT type="hidden" name="cid" value="${param.cid}">
 			<TABLE border="1">

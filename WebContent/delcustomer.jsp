@@ -18,6 +18,7 @@
 				<c:out value="${param.clname}" />,  <c:out value="${param.cfname}"/> <c:out value="${param.cmname}"/><br/>
 			<br/>
 			Are you sure? 
+			<INPUT type="hidden" name="referer" value="listcustomer.jsp">
 			<INPUT type="hidden" name="modtype" value="1"> 
 			<INPUT type="hidden" name="cid" value="${param.cid}"> 
 			<INPUT type="hidden" name="clname" value="${param.clname}">

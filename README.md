@@ -153,9 +153,7 @@ GNU GENERAL PUBLIC LICENSE Version 3
 * Add power encoder role to be able to adjust dates.
 * Adjustable redeem dates.
 * Review interest rate of redeem.
-* Adjustable auction markup (10%).
-* Adjustable edit minute (15).
-* Adjustable maturity (30 days) and expiry (120 days)
+* Adjustable auction appraised amount margin, markup (10%), maturity (30 days), expiry (120 days), edit minute (15).
 * Name entry for user.
 * User should not be able to delete or archive himself. (unit test)
 * Admin should have unarchive functionality.

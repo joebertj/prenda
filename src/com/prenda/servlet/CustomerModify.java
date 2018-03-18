@@ -61,6 +61,7 @@ import com.prenda.helper.DatabaseConnection;
 			String cfname = request.getParameter("cfname");
 			String cmname = request.getParameter("cmname");
 			String cadd = request.getParameter("cadd");
+			String referer = request.getParameter("referer");
     		String modtype = request.getParameter("modtype");
     		Connection conn = DatabaseConnection.getConnection();
     		PreparedStatement pstmt = null;
@@ -71,7 +72,7 @@ import com.prenda.helper.DatabaseConnection;
     			pstmt.setString(3, cmname);
     			pstmt.setString(4, cadd);
     			pstmt.executeUpdate();
-    			response.sendRedirect("listcustomer.jsp?msg=Customer "+cfname+" "+cmname+" "+clname+" added");
+    			response.sendRedirect(referer + "?msg=Customer "+cfname+" "+cmname+" "+clname+" added");
     		}else if(modtype.equals("1")){
     			cid=new Integer(request.getParameter("cid")).intValue();
     			String delresp=request.getParameter("delresp");
@@ -79,9 +80,9 @@ import com.prenda.helper.DatabaseConnection;
     				pstmt = conn.prepareStatement("UPDATE customer SET archive=true WHERE id = ?");
     				pstmt.setInt(1, cid);
     				pstmt.executeUpdate();
-    				response.sendRedirect("listcustomer.jsp?msg=Customer "+cfname+" "+cmname+" "+clname+" archived");
+    				response.sendRedirect(referer + "?msg=Customer "+cfname+" "+cmname+" "+clname+" archived");
     			}else{
-    				response.sendRedirect("listcustomer.jsp?msg=Archive of customer "+cfname+" "+cmname+" "+clname+" cancelled");
+    				response.sendRedirect(referer + "?msg=Archive of customer "+cfname+" "+cmname+" "+clname+" cancelled");
     			}
     		}else if(modtype.equals("2")){
     			cid=new Integer(request.getParameter("cid")).intValue();
@@ -92,7 +93,7 @@ import com.prenda.helper.DatabaseConnection;
     			pstmt.setString(4, cadd);
     		    pstmt.setInt(5, cid);
     			pstmt.executeUpdate();
-    			response.sendRedirect("listcustomer.jsp?msg=Details for customer "+cfname+" "+cmname+" "+clname+" successfully changed");
+    			response.sendRedirect(referer + "?msg=Details for customer "+cfname+" "+cmname+" "+clname+" successfully changed");
     		}
 		} catch (SQLException ex) {
             log.info("SQLException: " + ex.getMessage());

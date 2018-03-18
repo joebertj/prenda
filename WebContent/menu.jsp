@@ -32,7 +32,7 @@ Redeemed Items <br/>
 Pulled-out Items <br/>
 <a href="pulloutsummary.jsp?mode=99">all</a> | <a href=pulloutsummary.jsp?mode=3>this year</a> | <a href=pulloutsummary.jsp?mode=2>this month</a> | <a href=pulloutsummary.jsp?mode=1>today</a><br/><br/>
 Inventory Items<br/>
-<a href="inventoryitems.jsp">view list</a> | <a href=inventorychecklist.txt>print checklist</a><br/><br/>
+<a href="inventoryitems.jsp">view list</a> | <a href="inventorychecklist.txt" target="_blank">print checklist</a><br/><br/>
 <a href="auction.jsp">Auction Items</a><br/>
 <a href="outstandingitems.jsp">Outstanding Items</a><br/>
 <a href="forecloseditems.jsp">Foreclosed Items</a><br/>

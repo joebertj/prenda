@@ -9,9 +9,6 @@ package com.prenda.pdf;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.Connection;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,8 +16,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.WordUtils;
 import org.apache.log4j.Logger;
 
+import com.google.common.base.Strings;
 import com.prenda.helper.DatabaseConnection;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -49,34 +48,29 @@ import net.sf.jasperreports.engine.JasperPrint;
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String,Object> param=new HashMap<String,Object>();
-		SimpleDateFormat sdf=new SimpleDateFormat("MMM dd, yyyy");
-		Date pawn=null;
-		Date maturity=null;
-		Date expire=null;
-		try {
-			pawn = sdf.parse(request.getParameter("pawn"));
-			maturity=sdf.parse(request.getParameter("maturity"));
-			expire=sdf.parse(request.getParameter("expire"));
-		} catch (ParseException e) {
-			log.info(e.getMessage());
-		}
-		Integer pid=new Integer(request.getParameter("pid"));
-		Integer bpid=new Integer(request.getParameter("bpid"));
-		String name=request.getParameter("name");
-		String address=request.getParameter("address");
+		String pawn=null;
+		String maturity=null;
+		String expire=null;
+		pawn = request.getParameter("pawn");
+		maturity=request.getParameter("maturity");
+		expire=request.getParameter("expire");
+		String pid=Strings.padStart(request.getParameter("pid"), 10, '0');
+		String bpid=Strings.padStart(request.getParameter("bpid"), 6, '0');
+		String name=WordUtils.capitalize(request.getParameter("name"));
+		String address=WordUtils.capitalize(request.getParameter("address"));
 		Float appraised=new Float(request.getParameter("appraised"));
 		Float loan=new Float(request.getParameter("loan"));
 		Float rate=new Float(request.getParameter("rate"));
-		String appraisedw=request.getParameter("appraisedw");
-		String loanw=request.getParameter("loanw");
-		String ratew=request.getParameter("ratew");
+		String appraisedw=WordUtils.capitalize(request.getParameter("appraisedw"));
+		String loanw=WordUtils.capitalize(request.getParameter("loanw"));
+		String ratew=WordUtils.capitalize(request.getParameter("ratew"));
 		Float interest=new Float(request.getParameter("interest"));
 		Float sc=new Float(request.getParameter("sc"));
 		Float net=new Float(request.getParameter("net"));
 		String description=request.getParameter("description");
 		String password=request.getParameter("password");
 		String encoder=request.getParameter("encoder");
-		Integer branch=new Integer(request.getParameter("branch"));
+		String branch=Strings.padStart(request.getParameter("branch"), 4, '0');
 		param.put("pid",pid);
 		param.put("bpid",bpid);
 		param.put("pawn",pawn);
@@ -120,7 +114,13 @@ import net.sf.jasperreports.engine.JasperPrint;
 		try {
 			Connection conn = DatabaseConnection.getConnection();
 			String jasper = request.getSession().getServletContext().getRealPath("/common");
-			JasperPrint jprint=JasperFillManager.fillReport(jasper+"/jasper/pawnticket.jasper",param,conn);
+			String print=request.getParameter("print");
+			JasperPrint jprint;
+			if(print.equals("Print on Empty Paper")) {
+				jprint=JasperFillManager.fillReport(jasper+"/jasper/pawnticketverbose.jasper",param,conn);
+			}else {
+				jprint=JasperFillManager.fillReport(jasper+"/jasper/pawnticket.jasper",param,conn);
+			}
 			OutputStream out=response.getOutputStream();
 			JasperExportManager.exportReportToPdfStream(jprint,out);
 		} catch (Exception e) {

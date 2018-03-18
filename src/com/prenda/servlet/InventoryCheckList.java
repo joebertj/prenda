@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.common.base.Strings;
 import com.prenda.Mode;
 import com.prenda.Pawn;
-import com.prenda.helper.StringUtil;
 import com.prenda.service.InventoryService;
 import com.prenda.service.UserService;
 
@@ -74,8 +74,8 @@ public class InventoryCheckList extends javax.servlet.http.HttpServlet implement
 		List<Pawn> list = is.getAllInventory(level, branchId, userId, "pawn.pid", Mode.ASC, 1, Integer.MAX_VALUE);
 		int i = 0;
 		for(Pawn p: list){
-			String entry = "[ ] " + p.getPid() + " (" + p.getPtNumber()+ ") ";
-			bw.write(entry + new StringUtil().pad(entry.length()));
+			String entry = "[ ] " + Strings.padStart(new Integer(p.getPid()).toString(), 10, '0') + " (" + Strings.padStart(new Integer(p.getPtNumber()).toString(), 10, '0')+ ") ";
+			bw.write(Strings.padStart(entry, entry.length(), ' '));
 			i++;
 			if(i==5){
 				i = 0;

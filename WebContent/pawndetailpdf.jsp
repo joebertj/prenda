@@ -97,7 +97,9 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 				<TR>
 					<TD colspan="4">
 					<TD>Interest</TD>
-					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${loans.interest}" /></TD>
+					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${loans.interest}" />
+					<jsp:setProperty property="number" name="edf" value="${loans.interest}"/>
+						<input type="hidden" name="ratew" value="${edf.words} pesos only"/></TD>
 				</TR>
 				<TR>
 					<TD colspan="4">
@@ -120,8 +122,6 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 						<input type="hidden" name="address" value="${pawn.rows[0].address}"/>
 						<input type="hidden" name="appraised" value="${pawn.rows[0].appraised}"/>
 						<input type="hidden" name="loan" value="${pawn.rows[0].loan}"/>
-						<jsp:setProperty property="number" name="edf" value="${pawn.rows[0].advance_interest}"/>
-						<input type="hidden" name="ratew" value="${edf.words} percent"/>
 						<input type="hidden" name="rate" value="${pawn.rows[0].advance_interest}"/>
 						<input type="hidden" name="interest" value="${loans.interest}"/>
 						<input type="hidden" name="sc" value="${pawn.rows[0].service_charge}"/>
@@ -130,8 +130,8 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 						<input type="hidden" name="password" value="${pawn.rows[0].password}"/>
 						<input type="hidden" name="encoder" value="${pawn.rows[0].encoder}"/>
 						<input type="hidden" name="branch" value="${user.branchId}"/>
-						<input type="submit" value="Print on Preprinted Receipt"/>
-						<input type="submit" value="Print on Empty Paper" onClick="alert('Not yet available');return false;"/>
+						<input type="submit" name="print" value="Print on Preprinted Receipt"/>
+						<input type="submit" name="print" value="Print on Empty Paper"/>
 					</TD>
 				</TR>
 			</TABLE>

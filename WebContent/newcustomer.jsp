@@ -14,8 +14,9 @@
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
-			<FORM method="post" action="CustomerModify"><INPUT type="hidden"
-				name="modtype" value="0">
+			<FORM method="post" action="CustomerModify">
+			<INPUT type="hidden" name="referer" value="listcustomer.jsp">
+			<INPUT type="hidden" name="modtype" value="0">
 			<TABLE border="1">
 				<TR>
 					<TH colspan="2">Add New Customer</TH>
