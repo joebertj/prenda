@@ -6,8 +6,8 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
-	<import value="com.google.common.base.*"/>
 	<import value="java.util.*"/>
+	<import value="com.google.common.base.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="branch" class="java.lang.Integer"/>
 	<parameter name="name" class="java.lang.String" isForPrompting="false">
@@ -130,7 +130,7 @@ ORDER BY pawn.pid]]>
 			</staticText>
 			<image>
 				<reportElement x="0" y="0" width="66" height="48" uuid="58275440-a50a-40cb-9e8b-3e3907208ec6"/>
-				<imageExpression><![CDATA["C:\\Users\\Asus ROG\\git\\prenda\\WebContent\\common\\img\\logo.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 		</band>
 	</title>
@@ -154,7 +154,7 @@ ORDER BY pawn.pid]]>
 	<columnHeader>
 		<band height="45" splitType="Stretch">
 			<staticText>
-				<reportElement key="staticText-1" x="386" y="21" width="60" height="17" uuid="c8302c73-0c60-46f8-bae4-b429f4b4641d"/>
+				<reportElement key="staticText-1" x="386" y="22" width="60" height="17" uuid="c8302c73-0c60-46f8-bae4-b429f4b4641d"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -231,7 +231,7 @@ ORDER BY pawn.pid]]>
 				<text><![CDATA[Loan Date]]></text>
 			</staticText>
 			<staticText>
-				<reportElement key="staticText-13" x="446" y="23" width="106" height="17" uuid="3d5631b7-ba87-4cac-b428-a7919f047d12"/>
+				<reportElement key="staticText-13" x="444" y="21" width="106" height="17" uuid="3d5631b7-ba87-4cac-b428-a7919f047d12"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -271,7 +271,7 @@ ORDER BY pawn.pid]]>
 	<detail>
 		<band height="47" splitType="Stretch">
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-5" x="33" y="24" width="132" height="22" uuid="43b463d9-80e6-4871-95fe-a1956ba06f6d"/>
+				<reportElement key="textField-5" x="33" y="24" width="142" height="22" uuid="43b463d9-80e6-4871-95fe-a1956ba06f6d"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -281,7 +281,7 @@ ORDER BY pawn.pid]]>
 				<textFieldExpression><![CDATA[$F{last_name} + ", " + $F{first_name} + " " + $F{middle_name}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
-				<reportElement key="textField-6" x="255" y="0" width="97" height="22" uuid="73501537-1c3b-4474-85da-2f8c0d01b3e0"/>
+				<reportElement key="textField-6" x="254" y="3" width="97" height="22" uuid="73501537-1c3b-4474-85da-2f8c0d01b3e0"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -292,7 +292,7 @@ ORDER BY pawn.pid]]>
 				<textFieldExpression><![CDATA[$F{loan}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-7" x="177" y="22" width="207" height="22" uuid="661fdb9d-d5a5-40f1-bd6e-3a8077e5099c"/>
+				<reportElement key="textField-7" x="178" y="24" width="207" height="22" uuid="661fdb9d-d5a5-40f1-bd6e-3a8077e5099c"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -313,7 +313,7 @@ ORDER BY pawn.pid]]>
 				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
 			</textField>
 			<textField pattern="MMMMM dd, yyyy" isBlankWhenNull="false">
-				<reportElement key="textField-11" x="145" y="0" width="107" height="22" uuid="90efb5e4-4f75-4841-9b05-87d032dd32fe"/>
+				<reportElement key="textField-11" x="143" y="1" width="107" height="22" uuid="90efb5e4-4f75-4841-9b05-87d032dd32fe"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -324,20 +324,21 @@ ORDER BY pawn.pid]]>
 				<textFieldExpression><![CDATA[$F{loan_date}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-12" x="455" y="24" width="97" height="22" uuid="2bd323b7-be4f-4ec9-85a6-923d4d603b53"/>
+				<reportElement key="textField-12" x="446" y="24" width="106" height="22" uuid="2bd323b7-be4f-4ec9-85a6-923d4d603b53"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<bottomPen lineWidth="0.0" lineColor="#000000"/>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
+				<textElement textAlignment="Right"/>
 				<textFieldExpression><![CDATA[$F{encoder}]]></textFieldExpression>
 			</textField>
 			<line>
 				<reportElement key="line-1" x="0" y="45" width="551" height="1" uuid="543ab764-5a36-4a96-940e-44301ce79c6a"/>
 			</line>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
-				<reportElement key="textField-13" x="351" y="0" width="97" height="22" uuid="762b5cee-b74e-4167-af44-ac9b57ee03e5"/>
+				<reportElement key="textField-13" x="353" y="3" width="97" height="22" uuid="762b5cee-b74e-4167-af44-ac9b57ee03e5"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -348,7 +349,7 @@ ORDER BY pawn.pid]]>
 				<textFieldExpression><![CDATA[$F{lrate}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
-				<reportElement key="textField-14" x="449" y="1" width="101" height="22" uuid="a46e9e85-3343-4ecc-ae6b-19395d90ff10"/>
+				<reportElement key="textField-14" x="450" y="3" width="101" height="22" uuid="a46e9e85-3343-4ecc-ae6b-19395d90ff10"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -372,7 +373,7 @@ ORDER BY pawn.pid]]>
 Strings.padStart(new Long($F{bpid}).toString(),6,'0')]]></textFieldExpression>
 			</textField>
 			<textField pattern="" isBlankWhenNull="false">
-				<reportElement key="textField-1" x="385" y="22" width="61" height="22" uuid="213f0c45-df83-4a1d-b371-8af2a8c7ea5b"/>
+				<reportElement key="textField-1" x="385" y="25" width="61" height="22" uuid="213f0c45-df83-4a1d-b371-8af2a8c7ea5b"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>

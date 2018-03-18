@@ -28,6 +28,7 @@
 	<parameter name="ratew" class="java.lang.String"/>
 	<parameter name="appraisedw" class="java.lang.String"/>
 	<parameter name="rate" class="java.lang.Float"/>
+	<parameter name="logo" class="java.lang.String"/>
 	<queryString>
 		<![CDATA[SELECT 1]]>
 	</queryString>
@@ -310,7 +311,7 @@
 			</textField>
 			<image>
 				<reportElement x="0" y="-123" width="87" height="81" uuid="9ce8ea43-a123-40d7-97f6-5f4536a54afa"/>
-				<imageExpression><![CDATA["C:\\Users\\Asus ROG\\git\\prenda\\WebContent\\common\\img\\logo.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 		</band>
 	</detail>

@@ -6,8 +6,8 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="com.google.common.base.*"/>
 	<import value="java.util.*"/>
-    <import value="com.google.common.base.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="branch" class="java.lang.Integer"/>
 	<parameter name="name" class="java.lang.String" isForPrompting="false">
@@ -115,7 +115,7 @@ ORDER BY pawn.pid]]>
 			</staticText>
 			<image>
 				<reportElement x="2" y="2" width="66" height="48" uuid="f85f3fea-ea65-43d6-83da-90675a44502d"/>
-				<imageExpression><![CDATA["C:\\Users\\Asus ROG\\git\\prenda\\WebContent\\common\\img\\logo.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 		</band>
 	</title>

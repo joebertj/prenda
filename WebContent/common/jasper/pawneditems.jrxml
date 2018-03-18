@@ -6,8 +6,8 @@
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<import value="net.sf.jasperreports.engine.*"/>
-	<import value="java.util.*"/>
 	<import value="com.google.common.base.*"/>
+	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<parameter name="branch" class="java.lang.Integer"/>
 	<parameter name="name" class="java.lang.String" isForPrompting="false">
@@ -62,7 +62,7 @@ ORDER BY pawn.pid]]>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="false">
-				<reportElement key="textField-8" x="147" y="4" width="235" height="17" uuid="cf6dcc02-0f34-4571-87ab-00a3a3fc3a12"/>
+				<reportElement key="textField-8" x="159" y="15" width="235" height="17" uuid="cf6dcc02-0f34-4571-87ab-00a3a3fc3a12"/>
 				<box>
 					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
@@ -111,7 +111,7 @@ ORDER BY pawn.pid]]>
 			</staticText>
 			<image>
 				<reportElement x="0" y="2" width="66" height="48" uuid="c2993359-7be5-4755-9ac6-37b71d4cb277"/>
-				<imageExpression><![CDATA["C:\\Users\\Asus ROG\\git\\prenda\\WebContent\\common\\img\\logo.png"]]></imageExpression>
+				<imageExpression><![CDATA[$P{logo}]]></imageExpression>
 			</image>
 		</band>
 	</title>

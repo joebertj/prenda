@@ -63,11 +63,11 @@ public class PawnService extends GenericService {
 		"FROM pawn "+
 		"LEFT JOIN genkey ON pawn.pid=genkey.pid "+
 		"LEFT JOIN interest ON pawn.branch=interest.interestid "+
-		"LEFT JOIN redeem ON redeem.pid=pawn.pid "+
-		"LEFT JOIN pullout ON pullout.pid=pawn.pid "+
+		"LEFT JOIN redeem ON pawn.pid=redeem.pid "+
+		"LEFT JOIN pullout ON pawn.pid=pullout.pid "+
 		"LEFT JOIN branch ON pawn.branch=branch.branchid "+
 		// set day to [0,34] all overflows stop at 34
-		"WHERE (day=DATEDIFF(?,loan_date) OR (day=34 AND DATEDIFF(?,loan_date)>34)) ";
+		"WHERE ((day=DATEDIFF(?,loan_date) AND DATEDIFF(?,loan_date)<=34) OR (day=34 AND DATEDIFF(?,loan_date)>34)) ";
 		if(mode==Mode.DAILY){
 			query += "AND loan_date=?";
 		}else if(mode==Mode.MONTHLY){
@@ -78,7 +78,7 @@ public class PawnService extends GenericService {
 		java.sql.Date sqlDate = new java.sql.Date(filterDate.getTime());
 		log.info(sqlDate.toString());
 		// Date is basically NOW() but there is a feature to use filterDate to override this for debugging
-		int datesMinimum = 3;
+		int datesMinimum = 4;
 		if(level==Level.ADMIN){
 			query += " ORDER BY " + sort + " " + (order==Mode.DESC ? "DESC" : "ASC") + " LIMIT ?,?";
 			try {

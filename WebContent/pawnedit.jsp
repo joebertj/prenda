@@ -32,7 +32,10 @@ WHERE pid=<c:out value="${param.pid}"/>
 <fmt:parseDate var="cdate" value="${pawn.rows[0].create_date}" pattern="yyyy-MM-dd HH:mm:ss.S" />
 <c:set var="minutelapsed" value="${(x.time-cdate.time)/(1000*60)}"/>
 <c:if test="${minutelapsed>15}">
-	<c:redirect url="pawn.jsp?msg=Allowable time elapsed ${minutelapsed}"/>
+	<c:set var="minutes">
+		<fmt:formatNumber value="${minutelapsed}" maxFractionDigits="1"/>
+	</c:set>
+	<c:redirect url="pawn.jsp?msg=Allowable time have elapsed. It has been ${minutes} minutes since creation."/>
 </c:if>
 <div id="errorMsg" style="display:none;border:1px solid #e00;background-color:#fee;padding:2px;margin-top:8px;width:300px;font:normal 12px Arial;color:#900"></div>
 			<FORM name="pawn" method="post" action="pawndetail.jsp" onSubmit="updatePawn()">
