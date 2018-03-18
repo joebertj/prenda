@@ -20,7 +20,7 @@
 <sql:query var="pageable" dataSource="${prenda}">
 SELECT count(uid) as numid FROM users 
 WHERE branch=<c:out value="${user.branchId}"/>
-AND level<=<c:out value="${user.level}"/>
+AND level<<c:out value="${user.level}"/>
 </sql:query>
 <c:set var="numid" value="${pageable.rows[0].numid}" />
 <c:set var="pages" value="${numid/perpage}" />
@@ -54,7 +54,7 @@ AND level<=<c:out value="${user.level}"/>
 <sql:query var="userlist" dataSource="${prenda}">
 SELECT * FROM users 
 WHERE branch=<c:out value="${user.branchId}"/> 
-AND level<=<c:out value="${user.level}"/>
+AND level<<c:out value="${user.level}"/>
 ORDER BY username
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 </sql:query>
@@ -64,6 +64,9 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 				</TR>
 				<TR>
 					<TH>Username</TH>
+					<TH>Last Name</TH>
+					<TH>First Name</TH>
+					<TH>Middle Name</TH>
 					<TH>Level</TH>
 					<TH>Archived</TH>
 				</TR>
@@ -77,6 +80,9 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 						</c:otherwise>
 					</c:choose>
 					<TD><c:out value="${row.username}"/></TD>
+					<TD><c:out value="${row.lastname}" /></TD>
+					<TD><c:out value="${row.firstname}" /></TD>
+					<TD><c:out value="${row.middlename}" /></TD>
 					<TD><c:set var="lvl" value="${row.level}"/> 
 					<c:choose>
 						<c:when test="${lvl==1}">
@@ -116,6 +122,16 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 							<INPUT name="password" type="hidden" value="${row.password}">
 							<INPUT type="submit" value="Change Password">
 						</FORM>
+					</TD>
+					<TD>
+					<FORM method="post" action="edituser.jsp">
+					<INPUT name="uid" type="hidden" value="${row.uid}">
+					<INPUT name="user" type="hidden" value="${row.username}">
+					<INPUT name="lname" type="hidden" value="${row.lastname}">
+					<INPUT name="fname" type="hidden" value="${row.firstname}">
+					<INPUT name="mname" type="hidden" value="${row.middlename}"> 
+					<INPUT type="submit" value="Edit">
+					</FORM>
 					</TD>
 					<TD>
 						<FORM method="post" action="deluser.jsp">

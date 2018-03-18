@@ -28,14 +28,7 @@ public class CustomPasswordGenerator {
 
 					new CharacterRule(EnglishCharacterData.Digit, 1));
 		if(strong) {
-			rules = Arrays.asList(
-				new CharacterRule(EnglishCharacterData.UpperCase, 1),
-
-				new CharacterRule(EnglishCharacterData.LowerCase, 1),
-
-				new CharacterRule(EnglishCharacterData.Digit, 1),
-
-				new CharacterRule(EnglishCharacterData.Special, 1));
+			rules.add(new CharacterRule(EnglishCharacterData.Special, 1));
 		}
 		PasswordGenerator generator = new PasswordGenerator();
 		genkey = generator.generatePassword(length, rules);

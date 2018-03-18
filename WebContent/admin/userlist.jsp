@@ -50,7 +50,7 @@ SELECT count(uid) as numid FROM users
 				<A href='userlist.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
 			</c:if>
 <sql:query var="userlist" dataSource="${prenda}">
-SELECT uid,username,level,users.archive,name,password FROM users
+SELECT uid,username,level,users.archive,name,password,lastname,firstname,middlename FROM users
 LEFT JOIN branch
 ON users.branch=branch.branchid
 WHERE users.branch=branch.branchid
@@ -63,6 +63,9 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 				</TR>
 				<TR>
 					<TH>Username</TH>
+					<TH>Last Name</TH>
+					<TH>First Name</TH>
+					<TH>Middle Name</TH>
 					<TH>Level</TH>
 					<TH>Branch</TH>
 					<TH>Archived</TH>
@@ -77,6 +80,9 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 						</c:otherwise>
 					</c:choose>
 					<TD><c:out value="${row.username}"/></TD>
+					<TD><c:out value="${row.lastname}" /></TD>
+					<TD><c:out value="${row.firstname}" /></TD>
+					<TD><c:out value="${row.middlename}" /></TD>
 					<TD><c:set var="lvl" value="${row.level}"/> 
 					<c:choose>
 						<c:when test="${lvl==1}">
@@ -117,6 +123,9 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 							<INPUT name="password" type="hidden" value="${row.password}">
 							<INPUT name="level" type="hidden" value="${row.level}">
 							<INPUT name="branch" type="hidden" value="${row.branch}">
+							<INPUT name="lname" type="hidden" value="${row.lastname}">
+							<INPUT name="fname" type="hidden" value="${row.firstname}">
+							<INPUT name="mname" type="hidden" value="${row.middlename}"> 
 							<INPUT type="submit" value="Edit">
 						</FORM>
 					</TD>

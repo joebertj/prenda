@@ -46,15 +46,19 @@ public class UserModify {
 	private static Logger log = Logger.getLogger(UserModify.class);
 
 	private Users user;
-
+	
 	@RequestMapping(value = "UserModify.htm", method = RequestMethod.POST)
 	@Secured({ "ROLE_ADMIN", "ROLE_OWNER", "ROLE_MANAGER", "ROLE_LIAISON", "ROLE_ENCODER" })
 	@Transactional
-	private String modifyUserActionSelecor(HttpSession session, ModelMap map,
+	private String modifyUserActionSelector(HttpSession session, ModelMap map,
 			@RequestParam("referer") String redirectUrl, @RequestParam("modtype") int mode,
-			@RequestParam("user") String targetUser, @RequestParam("pass") String oldPassword,
-			@RequestParam("pass1") String newPassword, @RequestParam("pass2") String verifyPassword,
-			@RequestParam("level") int targetLevel, @RequestParam("branch") int targetBranch) {
+			@RequestParam("user") String targetUser, @RequestParam(value="pass", required=false) String oldPassword,
+			@RequestParam(value="pass1", required=false) String newPassword, @RequestParam(value="pass2", required=false) String verifyPassword,
+			@RequestParam(value="level", required=false) Integer targetLevel, @RequestParam(value="branch", required=false) Integer targetBranch,
+			@RequestParam(value="uid", required=false) Integer userId,
+			@RequestParam(value="lname", required=false) String lastName,
+			@RequestParam(value="fname", required=false) String firstName,
+			@RequestParam(value="mname", required=false) String middleName) {
 		String message = "Action is not valid";
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String actionUser = auth.getName();
@@ -63,7 +67,20 @@ public class UserModify {
 		} else if (mode == Mode.DELETE) {
 			message = "Under construction";
 		} else if (mode == Mode.UPDATE) {
-			message = changePassword(actionUser, targetUser, oldPassword, newPassword, verifyPassword);
+			// indicator that request is coming from update user details view. uid param must be absent on password only request.
+			if(userId!=null) {
+				UserService us = new UserService();
+				Users user = us.getUser(targetUser);
+				user.setLastname(lastName);
+				user.setFirstname(firstName);
+				user.setMiddlename(middleName);
+				updateUser(user);
+				message = "Details for user " + targetUser + " updated";
+			}
+			// indicator that request is coming from a change password view
+			if(newPassword!=null) {
+				message = changePassword(actionUser, targetUser, oldPassword, newPassword, verifyPassword);
+			}
 		}
 		map.addAttribute("msg", message);
 		log.info("message: " + message + " redirectUrl: " + redirectUrl);
@@ -214,6 +231,14 @@ public class UserModify {
 	protected Users saveUser(Users user) {
 		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
 		dataLayerPrenda.save(user);
+		dataLayerPrenda.flushAndClearSession();
+		return user;
+	}
+	
+	@Transactional
+	protected Users updateUser(Users user) {
+		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
+		dataLayerPrenda.update(user);
 		dataLayerPrenda.flushAndClearSession();
 		return user;
 	}

@@ -15,8 +15,9 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 			<FORM method="post" action="${contextPath}/UserModify.htm">
-			<INPUT type="hidden" name="uid" value="${param.uid}">
+			<INPUT type="hidden" name="referer" value="manage/userlist">
 			<INPUT type="hidden" name="modtype" value="2">
+			<INPUT type="hidden" name="uid" value="${param.uid}">
 			<TABLE border="1">
 				<TR>
 					<TH colspan="2">Edit User</TH>
@@ -24,6 +25,18 @@
 				<TR>
 					<TD>Username</TD>
 					<TD>: <INPUT type="text" name="user" value="${param.user}"></TD>
+				</TR>
+				<TR>
+					<TD>Last Name</TD>
+					<TD>: <INPUT type="text" name="lname" value="${param.lname}"></TD>
+				</TR>
+				<TR>
+					<TD>First Name</TD>
+					<TD>: <INPUT type="text" name="fname" value="${param.fname}"></TD>
+				</TR>
+				<TR>
+					<TD>Middle Name</TD>
+					<TD>: <INPUT type="text" name="mname" value="${param.mname}"></TD>
 				</TR>
 				<TR>
 					<TD>Password</TD>
