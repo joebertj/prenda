@@ -3,6 +3,7 @@ package com.prenda.model.obj.prenda;
 import com.github.wwadge.hbnpojogen.persistence.IPojoGenEntity;
 import com.prenda.model.obj.prenda.iface.IPawn;
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Map;
@@ -50,7 +51,7 @@ public class Pawn implements Cloneable, Serializable, IPojoGenEntity, IPawn {
 	/** Field mapping. */
 	private Long branch;
 	/** Field mapping. */
-	private Date createDate;
+	private Timestamp createDate;
 	/** Field mapping. */
 	private String description;
 	/** Field mapping. */
@@ -91,7 +92,7 @@ public class Pawn implements Cloneable, Serializable, IPojoGenEntity, IPawn {
 	 * @param bcode Byte object;
 	 * @param bpid Long object;
 	 * @param branch Long object;
-	 * @param createDate Date object;
+	 * @param createDate Timestamp object;
 	 * @param extend Byte object;
 	 * @param id Long object;
 	 * @param loan Double object;
@@ -102,7 +103,7 @@ public class Pawn implements Cloneable, Serializable, IPojoGenEntity, IPawn {
 	 * @param serviceCharge Double object;
 	 */
 	public Pawn(Double advanceInterest, Double appraised, Byte bcode, 					
-			Long bpid, Long branch, Date createDate, 					
+			Long bpid, Long branch, Timestamp createDate, 					
 			Byte extend, Long id, Double loan, 					
 			Date loanDate, Long nameid, Long pt, 					
 			Long serial, Double serviceCharge) {
@@ -243,11 +244,11 @@ public class Pawn implements Cloneable, Serializable, IPojoGenEntity, IPawn {
 
     /**
      * Return the value associated with the column: createDate.
-	 * @return A Date object (this.createDate)
+	 * @return A Timestamp object (this.createDate)
 	 */
 	@Basic( optional = false )
 	@Column( name = "create_date", nullable = false  )
-	public Date getCreateDate() {
+	public Timestamp getCreateDate() {
 		return this.createDate;
 		
 	}
@@ -258,7 +259,7 @@ public class Pawn implements Cloneable, Serializable, IPojoGenEntity, IPawn {
      * Set the value related to the column: createDate.
 	 * @param createDate the createDate value you wish to set
 	 */
-	public void setCreateDate(final Date createDate) {
+	public void setCreateDate(final Timestamp createDate) {
 		this.createDate = createDate;
 	}
 

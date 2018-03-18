@@ -14,10 +14,13 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.apache.log4j.Logger;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.prenda.Level;
 import com.prenda.Mode;
-import com.prenda.Pawn;
+import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
+import com.prenda.model.obj.prenda.Pawn;
 import com.prenda.Branch;
 
 public class PawnService extends GenericService {
@@ -28,18 +31,29 @@ public class PawnService extends GenericService {
 		super();
 	}
 	
+	@Transactional
+	public Pawn getPawnById(long id) {
+		Pawn pawn = new Pawn();
+		ListIterator<Pawn> li = HibernatePrendaDaoFactory.getPawnDao()
+				.findByCriteria(Restrictions.eq("id", id)).listIterator();
+		if (li.hasNext()) {
+			pawn = (Pawn) li.next();
+		}
+		return pawn;
+	}
+	
 	public int getAllPawnCount(){
 		return getAllPawn(level,branchId,userId,mode,sort,order,1,Integer.MAX_VALUE,filterDate).size();
 	}
 	
-	public List<Pawn> getAllPawn(){
-		List<Pawn> list = new ArrayList<Pawn>();
+	public List<com.prenda.Pawn> getAllPawn(){
+		List<com.prenda.Pawn> list = new ArrayList<com.prenda.Pawn>();
 		list = getAllPawn(level,branchId,userId,mode,sort,order,page,pageSize,filterDate);
 		return list;
 	}
 	
-	public List<Pawn> getAllPawn(int level,int branchId,int userId,int mode,String sort,int order,int page,int pageSize,Date filterDate){
-		List<Pawn> list = new ArrayList<Pawn>();
+	public List<com.prenda.Pawn> getAllPawn(int level,int branchId,int userId,int mode,String sort,int order,int page,int pageSize,Date filterDate){
+		List<com.prenda.Pawn> list = new ArrayList<com.prenda.Pawn>();
 		String query = "SELECT pawn.pid,branch,loan_date,nameid,loan,bpid,rate,pawn.service_charge,pt,bcode,"+
 		"pawn.create_date AS cdate,"+
 		"ADDDATE(loan_date,120+15*pawn.extend) AS expire,"+
@@ -99,7 +113,7 @@ public class PawnService extends GenericService {
 					int foreclose = rs.getInt(13);
 					int redeem = rs.getInt(14);
 					int pullout = rs.getInt(15);
-					Pawn p = new Pawn(pid, loanDate.getTime(), bcode, loanDate, expire, nameId, amount, amount+100, query, sc, pid, query, pid, branch, bpid, pt);
+					com.prenda.Pawn p = new com.prenda.Pawn(pid, loanDate.getTime(), bcode, loanDate, expire, nameId, amount, amount+100, query, sc, pid, query, pid, branch, bpid, pt);
 					p.setInterestRate(rate);
 					p.setForeclose(foreclose);
 					p.setRedeem(redeem);
@@ -159,7 +173,7 @@ public class PawnService extends GenericService {
 					int foreclose = rs.getInt(13);
 					int redeem = rs.getInt(14);
 					int pullout = rs.getInt(15);
-					Pawn p = new Pawn(pid, loanDate.getTime(), bcode, loanDate, expire, nameId, amount, amount+100, query, sc, pid, query, pid, branch, bpid, pt);
+					com.prenda.Pawn p = new com.prenda.Pawn(pid, loanDate.getTime(), bcode, loanDate, expire, nameId, amount, amount+100, query, sc, pid, query, pid, branch, bpid, pt);
 					p.setInterestRate(rate);
 					p.setForeclose(foreclose);
 					p.setRedeem(redeem);
@@ -206,7 +220,7 @@ public class PawnService extends GenericService {
 					int foreclose = rs.getInt(13);
 					int redeem = rs.getInt(14);
 					int pullout = rs.getInt(15);
-					Pawn p = new Pawn(pid, loanDate.getTime(), bcode, loanDate, expire, nameId, amount, amount+100, query, sc, pid, query, pid, branch, bpid, pt);
+					com.prenda.Pawn p = new com.prenda.Pawn(pid, loanDate.getTime(), bcode, loanDate, expire, nameId, amount, amount+100, query, sc, pid, query, pid, branch, bpid, pt);
 					p.setInterestRate(rate);
 					p.setForeclose(foreclose);
 					p.setRedeem(redeem);

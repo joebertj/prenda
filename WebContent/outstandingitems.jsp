@@ -94,7 +94,7 @@ ORDER BY pawn.pid
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 					value="${perpage}" />
 			</sql:query>
-			<form method="post" action="outstanding.pdf">
+			<form method="post" action="outstanding.pdf" target="_blank">
 				<input type="hidden" name="branch" value="${user.branchId}"/>
 				<input type="hidden" name="bname" value="${branch.name}"/>
 				<input type="hidden" name="baddress" value="${branch.address}"/>

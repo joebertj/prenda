@@ -17,6 +17,8 @@
 <%@include file="../common/msg.jsp"%>
 			<FORM name="pawn" method="post" action="CheckPawn.htm">
 			<input type="hidden" name="referer" value="pawndetail.jsp"/>
+			<input type="hidden" name="modtype" value="${param.modtype}"/>
+			<input type="hidden" name="pid" value="${param.pid}"/>
 			<TABLE border="1">
 				<TR>
 					<TH colspan="100%">Pawn Details</TH>

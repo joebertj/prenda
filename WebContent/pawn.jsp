@@ -25,6 +25,7 @@
 <%@include file="../common/msg.jsp"%>
 <div id="errorMsg" style="display:none;border:1px solid #e00;background-color:#fee;padding:2px;margin-top:8px;width:300px;font:normal 12px Arial;color:#900"></div>
 			<FORM name="pawn" method="post" action="pawndetail.jsp" onSubmit="updatePawn()">
+			<input type="hidden" name="modtype" value="0"/>
 			<input type="hidden" id="branchid" value="${user.branchId}"/><!-- used by ajax only -->
 			<TABLE border="1">
 				<TR>

@@ -58,7 +58,7 @@
 <c:if test="${pagenum<pages-(adjust/perpage)}">
 				<A href='redeemsummary.jsp?pagenum=<c:out value="${pagenum+1}"/>&mode=<c:out	value="${mode}" />'>next</A>
 			</c:if>
-			<form method="post" action="redeem.pdf">
+			<form method="post" action="redeem.pdf" target="_blank">
 				<input type="hidden" name="branch" value="${user.branchId}"/>
 				<input type="hidden" name="bname" value="${branch.name}"/>
 				<input type="hidden" name="baddress" value="${branch.address}"/>
