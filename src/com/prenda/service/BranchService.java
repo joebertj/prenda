@@ -236,15 +236,15 @@ public class BranchService {
 		this.balance = balance;
 	}
 
-	public List<com.prenda.Branch> getBranches() {
-		List<com.prenda.Branch> list = new ArrayList<com.prenda.Branch>();
+	public List<Branch> getBranches() {
+		List<Branch> list = new ArrayList<Branch>();
 		list = getBranches(ownerId);
 		return list;
 	}
 
 	@Deprecated
-	public List<com.prenda.Branch> getBranches(long ownerId) {
-		List<com.prenda.Branch> list = new ArrayList<com.prenda.Branch>();
+	public List<Branch> getBranches(long ownerId) {
+		List<Branch> list = new ArrayList<Branch>();
 		try {
 			pstmt = conn.prepareStatement("SELECT branchid,name,address FROM branch WHERE owner=?");
 			pstmt.setLong(1, ownerId);
@@ -253,7 +253,7 @@ public class BranchService {
 				id = rs.getInt(1);
 				name = rs.getString(2);
 				address = rs.getString(3);
-				com.prenda.Branch b = new com.prenda.Branch(id, name, address);
+				Branch b = new Branch(id, name, address);
 				list.add(b);
 			}
 		} catch (SQLException e) {

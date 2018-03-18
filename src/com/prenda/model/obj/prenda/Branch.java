@@ -86,6 +86,13 @@ public class Branch implements Cloneable, Serializable, IPojoGenEntity, IBranch 
 		this.id = id;
 	}
 	
+	public Branch(int id, String name, String address) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.address = address;
+	}
+	
 	/** Constructor taking a given ID.
 	 * @param address String object;
 	 * @param advanceInterest Double object;

@@ -21,7 +21,7 @@ import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.model.obj.prenda.Pawn;
-import com.prenda.Branch;
+import com.prenda.model.obj.prenda.Branch;
 
 public class PawnService extends GenericService {
 	

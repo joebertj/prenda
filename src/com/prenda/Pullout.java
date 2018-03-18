@@ -8,7 +8,7 @@ package com.prenda;
 import java.util.Date;
 
 public class Pullout extends Pawn {
-	private java.util.Date pulloutDate;
+	private Date pulloutDate;
 
 	public Pullout(){
 		
