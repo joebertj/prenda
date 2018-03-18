@@ -89,8 +89,9 @@ WHERE pid=<c:out value="${param.pid}"/>
 				<TR>
 					<TD>Loan Amount</TD>
 					<TD>: <INPUT type="text" name="loanamt" size="10" onKeyUp="
+						margin=100;
 						document.pawn.loanword.value=AmtInWords(document.pawn.loanamt.value,'Pesos Only');
-						document.pawn.appamt.value=parseFloat(this.value)+100;
+						document.pawn.appamt.value=parseFloat(this.value)+margin;
 						document.pawn.appword.value=AmtInWords(document.pawn.appamt.value,'Pesos Only');
 						document.pawn.pri.value=this.value;
 						document.pawn.net.value=this.value;

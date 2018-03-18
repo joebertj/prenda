@@ -1,19 +1,6 @@
 <%@include file="../common/header.jsp"%>
-<script type="text/javascript" src="${contextPath}/common/js/pawn.js"/>
-<script type="text/javascript">
-   function initPawn(){
-		var loaninwords="In Words: " + AmtInWords(document.getElementById("loanamt").value,'Pesos Only');
-		var appinwords="In Words: " + AmtInWords(document.getElementById("appamt").value,'Pesos Only');
-		var ratewords=AmtInWords(document.getElementByName("rate").value,'Percent');
-		document.getElementById("loanword").innerHTML=loaninwords;
-		document.getElementById("appword").innerHTML=appinwords;
-		document.getElementByName("loanw").value=loaninwords;
-		document.getElementByName("appraisedw").value=appinwords;
-		document.getElementByName("ratew").value=ratewords;
-	}
-</script>
 </head>
-<body onload="initPawn()">
+<body>
 
 
 <TABLE border="1" width=100% class=main>
@@ -34,6 +21,7 @@ LEFT JOIN genkey ON pawn.pid=genkey.pid
 LEFT JOIN customer ON pawn.nameid=customer.id
 WHERE pawn.pid=<c:out value="${pid}"/>
 </sql:query>
+			<form method="post" action="pawnticket.pdf" target="_blank">
 			<TABLE border="1">
 				<TR>
 					<TH colspan="100%">Pawn Details</TH>
@@ -75,14 +63,20 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${pawn.rows[0].appraised}" />
 					<input type="hidden" id="appamt" value="${pawn.rows[0].appraised}" />
 					</TD>
-					<TD colspan="4"><div id="appword"></div></TD>
+					<TD colspan="4"><jsp:useBean id="edf" class="com.prenda.helper.EnglishDecimalFormat"/>
+						<c:set var="margin" value="100"/>
+						<jsp:setProperty property="number" name="edf" value="${pawn.rows[0].loan + margin}"/>
+						<c:out value="${edf.words} pesos only"/>
+						<input type="hidden" name="appraisedw" value="${edf.words} pesos only"/></TD>
 				</TR>
 				<TR>
 					<TD>Loan Amount</TD>
 					<TD width="100">: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${pawn.rows[0].loan}" />
 					<input type="hidden" id="loanamt" value="${pawn.rows[0].loan}" />
 					</TD>
-					<TD colspan="4"><div id="loanword"></div></TD>
+					<TD colspan="4"><jsp:setProperty property="number" name="edf" value="${pawn.rows[0].loan}"/>
+						<c:out value="${edf.words} pesos only"/>
+						<input type="hidden" name="loanw" value="${edf.words} pesos only"/></TD>
 				</TR>
 				<TR>
 					<TD>Description</TD>
@@ -94,7 +88,6 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 					<TD>Principal</TD>
 					<TD>: <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" value="${pawn.rows[0].loan}" />
 					<jsp:useBean id="loans" class="com.prenda.service.LoanService"/>
-					<c:set var="margin" value="100"/>
 					<jsp:setProperty property="appraised" name="loans" value="${pawn.rows[0].loan + margin}"/>
 					<jsp:setProperty property="advanceInterest" name="loans" value="${pawn.rows[0].advance_interest}"/>
 					<jsp:setProperty property="serviceCharge" name="loans" value="${pawn.rows[0].service_charge}"/>
@@ -118,7 +111,6 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 				</TR>
 				<TR>
 					<TD colspan="100%" align="center">
-					<form method="post" action="pawnticket.pdf">
 						<input type="hidden" name="pid" value="${pid}"/>
 						<input type="hidden" name="bpid" value="${pawn.rows[0].bpid}"/>
 						<input type="hidden" name="pawn" value="${ldate.effective}"/>
@@ -128,9 +120,8 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 						<input type="hidden" name="address" value="${pawn.rows[0].address}"/>
 						<input type="hidden" name="appraised" value="${pawn.rows[0].appraised}"/>
 						<input type="hidden" name="loan" value="${pawn.rows[0].loan}"/>
-						<input type="hidden" name="ratew" value=""/>
-						<input type="hidden" name="loanw" value=""/>
-						<input type="hidden" name="appraisedw" value=""/>
+						<jsp:setProperty property="number" name="edf" value="${pawn.rows[0].advance_interest}"/>
+						<input type="hidden" name="ratew" value="${edf.words} percent"/>
 						<input type="hidden" name="rate" value="${pawn.rows[0].advance_interest}"/>
 						<input type="hidden" name="interest" value="${loans.interest}"/>
 						<input type="hidden" name="sc" value="${pawn.rows[0].service_charge}"/>
@@ -141,10 +132,10 @@ WHERE pawn.pid=<c:out value="${pid}"/>
 						<input type="hidden" name="branch" value="${user.branchId}"/>
 						<input type="submit" value="Print on Preprinted Receipt"/>
 						<input type="submit" value="Print on Empty Paper" onClick="alert('Not yet available');return false;"/>
-					</form>
 					</TD>
 				</TR>
 			</TABLE>
+			</form>
 			</TD>
 		</TR>
 	</TBODY>
