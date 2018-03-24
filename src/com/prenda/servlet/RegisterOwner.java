@@ -27,9 +27,12 @@ public class RegisterOwner {
 			@RequestParam("user") String targetUser,
 			@RequestParam("email") String email,
 			@RequestParam("pass1") String newPassword,
-			@RequestParam("pass2") String verifyPassword) {
+			@RequestParam("pass2") String verifyPassword,
+			@RequestParam("lname") String lastName,
+			@RequestParam("fname") String firstName,
+			@RequestParam("mname") String middleName) {
 		UserModify um = new UserModify();
-		map.addAttribute("msg",um.createNewOwner(targetUser, newPassword, verifyPassword, Level.OWNER, email));
+		map.addAttribute("msg",um.createNewOwner(targetUser, newPassword, verifyPassword, Level.OWNER, email, lastName, firstName, middleName));
 		return redirectUrl;
 	}
 	

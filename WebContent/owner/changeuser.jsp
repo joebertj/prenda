@@ -15,7 +15,7 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 			<FORM method="post" action="${contextPath}/UserModify.htm">
-			<INPUT type="hidden" name="referer" value="manage/userlist">
+			<INPUT type="hidden" name="referer" value="owner/userlist">
 			<INPUT type="hidden" name="modtype" value="2">
 			<INPUT type="hidden" name="uid" value="${param.uid}">
 			<TABLE border="1">

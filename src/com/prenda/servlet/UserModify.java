@@ -89,14 +89,19 @@ public class UserModify {
 	
 	@Transactional
 	protected String createNewOwner(String targetUser, String newPassword, String verifyPassword,
-			int targetLevel, String email) {
+			int targetLevel, String email, String lastName, String firstName, String middleName) {
 		int targetBranch = 0;
 		String message;
 		message = createNewUser("admin", targetUser, newPassword, verifyPassword, targetLevel, targetBranch, true);
 		log.info("createNewOwner message " + message);
 		if(message.equals("User added successfully")) {
 			UserService us = new UserService();
-			int id = us.getIdByUsername(targetUser);
+			Users user = us.getUser(targetUser);
+			int id = user.getId();
+			user.setLastname(lastName);
+			user.setFirstname(firstName);
+			user.setMiddlename(middleName);
+			updateUser(user);
 			String key = CustomPasswordGenerator.getPassword(128);
 			Register register = new Register();
 			register.setId(id);
@@ -140,7 +145,7 @@ public class UserModify {
 							Branch branch = new Branch();
 							branch.setId(branchId);
 							branch.setOwner(user.getId());
-							branch.setArchive(true);
+							branch.setArchive(false);
 							branch.setAddress("Default Address of " + targetUser + "'s Default Pawnshop");
 							branch.setAdvanceInterest(0.0d);
 							branch.setBalance(0.0d);
@@ -150,6 +155,11 @@ public class UserModify {
 							branch.setPtNumber(0L);
 							branch.setReserve((byte) (15 & 0xff));
 							branch.setServiceCharge(0.0d);
+							branch.setAppraisedMargin(100d);
+							branch.setAuctionMarkup((byte) (10 & 0xff));
+							branch.setEditMinute((byte) (15 & 0xff));
+							branch.setExpiry((byte) (15 & 0xff));
+							branch.setMaturity((byte) (15 & 0xff));
 							saveBranch(branch);
 						}else {
 							message = saveUser(user, newPassword);

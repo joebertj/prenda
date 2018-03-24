@@ -32,6 +32,18 @@
 					<TD>: <INPUT type="text" name="email"></TD>
 				</TR>
 				<TR>
+					<TD>Last Name</TD>
+					<TD>: <INPUT type="text" name="lname"></TD>
+				</TR>
+				<TR>
+					<TD>First Name</TD>
+					<TD>: <INPUT type="text" name="fname"></TD>
+				</TR>
+				<TR>
+					<TD>Middle Name</TD>
+					<TD>: <INPUT type="text" name="mname"></TD>
+				</TR>
+				<TR>
 					<TD>Password</TD>
 					<TD>: <INPUT type="password" name="pass1"></TD>
 				</TR>

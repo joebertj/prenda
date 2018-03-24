@@ -1,6 +1,6 @@
 package com.prenda.helper;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
@@ -21,12 +21,12 @@ public class CustomPasswordGenerator {
 	// Use special characters for strongest base
 	public static String getPassword(int length, boolean strong) {
 		String genkey = "";
-		List<CharacterRule> rules = Arrays.asList(
-					new CharacterRule(EnglishCharacterData.UpperCase, 1),
+		List<CharacterRule> rules = new ArrayList<CharacterRule>();
+			rules.add(new CharacterRule(EnglishCharacterData.UpperCase, 1));
 
-					new CharacterRule(EnglishCharacterData.LowerCase, 1),
+			rules.add(new CharacterRule(EnglishCharacterData.LowerCase, 1));
 
-					new CharacterRule(EnglishCharacterData.Digit, 1));
+			rules.add(new CharacterRule(EnglishCharacterData.Digit, 1));
 		if(strong) {
 			rules.add(new CharacterRule(EnglishCharacterData.Special, 1));
 		}
