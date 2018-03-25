@@ -6,7 +6,7 @@
 	<TBODY>
 		<TR>
 			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135" height="123"></TD>
-			<TD><%@include file="../common/navi.jsp"%></TD>
+			<TD><%@include file="../common/navipub.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>

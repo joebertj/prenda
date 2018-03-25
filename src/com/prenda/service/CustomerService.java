@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.model.obj.prenda.Customer;
-import com.prenda.services.data.DataLayerPrenda;
-import com.prenda.services.data.DataLayerPrendaImpl;
+import com.prenda.service.data.DataLayerPrenda;
+import com.prenda.service.data.DataLayerPrendaImpl;
 
 public class CustomerService {
 	

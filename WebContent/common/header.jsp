@@ -6,8 +6,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://ajaxtags.org/tags/ajax" prefix="ajax" %>
 <%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <c:set var="contextPath" scope="request" value="${pageContext.request.contextPath}"/>
-<!-- c:set var="fullPath" scope="request" value="${pageContext.request.requestURI}"/-->
+<c:set var="fullPath" scope="request" value="${pageContext.request.requestURI}"/>
+<c:choose>
+	<c:when test="${param.lang!=null}">
+		<fmt:setLocale value="${param.lang}"/>
+	</c:when>
+	<c:when test="${cookie['prenda-locale-cookie']!=null}">
+		<fmt:setLocale value="${cookie['prenda-locale-cookie'].value}"/>
+	</c:when>
+</c:choose>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>

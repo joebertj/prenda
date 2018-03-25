@@ -32,8 +32,8 @@ import com.prenda.model.obj.prenda.Register;
 import com.prenda.model.obj.prenda.Users;
 import com.prenda.service.BranchService;
 import com.prenda.service.UserService;
-import com.prenda.services.data.DataLayerPrenda;
-import com.prenda.services.data.DataLayerPrendaImpl;
+import com.prenda.service.data.DataLayerPrenda;
+import com.prenda.service.data.DataLayerPrendaImpl;
 import com.prenda.validation.CustomPasswordValidator;
 
 /**

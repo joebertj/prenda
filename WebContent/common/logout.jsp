@@ -12,13 +12,9 @@
 			<td width="200"></td>
 			<TD align="center">
 <%@include file="msg.jsp"%>
-<fmt:bundle basename="messages">
-	<fmt:message key="common.logout" />
-</fmt:bundle>
+<<spring:message code="common.logout" />
 <br/><br/>
-<fmt:bundle basename="messages">
-	<fmt:message key="common.thanks" />
-</fmt:bundle> 
+<spring:message code="common.thanks" />
 </TD>
 		</TR>
 	</TBODY>

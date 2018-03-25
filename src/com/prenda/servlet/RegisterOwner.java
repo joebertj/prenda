@@ -14,8 +14,8 @@ import com.prenda.Level;
 import com.prenda.model.obj.prenda.Users;
 import com.prenda.service.RegisterService;
 import com.prenda.service.UserService;
-import com.prenda.services.data.DataLayerPrenda;
-import com.prenda.services.data.DataLayerPrendaImpl;
+import com.prenda.service.data.DataLayerPrenda;
+import com.prenda.service.data.DataLayerPrendaImpl;
 
 @Controller
 public class RegisterOwner {

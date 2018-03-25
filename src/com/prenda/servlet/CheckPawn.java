@@ -31,8 +31,8 @@ import com.prenda.service.BranchService;
 import com.prenda.service.CustomerService;
 import com.prenda.service.PawnService;
 import com.prenda.service.UserService;
-import com.prenda.services.data.DataLayerPrenda;
-import com.prenda.services.data.DataLayerPrendaImpl;
+import com.prenda.service.data.DataLayerPrenda;
+import com.prenda.service.data.DataLayerPrendaImpl;
 
 import java.sql.Timestamp;
 import java.text.ParseException;

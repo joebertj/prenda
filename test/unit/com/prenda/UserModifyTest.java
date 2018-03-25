@@ -11,8 +11,8 @@ import com.prenda.helper.PasswordEncoderGenerator;
 import com.prenda.helper.CustomPasswordGenerator;
 import com.prenda.model.obj.prenda.Users;
 import com.prenda.service.UserService;
-import com.prenda.services.data.DataLayerPrenda;
-import com.prenda.services.data.DataLayerPrendaImpl;
+import com.prenda.service.data.DataLayerPrenda;
+import com.prenda.service.data.DataLayerPrendaImpl;
 import com.prenda.servlet.UserModify;
 
 import org.junit.Assert;

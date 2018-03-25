@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app id="WebApp_ID" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://java.sun.com/xml/ns/j2ee http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
 	<display-name>prenda</display-name>
-	<listener>
+	<!-- 
+		default config is prenda-servlet.xml 
+	 -->
+	<servlet>
+        <servlet-name>prenda</servlet-name>
+        <servlet-class>
+            org.springframework.web.servlet.DispatcherServlet
+        </servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>prenda</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+    <listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 	<!-- 
@@ -10,9 +24,33 @@
 	 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>/WEB-INF/*Context.xml</param-value>
+		<param-value>
+		/WEB-INF/prenda-servlet.xml,
+		/WEB-INF/applicationContext.xml,
+		/WEB-INF/securityContext.xml
+		</param-value>
   	</context-param>
+  	<!-- Locale filter
+  	<filter>
+    	<filter-name>localizationFilter</filter-name>
+    	<filter-class>org.springframework.web.filter.RequestContextFilter</filter-class>
+	</filter>
+	<filter-mapping>
+    	<filter-name>localizationFilter</filter-name>
+    	<url-pattern>/*</url-pattern>
+	</filter-mapping-->
   	<!-- 
+		intercepts ALL requests and uses the spring security filter
+	 -->
+	<filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 
   		intercepts all *.htm requests and enables Transcational annotation
   	 -->
   	<filter>
@@ -25,36 +63,7 @@
     	<filter-name>openSessionInViewFilter</filter-name>
     	<url-pattern>*.htm</url-pattern>
 	</filter-mapping>
-	<!-- 
-		intercepts ALL requests and uses the spring security filter
-	 -->
-	<filter>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-    <filter-mapping>
-		<filter-name>springSecurityFilterChain</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping>
-	<!-- 
-		config is by default prenda-servlet.xml 
-		uses the Controller annotation to intercept .htm requests
-	 -->
-	<servlet>
-        <servlet-name>prenda</servlet-name>
-        <servlet-class>
-            org.springframework.web.servlet.DispatcherServlet
-        </servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>prenda</servlet-name>
-        <url-pattern>*.htm</url-pattern>
-    </servlet-mapping>
-    <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
-    </welcome-file-list>
-	<servlet>
+  	<servlet>
 		<description>
 		</description>
 		<display-name>
@@ -123,13 +132,13 @@
 		</description>
 		<display-name>CheckName</display-name>
 		<servlet-name>CheckName</servlet-name>
-		<servlet-class>com.prenda.ajax.CheckName</servlet-class>
+		<servlet-class>com.prenda.servlet.ajax.CheckName</servlet-class>
 	</servlet>
 	<servlet>
 		<description></description>
 		<display-name>GetAddress</display-name>
 		<servlet-name>GetAddress</servlet-name>
-		<servlet-class>com.prenda.ajax.GetAddress</servlet-class>
+		<servlet-class>com.prenda.servlet.ajax.GetAddress</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -138,7 +147,7 @@
 		OutstandingPdf</display-name>
 		<servlet-name>OutstandingPdf</servlet-name>
 		<servlet-class>
-		com.prenda.pdf.OutstandingPdf</servlet-class>
+		com.prenda.servlet.pdf.OutstandingPdf</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -147,7 +156,7 @@
 		PawnPdf</display-name>
 		<servlet-name>PawnPdf</servlet-name>
 		<servlet-class>
-		com.prenda.pdf.PawnPdf</servlet-class>
+		com.prenda.servlet.pdf.PawnPdf</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -156,7 +165,7 @@
 		RedeemPdf</display-name>
 		<servlet-name>RedeemPdf</servlet-name>
 		<servlet-class>
-		com.prenda.pdf.RedeemPdf</servlet-class>
+		com.prenda.servlet.pdf.RedeemPdf</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -165,7 +174,7 @@
 		ForeclosedPdf</display-name>
 		<servlet-name>ForeclosedPdf</servlet-name>
 		<servlet-class>
-		com.prenda.pdf.ForeclosedPdf</servlet-class>
+		com.prenda.servlet.pdf.ForeclosedPdf</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -174,7 +183,7 @@
 		PulloutPdf</display-name>
 		<servlet-name>PulloutPdf</servlet-name>
 		<servlet-class>
-		com.prenda.pdf.PulloutPdf</servlet-class>
+		com.prenda.servlet.pdf.PulloutPdf</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -183,7 +192,7 @@
 		InventoryPdf</display-name>
 		<servlet-name>InventoryPdf</servlet-name>
 		<servlet-class>
-		com.prenda.pdf.InventoryPdf</servlet-class>
+		com.prenda.servlet.pdf.InventoryPdf</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -192,7 +201,7 @@
 		PawnDailyPdf</display-name>
 		<servlet-name>PawnDailyPdf</servlet-name>
 		<servlet-class>
-		com.prenda.pdf.PawnDailyPdf</servlet-class>
+		com.prenda.servlet.pdf.PawnDailyPdf</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -201,7 +210,7 @@
 		RedeemDailyPdf</display-name>
 		<servlet-name>RedeemDailyPdf</servlet-name>
 		<servlet-class>
-		com.prenda.pdf.RedeemDailyPdf</servlet-class>
+		com.prenda.servlet.pdf.RedeemDailyPdf</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -210,7 +219,7 @@
 		PulloutDailyPdf</display-name>
 		<servlet-name>PulloutDailyPdf</servlet-name>
 		<servlet-class>
-		com.prenda.pdf.PulloutDailyPdf</servlet-class>
+		com.prenda.servlet.pdf.PulloutDailyPdf</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -219,7 +228,7 @@
 		PawnTicketPdf</display-name>
 		<servlet-name>PawnTicketPdf</servlet-name>
 		<servlet-class>
-		com.prenda.pdf.PawnTicketPdf</servlet-class>
+		com.prenda.servlet.pdf.PawnTicketPdf</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -260,7 +269,7 @@
 		GetAccountName</display-name>
 		<servlet-name>GetAccountName</servlet-name>
 		<servlet-class>
-		com.prenda.ajax.GetAccountName</servlet-class>
+		com.prenda.servlet.ajax.GetAccountName</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -269,7 +278,7 @@
 		CashPositionPdf</display-name>
 		<servlet-name>CashPositionPdf</servlet-name>
 		<servlet-class>
-		com.prenda.pdf.CashPositionPdf</servlet-class>
+		com.prenda.servlet.pdf.CashPositionPdf</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -286,7 +295,7 @@
 		GetDates</display-name>
 		<servlet-name>GetDates</servlet-name>
 		<servlet-class>
-		com.prenda.ajax.GetDates</servlet-class>
+		com.prenda.servlet.ajax.GetDates</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -311,7 +320,7 @@
 		CashDisbursementPdf</display-name>
 		<servlet-name>CashDisbursementPdf</servlet-name>
 		<servlet-class>
-		com.prenda.pdf.CashDisbursementPdf</servlet-class>
+		com.prenda.servlet.pdf.CashDisbursementPdf</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -338,7 +347,7 @@
 		GetMinMax</display-name>
 		<servlet-name>GetMinMax</servlet-name>
 		<servlet-class>
-		com.prenda.ajax.GetMinMax</servlet-class>
+		com.prenda.servlet.ajax.GetMinMax</servlet-class>
 	</servlet>
 	<servlet>
 		<description>
@@ -347,9 +356,9 @@
 		NetProceeds</display-name>
 		<servlet-name>NetProceeds</servlet-name>
 		<servlet-class>
-		com.prenda.ajax.NetProceeds</servlet-class>
+		com.prenda.servlet.ajax.NetProceeds</servlet-class>
 	</servlet>
-	<servlet-mapping>
+    <servlet-mapping>
 		<servlet-name>CustomerModify</servlet-name>
 		<url-pattern>/CustomerModify</url-pattern>
 	</servlet-mapping>
@@ -489,4 +498,7 @@
 		<servlet-name>NetProceeds</servlet-name>
 		<url-pattern>/NetProceeds</url-pattern>
 	</servlet-mapping>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

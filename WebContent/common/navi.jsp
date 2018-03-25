@@ -9,10 +9,9 @@
 <table class="navi" style="width:100%;">
 	<tr>
 		<td align="right">
-			<a href="?locale=en_US"><img height="30px" src="${contextPath}/common/img/lang/usa.png"/></a>
-			<a href="?locale=es_ES"><img height="30px" src="${contextPath}/common/img/lang/spain.png"/></a>
-			<a href="?locale=fr_FR"><img height="30px" src="${contextPath}/common/img/lang/france.png"/></a>
-			<fmt:setLocale value ="${param.locale}"/>
+			<a href="${contextPath}/common/Language.htm?lang=en_US&referer=${fullPath}"><img height="30px" src="${contextPath}/common/img/lang/usa.png"/></a>
+			<a href="${contextPath}/common/Language.htm?lang=es_ES&referer=${fullPath}"><img height="30px" src="${contextPath}/common/img/lang/spain.png"/></a>
+			<a href="${contextPath}/common/Language.htm?lang=fr_FR&referer=${fullPath}"><img height="30px" src="${contextPath}/common/img/lang/france.png"/></a>
 		</td>
 	</tr>
 <sec:authorize access="isAuthenticated()"> 

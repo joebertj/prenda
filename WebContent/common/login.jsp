@@ -28,9 +28,7 @@
 				</TR>
 				<tr>
 					<td colspan="2" align="center"><input type='checkbox' name='_spring_security_remember_me'/>
-						<fmt:bundle basename="messages">
-							<fmt:message key="common.rememberMe" />
-						</fmt:bundle>
+						<spring:message code="common.rememberMe" />
 					</td>
 				</tr>
 				<TR>
@@ -38,11 +36,7 @@
 				</TR>
 			</TABLE>
 			</FORM>
-			<a href="${contextPath}/register/newuser.jsp">
-				<fmt:bundle basename="messages">
-					<fmt:message key="common.register" />
-				</fmt:bundle>
-			</a>
+			<a href="${contextPath}/register/newuser.jsp"><spring:message code="common.register" text="${param.lang} "/></a>
 			</TD>
 		</TR>
 	</TBODY>

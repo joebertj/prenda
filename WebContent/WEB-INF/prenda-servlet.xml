@@ -14,7 +14,6 @@
 
     <!--For ResourceMapping Annotation -->
     <mvc:annotation-driven />
-    <context:component-scan base-package="com.prenda.servlet"/>
     
     <!--String return value of ResourceMapping is redirected to .jsp -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -23,5 +22,36 @@
         <property name="prefix" value="/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
-
+    
+    <bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="useCodeAsDefaultMessage" value="true" />
+		<property name="basename" value="classpath:messages"/>
+		<property name="cacheSeconds" value="0" />
+		<property name="defaultEncoding" value="UTF-8"></property>
+	</bean>
+	
+	<bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+        <property name="defaultLocale" value="en"/>
+        <property name="cookieName" value="prenda-locale-cookie"/>
+        <property name="cookieMaxAge" value="3600"/>
+    </bean>
+    
+	<!-- bean id="localeResolver"
+		class="org.springframework.web.servlet.i18n.SessionLocaleResolver">
+		<property name="defaultLocale" value="en" />
+	</bean-->
+	    
+    <mvc:interceptors>
+    	<bean id="localeChangeInterceptor"
+			class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+			<property name="paramName" value="lang" />
+		</bean>
+	</mvc:interceptors>
+    
+    <!--bean id="handlerMapping"
+    	class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping">
+	</bean-->
+	<context:component-scan base-package="com.prenda.servlet"/>
+	
 </beans>

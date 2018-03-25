@@ -22,8 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.helper.DatabaseConnection;
 import com.prenda.model.obj.prenda.Branch;
-import com.prenda.services.data.DataLayerPrenda;
-import com.prenda.services.data.DataLayerPrendaImpl;
+import com.prenda.service.data.DataLayerPrenda;
+import com.prenda.service.data.DataLayerPrendaImpl;
 
 public class BranchService {
 	private Connection conn;
