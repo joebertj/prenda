@@ -58,9 +58,7 @@ public class UserModify {
 			@RequestParam(value = "fname", required = false) String firstName,
 			@RequestParam(value = "mname", required = false) String middleName,
 			@RequestParam(value = "delresp", required = false) String response) {
-		if(response.equals("Cancel")) {
-			return redirectUrl;
-		}
+		
 		String message = "Your restriction level does not allow you to perform such action";
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String actionUser = auth.getName();
@@ -69,7 +67,11 @@ public class UserModify {
 			message = createNewUser(actionUser, targetUser, newPassword, verifyPassword, targetLevel, targetBranch,
 					false);
 		} else if (mode == Mode.DELETE) {
-			message = deleteUser(actionUser, targetUser);
+			if(response.equals("Confirm")) {
+				message = deleteUser(actionUser, targetUser);
+			}else if(response.equals("Cancel")) {
+				message = "Delete cancelled";
+			}
 		} else if (mode == Mode.UPDATE) {
 			message = updateUser(userId, actionUser, targetUser, lastName, firstName, middleName, oldPassword, newPassword, verifyPassword);
 		}
