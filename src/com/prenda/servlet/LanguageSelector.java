@@ -26,7 +26,13 @@ public class LanguageSelector {
 			@RequestParam("referer") String redirectUrl,
 			@RequestParam("lang") String lang) {
 		localeResolver.setLocale(request, response, locale);
-		redirectUrl = redirectUrl.substring(redirectUrl.indexOf("prenda/")+ 7);
+		int idx = redirectUrl.indexOf("/prenda/");
+		log.info("idx: " + idx);
+		if(idx==0) { //prenda context
+			redirectUrl = redirectUrl.substring(8);
+		}else if(idx==-1) { //ROOT context
+			;
+		}
 		log.info("locale: " + locale);
 		map.addAttribute("lang", lang);
 		return "redirect:/" + redirectUrl;
