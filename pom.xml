@@ -385,9 +385,10 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>3.0.0</version>
 				<configuration>
-					<warSourceDirectory>WebContent</warSourceDirectory>
+					<warSourceDirectory>src/main/webapp</warSourceDirectory>
 					<outputDirectory>${project.basedir}</outputDirectory>
 					<warName>prenda</warName>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
 			</plugin>
 			<plugin>
