@@ -1,21 +1,21 @@
 <%@include file="../common/header.jsp"%>
-<script type="text/javascript" src="${contextPath}/common/js/pawn.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/prototype-1.4.0.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/scriptaculous.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/overlibmws.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/overlibmws_exclusive.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/ajaxtags-1.2-beta2.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/calendarmws_lang.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/sprintf.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/slider.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/pawnslide.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/pawn.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/prototype-1.4.0.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/scriptaculous.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/overlibmws.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/overlibmws_exclusive.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/ajaxtags-1.2-beta2.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/calendarmws_lang.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/sprintf.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/slider.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/pawnslide.js"></script>
 </head>
 <body>
 
 <TABLE border="1" class="main" style="width:100%;">
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/resources/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -48,14 +48,14 @@
 					Branch PID</TD>
 					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branch.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD width="200" align="right">
-					<input class="revert" type="button" value="  " style="background: url(common/img/revert.png) no-repeat; cursor:pointer; border: none;" 
+					<input class="revert" type="button" value="  " style="background: url(resources/img/revert.png) no-repeat; cursor:pointer; border: none;" 
 					onClick='document.pawn.dateInJs.value="<c:out value="${sqlToJs.effective}"/>";document.pawn.loandate.focus();'/></TD>
 					<TD>Date of Loan</TD>
 					<TD> 
 					<input type="hidden" id="dateInJs" name="dateInJs" value="${htmlToJs.effective}" onChange="document.pawn.loandate.focus();"/>
 					<input type="text" name="loandate" id="loandate" value="${javaToHtml.effective}" size="10" readonly/>
 					<a href="javascript:ggLang='eng';show_calendar('pawn.dateInJs',pawn.month.value,pawn.year.value);">
-							<img src="${contextPath}/common/img/showcalendar.gif" align="top" border="0"/></a>
+							<img src="${contextPath}/resources/img/showcalendar.gif" align="top" border="0"/></a>
 					<input type="hidden" id="sdfin" value="MM/dd/yyyy"/>
 					<input type="hidden" id="sdfout" value="MMM dd, yyyy"/>
 					<input type="hidden" id="month" value="${htmlToJs.month}"/>
@@ -80,11 +80,11 @@
 				<TR>
 					<TD colspan="5">
 					Last Name <INPUT id="lname" name="lname" type="text" value="${param.lname}"/> 
-					<span id="indicator1" style="display:none;"><img src="${contextPath}/common/img/indicator.gif" /></span>
+					<span id="indicator1" style="display:none;"><img src="${contextPath}/resources/img/indicator.gif" /></span>
 					First Name <INPUT id="fname" name="fname" type="text" value="${param.fname}"/>
-					<span id="indicator2" style="display:none;"><img src="${contextPath}/common/img/indicator.gif" /></span>
+					<span id="indicator2" style="display:none;"><img src="${contextPath}/resources/img/indicator.gif" /></span>
 					Middle <INPUT id="mname" name="mname" type="text" value="${param.mname}"/>
-					<span id="indicator3" style="display:none;"><img src="${contextPath}/common/img/indicator.gif" /></span>
+					<span id="indicator3" style="display:none;"><img src="${contextPath}/resources/img/indicator.gif" /></span>
 					<input type="hidden" id="cid" name="cid" value="${param.cid}"/>
 					</TD>
 				</TR>
@@ -274,7 +274,7 @@
   parser="new ResponseXmlParser()" />
 
 <ajax:callout
-  baseUrl="${contextPath}/common/xml/revert.xml"
+  baseUrl="${contextPath}/resources/xml/revert.xml"
   sourceClass="revert"
   parameters=""
   title="Tooltip"

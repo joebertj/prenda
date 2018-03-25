@@ -65,7 +65,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 		param.put("inventory",inventory);
 		param.put("asset",asset);
 		param.put("branch",branch);
-		String path = request.getSession().getServletContext().getRealPath("/common");
+		String path = request.getSession().getServletContext().getRealPath("/resources");
 		param.put("logo", path+"/img/logo.png");
 		try {
 			Connection conn = DatabaseConnection.getConnection();

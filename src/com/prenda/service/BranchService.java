@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -43,6 +42,59 @@ public class BranchService {
 	private float balance;
 
 	private int ownerId;
+	
+	@Transactional
+	protected Branch saveBranch(Branch branch) {
+		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
+		dataLayerPrenda.save(branch);
+		dataLayerPrenda.flushAndClearSession();
+		return branch;
+	}
+	
+	@Transactional
+	protected Branch deleteBranch(Branch branch) {
+		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
+		dataLayerPrenda.delete(branch);
+		dataLayerPrenda.flushAndClearSession();
+		return branch;
+	}
+	
+	@Transactional
+	protected Branch updateBranch(Branch branch) {
+		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
+		dataLayerPrenda.update(branch);
+		dataLayerPrenda.flushAndClearSession();
+		return branch;
+	}
+	
+	@Transactional
+	public Branch saveBranch(int branchId, String ownerName) {
+		Branch branch = new Branch();
+		branch.setId(branchId);
+		branch.setOwner(0);
+		branch.setArchive(false);
+		branch.setAddress("Default Address of " + ownerName + "'s Default Pawnshop");
+		branch.setAdvanceInterest(0.0d);
+		branch.setBalance(0.0d);
+		branch.setCounter(0L);
+		branch.setExtend((byte) (15 & 0xff));
+		branch.setName("Default Pawnshop of " + ownerName);
+		branch.setPtNumber(0L);
+		branch.setReserve((byte) (15 & 0xff));
+		branch.setServiceCharge(0.0d);
+		branch.setAppraisedMargin(100d);
+		branch.setAuctionMarkup((byte) (10 & 0xff));
+		branch.setEditMinute((byte) (15 & 0xff));
+		branch.setExpiry((byte) (15 & 0xff));
+		branch.setMaturity((byte) (15 & 0xff));
+		saveBranch(branch);
+		return branch;
+	}
+	
+	@Transactional
+	public int getOwnerId(Integer branchId) {
+		return getBranchById(branchId).getOwner();
+	}
 
 	public int getOwnerId() {
 		try {
@@ -236,41 +288,15 @@ public class BranchService {
 		this.balance = balance;
 	}
 
-	public List<Branch> getBranches() {
-		List<Branch> list = new ArrayList<Branch>();
-		list = getBranches(ownerId);
-		return list;
-	}
-
-	@Deprecated
-	public List<Branch> getBranches(long ownerId) {
-		List<Branch> list = new ArrayList<Branch>();
-		try {
-			pstmt = conn.prepareStatement("SELECT branchid,name,address FROM branch WHERE owner=?");
-			pstmt.setLong(1, ownerId);
-			rs = pstmt.executeQuery();
-			while (rs.next()) {
-				id = rs.getInt(1);
-				name = rs.getString(2);
-				address = rs.getString(3);
-				Branch b = new Branch(id, name, address);
-				list.add(b);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return list;
-	}
-
 	@Transactional
-	public List<Branch> getBranchesByOwnerId(int ownerId) {
+	public List<Branch> getBranches(int ownerId) {
 		List<Branch> list = HibernatePrendaDaoFactory.getBranchDao().findByCriteria(Restrictions.eq("owner", ownerId));
 		return list;
 	}
 
 	@Transactional
-	public Branch getBranchbyId(int branchId) {
-		Branch branch = new Branch();
+	public Branch getBranchById(int branchId) {
+		Branch branch = null;
 		ListIterator<Branch> li = HibernatePrendaDaoFactory.getBranchDao()
 				.findByCriteria(Restrictions.eq("id", branchId)).listIterator();
 		if (li.hasNext()) {
@@ -280,7 +306,8 @@ public class BranchService {
 	}
 	
 	@Transactional
-	public int getNextBranchId() {
+	@Deprecated
+	public int getNext() {
 		DataLayerPrenda instance = DataLayerPrendaImpl.getInstance();
 		Session s = instance.getCurrentSession();
 		Criteria c = s.createCriteria(Branch.class).setProjection(Projections.max("id"));

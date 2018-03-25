@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/resources/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -21,6 +21,7 @@
 SELECT count(uid) as numid FROM users 
 WHERE branch=<c:out value="${user.branchId}"/>
 AND level<<c:out value="${user.level}"/>
+AND users.archive = false
 </sql:query>
 <c:set var="numid" value="${pageable.rows[0].numid}" />
 <c:set var="pages" value="${numid/perpage}" />
@@ -55,6 +56,7 @@ AND level<<c:out value="${user.level}"/>
 SELECT * FROM users 
 WHERE branch=<c:out value="${user.branchId}"/> 
 AND level<<c:out value="${user.level}"/>
+AND users.archive = false
 ORDER BY username
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 </sql:query>
@@ -68,7 +70,6 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 					<TH>First Name</TH>
 					<TH>Middle Name</TH>
 					<TH>Level</TH>
-					<TH>Archived</TH>
 				</TR>
 				<c:forEach var="row" items="${userlist.rows}" varStatus="line">
 					<c:choose>
@@ -106,17 +107,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 					</c:choose> 
 					</TD>
 					<TD>
-					<c:choose>
-						<c:when test="${row.archive==false}">
-						No
-						</c:when>
-						<c:otherwise>
-						Yes
-						</c:otherwise>
-					</c:choose>
-					</TD>
-					<TD>
-						<FORM method="post" action="changepass.jsp">
+						<FORM method="post" action="${contextPath}/manage/changepass.jsp">
 							<INPUT name="uid" type="hidden" value="${row.uid}"> 
 							<INPUT name="user" type="hidden" value="${row.username}">
 							<INPUT name="password" type="hidden" value="${row.password}">
@@ -124,7 +115,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 						</FORM>
 					</TD>
 					<TD>
-					<FORM method="post" action="edituser.jsp">
+					<FORM method="post" action="${contextPath}/manage/edituser.jsp">
 					<INPUT name="uid" type="hidden" value="${row.uid}">
 					<INPUT name="user" type="hidden" value="${row.username}">
 					<INPUT name="lname" type="hidden" value="${row.lastname}">
@@ -134,16 +125,16 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 					</FORM>
 					</TD>
 					<TD>
-						<FORM method="post" action="deluser.jsp">
+						<FORM method="post" action="${contextPath}/manage/deluser.jsp">
 							<INPUT name="uid" type="hidden" value="${row.uid}"> 
 							<INPUT name="user" type="hidden" value="${row.username}">
-							<INPUT type="submit" value="Archive">
+							<INPUT type="submit" value="Delete">
 						</FORM>
 					</TD>
 				</TR>
 				</c:forEach>
 				<TR><TD>
-				<FORM method="post" action="newuser.jsp">
+				<FORM method="post" action="${contextPath}/manage/newuser.jsp">
 					<INPUT type="submit" value="New">
 				</FORM>
 				</TD></TR>

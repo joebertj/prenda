@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.ListIterator;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.Pullout;
@@ -34,6 +36,7 @@ public class PulloutService extends GenericService{
 		return list;
 	}
 
+	@Transactional
 	public List<Pullout> getAllPullout(int level, int branchId, int userId, int mode, java.lang.String sort, int order, int page, int pageSize){
 		List<Pullout> list = new ArrayList<Pullout>();
 		String query = "SELECT pawn.pid,branch,loan_date,nameid,loan,bpid,rate,pawn.service_charge,pt,bcode,"+

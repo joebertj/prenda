@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.prenda.Level;
 import com.prenda.Mode;
 import com.prenda.Redeem;
@@ -37,6 +39,7 @@ public class RedeemService extends GenericService{
 		return list;
 	}
 	
+	@Transactional
 	public List<Redeem> getAllRedeem(int level,int branchId,int userId,int mode,String sort,int order,int page,int pageSize,Date filterDate){
 		List<Redeem> list = new ArrayList<Redeem>();
 		String query = "SELECT pawn.pid,branch,loan_date,nameid,loan,bpid,rate,pawn.service_charge,pt,bcode," +

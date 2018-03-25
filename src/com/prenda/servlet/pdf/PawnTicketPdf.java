@@ -113,7 +113,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 		log.info("branch "+branch);
 		try {
 			Connection conn = DatabaseConnection.getConnection();
-			String path = request.getSession().getServletContext().getRealPath("/common");
+			String path = request.getSession().getServletContext().getRealPath("/resources");
 			String print=request.getParameter("print");
 			JasperPrint jprint;
 			if(print.equals("Print on Empty Paper")) {

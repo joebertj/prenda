@@ -6,7 +6,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/resources/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
@@ -26,6 +26,7 @@ SELECT count(uid) as numid FROM users
 LEFT JOIN branch ON users.branch=branch.branchid 
 WHERE branch.owner=<c:out value="${owner.rows[0].uid}"/>
 AND level < 9
+AND users.archive = false
 </sql:query>
 <c:set var="numid" value="${pageable.rows[0].numid}" />
 <c:set var="pages" value="${numid/perpage}" />
@@ -61,6 +62,7 @@ SELECT uid,username,level,branch,users.archive,name,lastname,firstname,middlenam
 LEFT JOIN branch ON users.branch=branch.branchid 
 WHERE branch.owner=<c:out value="${owner.rows[0].uid}"/>
 AND users.level < 9
+AND users.archive = false
 ORDER BY username
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 </sql:query>
@@ -75,7 +77,6 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 					<TH>Middle Name</TH>
 					<TH>Level</TH>
 					<TH>Branch</TH>
-					<TH>Archived</TH>
 				</TR>
 				<c:forEach var="row" items="${userlist.rows}" varStatus="line">
 					<c:choose>
@@ -114,22 +115,10 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 					</TD>
 					<TD><c:out value="${row.name}"/></TD>
 					<TD>
-					<c:choose>
-						<c:when test="${row.archive==false}">
-						No
-						</c:when>
-						<c:otherwise>
-						Yes
-						</c:otherwise>
-					</c:choose>
-					</TD>
-					<TD>
-						<FORM method="post" action="changeuser.jsp">
+						<FORM method="post" action="${contextPath}/owner/changeuser.jsp">
 							<INPUT name="uid" type="hidden" value="${row.uid}"> 
 							<INPUT name="user" type="hidden" value="${row.username}">
 							<INPUT name="password" type="hidden" value="${row.password}">
-							<INPUT name="level" type="hidden" value="${row.level}">
-							<INPUT name="branch" type="hidden" value="${row.branch}">
 							<INPUT name="lname" type="hidden" value="${row.lastname}">
 							<INPUT name="fname" type="hidden" value="${row.firstname}">
 							<INPUT name="mname" type="hidden" value="${row.middlename}"> 
@@ -137,16 +126,16 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 						</FORM>
 					</TD>
 					<TD>
-						<FORM method="post" action="deluser.jsp">
+						<FORM method="post" action="${contextPath}/owner/deluser.jsp">
 							<INPUT name="uid" type="hidden" value="${row.uid}"> 
 							<INPUT name="user" type="hidden" value="${row.username}">
-							<INPUT type="submit" value="Archive">
+							<INPUT type="submit" value="Delete">
 						</FORM>
 					</TD>
 				</TR>
 				</c:forEach>
 				<TR><TD>
-				<FORM method="post" action="newuser.jsp">
+				<FORM method="post" action="${contextPath}/owner/newuser.jsp">
 					<INPUT type="submit" value="New">
 				</FORM>
 				</TD></TR>

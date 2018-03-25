@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.prenda.Level;
 import com.prenda.Mode;
@@ -39,7 +40,8 @@ public class InventoryService extends GenericService {
 		return list;
 	}
 	
-	public List<Pawn> getAllInventory(int level,int branchId,long userId,String sort,int order,int page,int pageSize){
+	@Transactional
+	public List<Pawn> getAllInventory(int level,int branchId,int userId,String sort,int order,int page,int pageSize){
 		List<Pawn> list = new ArrayList<Pawn>();
 		String query = "SELECT pawn.pid,branch,loan_date,nameid,loan,bpid,rate,pawn.service_charge,pt,bcode,"+
 		"pawn.create_date AS cdate,"+

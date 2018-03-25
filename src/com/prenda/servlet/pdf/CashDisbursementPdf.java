@@ -48,7 +48,7 @@ import com.prenda.helper.DatabaseConnection;
 		param.put("name",bname);
 		param.put("address",baddress);
 		param.put("group",group);
-		String path = request.getSession().getServletContext().getRealPath("/common");
+		String path = request.getSession().getServletContext().getRealPath("/resources");
 		param.put("logo", path+"/img/logo.png");
 		try {
 			Connection conn = DatabaseConnection.getConnection();

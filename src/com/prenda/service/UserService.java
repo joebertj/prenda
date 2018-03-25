@@ -16,9 +16,14 @@ import org.apache.log4j.Logger;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.prenda.Level;
 import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.helper.PasswordEncoderGenerator;
+import com.prenda.model.obj.prenda.Branch;
 import com.prenda.model.obj.prenda.Users;
+import com.prenda.service.data.DataLayerPrenda;
+import com.prenda.service.data.DataLayerPrendaImpl;
 
 public class UserService {
 	
@@ -40,8 +45,57 @@ public class UserService {
 	}
 	
 	@Transactional
-	public Users getUser(String username) {
+	public Users saveUser(String targetUser, String newPassword, int targetUserLevel) {
+		return saveUser(targetUser, newPassword, targetUserLevel, 0, false);
+	}
+	
+	@Transactional
+	public Users saveUser(String targetUser, String newPassword, int targetUserLevel, int branchId, boolean register) {
 		Users user = new Users();
+		String hashedNewPassword = PasswordEncoderGenerator.getHash(newPassword);
+		user.setPassword(hashedNewPassword);
+		user.setUsername(targetUser);
+		user.setLevel((byte) (targetUserLevel & 0xff));
+		user.setBranch(branchId);
+		user.setArchive(false);
+		if (register) { // this is a registration
+			user.setArchive(true);
+		}
+		user = saveUser(user);
+		BranchService bs = new BranchService();
+		Branch branch = bs.getBranchById(branchId); // Test if branch exists, set branchId = 0 to force create
+		if(branch==null) {
+			branch = bs.saveBranch(branchId, targetUser); // Create new branch
+			if(targetUserLevel == Level.OWNER) { // If user is owner set as branch owner
+				branch.setOwner(user.getId());
+			}
+			bs.updateBranch(branch);
+			UserService us = new UserService();
+			user.setBranch(branch.getId()); // Safely retrieve the generated branchId
+			us.updateUser(user);
+		}
+		return user;
+	}
+	
+	@Transactional
+	public Users saveUser(Users user) {
+		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
+		dataLayerPrenda.save(user);
+		dataLayerPrenda.flushAndClearSession();
+		return user;
+	}
+
+	@Transactional
+	public Users updateUser(Users user) {
+		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
+		dataLayerPrenda.update(user);
+		dataLayerPrenda.flushAndClearSession();
+		return user;
+	}
+	
+	@Transactional
+	public Users getUser(String username) {
+		Users user = null;
 		ListIterator <Users> li = HibernatePrendaDaoFactory.getUsersDao().findByCriteria(Restrictions.eq("username", username)).listIterator();
 		if(li.hasNext()) {
 			 user = (Users) li.next();

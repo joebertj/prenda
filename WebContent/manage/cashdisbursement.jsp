@@ -1,9 +1,9 @@
 <%@include file="../common/header.jsp"%>
-<script type="text/javascript" src="${contextPath}/common/js/dynamicrow.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/prototype-1.4.0.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/scriptaculous.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/overlibmws.js"></script>
-<script type="text/javascript" src="${contextPath}/common/js/ajaxtags-1.2-beta2.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/dynamicrow.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/prototype-1.4.0.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/scriptaculous.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/overlibmws.js"></script>
+<script type="text/javascript" src="${contextPath}/resources/js/ajaxtags-1.2-beta2.js"></script>
 </head>
 <body>
 
@@ -11,7 +11,7 @@
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
-			<TD><IMG border="0" src="${contextPath}/common/img/logo.png" width="135"
+			<TD><IMG border="0" src="${contextPath}/resources/img/logo.png" width="135"
 				height="123"></TD>
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>

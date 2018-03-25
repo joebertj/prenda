@@ -1,8 +1,0 @@
-<ajax-response>
-	<response>
-		<item>
-			<name>Revert Date</name>
-			<value>Click to revert to the date used in the last transaction</value>
-		</item>
-	</response>
-</ajax-response>

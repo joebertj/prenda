@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 public class StatisticsService {
 	
@@ -65,6 +66,7 @@ public class StatisticsService {
 		return count;
 	}
 	
+	@Transactional
 	public int getRedeemCountByInterestRate(float rate,int branchId,int userId,int mode){
 		int count = 0;
 		UserService us = new UserService();
@@ -93,7 +95,7 @@ public class StatisticsService {
 			}
 		}else if(level==Level.OWNER){
 			String branches = "";
-			List<Branch> list = new BranchService().getBranchesByOwnerId(userId);
+			List<Branch> list = new BranchService().getBranches(userId);
 			ListIterator<Branch> li = list.listIterator();
 			int [] id = new int[list.size()];
 			int i = 0;

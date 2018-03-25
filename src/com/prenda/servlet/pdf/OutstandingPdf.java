@@ -53,7 +53,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 		param.put("branch",branch);
 		param.put("name",bname);
 		param.put("address",baddress);
-		String path = request.getSession().getServletContext().getRealPath("/common");
+		String path = request.getSession().getServletContext().getRealPath("/resources");
 		param.put("logo", path+"/img/logo.png");
 		try {
 			Connection conn = DatabaseConnection.getConnection();

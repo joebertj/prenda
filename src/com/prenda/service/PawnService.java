@@ -52,6 +52,7 @@ public class PawnService extends GenericService {
 		return list;
 	}
 	
+	@Transactional
 	public List<com.prenda.Pawn> getAllPawn(int level,int branchId,int userId,int mode,String sort,int order,int page,int pageSize,Date filterDate){
 		List<com.prenda.Pawn> list = new ArrayList<com.prenda.Pawn>();
 		String query = "SELECT pawn.pid,branch,loan_date,nameid,loan,bpid,rate,pawn.service_charge,pt,bcode,"+
