@@ -45,33 +45,26 @@ public class UserService {
 	}
 	
 	@Transactional
-	public Users saveUser(String targetUser, String newPassword, int targetUserLevel) {
-		return saveUser(targetUser, newPassword, targetUserLevel, 0, false);
-	}
-	
-	@Transactional
-	public Users saveUser(String targetUser, String newPassword, int targetUserLevel, int branchId, boolean register) {
+	public Users saveUser(String targetUser, String newPassword, int targetUserLevel, int branchId, boolean archive) {
 		Users user = new Users();
 		String hashedNewPassword = PasswordEncoderGenerator.getHash(newPassword);
 		user.setPassword(hashedNewPassword);
 		user.setUsername(targetUser);
 		user.setLevel((byte) (targetUserLevel & 0xff));
 		user.setBranch(branchId);
-		user.setArchive(false);
-		if (register) { // this is a registration
-			user.setArchive(true);
-		}
+		user.setArchive(archive);
 		user = saveUser(user);
 		BranchService bs = new BranchService();
-		Branch branch = bs.getBranchById(branchId); // Test if branch exists, set branchId = 0 to force create
-		if(branch==null) {
-			branch = bs.saveBranch(branchId, targetUser); // Create new branch
-			if(targetUserLevel == Level.OWNER) { // If user is owner set as branch owner
-				branch.setOwner(user.getId());
-			}
-			bs.updateBranch(branch);
-			UserService us = new UserService();
+		UserService us = new UserService();
+		Branch branch;
+		if(targetUserLevel == Level.OWNER) {
+			branch = bs.saveBranch(targetUser); // Create new branch
 			user.setBranch(branch.getId()); // Safely retrieve the generated branchId
+			us.updateUser(user);
+			branch.setOwner(user.getId()); // Update branch owner
+			bs.updateBranch(branch);
+		}else if(targetUserLevel < Level.OWNER) {
+			user.setBranch(branchId); // Safely retrieve the generated branchId
 			us.updateUser(user);
 		}
 		return user;

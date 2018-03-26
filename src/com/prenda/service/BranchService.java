@@ -68,9 +68,9 @@ public class BranchService {
 	}
 	
 	@Transactional
-	public Branch saveBranch(int branchId, String ownerName) {
+	public Branch saveBranch(String ownerName) {
 		Branch branch = new Branch();
-		branch.setId(branchId);
+		branch.setId(0);
 		branch.setOwner(0);
 		branch.setArchive(false);
 		branch.setAddress("Default Address of " + ownerName + "'s Default Pawnshop");

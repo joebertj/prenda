@@ -20,11 +20,17 @@ import org.junit.Assert;
 public class SpringTemplateTest extends UserModify {
 	
 	@Transactional
-	protected String init(String targetUser) { // create a new Owner
+	protected Users init(String targetUser) { // create a new Owner
 		String password = CustomPasswordGenerator.getPassword(20,true);
+		Users user = init(targetUser,password);
+		return user;
+	}
+	
+	@Transactional
+	protected Users init(String targetUser, String password) { // create a new Owner
 		UserService us = new UserService();
-		us.saveUser(targetUser,password,Level.OWNER,0,false);
-		return password;
+		Users user = us.saveUser(targetUser,password,Level.OWNER,0,false);
+		return user;
 	}
 
 	@Transactional

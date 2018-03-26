@@ -20,7 +20,8 @@ public class UserModifyTest extends SpringTemplateTest {
 		String targetUser = CustomPasswordGenerator.getPassword();
 		String password = CustomPasswordGenerator.getPassword(20);
 		String password2 = CustomPasswordGenerator.getPassword(20);
-		String oldPassword = init(targetUser);
+		String oldPassword = CustomPasswordGenerator.getPassword(20);
+		init(targetUser,oldPassword);
 		Assert.assertTrue(verifyPassword(targetUser, password, password, password, true));
 		Assert.assertTrue(verifyPassword(targetUser, password2, password, password, true));
 		Assert.assertFalse(verifyPassword(targetUser, password, password, password2, true));
@@ -111,8 +112,7 @@ public class UserModifyTest extends SpringTemplateTest {
 		String targetManager = CustomPasswordGenerator.getPassword();
 		String targetEncoder = CustomPasswordGenerator.getPassword();
 		String password = CustomPasswordGenerator.getPassword(20,true);
-		UserService us = new UserService();
-		Users user = us.saveUser(targetOwner, password, Level.OWNER);
+		Users user = init(targetOwner);
 		int branchId = user.getBranch();
 		Assert.assertEquals("User added successfully", createNewUser(targetOwner,targetManager,password,password,Level.MANAGER, branchId, false));
 		Assert.assertEquals("User added successfully", createNewUser(targetManager,targetEncoder,password,password,Level.ENCODER, branchId, false));
