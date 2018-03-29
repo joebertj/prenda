@@ -25,4 +25,3 @@
 <link rel="icon" type="image/x-icon" href="${contextPath}/resources/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/ajaxtags.css" />
-<link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/displaytag.css" />

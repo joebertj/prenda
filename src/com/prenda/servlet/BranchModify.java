@@ -30,6 +30,7 @@ import com.prenda.helper.DatabaseConnection;
 import com.prenda.model.obj.prenda.Branch;
 import com.prenda.service.BranchService;
 import com.prenda.service.LevelService;
+import com.prenda.service.UserService;
 
 /**
  * Servlet implementation class for Servlet: UserModify
@@ -265,9 +266,10 @@ import com.prenda.service.LevelService;
     			float sc = new Float(request.getParameter("sc")).floatValue();
     			int extend = new Integer(request.getParameter("extend")).intValue();
     			int reserve = new Integer(request.getParameter("reserve")).intValue();
-    			int uid=-1;
+    			UserService us = new UserService();
+    			int uid=0;
     			if(level==Level.ADMIN){
-    				uid = new Integer(request.getParameter("uid")).intValue();
+    				uid = us.getUser(authenticated).getId();
     				log.info("owner id "+uid);
     			}
     			int pt = new Integer(request.getParameter("pt")).intValue();

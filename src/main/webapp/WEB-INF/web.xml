@@ -501,4 +501,7 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+    <error-page>
+	    <location>/common/error.jsp</location>
+	</error-page>
 </web-app>
