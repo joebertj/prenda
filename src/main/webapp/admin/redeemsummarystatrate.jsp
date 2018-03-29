@@ -47,7 +47,7 @@
 					</c:choose>
 					<jsp:setProperty name="service" property="rate" value="${i}"/>
 					<jsp:setProperty name="service" property="branchId" value="${user.branchId}"/>
-					<jsp:setProperty name="service" property="userId" value="${user.id}"/>
+					<jsp:setProperty name="service" property="userId" value="${user.userId}"/>
 					<td><c:out value="${i}"/>%</td>
 					<td><jsp:setProperty name="service" property="mode" value="99"/><c:out value="${service.redeemCountByInterestRate}"/></td>
 					<td><jsp:setProperty name="service" property="mode" value="3"/><c:out value="${service.redeemCountByInterestRate}"/></td>

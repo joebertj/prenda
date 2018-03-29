@@ -5,20 +5,21 @@
 
 package com.prenda.service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
+import java.util.List;
 import java.util.ListIterator;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.prenda.Level;
 import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
-import com.prenda.helper.DatabaseConnection;
 import com.prenda.helper.PasswordEncoderGenerator;
 import com.prenda.model.obj.prenda.Branch;
 import com.prenda.model.obj.prenda.Users;
@@ -29,21 +30,100 @@ public class UserService {
 	
 	private static Logger log = Logger.getLogger(UserService.class);
 	
-	private Connection conn;
-	private PreparedStatement pstmt;
-	private ResultSet rs;
-	
-	private int id;
-	private String name;
+	private int userId;
+	private String userName;
 	private int level;
 	private int branchId;
 	private Date loanDate;
 	private Date redeemDate;
+	private Users user;
+	private String lastName;
+	private String firstName;
+	private String middleName;
+	private List<Users> users;
+	private List<Users> allUsers;
+	
+	private int pageSize;
+	private int pageNum;
+	private long count; 
 	
 	public UserService(){
-		conn = DatabaseConnection.getConnection();
+		user = null;
 	}
 	
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	@Transactional
+	public long getCount() {
+		DataLayerPrenda instance = DataLayerPrendaImpl.getInstance();
+		Session session = instance.getCurrentSession();
+		Criteria criteriaCount = session.createCriteria(Users.class);
+		criteriaCount.setProjection(Projections.rowCount());
+		count = (Long) criteriaCount.uniqueResult();
+		return count;
+	}
+
+	public void setCount(long count) {
+		this.count = count;
+	}
+
+	public void setAllUsers(List<Users> allUsers) {
+		this.allUsers = allUsers;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public void setUsers(List<Users> users) {
+		this.users = users;
+	}
+
+	public String getFirstName() {
+		firstName = user.getFirstname();
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+	
+	public String getLastName() {
+		lastName = user.getLastname();
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getMiddleName() {
+		middleName = user.getMiddlename();
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
 	@Transactional
 	public Users saveUser(String targetUser, String newPassword, int targetUserLevel, int branchId, boolean archive) {
 		Users user = new Users();
@@ -96,90 +176,75 @@ public class UserService {
 		return user;
 	}
 	
-	public String getName(){
-		return name;
+	@Transactional
+	public Users getUser(Integer userId) {
+		Users user = null;
+		ListIterator <Users> li = HibernatePrendaDaoFactory.getUsersDao().findByCriteria(Restrictions.eq("id", userId)).listIterator();
+		if(li.hasNext()) {
+			 user = (Users) li.next();
+		}
+		return user;
 	}
 	
-	public int getId() {
-		try {
-			pstmt = conn.prepareStatement("SELECT uid FROM users WHERE username=?");
-			pstmt.setString(1, name);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				id=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return id;
+	@Transactional
+	public List<Users> getAllUsers() {
+		DataLayerPrenda instance = DataLayerPrendaImpl.getInstance();
+		Session session = instance.getCurrentSession();
+		Criteria criteria = session.createCriteria(Users.class);
+		criteria.setFirstResult((pageNum-1)*pageSize);
+		criteria.setMaxResults(pageSize);
+		allUsers = criteria.list();
+		return allUsers;
+	}
+	
+	@Transactional
+	public List<Users> getUsers(int branchId) {
+		List<Users> users = HibernatePrendaDaoFactory.getUsersDao()
+				.findByCriteria(Restrictions.and(
+						Restrictions.eq("branch", branchId),
+						Restrictions.eq("archive", false)));
+		return users;
+	}
+	
+	@Transactional
+	public List<Users> getUsers() {
+		users = this.getUsers(branchId);
+		return users;
+	}
+	
+	public String getUserName(){
+		userName = user.getUsername();
+		return userName;
+	}
+	
+	public int getUserId() {
+		userId = user.getId();
+		return userId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	@Transactional
+	public void setUserId(int userId) {
+		user = getUser(userId);
+		this.userId = userId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	@Transactional
+	public void setUserName(String userName) {
+		user = getUser(userName);
+		this.userName = userName;
 	}
 
 	public int getLevel() {
-		try {
-			pstmt = conn.prepareStatement("SELECT level FROM users WHERE username=?");
-			pstmt.setString(1, name);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				level=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		level = user.getLevel();
 		return level;
 	}
 	
-	public int getLevelByUsername(String name) {
-		try {
-			pstmt = conn.prepareStatement("SELECT level FROM users WHERE username=?");
-			pstmt.setString(1, name);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				level=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		log.info("name " + name + " level " + level);
-		return level;
-	}
-	
-	public int getLevelById(int userId) {
-		try {
-			pstmt = conn.prepareStatement("SELECT level FROM users WHERE uid=?");
-			pstmt.setInt(1, userId);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				level=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return level;
-	}
-
 	public void setLevel(int level) {
 		this.level = level;
 	}
 
 	public int getBranchId() {
-		try {
-			pstmt = conn.prepareStatement("SELECT branch FROM users WHERE username=?");
-			pstmt.setString(1, name);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				branchId=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		branchId = user.getBranch();
 		return branchId;
 	}
 
@@ -188,16 +253,7 @@ public class UserService {
 	}
 
 	public Date getLoanDate() {
-		try {
-			pstmt = conn.prepareStatement("SELECT loan_date FROM users WHERE username=?");
-			pstmt.setString(1, name);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				loanDate=rs.getDate(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		loanDate = user.getLoanDate();
 		return loanDate;
 	}
 
@@ -206,16 +262,7 @@ public class UserService {
 	}
 	
 	public Date getRedeemDate() {
-		try {
-			pstmt = conn.prepareStatement("SELECT redeem_date FROM users WHERE username=?");
-			pstmt.setString(1, name);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				redeemDate=rs.getDate(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		redeemDate = user.getLoanDate(); // TODO add redeem date
 		return redeemDate;
 	}
 
@@ -223,34 +270,4 @@ public class UserService {
 		this.redeemDate = redeemDate;
 	}
 
-	public int getIdByUsername(String authenticated) {
-		try {
-			pstmt = conn.prepareStatement("SELECT uid FROM users WHERE username=?");
-			pstmt.setString(1, authenticated);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				id=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return id;
-	}
-
-	public int getBranchIdByUsername(String authenticated) {
-		try {
-			pstmt = conn.prepareStatement("SELECT branch FROM users WHERE username=?");
-			pstmt.setString(1, authenticated);
-			rs=pstmt.executeQuery();
-			if(rs.first()){
-				branchId=rs.getInt(1);
-			}else {
-				branchId = -1; // indicates no match
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return branchId;
-	}
-	
 }

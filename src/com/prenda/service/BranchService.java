@@ -5,46 +5,114 @@
 
 package com.prenda.service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.ListIterator;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
-import com.prenda.helper.DatabaseConnection;
 import com.prenda.model.obj.prenda.Branch;
+import com.prenda.model.obj.prenda.Users;
 import com.prenda.service.data.DataLayerPrenda;
 import com.prenda.service.data.DataLayerPrendaImpl;
 
 public class BranchService {
-	private Connection conn;
-	private PreparedStatement pstmt;
-	private ResultSet rs;
 
 	private int id;
-
+	private int userId;
 	private String name;
 	private String address;
-	private int counter;
-	private int pawnTicket;
-	private float advanceInterest;
-	private float serviceCharge;
+	private long counter;
+	private long pawnTicket;
+	private double advanceInterest;
+	private double serviceCharge;
 	private int minDaysToExtend;
 	private int reserveDuration;
-	private float balance;
-
+	private double balance;
+	private Branch branch;
+	private List<Branch> branches;
+	private List<Branch> sisterBranches;
+	private List<Branch> allBranches;
 	private int ownerId;
 	
+	public BranchService() {
+		
+	}
+
+	public void setAllBranches(List<Branch> allBranches) {
+		this.allBranches = allBranches;
+	}
+
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+	public List<Branch> getSisterBranches() {
+		sisterBranches = getSisterBranches(userId);
+		return sisterBranches;
+	}
+
+	public void setSisterBranches(List<Branch> sisterBranches) {
+		this.sisterBranches = sisterBranches;
+	}
+
 	@Transactional
-	protected Branch saveBranch(Branch branch) {
+	public List<Branch> getAllBranches() {
+		allBranches = HibernatePrendaDaoFactory.getBranchDao().findAll();
+		return allBranches;
+	}
+	
+	@Transactional
+	public List<Branch> getSisterBranches(int userId) { // branches with same owner
+		UserService us = new UserService();
+		Users user = us.getUser(userId);
+		int branchId = user.getBranch();
+		Branch branch = getBranch(branchId);
+		int ownerId = branch.getOwner();
+		List<Branch> list = getBranches(ownerId);
+		return list;
+	}
+	
+	@Transactional
+	public List<Branch> getBranches() {
+		ownerId = branch.getOwner();
+		branches = this.getBranches(ownerId);
+		return branches;
+	}
+
+	public void setBranches(List<Branch> branches) {
+		this.branches = branches;
+	}
+
+	public void setCounter(long counter) {
+		this.counter = counter;
+	}
+
+	public void setPawnTicket(long pawnTicket) {
+		this.pawnTicket = pawnTicket;
+	}
+
+	public void setAdvanceInterest(double advanceInterest) {
+		this.advanceInterest = advanceInterest;
+	}
+
+	@Transactional
+	public Branch getBranch() {
+		branch = this.getBranch(id);
+		return branch;
+	}
+
+	public void setBranch(Branch branch) {
+		this.branch = branch;
+	}
+
+	@Transactional
+	public Branch saveBranch(Branch branch) {
 		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
 		dataLayerPrenda.save(branch);
 		dataLayerPrenda.flushAndClearSession();
@@ -93,20 +161,11 @@ public class BranchService {
 	
 	@Transactional
 	public int getOwnerId(Integer branchId) {
-		return getBranchById(branchId).getOwner();
+		return getBranch(branchId).getOwner();
 	}
 
 	public int getOwnerId() {
-		try {
-			pstmt = conn.prepareStatement("SELECT owner FROM branch WHERE branchid=?");
-			pstmt.setInt(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.first()) {
-				ownerId = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		ownerId = branch.getOwner();
 		return ownerId;
 	}
 
@@ -114,35 +173,13 @@ public class BranchService {
 		this.ownerId = ownerId;
 	}
 
-	public BranchService() {
-		conn = DatabaseConnection.getConnection();
-	}
-
 	public String getName() {
-		try {
-			pstmt = conn.prepareStatement("SELECT name FROM branch WHERE branchid=?");
-			pstmt.setInt(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.first()) {
-				name = rs.getString(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		name = branch.getName();
 		return name;
 	}
 
 	public String getAddress() {
-		try {
-			pstmt = conn.prepareStatement("SELECT address FROM branch WHERE branchid=?");
-			pstmt.setInt(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.first()) {
-				address = rs.getString(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		address = branch.getAddress();
 		return address;
 	}
 
@@ -150,7 +187,9 @@ public class BranchService {
 		return id;
 	}
 
+	@Transactional
 	public void setId(int id) {
+		branch = getBranch(id);
 		this.id = id;
 	}
 
@@ -162,31 +201,13 @@ public class BranchService {
 		this.name = name;
 	}
 
-	public int getCounter() {
-		try {
-			pstmt = conn.prepareStatement("SELECT counter FROM branch WHERE branchid=?");
-			pstmt.setInt(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.first()) {
-				counter = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public long getCounter() {
+		counter = branch.getCounter();
 		return counter;
 	}
 
-	public int getPawnTicket() {
-		try {
-			pstmt = conn.prepareStatement("SELECT pt_number FROM branch WHERE branchid=?");
-			pstmt.setInt(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.first()) {
-				pawnTicket = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public long getPawnTicket() {
+		pawnTicket = branch.getPtNumber();
 		return pawnTicket;
 	}
 
@@ -198,17 +219,8 @@ public class BranchService {
 		this.counter = counter;
 	}
 
-	public float getAdvanceInterest() {
-		try {
-			pstmt = conn.prepareStatement("SELECT advance_interest FROM branch WHERE branchid=?");
-			pstmt.setInt(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.first()) {
-				advanceInterest = rs.getFloat(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public double getAdvanceInterest() {
+		advanceInterest = branch.getAdvanceInterest();
 		return advanceInterest;
 	}
 
@@ -217,16 +229,7 @@ public class BranchService {
 	}
 
 	public int getMinDaysToExtend() {
-		try {
-			pstmt = conn.prepareStatement("SELECT extend FROM branch WHERE branchid=?");
-			pstmt.setInt(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.first()) {
-				minDaysToExtend = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		minDaysToExtend = branch.getExtend();
 		return minDaysToExtend;
 	}
 
@@ -235,16 +238,7 @@ public class BranchService {
 	}
 
 	public int getReserveDuration() {
-		try {
-			pstmt = conn.prepareStatement("SELECT reserve FROM branch WHERE branchid=?");
-			pstmt.setInt(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.first()) {
-				reserveDuration = rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		reserveDuration = branch.getReserve();
 		return reserveDuration;
 	}
 
@@ -252,39 +246,21 @@ public class BranchService {
 		this.reserveDuration = reserveDuration;
 	}
 
-	public float getServiceCharge() {
-		try {
-			pstmt = conn.prepareStatement("SELECT service_charge FROM branch WHERE branchid=?");
-			pstmt.setInt(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.first()) {
-				serviceCharge = rs.getFloat(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public double getServiceCharge() {
+		serviceCharge = branch.getServiceCharge();
 		return serviceCharge;
 	}
 
-	public void setServiceCharge(float serviceCharge) {
+	public void setServiceCharge(double serviceCharge) {
 		this.serviceCharge = serviceCharge;
 	}
 
-	public float getBalance() {
-		try {
-			pstmt = conn.prepareStatement("SELECT balance FROM branch WHERE branchid=?");
-			pstmt.setInt(1, id);
-			rs = pstmt.executeQuery();
-			if (rs.first()) {
-				balance = rs.getFloat(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+	public double getBalance() {
+		balance = branch.getBalance();
 		return balance;
 	}
 
-	public void setBalance(float balance) {
+	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 
@@ -295,7 +271,7 @@ public class BranchService {
 	}
 
 	@Transactional
-	public Branch getBranchById(int branchId) {
+	public Branch getBranch(int branchId) {
 		Branch branch = null;
 		ListIterator<Branch> li = HibernatePrendaDaoFactory.getBranchDao()
 				.findByCriteria(Restrictions.eq("id", branchId)).listIterator();
@@ -303,17 +279,6 @@ public class BranchService {
 			branch = (Branch) li.next();
 		}
 		return branch;
-	}
-	
-	@Transactional
-	@Deprecated
-	public int getNext() {
-		DataLayerPrenda instance = DataLayerPrendaImpl.getInstance();
-		Session s = instance.getCurrentSession();
-		Criteria c = s.createCriteria(Branch.class).setProjection(Projections.max("id"));
-		Integer id = (Integer) c.list().listIterator().next();
-		id++;
-		return id;
 	}
 
 }

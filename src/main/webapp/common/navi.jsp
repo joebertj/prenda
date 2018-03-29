@@ -2,7 +2,7 @@
 <sec:authentication property="principal.username" var="authenticated"/>
 <sec:authorize access="isAuthenticated()"> 
 <jsp:useBean id="user" class="com.prenda.service.UserService"/>
-<jsp:setProperty property="name" name="user" value="${authenticated}"/>
+<jsp:setProperty property="userName" name="user" value="${authenticated}"/>
 <jsp:useBean id="branch" class="com.prenda.service.BranchService"/>
 <jsp:setProperty property="id" name="branch" value="${user.branchId}"/>
 </sec:authorize>

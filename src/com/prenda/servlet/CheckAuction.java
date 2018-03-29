@@ -58,7 +58,7 @@ public class CheckAuction extends javax.servlet.http.HttpServlet implements java
 			HttpSession session=request.getSession(true);
 			String authenticated = session.getAttribute("authenticated").toString();
     		UserService us = new UserService();
-			int level= us.getLevelByUsername(authenticated);
+			int level= us.getUser(authenticated).getLevel();
 			if(level>7){
 				Connection conn = DatabaseConnection.getConnection();
 				String[] pid=(String []) request.getParameterValues("pid");

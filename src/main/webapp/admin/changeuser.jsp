@@ -1,8 +1,6 @@
 <%@include file="../common/header.jsp"%>
 </head>
 <body>
-
-
 <TABLE border="1" width=100% class=main>
 	<TBODY>
 		<TR>
@@ -15,9 +13,13 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 			<FORM method="post" action="${contextPath}/UserModify.htm">
-			<INPUT type="hidden" name="referer" value="${contextPath}/admin/userlist.jsp">
+			<INPUT type="hidden" name="referer" value="admin/userlist">
 			<INPUT type="hidden" name="uid" value="${param.uid}">
 			<INPUT type="hidden" name="modtype" value="2">
+			<jsp:useBean id="userS" class="com.prenda.service.UserService"/>
+			<jsp:setProperty property="userName" name="userS" value="${param.user}"/>
+			<jsp:useBean id="branchS" class="com.prenda.service.BranchService"/>
+			<jsp:setProperty property="id" name="branchS" value="${userS.branchId}"/>
 			<TABLE border="1">
 				<TR>
 					<TH colspan="2">Edit User</TH>
@@ -27,19 +29,30 @@
 					<TD>: <INPUT type="text" name="user" value="${param.user}"></TD>
 				</TR>
 				<TR>
+					<TD>Last Name</TD>
+					<TD>: <INPUT type="text" name="lname" value="${userS.lastName}"></TD>
+				</TR>
+				<TR>
+					<TD>First Name</TD>
+					<TD>: <INPUT type="text" name="fname" value="${userS.firstName}"></TD>
+				</TR>
+				<TR>
+					<TD>Middle Name</TD>
+					<TD>: <INPUT type="text" name="mname" value="${userS.middleName}"></TD>
+				</TR>
+				<TR>
 					<TD>Password</TD>
-					<TD>: <INPUT type="password" name="pass1" value="${param.password}"></TD>
+					<TD>: <INPUT type="password" name="pass1"></TD>
 				</TR>
 				<TR>
 					<TD>Verify Password</TD>
-					<TD>: <INPUT type="password" name="pass2" value="${param.password}">
-					<INPUT type="hidden" name="pass" value="${param.password}"></TD>
+					<TD>: <INPUT type="password" name="pass2"></TD>
 				</TR>
 				<TR>
 					<TD>Level</TD>
 					<TD>: <SELECT name="level">
 					<c:choose>
-						<c:when test="${param.level==1}">
+						<c:when test="${userS.level==1}">
 						<OPTION value="1" selected>Encoder</OPTION>
 						</c:when>
 						<c:otherwise>
@@ -47,7 +60,7 @@
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
-						<c:when test="${param.level==3}">
+						<c:when test="${userS.level==3}">
 						<OPTION value="3" selected>Liaison</OPTION>
 						</c:when>
 						<c:otherwise>
@@ -55,7 +68,7 @@
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
-						<c:when test="${param.level==7}">
+						<c:when test="${userS.level==7}">
 						<OPTION value="7" selected>Manager</OPTION>
 						</c:when>
 						<c:otherwise>
@@ -63,7 +76,7 @@
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
-						<c:when test="${param.level==8}">
+						<c:when test="${userS.level==8}">
 						<OPTION value="8" selected>Owner</OPTION>
 						</c:when>
 						<c:otherwise>
@@ -71,7 +84,7 @@
 						</c:otherwise>
 					</c:choose>
 					<c:choose>
-						<c:when test="${param.level==9}">
+						<c:when test="${userS.level==9}">
 						<OPTION value="9" selected>Admin</OPTION>
 						</c:when>
 						<c:otherwise>
@@ -83,17 +96,14 @@
 				<TR>
 					<TD>Branch</TD>
 					<TD>: 
-<sql:query var="branches" dataSource="${prenda}">
-SELECT branchid,name FROM branch
-</sql:query>
 					<select name="branch">
-					<c:forEach var="row" items="${branches.rows}">
+					<c:forEach var="row" items="${branchS.allBranches}">
 					<c:choose>
-						<c:when test="${param.branch==row.branchid}">
-						<option value="${row.branchid}" selected><c:out value="${row.name}"/></option>
+						<c:when test="${userS.branchId==row.id}">
+						<option value="${row.id}" selected><c:out value="${row.name}"/></option>
 						</c:when>
 						<c:otherwise>
-						<option value="${row.branchid}"><c:out value="${row.name}"/></option>
+						<option value="${row.id}"><c:out value="${row.name}"/></option>
 						</c:otherwise>
 					</c:choose>
 					</c:forEach>

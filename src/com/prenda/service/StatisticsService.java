@@ -70,7 +70,7 @@ public class StatisticsService {
 	public int getRedeemCountByInterestRate(float rate,int branchId,int userId,int mode){
 		int count = 0;
 		UserService us = new UserService();
-		int level = us.getLevelById(userId);
+		int level = us.getUser(userId).getLevel();
 		String query = "select count(redeem.pid) from pawn " +
 			"left join redeem on pawn.pid=redeem.pid " +
 			"where 100*interest/loan = ? " +

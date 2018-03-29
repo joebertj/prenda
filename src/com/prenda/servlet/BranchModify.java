@@ -22,9 +22,13 @@ import org.apache.log4j.Logger;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.prenda.Level;
+import com.prenda.Mode;
 import com.prenda.helper.DatabaseConnection;
+import com.prenda.model.obj.prenda.Branch;
+import com.prenda.service.BranchService;
 import com.prenda.service.LevelService;
 
 /**
@@ -146,6 +150,8 @@ import com.prenda.service.LevelService;
 			}
 		}
 	}
+	
+	@Transactional
 	protected void continuePost(HttpServletRequest request, HttpServletResponse response, String authenticated, Integer level) throws ServletException, IOException {
 		try{
 			Connection conn = DatabaseConnection.getConnection();
@@ -155,15 +161,15 @@ import com.prenda.service.LevelService;
     		String referer = request.getParameter("referer");
     		log.info("referer " + referer);
     		
-			if(modtype==0){
+			if(modtype==Mode.CREATENEW){
     			String bname = request.getParameter("bname");
     			String address = request.getParameter("address");
-    			float balance = new Float(request.getParameter("balance")).floatValue();
-    			float ai = new Float(request.getParameter("ai")).floatValue();
-    			float sc = new Float(request.getParameter("sc")).floatValue();
+    			double balance = new Float(request.getParameter("balance")).doubleValue();
+    			double ai = new Float(request.getParameter("ai")).doubleValue();
+    			double sc = new Float(request.getParameter("sc")).doubleValue();
     			int extend = new Integer(request.getParameter("extend")).intValue();
     			int reserve = new Integer(request.getParameter("reserve")).intValue();
-    			int pt = new Integer(request.getParameter("pt")).intValue();
+    			long pt = new Integer(request.getParameter("pt")).longValue();
     			int owner=0;
     			ResultSet rs;
     			if(level==Level.ADMIN){
@@ -188,25 +194,27 @@ import com.prenda.service.LevelService;
     					response.sendRedirect("newbranch.jsp?msg=Branch "+bname+" already exists");
     				}	
     			}
-    			pstmt = conn.prepareStatement("INSERT INTO branch VALUES (0,?,?,?,?,0,?,?,?,0,?,?)");
-    			pstmt.setString(1, bname);
-    			pstmt.setString(2, address);
-    			pstmt.setFloat(3, balance);
-    			pstmt.setInt(4, extend);
-    			pstmt.setFloat(5, ai);
-    			pstmt.setFloat(6, sc);
-    			pstmt.setInt(7, reserve);
-    			pstmt.setInt(8, owner);
-    			pstmt.setInt(9, pt);
-    			pstmt.executeUpdate();
+    			BranchService bs = new BranchService();
+    			Branch branch = new Branch();
+    			branch.setName(bname);
+    			branch.setAddress(address);
+    			branch.setBalance(balance);
+    			branch.setExtend((byte) extend);
+    			branch.setAdvanceInterest(ai);
+    			branch.setServiceCharge(sc);
+    			branch.setReserve((byte) reserve);
+    			branch.setOwner(owner);
+    			branch.setPtNumber(pt);
+    			branch.setAppraisedMargin(100d);
+    			branch.setArchive(false);
+    			branch.setAuctionMarkup((byte) 10);
+    			branch.setCounter(0L); 
+    			branch.setEditMinute((byte) 15);
+    			branch.setExpiry((byte) 15);
+    			branch.setMaturity((byte) 120);
+    			bs.saveBranch(branch);
     			log.info("owner id "+owner);
-    			pstmt = conn.prepareStatement("SELECT branchid FROM branch WHERE name=?");
-    			pstmt.setString(1, bname);
-    			rs=pstmt.executeQuery();
-    			int branchid=0;
-    			if(rs.first()){
-    				branchid=rs.getInt(1);
-    			}
+    			int branchid=branch.getId();
     			pstmt = conn.prepareStatement("INSERT INTO interest VALUES(?,?,?)");
     			for(int i=0;i<35;i++){
     				pstmt.setInt(1, branchid);
@@ -222,7 +230,7 @@ import com.prenda.service.LevelService;
     			}else{
     				response.sendRedirect("newbranch.jsp?msg=Branch "+bname+" successfully added");
     			}
-    		}else if(modtype==1){
+    		}else if(modtype==Mode.DELETE){
     			int branchid = new Integer(request.getParameter("branchid")).intValue();
     			String bname = request.getParameter("bname");
     			String delresp=request.getParameter("delresp");
@@ -248,7 +256,7 @@ import com.prenda.service.LevelService;
     					response.sendRedirect("admin/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
     				}
     			}
-    		}else if(modtype==2){
+    		}else if(modtype==Mode.UPDATE){
     			int branchid = new Integer(request.getParameter("branchid")).intValue();
     			String bname = request.getParameter("bname");
     			String address = request.getParameter("address");
@@ -283,10 +291,10 @@ import com.prenda.service.LevelService;
     			pstmt.executeUpdate();
     			response.sendRedirect(referer + "?msg=Details for branch "+bname+" successfully changed");
     		}
-		} catch (SQLException ex) {
-            log.info("SQLException: " + ex.getMessage());
-            log.info("SQLState: " + ex.getSQLState());
-            log.info("VendorError: " + ex.getErrorCode());
+		} catch (Exception e) {
+            e.printStackTrace();
 		}
-	}   	  	    
+	}
+
+    
 }

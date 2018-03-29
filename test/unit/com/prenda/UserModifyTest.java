@@ -82,21 +82,20 @@ public class UserModifyTest extends SpringTemplateTest {
 		init(targetUser);
 		UserService us = new UserService();
 		Users user = us.getUser("admin");
-		String adminPassword = user.getPassword();
-		savePassword(user, "123");
-		Assert.assertEquals("Either the old password is not correct or the new password does not match", changePassword("admin", "admin", password, password, password));
-		Assert.assertEquals("Either the old password is not correct or the new password does not match", changePassword("admin", "admin", adminPassword, password, password2));
-		Assert.assertEquals("Password changed successfully", changePassword("admin", "admin", "123", password, password));
-		Assert.assertEquals("New password does not match", changePassword("admin", targetUser, password, password, password2));
-		Assert.assertEquals("Password changed successfully", changePassword("admin", targetUser, password, password, password));
-		Assert.assertEquals("New password does not match",changePassword("admin", targetUser, password2, password, password2));
+		String adminPassword = user.getPassword(); //save old hashed password
+		Assert.assertEquals("Password changed successfully", savePassword(user, password)); // change password
+		Assert.assertEquals("Either the old password is not correct or the new password does not match", changePassword("admin", "admin", password2, password, password));
+		Assert.assertEquals("Either the old password is not correct or the new password does not match", changePassword("admin", "admin", password, password, password2));
+		Assert.assertEquals("Password changed successfully", changePassword("admin", "admin", password, password2, password2));
+		Assert.assertEquals("New password does not match", changePassword("admin", targetUser, "", password, password2));
+		Assert.assertEquals("Password changed successfully", changePassword("admin", targetUser, "", password2, password2));
+		Assert.assertEquals("New password does not match",changePassword("admin", targetUser, "", password, password2));
 		Assert.assertEquals("Your restriction level does not allow you to perform such action", changePassword("owner", targetUser, password, password, password));
 		Assert.assertEquals("Your restriction level does not allow you to perform such action", changePassword("owner", targetUser, password, password, password));
 		Assert.assertEquals("Your restriction level does not allow you to perform such action", changePassword("owner", targetUser, password, password, password));
-		user.setPassword(adminPassword);
-		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
-		dataLayerPrenda.update(user);
-		dataLayerPrenda.flushAndClearSession();
+		user = us.getUser("admin");
+		user.setPassword(adminPassword); //restore original hashed password
+		us.updateUser(user);
 		cleanUp(targetUser);
 		Assert.assertEquals("User added successfully", createNewUser("owner",targetUser,password,password,Level.ENCODER, 2, false));
 		Assert.assertEquals("Password changed successfully", changePassword(targetUser, targetUser, password, password2, password2));

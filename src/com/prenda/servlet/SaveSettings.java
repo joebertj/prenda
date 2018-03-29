@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.prenda.Level;
 import com.prenda.helper.DatabaseConnection;
@@ -45,6 +46,7 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 	/* (non-Java-doc)
 	 * @see javax.servlet.http.HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Transactional
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
 		String redirectURL = null;
@@ -54,7 +56,7 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 		}else{ 
 			String authenticated=(String) session.getAttribute("authenticated");
 			UserService us = new UserService();
-			int level= us.getLevelByUsername(authenticated);
+			int level= us.getUser(authenticated).getLevel();
 			if(authenticated == null){
 				redirectURL = "common/login.jsp?msg=You have not logged in yet";
 				response.sendRedirect(redirectURL);
@@ -127,7 +129,7 @@ public class SaveSettings extends javax.servlet.http.HttpServlet implements java
 			PreparedStatement pstmt = null;
     		String authenticated = session.getAttribute("authenticated").toString();
     		UserService us = new UserService();
-			int level= us.getLevelByUsername(authenticated);
+			int level= us.getUser(authenticated).getLevel();
     		String bname=request.getParameter("bname");
     		int branchId=new Integer(request.getParameter("branchid")).intValue();
     		if(level>=Level.MANAGER){

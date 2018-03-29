@@ -41,12 +41,12 @@ AND users.archive = false
 <br/>
 			Page 
 <c:if test="${pagenum>1}">
-				<A href='userlist.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
+				<A href='${contextPath}/owner/userlist.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
 			</c:if>
 <c:forEach var="i" begin="1" end="${pages}">
 				<c:choose>
 					<c:when test="${i!=pagenum}">
-						<A href='userlist.jsp?pagenum=<c:out value="${i}"/>'><c:out
+						<A href='${contextPath}/owner/userlist.jsp?pagenum=<c:out value="${i}"/>'><c:out
 							value="${i}" /></A>
 					</c:when>
 					<c:otherwise>
@@ -55,7 +55,7 @@ AND users.archive = false
 				</c:choose>
 			</c:forEach>
 <c:if test="${pagenum<(pages-(adjust/perpage))}">
-				<A href='userlist.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
+				<A href='${contextPath}/owner/userlist.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
 			</c:if>
 <sql:query var="userlist" dataSource="${prenda}">
 SELECT uid,username,level,branch,users.archive,name,lastname,firstname,middlename FROM users
@@ -118,10 +118,6 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 						<FORM method="post" action="${contextPath}/owner/changeuser.jsp">
 							<INPUT name="uid" type="hidden" value="${row.uid}"> 
 							<INPUT name="user" type="hidden" value="${row.username}">
-							<INPUT name="password" type="hidden" value="${row.password}">
-							<INPUT name="lname" type="hidden" value="${row.lastname}">
-							<INPUT name="fname" type="hidden" value="${row.firstname}">
-							<INPUT name="mname" type="hidden" value="${row.middlename}"> 
 							<INPUT type="submit" value="Edit">
 						</FORM>
 					</TD>

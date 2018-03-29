@@ -28,7 +28,7 @@
 <jsp:useBean id="pullout" class="com.prenda.service.PulloutService"/>
 <jsp:setProperty name="pullout" property="level" value="${user.level}"/>
 <jsp:setProperty name="pullout" property="branchId" value="${user.branchId}"/>
-<jsp:setProperty name="pullout" property="userId" value="${user.id}"/>
+<jsp:setProperty name="pullout" property="userId" value="${user.userId}"/>
 <jsp:setProperty name="pullout" property="mode" value="${mode}"/>
 <jsp:setProperty name="pullout" property="sort" value="pullout.pid"/>
 <jsp:setProperty name="pullout" property="order" value="1"/>

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 import com.google.common.base.Strings;
 import com.prenda.Mode;
 import com.prenda.Pawn;
+import com.prenda.model.obj.prenda.Users;
 import com.prenda.service.InventoryService;
 import com.prenda.service.UserService;
 
@@ -67,9 +68,10 @@ public class InventoryCheckList extends javax.servlet.http.HttpServlet implement
 		BufferedWriter bw = new BufferedWriter(pw);
 		String authenticated=(String) session.getAttribute("authenticated");
 		UserService us = new UserService();
-		int userId = us.getIdByUsername(authenticated);
-		int level= us.getLevelByUsername(authenticated);
-		int branchId = us.getBranchIdByUsername(authenticated);
+		Users user = us.getUser(authenticated);
+		int userId = user.getId();
+		int level= user.getLevel();
+		int branchId = user.getBranch();
 		InventoryService is = new InventoryService();
 		List<Pawn> list = is.getAllInventory(level, branchId, userId, "pawn.pid", Mode.ASC, 1, Integer.MAX_VALUE);
 		int i = 0;

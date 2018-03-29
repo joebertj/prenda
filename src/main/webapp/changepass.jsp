@@ -16,8 +16,8 @@
 			<FORM method="post" action="${contextPath}/UserModify.htm">
 			<INPUT type="hidden" name="modtype" value="2"> 
 			<input type="hidden" name="referer" value="changepass"/>
+			<INPUT type="hidden" name="uid"	value="${user.userId}"> 
 			<INPUT type="hidden" name="user" value="${authenticated}">
-			<INPUT type="hidden" name="level" value="1">
 			<INPUT type="hidden" name="branch" value="${user.branchId}">
 			<TABLE border="1">
 				<TR>

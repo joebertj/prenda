@@ -15,9 +15,12 @@
 			<TD align=center>
 <%@include file="../common/msg.jsp"%>
 			<FORM method="post" action="${contextPath}/UserModify.htm">
-				<INPUT type="hidden" name="referer" value="admin/newuser">
-				<INPUT type="hidden" name="pass" value="">
-				<INPUT type="hidden" name="modtype" value="0">
+			<INPUT type="hidden" name="referer" value="admin/newuser">
+			<INPUT type="hidden" name="modtype" value="0">
+			<jsp:useBean id="userS" class="com.prenda.service.UserService"/>
+			<jsp:setProperty property="userName" name="userS" value="${param.user}"/>
+			<jsp:useBean id="branchS" class="com.prenda.service.BranchService"/>
+			<jsp:setProperty property="id" name="branchS" value="${userS.branchId}"/>
 			<TABLE border="1">
 				<TR>
 					<TH colspan="2">Add New User</TH>
@@ -25,6 +28,18 @@
 				<TR>
 					<TD>Username</TD>
 					<TD>: <INPUT type="text" name="user"></TD>
+				</TR>
+				<TR>
+					<TD>Last Name</TD>
+					<TD>: <INPUT type="text" name="lname"></TD>
+				</TR>
+				<TR>
+					<TD>First Name</TD>
+					<TD>: <INPUT type="text" name="fname"></TD>
+				</TR>
+				<TR>
+					<TD>Middle Name</TD>
+					<TD>: <INPUT type="text" name="mname"></TD>
 				</TR>
 				<TR>
 					<TD>Password</TD>
@@ -46,12 +61,16 @@
 				<TR>
 					<TD>Branch</TD>
 					<TD>: 
-<sql:query var="branches" dataSource="${prenda}">
-SELECT branchid,name FROM branch
-</sql:query>
 					<select name="branch">
-					<c:forEach var="row" items="${branches.rows}">
-					<option value="${row.branchid}"><c:out value="${row.name}"/></option>
+					<c:forEach var="row" items="${branchS.allBranches}">
+					<c:choose>
+						<c:when test="${userS.branchId==row.id}">
+						<option value="${row.id}" selected><c:out value="${row.name}"/></option>
+						</c:when>
+						<c:otherwise>
+						<option value="${row.id}"><c:out value="${row.name}"/></option>
+						</c:otherwise>
+					</c:choose>
 					</c:forEach>
 					</select>
 					</TD>

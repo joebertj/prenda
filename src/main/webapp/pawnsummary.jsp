@@ -28,7 +28,7 @@
 <jsp:useBean id="pawn" class="com.prenda.service.PawnService"/>
 <jsp:setProperty name="pawn" property="level" value="${user.level}"/>
 <jsp:setProperty name="pawn" property="branchId" value="${user.branchId}"/>
-<jsp:setProperty name="pawn" property="userId" value="${user.id}"/>
+<jsp:setProperty name="pawn" property="userId" value="${user.userId}"/>
 <jsp:setProperty name="pawn" property="mode" value="${mode}"/>
 <jsp:setProperty name="pawn" property="sort" value="pawn.pid"/>
 <jsp:setProperty name="pawn" property="order" value="1"/>

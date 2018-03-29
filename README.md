@@ -149,13 +149,9 @@ GNU GENERAL PUBLIC LICENSE Version 3
 
 ## Todo
 
-* username not adjustable on edit
-* owner cannot update user level bug
 * SaaS features. Free-tier is 1 branch/owner/manager/encoder.
-* Add power encoder role to be able to adjust dates.
+* Liaison role to be able to adjust encoder role's dates.
 * Adjustable redeem dates.
-* Review interest rate of redeem.
 * Adjustable auction appraised amount margin, markup (10%), maturity (30 days), expiry (120 days), edit minute (15).
 * Admin should have delete and unarchive functionality.
 * Eliminate all sql:query and convert to JavaBeans.
-* Displaytag-like functionality

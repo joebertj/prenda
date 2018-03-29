@@ -58,57 +58,60 @@ public class UserModify {
 			@RequestParam(value = "fname", required = false) String firstName,
 			@RequestParam(value = "mname", required = false) String middleName,
 			@RequestParam(value = "delresp", required = false) String response) {
-		
+
 		String message = "Your restriction level does not allow you to perform such action";
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String actionUser = auth.getName();
-		log.info("actionUser " + actionUser + " targetUser " + targetUser+ " targetLevel " +targetLevel+ " targetBranch " +targetBranch);
+		log.info("actionUser " + actionUser + " targetUser " + targetUser + " targetLevel " + targetLevel
+				+ " targetBranch " + targetBranch);
 		if (mode == Mode.CREATENEW) {
 			message = createNewUser(actionUser, targetUser, newPassword, verifyPassword, targetLevel, targetBranch,
 					false);
 		} else if (mode == Mode.DELETE) {
-			if(response.equals("Confirm")) {
+			if (response.equals("Confirm")) {
 				message = deleteUser(actionUser, targetUser);
-			}else if(response.equals("Cancel")) {
+			} else if (response.equals("Cancel")) {
 				message = "Delete cancelled";
 			}
 		} else if (mode == Mode.UPDATE) {
-			message = updateUser(userId, actionUser, targetUser, lastName, firstName, middleName, oldPassword, newPassword, verifyPassword);
+			message = updateUser(userId, actionUser, targetUser, lastName, firstName, middleName, oldPassword,
+					newPassword, verifyPassword, targetLevel, targetBranch);
 		}
 		map.addAttribute("msg", message);
 		log.info("message: " + message + " redirectUrl: " + redirectUrl);
 		return redirectUrl;
 	}
-	
+
 	@Transactional
 	protected String deleteUser(String actionUser, String targetUser) {
 		String message = "Your restriction level does not allow you to perform such action";
 		UserService us = new UserService();
 		Users user = us.getUser(targetUser);
+		Users actUser = us.getUser(actionUser);
 		int targetBranch = user.getBranch();
 		int targetLevel = user.getLevel();
-		byte actionUserLevel = (byte) (us.getLevelByUsername(actionUser) & 0xFF);
+		byte actionUserLevel = (byte) (actUser.getLevel() & 0xFF);
 		byte targetUserLevel = (byte) (targetLevel & 0xFF);
 		if (actionUserLevel > targetUserLevel) {
 			if (actionUserLevel == Level.ADMIN) {
 				message = deleteUser(user);
-			}else if (actionUserLevel == Level.MANAGER) {
-				if (us.getBranchIdByUsername(actionUser) == targetBranch) {
+			} else if (actionUserLevel == Level.MANAGER) {
+				if (actUser.getBranch() == targetBranch) {
 					message = deleteUser(user);
 				}
-			}else if (actionUserLevel == Level.OWNER) {
-				log.info("actionUserBranch " + us.getBranchIdByUsername(actionUser) + " targetBranch " +  targetBranch);
-				int actionUserId = us.getIdByUsername(actionUser);
+			} else if (actionUserLevel == Level.OWNER) {
+				log.info("actionUserBranch " + actUser.getBranch() + " targetBranch " + targetBranch);
+				int actionUserId = actUser.getId();
 				BranchService bs = new BranchService();
-				log.info("branchOwnerId " + bs.getOwnerId(targetBranch) + " actionUserId " +  actionUserId);
-				if(bs.getOwnerId(targetBranch) == actionUserId) {
-						message = deleteUser(user);
+				log.info("branchOwnerId " + bs.getOwnerId(targetBranch) + " actionUserId " + actionUserId);
+				if (bs.getOwnerId(targetBranch) == actionUserId) {
+					message = deleteUser(user);
 				}
 			}
 		}
 		return message;
 	}
-	
+
 	@Transactional
 	private String deleteUser(Users user) {
 		user.setArchive(true);
@@ -119,51 +122,76 @@ public class UserModify {
 	}
 
 	@Transactional
-	private String updateUser(Integer userId, String actionUser, String targetUser, String lastName, String firstName, String middleName, String oldPassword, String newPassword, String verifyPassword) {
+	private String updateUser(Integer userId, String actionUser, String targetUser, String lastName, String firstName,
+			String middleName, String oldPassword, String newPassword, String verifyPassword, Integer targetLevel,
+			Integer targetBranch) {
 		String message = "Your restriction level does not allow you to perform such action";
-		// indicator that request is coming from update user details view. uid param
-		// must be absent on password only request.
-		if (userId != null) {
-			UserService us = new UserService();
-			Users user = us.getUser(targetUser);
-			int targetBranch = user.getBranch();
-			int targetLevel = user.getLevel();
-			byte actionUserLevel = (byte) (us.getLevelByUsername(actionUser) & 0xFF);
-			byte targetUserLevel = (byte) (targetLevel & 0xFF);
-			if (actionUserLevel > targetUserLevel) {
-				if (actionUserLevel == Level.ADMIN) {
+		UserService us = new UserService();
+		Users user = us.getUser(targetUser);
+		// if just changing password or updating name
+		if (targetLevel == null) {
+			targetLevel = user.getLevel().intValue();
+		}
+		if (targetBranch == null) {
+			targetBranch = user.getBranch();
+		}
+		Users actUser = us.getUser(actionUser);
+		byte actionUserLevel = (byte) (actUser.getLevel() & 0xFF);
+		byte targetUserLevel = (byte) (targetLevel & 0xFF);
+		if (actionUserLevel > targetUserLevel) {
+			if (actionUserLevel == Level.ADMIN) {
+				message = updateName(targetUser, lastName, firstName, middleName, userId, targetLevel, targetBranch,
+						true);
+			} else if (actionUserLevel == Level.MANAGER) {
+				if (actUser.getBranch() == targetBranch) {
 					message = updateName(targetUser, lastName, firstName, middleName);
-				}else if (actionUserLevel == Level.MANAGER) {
-					if (us.getBranchIdByUsername(actionUser) == targetBranch) {
-						message = updateName(targetUser, lastName, firstName, middleName);
-					}
-				}else if (actionUserLevel == Level.OWNER) {
-					log.info("actionUserBranch " + us.getBranchIdByUsername(actionUser) + " targetBranch " +  targetBranch);
-					int actionUserId = us.getIdByUsername(actionUser);
-					BranchService bs = new BranchService();
-					log.info("branchOwnerId " + bs.getOwnerId(targetBranch) + " actionUserId " +  actionUserId);
-					if(bs.getOwnerId(targetBranch) == actionUserId) {
-						message = updateName(targetUser, lastName, firstName, middleName);
-					}
 				}
+			} else if (actionUserLevel == Level.OWNER) {
+				log.info("actionUserBranch " + actUser.getBranch() + " targetBranch " + targetBranch);
+				int actionUserId = actUser.getId();
+				BranchService bs = new BranchService();
+				log.info("branchOwnerId " + bs.getOwnerId(targetBranch) + " actionUserId " + actionUserId);
+				if (bs.getOwnerId(targetBranch) == actionUserId) {
+					message = updateName(targetUser, lastName, firstName, middleName, userId, targetLevel, targetBranch,
+							false);
+				}
+			} else {
+				message = updateName(targetUser, lastName, firstName, middleName);
 			}
 		}
-		// indicator that request is coming from a change password view
-		if (newPassword != null) {
+		// if password field was filled also attempt to change password
+		if (newPassword != null && !newPassword.trim().isEmpty()) {
 			message = changePassword(actionUser, targetUser, oldPassword, newPassword, verifyPassword);
 		}
 		return message;
 	}
-	
+
 	@Transactional
 	private String updateName(String targetUser, String lastName, String firstName, String middleName) {
+		return updateName(targetUser, lastName, firstName, middleName, null, null, null, false);
+	}
+
+	@Transactional
+	private String updateName(String targetUser, String lastName, String firstName, String middleName, Integer userId,
+			Integer targetLevel, Integer targetBranch, boolean changeUsernameAlso) {
+		String message = "Details for user " + targetUser + " updated";
 		UserService us = new UserService();
-		Users user = us.getUser(targetUser);
+		Users userCheck = us.getUser(targetUser);
+		Users user = us.getUser(userId);
+		if (changeUsernameAlso) { // used by Admin to change username
+			// If no same name on existing users
+			if (userCheck == null) {
+				user.setUsername(targetUser); // update username
+			} else {
+				if (!targetUser.equals(user.getUsername())) { // the username was changed but there was an existing user
+					return "Duplicate username";
+				}
+			}
+		}
 		user.setLastname(lastName);
 		user.setFirstname(firstName);
 		user.setMiddlename(middleName);
 		us.updateUser(user);
-		String message = "Details for user " + targetUser + " updated";
 		return message;
 	}
 
@@ -196,20 +224,26 @@ public class UserModify {
 
 	@Transactional
 	protected String createNewUser(String actionUser, String targetUser, String newPassword, String verifyPassword,
-			int targetLevel, int targetBranch, boolean archive) {
+			Integer targetLevel, Integer targetBranch, Boolean archive) {
 		String message = "Your restriction level does not allow you to perform such action";
 		byte actionUserLevel;
 		byte targetUserLevel;
-		
-		
 		UserService us = new UserService();
-		actionUserLevel = (byte) (us.getLevelByUsername(actionUser) & 0xFF);
+		Users user = us.getUser(actionUser);
+		// if just changing password or updating name
+		if (targetLevel == null) {
+			targetLevel = user.getLevel().intValue();
+		}
+		if (targetBranch == null) {
+			targetBranch = user.getBranch();
+		}
+		actionUserLevel = (byte) (user.getLevel() & 0xFF);
 		targetUserLevel = (byte) (targetLevel & 0xFF);
 		log.info("actionUser " + actionUser + " targetUser " + targetUser + " newPassword " + newPassword
 				+ " verifyPassword " + verifyPassword + " message " + message);
 		if (actionUserLevel > targetUserLevel) {
 			if (actionUserLevel == Level.ADMIN || actionUserLevel == Level.MANAGER || actionUserLevel == Level.OWNER) {
-				log.info("actionUserBranch " + us.getBranchIdByUsername(actionUser) + " targetBranch " +  targetBranch);
+				log.info("actionUserBranch " + user.getBranch() + " targetBranch " + targetBranch);
 				if (verifyPassword(targetUser, "", newPassword, verifyPassword, true)) {
 					CustomPasswordValidator cpv = new CustomPasswordValidator();
 					RuleResult result = cpv.validate(newPassword);
@@ -227,7 +261,7 @@ public class UserModify {
 				} else {
 					message = "New password does not match";
 				}
-			} 
+			}
 		}
 		return message;
 	}
@@ -240,7 +274,11 @@ public class UserModify {
 		int targetUserLevel;
 		UserService us = new UserService();
 		Users user = us.getUser(targetUser);
-		int targetUserBranchId = us.getBranchIdByUsername(targetUser);
+		if (user == null) {
+			return "Invalid user";
+		}
+		Users actUser = us.getUser(actionUser);
+		int targetUserBranchId = user.getBranch();
 		if (targetUserBranchId < 1) {
 			return "Invalid user";
 		}
@@ -263,8 +301,8 @@ public class UserModify {
 			log.info("actionUser " + actionUser + " targetUser " + targetUser + " oldPassword " + oldPassword
 					+ " newPassword " + newPassword + " verifyPassword " + verifyPassword + " message " + message);
 		} else {
-			actionUserLevel = us.getLevelByUsername(actionUser);
-			targetUserLevel = us.getLevelByUsername(targetUser);
+			actionUserLevel = actUser.getLevel();
+			targetUserLevel = user.getLevel();
 			int targetBranch = user.getBranch();
 			if (actionUserLevel > targetUserLevel) {
 				if (actionUserLevel == Level.ADMIN) {
@@ -284,7 +322,7 @@ public class UserModify {
 						message = "New password does not match";
 					}
 				} else if (actionUserLevel == Level.MANAGER) {
-					if (us.getBranchIdByUsername(actionUser) == targetUserBranchId) {
+					if (actUser.getBranch() == targetUserBranchId) {
 						if (verifyPassword(targetUser, oldPassword, newPassword, verifyPassword, true)) {
 							CustomPasswordValidator cpv = new CustomPasswordValidator();
 							RuleResult result = cpv.validate(newPassword);
@@ -295,32 +333,34 @@ public class UserModify {
 								for (String msg : cpv.getMessages(result)) {
 									message += " " + msg;
 								}
-								message = message.replaceAll(", matching.*}", "}").replaceAll("validCharacters=.*? ", "");
+								message = message.replaceAll(", matching.*}", "}").replaceAll("validCharacters=.*? ",
+										"");
 							}
 							message = "New password does not match";
 						}
 					}
 				} else if (actionUserLevel == Level.OWNER) {
-					log.info("actionUserBranch " + us.getBranchIdByUsername(actionUser) + " targetBranch " +  targetBranch);
-					int actionUserId = us.getIdByUsername(actionUser);
+					log.info("actionUserBranch " + actUser.getBranch() + " targetBranch " + targetBranch);
+					int actionUserId = actUser.getId();
 					BranchService bs = new BranchService();
-					log.info("branchOwnerId " + bs.getOwnerId(targetBranch) + " actionUserId " +  actionUserId);
-					if(bs.getOwnerId(targetBranch) == actionUserId) {
-							if (verifyPassword(targetUser, oldPassword, newPassword, verifyPassword, true)) {
-								CustomPasswordValidator cpv = new CustomPasswordValidator();
-								RuleResult result = cpv.validate(newPassword);
-								if (result.isValid()) {
-									message = savePassword(user, newPassword);
-								} else {
-									message = "Invalid password:";
-									for (String msg : cpv.getMessages(result)) {
-										message += " " + msg;
-									}
-									message = message.replaceAll(", matching.*}", "}").replaceAll("validCharacters=.*? ", "");
-								}
+					log.info("branchOwnerId " + bs.getOwnerId(targetBranch) + " actionUserId " + actionUserId);
+					if (bs.getOwnerId(targetBranch) == actionUserId) {
+						if (verifyPassword(targetUser, oldPassword, newPassword, verifyPassword, true)) {
+							CustomPasswordValidator cpv = new CustomPasswordValidator();
+							RuleResult result = cpv.validate(newPassword);
+							if (result.isValid()) {
+								message = savePassword(user, newPassword);
 							} else {
-								message = "New password does not match";
+								message = "Invalid password:";
+								for (String msg : cpv.getMessages(result)) {
+									message += " " + msg;
+								}
+								message = message.replaceAll(", matching.*}", "}").replaceAll("validCharacters=.*? ",
+										"");
 							}
+						} else {
+							message = "New password does not match";
+						}
 					}
 
 				}

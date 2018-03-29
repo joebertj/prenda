@@ -16,7 +16,8 @@
 <%@include file="../common/msg.jsp"%>
 			<FORM method="post" action="${contextPath}/UserModify.htm">
 				<INPUT type="hidden" name="referer" value="manage/newuser">
-				<INPUT type="hidden" name="pass" value="">
+				<INPUT type="hidden" name="branch" value="${user.branchId}">
+				<INPUT type="hidden" name="level" value="1">
 				<INPUT type="hidden" name="modtype" value="0">
 			<TABLE border="1">
 				<TR>
@@ -27,6 +28,18 @@
 					<TD>: <INPUT type="text" name="user"></TD>
 				</TR>
 				<TR>
+					<TD>Last Name</TD>
+					<TD>: <INPUT type="text" name="lname"></TD>
+				</TR>
+				<TR>
+					<TD>First Name</TD>
+					<TD>: <INPUT type="text" name="fname"></TD>
+				</TR>
+				<TR>
+					<TD>Middle Name</TD>
+					<TD>: <INPUT type="text" name="mname"></TD>
+				</TR>
+				<TR>
 					<TD>Password</TD>
 					<TD>: <INPUT type="password" name="pass1"></TD>
 				</TR>
@@ -35,8 +48,6 @@
 					<TD>: <INPUT type="password" name="pass2"></TD>
 				</TR>
 				<TR>
-					<input type="hidden" name="level" value="1"/>
-					<input type="hidden" name="branch" value="${user.branchId}"/>
 					<TD colspan="2" align="center"><INPUT type="submit" value="Add"></TD>
 				</TR>
 			</TABLE>

@@ -16,7 +16,7 @@
 <%@include file="../common/msg.jsp"%>
 			<form method="post" action="redeemstatrate.pdf">
 				<input type="hidden" name="branch" value="${user.branchId}"/>
-				<input type="hidden" name="userid" value="${user.id}"/>
+				<input type="hidden" name="userid" value="${user.userId}"/>
 				<input type="hidden" name="bname" value="${branch.name}"/>
 				<input type="hidden" name="baddress" value="${branch.address}"/>
 				<input type="submit" value="Generate PDF"/>

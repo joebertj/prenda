@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.prenda.helper.DatabaseConnection;
 import com.prenda.service.UserService;
@@ -41,6 +42,7 @@ import com.prenda.service.UserService;
 	/* (non-Java-doc)
 	 * @see javax.servlet.http.HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Transactional
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession(true);
 		String redirectURL;
@@ -50,7 +52,7 @@ import com.prenda.service.UserService;
 		}else{ 
 			String authenticated=(String) session.getAttribute("authenticated");
 			UserService us = new UserService();
-			int level= us.getLevelByUsername(authenticated);
+			int level= us.getUser(authenticated).getLevel();
 			if(authenticated == null){
 				redirectURL = "/common/login.jsp?msg=You have not logged in yet";
 				response.sendRedirect(redirectURL);

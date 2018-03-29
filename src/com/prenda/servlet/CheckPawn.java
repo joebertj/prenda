@@ -101,7 +101,7 @@ public class CheckPawn {
 			user.setLoanDate(new java.sql.Date(loandate.getTime()));
 			dataLayerPrenda.update(user);
 			BranchService bs = new BranchService();
-			branch = bs.getBranchById(branchId);
+			branch = bs.getBranch(branchId);
 			bpid = branch.getCounter() + 1;
 			pt = branch.getPtNumber();
 			branch.setBalance(branch.getBalance() - loan);

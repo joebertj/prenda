@@ -28,7 +28,7 @@
 <jsp:useBean id="redeem" class="com.prenda.service.RedeemService"/>
 <jsp:setProperty name="redeem" property="level" value="${user.level}"/>
 <jsp:setProperty name="redeem" property="branchId" value="${user.branchId}"/>
-<jsp:setProperty name="redeem" property="userId" value="${user.id}"/>
+<jsp:setProperty name="redeem" property="userId" value="${user.userId}"/>
 <jsp:setProperty name="redeem" property="mode" value="${mode}"/>
 <jsp:setProperty name="redeem" property="sort" value="redeem.pid"/>
 <jsp:setProperty name="redeem" property="order" value="1"/>
