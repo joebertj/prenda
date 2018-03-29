@@ -1,6 +1,5 @@
 package com.prenda.model.obj.prenda.iface;
 import java.util.Date;
-import javax.persistence.Basic;
 
 
 /** 

@@ -221,6 +221,7 @@ public class UserModify {
 						for (String msg : cpv.getMessages(result)) {
 							message += " " + msg;
 						}
+						message = message.replaceAll(", matching.*}", "}").replaceAll("validCharacters=.* ", "");
 					}
 
 				} else {
@@ -254,6 +255,7 @@ public class UserModify {
 					for (String msg : cpv.getMessages(result)) {
 						message += " " + msg;
 					}
+					message = message.replaceAll(", matching.*}", "}").replaceAll("validCharacters=.*? ", "");
 				}
 			} else {
 				message = "Either the old password is not correct or the new password does not match";
@@ -276,6 +278,7 @@ public class UserModify {
 							for (String msg : cpv.getMessages(result)) {
 								message += " " + msg;
 							}
+							message = message.replaceAll(", matching.*}", "}").replaceAll("validCharacters=.*? ", "");
 						}
 					} else {
 						message = "New password does not match";
@@ -292,6 +295,7 @@ public class UserModify {
 								for (String msg : cpv.getMessages(result)) {
 									message += " " + msg;
 								}
+								message = message.replaceAll(", matching.*}", "}").replaceAll("validCharacters=.*? ", "");
 							}
 							message = "New password does not match";
 						}
@@ -312,6 +316,7 @@ public class UserModify {
 									for (String msg : cpv.getMessages(result)) {
 										message += " " + msg;
 									}
+									message = message.replaceAll(", matching.*}", "}").replaceAll("validCharacters=.*? ", "");
 								}
 							} else {
 								message = "New password does not match";

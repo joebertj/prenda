@@ -598,7 +598,6 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
 	* @param persistentObject a class, which is persistent, or has persistent subclasses 
 	* @return Criteria instance
 	*/
-	@SuppressWarnings("unchecked")
 	public Criteria createCriteria(Class persistentObject) {
         return this.sessionFactory.getCurrentSession().createCriteria(persistentObject);
     }

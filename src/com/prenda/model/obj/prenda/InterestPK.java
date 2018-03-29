@@ -1,9 +1,7 @@
 package com.prenda.model.obj.prenda;
 
-import com.github.wwadge.hbnpojogen.persistence.IPojoGenEntity;
 import com.prenda.model.obj.prenda.iface.IInterestPK;
 import java.io.Serializable;
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;

@@ -389,7 +389,6 @@ public interface DataLayerPrenda {
 	* @param persistentObject a class, which is persistent, or has persistent subclasses 
 	* @return Criteria instance
 	*/
-	@SuppressWarnings("unchecked")
 	Criteria createCriteria(Class persistentObject);
     /** Flushes the currently open session.
 	*/

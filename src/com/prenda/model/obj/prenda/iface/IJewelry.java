@@ -1,6 +1,5 @@
 package com.prenda.model.obj.prenda.iface;
 import com.prenda.model.obj.prenda.JewelryPK;
-import javax.persistence.Basic;
 
 
 /** 

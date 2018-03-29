@@ -1,4 +1,5 @@
 <%@include file="../common/header.jsp"%>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
 
@@ -51,6 +52,13 @@
 					<TD>Verify Password</TD>
 					<TD>: <INPUT type="password" name="pass2"></TD>
 				</TR>
+				<tr>
+					<td colspan="2" align="center">
+					<fmt:bundle basename="sjm">
+						 <fmt:message var="reCaptchaKey" key = "reCaptcha.key"/><br/>
+ 					</fmt:bundle>
+					<div class="g-recaptcha" data-sitekey="${reCaptchaKey}"></div></td>
+				</tr>
 				<TR>
 					<TD colspan="2" align="center"><INPUT type="submit" value="Register"></TD>
 				</TR>

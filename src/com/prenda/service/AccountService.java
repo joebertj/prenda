@@ -13,7 +13,6 @@ import java.sql.SQLException;
 import org.apache.log4j.Logger;
 
 import com.prenda.helper.DatabaseConnection;
-import com.prenda.servlet.CheckPawn;
 
 public class AccountService {
 	

@@ -13,7 +13,7 @@ Author https://ex.kenchlightyear.com
 3. Web-based - Unlimited branches possible, no setup necessary for branches (PCs at the branches will only need internet connection and a web-browser (Tested using Chrome)
 4. Centralized Database, management and reporting - No need for main office to solicit reports from branches (the Head office can generate any report of any branch at any time), the main server will be secured at the client's main office
 5. Real-time access and monitoring of activities - eliminates the possibility of fraudulent activities from branches
-6. Granularized access control -  possible to set-up unlimited Encoder, Manager, Branch Owner and Administrator Accounts
+6. Role-based access control -  possible to set-up unlimited Encoder, Manager and Branch Owner Accounts
 7. Automated aging of pawned items
 8. Highly configurable interest rates per Branch on a daily basis
 9. Supports secure pullout of items from Branch (thru a Liaison account)
