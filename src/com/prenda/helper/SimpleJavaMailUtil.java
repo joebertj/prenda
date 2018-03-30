@@ -15,7 +15,7 @@ public class SimpleJavaMailUtil {
 	public static void send(String targetUser, String toEmail, String key) {
 		Properties props = new Properties();
 		try {
-			props.load(SimpleJavaMailUtil.class.getResourceAsStream("/sjm.properties"));
+			props.load(SimpleJavaMailUtil.class.getResourceAsStream("/env.properties"));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (IOException e1) {

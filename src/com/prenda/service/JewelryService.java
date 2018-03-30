@@ -1,41 +1,49 @@
 package com.prenda.service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ListIterator;
 
 import org.hibernate.criterion.Restrictions;
+import org.jfree.util.Log;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
-import com.prenda.helper.DatabaseConnection;
 import com.prenda.model.obj.prenda.Jewelry;
 import com.prenda.model.obj.prenda.JewelryPK;
+import com.prenda.service.data.DataLayerPrenda;
+import com.prenda.service.data.DataLayerPrendaImpl;
 
 public class JewelryService {
-	private Connection conn;
-	private PreparedStatement pstmt;
-	
 	private int branchId;
 	private int caratId;
 	private double minimum;
 	private double maximum;
+	private Jewelry jewelry;
+	private List<Jewelry> jewelries;
 	
 	public JewelryService(){
-		conn = DatabaseConnection.getConnection();
+		
 	}
 	
+	public Jewelry getJewelry() {
+		return jewelry;
+	}
+
+	public void setJewelries(List<Jewelry> jewelries) {
+		this.jewelries = jewelries;
+	}
+
+	public void setJewelry(Jewelry jewelry) {
+		this.jewelry = jewelry;
+	}
+
 	@Transactional
-	public Jewelry getJewelryById(int branchId, int caratId) {
+	public Jewelry getJewelry(int branchId, int caratId) {
 		Jewelry jewelry = new Jewelry();
 		JewelryPK jpk = new JewelryPK();
 		jpk.setBranchid(branchId);
-		int[] cid = {10, 14, 18, 22, 24};
-		jpk.setCaratid((byte) (cid[0] & 0xff));
+		jpk.setCaratid((byte) (caratId & 0xff));
 		ListIterator<Jewelry> list = HibernatePrendaDaoFactory.getJewelryDao().findByCriteria(Restrictions.eq("id", jpk)).listIterator();
 		if(list.hasNext()) {
 			jewelry = (Jewelry) list.next();
@@ -44,26 +52,48 @@ public class JewelryService {
 	}
 	
 	@Transactional
-	public List<Jewelry> getJewelryById(int branchId) {
-		JewelryPK jpk = new JewelryPK();
-		jpk.setBranchid(branchId);
+	public List<Jewelry> getJewelry(int branchId) {
 		List<Jewelry> list = new ArrayList<Jewelry>();
 		int[] cid = {10, 14, 18, 22, 24};
 		for(int c: cid) {
+			JewelryPK jpk = new JewelryPK();
+			jpk.setBranchid(branchId);
 			jpk.setCaratid((byte) (c & 0xff));
-			list.addAll(HibernatePrendaDaoFactory.getJewelryDao().findByCriteria(Restrictions.eq("id", jpk)));
+			ListIterator<Jewelry> li = HibernatePrendaDaoFactory.getJewelryDao().findByCriteria(Restrictions.eq("id", jpk)).listIterator();
+			if(li.hasNext()) {
+				list.add((Jewelry)li.next());
+			}else { // TODO add on BranchService Mode.CREATENEW
+				Jewelry jewelry = new Jewelry();
+				Log.info("carat: " + c);
+				jewelry.setId(jpk);
+				jewelry.setMinimum(0d);
+				jewelry.setMaximum(0d);
+				list.add(jewelry);
+				// TODO persist
+			}
 		}
 		return list;
 	}
 	
-	public List<Jewelry> getJewelryById(){
-		return getJewelryById(branchId);
+	@Transactional
+	public Jewelry save(Jewelry jewelry) {
+		DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
+		dataLayerPrenda.save(jewelry);
+		dataLayerPrenda.flushAndClearSession();
+		return jewelry;
+	}
+	
+	@Transactional
+	public List<Jewelry> getJewelries(){
+		jewelries = getJewelry(branchId);
+		return jewelries;
 	}	
 
 	public int getBranchId() {
 		return branchId;
 	}
 
+	@Transactional
 	public void setBranchId(int branchId) {
 		this.branchId = branchId;
 	}
@@ -76,19 +106,10 @@ public class JewelryService {
 		this.caratId = caratId;
 	}
 
+	@Transactional
 	public double getMinimum() {
-		try {
-			String sql="SELECT minimum FROM jewelry WHERE branchid=? AND caratid=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, branchId);
-			pstmt.setInt(2, caratId);
-			ResultSet rs=pstmt.executeQuery();
-			if(rs.first()){
-				minimum=rs.getDouble(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		jewelry = getJewelry(branchId, caratId);
+		minimum = jewelry.getMinimum();
 		return minimum;
 	}
 
@@ -96,19 +117,10 @@ public class JewelryService {
 		this.minimum = minimum;
 	}
 
+	@Transactional
 	public double getMaximum() {
-		try {
-			String sql="SELECT maximum FROM jewelry WHERE branchid=? AND caratid=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, branchId);
-			pstmt.setInt(2, caratId);
-			ResultSet rs=pstmt.executeQuery();
-			if(rs.first()){
-				maximum=rs.getDouble(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+		jewelry = getJewelry(branchId, caratId);
+		maximum = jewelry.getMaximum();
 		return maximum;
 	}
 

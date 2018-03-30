@@ -35,7 +35,7 @@ public class BranchSettings {
 	
 	private ModelMap add(ModelMap map, int branchId) {
 		JewelryService js = new JewelryService();
-		map.addAttribute("jewelry",js.getJewelryById(branchId));
+		map.addAttribute("jewelry",js.getJewelry(branchId));
 		return map;
 	}
 }

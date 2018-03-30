@@ -332,8 +332,8 @@
 									<goal>copy</goal>
 								</goals>
 								<configuration>
-									<sourceFile>src/main/resources/sjm-openshift.properties</sourceFile>
-									<destinationFile>src/main/resources/sjm.properties</destinationFile>
+									<sourceFile>src/main/resources/env-openshift.properties</sourceFile>
+									<destinationFile>src/main/resources/env.properties</destinationFile>
 								</configuration>
 							</execution>
 						</executions>

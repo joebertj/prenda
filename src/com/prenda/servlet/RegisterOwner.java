@@ -37,19 +37,18 @@ public class RegisterOwner {
 			@RequestParam("user") String targetUser, @RequestParam("email") String email,
 			@RequestParam("pass1") String newPassword, @RequestParam("pass2") String verifyPassword,
 			@RequestParam("lname") String lastName, @RequestParam("fname") String firstName,
-			@RequestParam("mname") String middleName,
-			@RequestParam("g-recaptcha-response") String gRecaptchaResponse) {
+			@RequestParam("mname") String middleName, @RequestParam("g-recaptcha-response") String gRecaptchaResponse) {
 		UserModify um = new UserModify();
 		String message;
 		if (recaptcha(gRecaptchaResponse)) {
 			String success = "Please check your email and follow instructions to complete registration";
-			message = um.createNewOwner(targetUser, newPassword, verifyPassword, Level.OWNER, email,
-					lastName, firstName, middleName);
-			if(!message.equals(success)){
+			message = um.createNewOwner(targetUser, newPassword, verifyPassword, Level.OWNER, email, lastName,
+					firstName, middleName);
+			if (!message.equals(success)) {
 				redirectUrl = "register/newuser";
 			}
 			map.addAttribute("msg", message);
-		}else {
+		} else {
 			map.addAttribute("msg", "Only humans are allowed to register");
 			redirectUrl = "register/newuser";
 		}
@@ -60,22 +59,22 @@ public class RegisterOwner {
 		boolean isHuman = false;
 		try {
 			Properties props = new Properties();
-			props.load(RegisterOwner.class.getResourceAsStream("/sjm.properties"));
+			props.load(RegisterOwner.class.getResourceAsStream("/env.properties"));
 			String secret = props.getProperty("reCaptcha.secret");
 			log.info("secret " + secret);
-			String urlParameters  = "secret="+ secret+"&response="+gRecaptchaResponse;
-			byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
-			int    postDataLength = postData.length;
-			String request        = "https://www.google.com/recaptcha/api/siteverify";
-			URL    url            = new URL( request );
-			HttpURLConnection conn= (HttpURLConnection) url.openConnection();           
-			conn.setDoOutput( true );
-			conn.setInstanceFollowRedirects( false );
-			conn.setRequestMethod( "POST" );
-			conn.setRequestProperty( "Content-Type", "application/x-www-form-urlencoded"); 
-			conn.setRequestProperty( "charset", "utf-8");
-			conn.setRequestProperty( "Content-Length", Integer.toString( postDataLength ));
-			conn.setUseCaches( false );
+			String urlParameters = "secret=" + secret + "&response=" + gRecaptchaResponse;
+			byte[] postData = urlParameters.getBytes(StandardCharsets.UTF_8);
+			int postDataLength = postData.length;
+			String request = "https://www.google.com/recaptcha/api/siteverify";
+			URL url = new URL(request);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setDoOutput(true);
+			conn.setInstanceFollowRedirects(false);
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.setRequestProperty("charset", "utf-8");
+			conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+			conn.setUseCaches(false);
 			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 			wr.write(postData);
 			int responseCode = conn.getResponseCode();
