@@ -20,7 +20,7 @@ class GlobalDefaultExceptionHandler {
 		String url = request.getRequestURL().toString();
 		String stackTrace ="";
 		for(StackTraceElement element: e.getStackTrace()) {
-			stackTrace += element.getClassName()+" "+element.getMethodName()+" "+element.getLineNumber() +"\n";
+			stackTrace += element.getClassName()+" "+element.getMethodName()+" "+element.getLineNumber() +"%0a";
 		}
 		mav.addObject("exception", exception);
 		mav.addObject("url", url);

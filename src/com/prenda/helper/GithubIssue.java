@@ -2,26 +2,15 @@ package com.prenda.helper;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import com.google.common.base.Charsets;
-import com.google.common.io.Files;
-import com.prenda.servlet.RegisterOwner;
-
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.impl.TextCodec;
 
 public class GithubIssue {
 	
@@ -33,12 +22,8 @@ public class GithubIssue {
 			return issue;
 		}
 		try {
-			Properties props = new Properties();
-			props.load(RegisterOwner.class.getResourceAsStream("/env.properties"));
-			//String token = props.getProperty("github.token");
 			JSONObject json = new JSONObject();
 			json.put("title", title);
-			
 			json.put("body", body);
 			JSONArray jsonArray = new JSONArray();
 			for(String label: labels) {
@@ -67,19 +52,8 @@ public class GithubIssue {
 			 * String encoded = Base64.getEncoder()
 					.encodeToString((username + ":" + token).getBytes(StandardCharsets.UTF_8));
 			conn.setRequestProperty("Authorization", "Basic " + encoded);*/
-			String path = props.getProperty("github.pem");
-			GregorianCalendar gc=new GregorianCalendar();
-			gc.add(GregorianCalendar.MINUTE, 10);
-			String jws = Jwts.builder()
-					  .setIssuer("10575")
-					  .setIssuedAt(new Date())
-					  .setExpiration(gc.getTime())
-					  .signWith(
-					    SignatureAlgorithm.RS256,
-					    TextCodec.BASE64.decode(Files.toString(new File(path), Charsets.UTF_8))
-					  )
-					  .compact();
-			conn.setRequestProperty("Authorization", "Bearer " + jws);
+			KeyUtil ku = new KeyUtil();
+			conn.setRequestProperty("Authorization", "Bearer " + ku.getJws());
 			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 			wr.write(postData);
 			int responseCode = conn.getResponseCode();
@@ -104,7 +78,7 @@ public class GithubIssue {
 	protected boolean exists(String title, String username, String repo) {
 		boolean found=false;
 		try {
-			String request = "https://api.github.com/search/issues?q="+title+"+type:issue+in:title+repo:"+username+"%2f"+repo;
+			String request = "https://api.github.com/search/issues?q="+URLEncoder.encode(title,"UTF-8")+"+type:issue+in:title+repo:"+username+"%2f"+repo;
 			log.info(request);
 			URL url = new URL(request);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
