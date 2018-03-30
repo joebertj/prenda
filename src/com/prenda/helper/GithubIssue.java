@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Properties;
@@ -64,7 +63,7 @@ public class GithubIssue {
 			conn.setRequestProperty("charset", "utf-8");
 			conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
 			conn.setUseCaches(false);
-			/*Personal Access Tokens
+			/*Personal Access Token only
 			 * String encoded = Base64.getEncoder()
 					.encodeToString((username + ":" + token).getBytes(StandardCharsets.UTF_8));
 			conn.setRequestProperty("Authorization", "Basic " + encoded);*/

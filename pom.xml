@@ -320,6 +320,17 @@
 						<version>1.0</version>
 						<executions>
 							<execution>
+								<id>copy-file-pem</id>
+								<phase>generate-sources</phase>
+								<goals>
+									<goal>copy</goal>
+								</goals>
+								<configuration>
+									<sourceFile>prenda.2018-03-30.private-key.pem</sourceFile>
+									<destinationFile>${project.build.directory}/prenda.2018-03-30.private-key.pem</destinationFile>
+								</configuration>
+							</execution>
+							<execution>
 								<id>copy-file-app</id>
 								<phase>generate-sources</phase>
 								<goals>
@@ -331,7 +342,7 @@
 								</configuration>
 							</execution>
 							<execution>
-								<id>copy-file-sjm</id>
+								<id>copy-file-env</id>
 								<phase>generate-sources</phase>
 								<goals>
 									<goal>copy</goal>
