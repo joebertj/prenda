@@ -2,18 +2,27 @@ package com.prenda.helper;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.Files;
 import com.prenda.servlet.RegisterOwner;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.impl.TextCodec;
 
 public class GithubIssue {
 	
@@ -27,7 +36,7 @@ public class GithubIssue {
 		try {
 			Properties props = new Properties();
 			props.load(RegisterOwner.class.getResourceAsStream("/env.properties"));
-			String token = props.getProperty("github.token");
+			//String token = props.getProperty("github.token");
 			JSONObject json = new JSONObject();
 			json.put("title", title);
 			
@@ -55,9 +64,23 @@ public class GithubIssue {
 			conn.setRequestProperty("charset", "utf-8");
 			conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
 			conn.setUseCaches(false);
-			String encoded = Base64.getEncoder()
+			/*Personal Access Tokens
+			 * String encoded = Base64.getEncoder()
 					.encodeToString((username + ":" + token).getBytes(StandardCharsets.UTF_8));
-			conn.setRequestProperty("Authorization", "Basic " + encoded);
+			conn.setRequestProperty("Authorization", "Basic " + encoded);*/
+			String path = props.getProperty("github.pem");
+			GregorianCalendar gc=new GregorianCalendar();
+			gc.add(GregorianCalendar.MINUTE, 10);
+			String jws = Jwts.builder()
+					  .setIssuer("10575")
+					  .setIssuedAt(new Date())
+					  .setExpiration(gc.getTime())
+					  .signWith(
+					    SignatureAlgorithm.RS256,
+					    TextCodec.BASE64.decode(Files.toString(new File(path), Charsets.UTF_8))
+					  )
+					  .compact();
+			conn.setRequestProperty("Authorization", "Bearer " + jws);
 			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 			wr.write(postData);
 			int responseCode = conn.getResponseCode();

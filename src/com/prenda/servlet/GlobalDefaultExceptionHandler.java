@@ -18,13 +18,16 @@ class GlobalDefaultExceptionHandler {
 		ModelAndView mav = new ModelAndView(DEFAULT_ERROR_VIEW);
 		String exception = e.getMessage();
 		String url = request.getRequestURL().toString();
-		String stackTrace = e.getStackTrace().toString();
+		String stackTrace ="";
+		for(StackTraceElement element: e.getStackTrace()) {
+			stackTrace += element.getClassName()+" "+element.getMethodName()+" "+element.getLineNumber() +"\n";
+		}
 		mav.addObject("exception", exception);
 		mav.addObject("url", url);
 		String [] labels = {"bug"};
 		String [] assignees = {"joebertj"};
 		GithubIssue issue = new GithubIssue();
-		issue.create(url + exception, stackTrace, "joebertj", "prenda", labels, assignees);
+		issue.create(url + " " + exception, stackTrace, "joebertj", "prenda", labels, assignees);
 		return mav;
 	}
 

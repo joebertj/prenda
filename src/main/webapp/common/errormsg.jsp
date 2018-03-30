@@ -2,9 +2,10 @@
 <h2>Joebert S. Jacaba</h2>
 <h2>joebertj@gmail.com</h2>
 <br/>
-<h3><spring:message code="common.error" text="${param.lang} "/></h3>
-
 <div class="msg">
 	<c:out value="${url}" />
 	<c:out value="${exception}" />
 </div>
+<h3><spring:message code="common.error" text="${param.lang} "/></h3>
+
+
