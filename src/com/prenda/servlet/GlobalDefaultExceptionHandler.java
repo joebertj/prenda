@@ -20,14 +20,14 @@ class GlobalDefaultExceptionHandler {
 		String url = request.getRequestURL().toString();
 		String stackTrace ="";
 		for(StackTraceElement element: e.getStackTrace()) {
-			stackTrace += element.getClassName()+" "+element.getMethodName()+" "+element.getLineNumber() +"%0a";
+			stackTrace += element.getClassName()+" "+element.getMethodName()+" "+element.getLineNumber() +"<br/>";
 		}
 		mav.addObject("exception", exception);
 		mav.addObject("url", url);
 		String [] labels = {"bug"};
 		String [] assignees = {"joebertj"};
 		GithubIssue issue = new GithubIssue();
-		issue.create(url + " " + exception, stackTrace, "joebertj", "prenda", labels, assignees);
+		issue.create(url + " " + exception, stackTrace, "joebertj", "prenda", labels, assignees, "a3afb3526bbc4a2d5873024f056059d734f8005d");
 		return mav;
 	}
 

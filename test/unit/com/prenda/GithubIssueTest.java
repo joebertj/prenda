@@ -14,10 +14,10 @@ public class GithubIssueTest extends GithubIssue{
 		String body = "body";
 		String [] label = {"bug"};
 		String [] assignees = {"joebertj"};
-		Assert.assertEquals(0, create(title,body,"joebertj","prenda",label,assignees));
+		Assert.assertEquals(0, create(title,body,"joebertj","prenda",label,assignees,"a3afb3526bbc4a2d5873024f056059d734f8005d"));
 		title = CustomPasswordGenerator.getPassword(32);
-		body = CustomPasswordGenerator.getPassword(32)+"\\n"+CustomPasswordGenerator.getPassword(32)+"%0a"+CustomPasswordGenerator.getPassword(32);
-		Assert.assertEquals(1, create(title,body,"joebertj","prenda",label,assignees));
+		body = CustomPasswordGenerator.getPassword(32)+"<br/>"+CustomPasswordGenerator.getPassword(32)+"<br/>"+CustomPasswordGenerator.getPassword(32);
+		Assert.assertEquals(1, create(title,body,"joebertj","prenda",label,assignees,"a3afb3526bbc4a2d5873024f056059d734f8005d"));
 	}
 	
 	@Test

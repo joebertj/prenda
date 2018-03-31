@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
@@ -16,7 +17,7 @@ public class GithubIssue {
 	
 	private static Logger log = Logger.getLogger(GithubIssue.class);
 	
-	public int create(String title, String body, String username, String repo, String [] labels, String [] assignees) {
+	public int create(String title, String body, String username, String repo, String [] labels, String [] assignees, String token) {
 		int issue = 0;
 		if(exists(title,username,repo)) {
 			return issue;
@@ -48,12 +49,14 @@ public class GithubIssue {
 			conn.setRequestProperty("charset", "utf-8");
 			conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
 			conn.setUseCaches(false);
-			/*Personal Access Token only
-			 * String encoded = Base64.getEncoder()
+			//Personal Access Token only
+			String encoded = Base64.getEncoder()
 					.encodeToString((username + ":" + token).getBytes(StandardCharsets.UTF_8));
-			conn.setRequestProperty("Authorization", "Basic " + encoded);*/
+			conn.setRequestProperty("Authorization", "Basic " + encoded);
+			/*
 			KeyUtil ku = new KeyUtil();
 			conn.setRequestProperty("Authorization", "Bearer " + ku.getJws());
+			*/
 			DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 			wr.write(postData);
 			int responseCode = conn.getResponseCode();
