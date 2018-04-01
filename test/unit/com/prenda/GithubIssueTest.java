@@ -3,21 +3,25 @@ package unit.com.prenda;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.prenda.Mode;
 import com.prenda.helper.CustomPasswordGenerator;
 import com.prenda.helper.GithubIssue;
+import com.prenda.helper.KeyUtil;
 
 public class GithubIssueTest extends GithubIssue{
 	
 	@Test
+	public void testAuthenticate() {
+		Assert.assertTrue(authenticate());
+	}
+	
+	@Test
 	public void testCreate() {
-		String title = "title";
-		String body = "body";
+		String title = getATitle("joebertj","prenda");
+		String body = CustomPasswordGenerator.getPassword(32)+"<br/>"+CustomPasswordGenerator.getPassword(32)+"<br/>"+CustomPasswordGenerator.getPassword(32);
 		String [] label = {"bug"};
 		String [] assignees = {"joebertj"};
-		Assert.assertEquals(0, create(title,body,"joebertj","prenda",label,assignees,"a3afb3526bbc4a2d5873024f056059d734f8005d"));
-		title = CustomPasswordGenerator.getPassword(32);
-		body = CustomPasswordGenerator.getPassword(32)+"<br/>"+CustomPasswordGenerator.getPassword(32)+"<br/>"+CustomPasswordGenerator.getPassword(32);
-		Assert.assertEquals(1, create(title,body,"joebertj","prenda",label,assignees,"a3afb3526bbc4a2d5873024f056059d734f8005d"));
+		Assert.assertEquals(0, create(title,body,"joebertj","prenda",label,assignees,Mode.JWT,KeyUtil.getJws()));
 	}
 	
 	@Test

@@ -1,19 +1,35 @@
 package com.prenda.helper;
 
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.Key;
+import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.util.Date;
+import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.Base64;
 import java.util.GregorianCalendar;
 import java.util.Properties;
+import java.util.TimeZone;
 
 import org.apache.log4j.Logger;
+import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
-
+import com.prenda.Mode;
 import com.prenda.servlet.RegisterOwner;
 
+import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -21,16 +37,24 @@ public class KeyUtil {
 	
 	private static Logger log = Logger.getLogger(KeyUtil.class);
 
-	public String getJws() {
+	public static String getJws() {
 		String jws="";
 		try {
 			Properties props = new Properties();
 			props.load(RegisterOwner.class.getResourceAsStream("/env.properties"));
 			String path = props.getProperty("github.pem");
+			Path p = Paths.get(path);
+			if(Files.notExists(p)) {
+				download(p);
+			}
 			GregorianCalendar gc = new GregorianCalendar();
-			gc.add(GregorianCalendar.MINUTE, 10);
-			jws = Jwts.builder().setIssuer("10575").setIssuedAt(new Date()).setExpiration(gc.getTime())
-					.signWith(SignatureAlgorithm.RS256, getPemPrivateKey(path, "BC")).compact();
+			gc.setTimeZone(TimeZone.getTimeZone("UTC"));
+			JwtBuilder builder = Jwts.builder();
+			builder = builder.setIssuer("10575");
+			builder = builder.setIssuedAt(gc.getTime());
+			gc.add(GregorianCalendar.MINUTE, 1);
+			builder = builder.setExpiration(gc.getTime());
+			jws = builder.signWith(SignatureAlgorithm.RS256, getPemPrivateKey(path, Mode.PKCS1)).compact();
 			log.info("jws: "+ jws);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -38,33 +62,58 @@ public class KeyUtil {
 		return jws;
 	}
 
-	public Key getPemPrivateKey(String filename, String provider) { 
+	private static void download(Path path) {
+		try {
+			String filename = path.getFileName().toString();
+			String request = "https://ex.kenchlightyear.com/" +  filename;
+			log.info(request);
+			URL url = new URL(request);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setInstanceFollowRedirects(false);
+			conn.setRequestMethod("GET");
+			int responseCode = conn.getResponseCode();
+			log.info("Response Code : " + responseCode);
+			InputStream in = conn.getInputStream();
+			OutputStream outputStream = new FileOutputStream(path.toString());
+			byte[] buffer = new byte[2048];
+			int length;
+			while ((length = in.read(buffer)) != -1) {
+				outputStream.write(buffer, 0, length);
+			}
+			in.close();
+			outputStream.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static Key getPemPrivateKey(String filename, int pkcs) { 
 		Key key = null;
 		try {
-			/* PKCS8
 			File f = new File(filename);
 			FileInputStream fis = new FileInputStream(f);
 			DataInputStream dis = new DataInputStream(fis);
 			byte[] keyBytes = new byte[(int) f.length()];
 			dis.readFully(keyBytes);
 			dis.close();
-
 			String temp = new String(keyBytes);
-			String privKeyPEM = temp.replace("-----BEGIN RSA PRIVATE KEY-----\n", ""); //PCKS1 is -----BEGIN PRIVATE KEY-----\n
-			privKeyPEM = privKeyPEM.replace("-----END RSA PRIVATE KEY-----", ""); // //PCKS1 is -----END PRIVATE KEY-----
-			log.info("Private key\n"+privKeyPEM);
-
-			byte[] decoded = Base64.getDecoder().decode(privKeyPEM); // TextCodec.BASE64.decode(privKeyPEM); //
-
-			/*PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(decoded);
-			KeyFactory kf = KeyFactory.getInstance(algorithm);
-			rSAPrivateKey = (RSAPrivateKey) kf.generatePrivate(spec);*/
-			
-			PEMParser pemParser = new PEMParser(new FileReader(filename));
-			JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider(provider);
-			Object object = pemParser.readObject();
-			KeyPair kp = converter.getKeyPair((PEMKeyPair) object);
-			key = (Key) kp.getPrivate();
+			String privKeyPEM ="";
+			if(pkcs == Mode.PKCS8) {
+				privKeyPEM = temp.replace("-----BEGIN PRIVATE KEY-----\n", "");
+				privKeyPEM = privKeyPEM.replace("-----END PRIVATE KEY-----", "");
+				log.info("Private key\n"+privKeyPEM);
+				byte[] decoded = Base64.getDecoder().decode(privKeyPEM); // TextCodec.BASE64.decode(privKeyPEM); //
+				PKCS8EncodedKeySpec spec = new PKCS8EncodedKeySpec(decoded);
+				KeyFactory kf = KeyFactory.getInstance("RSA");
+				key = (Key) kf.generatePrivate(spec);
+			}else if (pkcs == Mode.PKCS1) {
+				PEMParser pemParser = new PEMParser(new FileReader(filename));
+				JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider(new BouncyCastleProvider());
+				Object object = pemParser.readObject();
+				KeyPair kp = converter.getKeyPair((PEMKeyPair) object);
+				key = (Key) kp.getPrivate();
+				pemParser.close();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

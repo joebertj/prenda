@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.prenda.Mode;
 import com.prenda.helper.GithubIssue;
+import com.prenda.helper.KeyUtil;
 
 @ControllerAdvice
 class GlobalDefaultExceptionHandler {
@@ -27,7 +29,7 @@ class GlobalDefaultExceptionHandler {
 		String [] labels = {"bug"};
 		String [] assignees = {"joebertj"};
 		GithubIssue issue = new GithubIssue();
-		issue.create(url + " " + exception, stackTrace, "joebertj", "prenda", labels, assignees, "a3afb3526bbc4a2d5873024f056059d734f8005d");
+		issue.create(url + " " + exception, stackTrace, "joebertj", "prenda", labels, assignees, Mode.JWT, KeyUtil.getJws());
 		return mav;
 	}
 

@@ -29,4 +29,14 @@ public class Mode {
 	public static final int DESC = 1;
 	
 	public static final int ASC = 2;
+	
+	public static final int PAT = 1;
+	
+	public static final int JWT = 2;
+	
+	public static final int OAUTH = 2;
+	
+	public static final int PKCS1 = 1;
+	
+	public static final int PKCS8 = 2;	
 }
