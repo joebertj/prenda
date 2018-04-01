@@ -54,7 +54,7 @@
 				</TR>
 				<tr>
 					<td colspan="2" align="center">
-					<fmt:bundle basename="sjm">
+					<fmt:bundle basename="env">
 						 <fmt:message var="reCaptchaKey" key = "reCaptcha.key"/><br/>
  					</fmt:bundle>
 					<div class="g-recaptcha" data-sitekey="${reCaptchaKey}"></div></td>
