@@ -21,7 +21,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Prenda 0.1.4 BETA</title>
+<title>Prenda 0.1.5 BETA</title>
 <link rel="icon" type="image/x-icon" href="${contextPath}/resources/img/favicon.ico">
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/style.css" />
 <link rel="stylesheet" type="text/css" href="${contextPath}/resources/css/ajaxtags.css" />
