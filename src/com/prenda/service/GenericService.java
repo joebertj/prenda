@@ -17,7 +17,7 @@ import com.prenda.helper.DatabaseConnection;
 
 public abstract class GenericService {
 	
-	private static Logger log =Logger.getLogger(GenericService.class);
+	private static Logger log = Logger.getLogger(GenericService.class);
 	
 	protected Connection conn;
 	protected PreparedStatement pstmt;
@@ -29,8 +29,11 @@ public abstract class GenericService {
 	
 	protected String sort;
 	protected int order;
-	protected int page;
+	
+	protected int pageNum;
 	protected int pageSize;
+	private long count; 
+	
 	protected String filter;
 	protected String filterFormat;
 	
@@ -43,6 +46,22 @@ public abstract class GenericService {
 		filterDate = new java.util.Date();
 	}
 	
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public long getCount() {
+		return count;
+	}
+
+	public void setCount(long count) {
+		this.count = count;
+	}
+
 	public int getBranchId() {
 		return branchId;
 	}
@@ -70,16 +89,6 @@ public abstract class GenericService {
 
 	public void setMode(int mode) {
 		this.mode = mode;
-	}
-
-
-	public int getPage() {
-		return page;
-	}
-
-
-	public void setPage(int page) {
-		this.page = page;
 	}
 
 

@@ -3,7 +3,7 @@
 <body>
 
 
-<TABLE border="1" width=100% class=main>
+<TABLE border="1" class="main" width="100%">
 	<TBODY>
 		<TR>
 			<TD><IMG border="0" src="${contextPath}/resources/img/logo.png" width="135"
@@ -32,7 +32,7 @@
 <jsp:setProperty name="pawn" property="mode" value="${mode}"/>
 <jsp:setProperty name="pawn" property="sort" value="pawn.pid"/>
 <jsp:setProperty name="pawn" property="order" value="1"/>
-<jsp:setProperty name="pawn" property="page" value="${pagenum}"/>
+<jsp:setProperty name="pawn" property="pageNum" value="${pagenum}"/>
 <jsp:setProperty name="pawn" property="pageSize" value="${perpage}"/>
 <c:set var="numid" value="${pawn.allPawnCount}" />
 <c:set var="pages" value="${numid/perpage}" />

@@ -32,7 +32,7 @@ public class PulloutService extends GenericService{
 
 	public List<Pullout> getAllPullout(){
 		List<Pullout> list = new ArrayList<Pullout>();
-		list = getAllPullout(level,branchId,userId,mode,sort,order,page,pageSize);
+		list = getAllPullout(level,branchId,userId,mode,sort,order,pageNum,pageSize);
 		return list;
 	}
 

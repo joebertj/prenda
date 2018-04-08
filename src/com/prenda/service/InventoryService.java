@@ -36,7 +36,7 @@ public class InventoryService extends GenericService {
 	
 	public List<Pawn> getAllInventory(){
 		List<Pawn> list = new ArrayList<Pawn>();
-		list = getAllInventory(level,branchId,userId,sort,order,page,pageSize);
+		list = getAllInventory(level,branchId,userId,sort,order,pageNum,pageSize);
 		return list;
 	}
 	

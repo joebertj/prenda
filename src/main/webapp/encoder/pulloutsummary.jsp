@@ -3,7 +3,7 @@
 <body>
 
 
-<TABLE border="1" width=100% class=main>
+<TABLE border="1" class="main" width="100%">
 	<TBODY>
 		<TR>
 			<TD><IMG border="0" src="${contextPath}/resources/img/logo.png" width="135"
@@ -32,7 +32,7 @@
 <jsp:setProperty name="pullout" property="mode" value="${mode}"/>
 <jsp:setProperty name="pullout" property="sort" value="pullout.pid"/>
 <jsp:setProperty name="pullout" property="order" value="1"/>
-<jsp:setProperty name="pullout" property="page" value="${pagenum}"/>
+<jsp:setProperty name="pullout" property="pageNum" value="${pagenum}"/>
 <jsp:setProperty name="pullout" property="pageSize" value="${perpage}"/>
 <c:set var="numid" value="${pullout.allPulloutCount}" />
 <c:set var="pages" value="${numid/perpage}" />

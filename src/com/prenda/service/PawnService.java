@@ -23,7 +23,7 @@ import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
 import com.prenda.model.obj.prenda.Pawn;
 import com.prenda.model.obj.prenda.Branch;
 
-public class PawnService extends GenericService {
+public class PawnService extends GenericService { // Pagination variables are here
 	
 	private static Logger log = Logger.getLogger(PawnService.class);
 	
@@ -48,7 +48,7 @@ public class PawnService extends GenericService {
 	
 	public List<com.prenda.Pawn> getAllPawn(){
 		List<com.prenda.Pawn> list = new ArrayList<com.prenda.Pawn>();
-		list = getAllPawn(level,branchId,userId,mode,sort,order,page,pageSize,filterDate);
+		list = getAllPawn(level,branchId,userId,mode,sort,order,pageNum,pageSize,filterDate);
 		return list;
 	}
 	

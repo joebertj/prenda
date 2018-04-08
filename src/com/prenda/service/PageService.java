@@ -5,28 +5,27 @@
 
 package com.prenda.service;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.ListIterator;
 
-import com.prenda.helper.DatabaseConnection;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.prenda.factories.prenda.HibernatePrendaDaoFactory;
+import com.prenda.model.obj.prenda.Page;
+import com.prenda.service.data.DataLayerPrenda;
+import com.prenda.service.data.DataLayerPrendaImpl;
 
 public class PageService {
 
-	private Connection conn;
-	private PreparedStatement pstmt;
-	private ResultSet rs;
-	
-	private int user;  
-	private int customer;
-	private int pawn;
-	private int redeem;
-	private int foreclose;
-	private int pullout;
-	private int outstanding;
-	private int inventory;
-	private int auction;
+	private byte user;  
+	private byte customer;
+	private byte pawn;
+	private byte redeem;
+	private byte foreclose;
+	private byte pullout;
+	private byte outstanding;
+	private byte inventory;
+	private byte auction;
 	
 	private int branch;
 	private int chart;
@@ -34,149 +33,139 @@ public class PageService {
 	
 	private int branchId;
 	
+	private Page page;
+	
 	public PageService() {
-		conn = DatabaseConnection.getConnection();
+		user = (byte) (10 & 0xff);  
+		customer = (byte) (10 & 0xff);
+		pawn = (byte) (10 & 0xff);
+		redeem = (byte) (10 & 0xff);
+		foreclose = (byte) (10 & 0xff);
+		pullout = (byte) (10 & 0xff);
+		outstanding = (byte) (10 & 0xff);
+		inventory = (byte) (10 & 0xff);
+		auction = (byte) (10 & 0xff);
 	}
 
-	public int getCustomer() {
-		try {
-			pstmt = conn.prepareStatement("SELECT customer FROM page WHERE pageid=?");
-			pstmt.setInt(1,branchId);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				customer=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return customer;
+	public Page getPage() {
+		return page;
 	}
-	public void setCustomer(int customer) {
-		this.customer = customer;
+
+	public void setPage(Page page) {
+		this.page = page;
 	}
-	public int getForeclose() {
-		try {
-			pstmt = conn.prepareStatement("SELECT foreclose FROM page WHERE pageid=?");
-			pstmt.setInt(1,branchId);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				foreclose=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return foreclose;
-	}
-	public void setForeclose(int foreclose) {
-		this.foreclose = foreclose;
-	}
-	public int getInventory() {
-		try {
-			pstmt = conn.prepareStatement("SELECT inventory FROM page WHERE pageid=?");
-			pstmt.setInt(1,branchId);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				inventory=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return inventory;
-	}
-	public void setInventory(int inventory) {
-		this.inventory = inventory;
-	}
-	public int getOutstanding() {
-		try {
-			pstmt = conn.prepareStatement("SELECT outstanding FROM page WHERE pageid=?");
-			pstmt.setInt(1,branchId);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				outstanding=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return outstanding;
-	}
-	public void setOutstanding(int outstanding) {
-		this.outstanding = outstanding;
-	}
-	public int getPawn() {
-		try {
-			pstmt = conn.prepareStatement("SELECT pawn FROM page WHERE pageid=?");
-			pstmt.setInt(1,branchId);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				pawn=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return pawn;
-	}
-	public void setPawn(int pawn) {
-		this.pawn = pawn;
-	}
-	public int getPullout() {
-		try {
-			pstmt = conn.prepareStatement("SELECT pullout FROM page WHERE pageid=?");
-			pstmt.setInt(1,branchId);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				pullout=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return pullout;
-	}
-	public void setPullout(int pullout) {
-		this.pullout = pullout;
-	}
-	public int getRedeem() {
-		try {
-			pstmt = conn.prepareStatement("SELECT redeem FROM page WHERE pageid=?");
-			pstmt.setInt(1,branchId);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				redeem=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return redeem;
-	}
-	public void setRedeem(int redeem) {
-		this.redeem = redeem;
-	}
-	public int getUser() {
-		try {
-			pstmt = conn.prepareStatement("SELECT user FROM page WHERE pageid=?");
-			pstmt.setInt(1,branchId);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				user=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+
+	public byte getUser() {
 		return user;
 	}
-	public void setUser(int user) {
+
+	public void setUser(byte user) {
 		this.user = user;
+	}
+
+	public byte getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(byte customer) {
+		this.customer = customer;
+	}
+
+	public byte getPawn() {
+		return pawn;
+	}
+
+	public void setPawn(byte pawn) {
+		this.pawn = pawn;
+	}
+
+	public byte getRedeem() {
+		return redeem;
+	}
+
+	public void setRedeem(byte redeem) {
+		this.redeem = redeem;
+	}
+
+	public byte getForeclose() {
+		return foreclose;
+	}
+
+	public void setForeclose(byte foreclose) {
+		this.foreclose = foreclose;
+	}
+
+	public byte getPullout() {
+		return pullout;
+	}
+
+	public void setPullout(byte pullout) {
+		this.pullout = pullout;
+	}
+
+	public byte getOutstanding() {
+		return outstanding;
+	}
+
+	public void setOutstanding(byte outstanding) {
+		this.outstanding = outstanding;
+	}
+
+	public byte getInventory() {
+		return inventory;
+	}
+
+	public void setInventory(byte inventory) {
+		this.inventory = inventory;
+	}
+
+	public byte getAuction() {
+		return auction;
+	}
+
+	public void setAuction(byte auction) {
+		this.auction = auction;
 	}
 
 	public int getBranchId() {
 		return branchId;
 	}
 
+	@Transactional
 	public void setBranchId(int branchId) {
+		ListIterator<Page> li = HibernatePrendaDaoFactory.getPageDao().findByCriteria(Restrictions.eq("id", branchId)).listIterator();
+		if(li.hasNext()) {
+			page = (Page) li.next();
+			user = page.getUser(); 
+			customer = page.getCustomer();
+			pawn = page.getPawn();
+			redeem = page.getRedeem();
+			foreclose = page.getForeclose();
+			pullout = page.getPullout();
+			outstanding = page.getOutstanding();
+			inventory = page.getInventory();
+			auction = page.getAuction();
+		}else { // Create page if not present
+			Page page = new Page();
+			page.setId(branchId);
+			page.setAuction(auction);
+			page.setCustomer(customer);
+			page.setForeclose(foreclose);
+			page.setInventory(inventory);
+			page.setOutstanding(outstanding);
+			page.setPawn(pawn);
+			page.setPullout(pullout);
+			page.setRedeem(redeem);
+			page.setUser(user);
+			DataLayerPrenda dataLayerPrenda = DataLayerPrendaImpl.getInstance();
+			dataLayerPrenda.save(page);
+			dataLayerPrenda.flushAndClearSession();
+		}
 		this.branchId = branchId;
 	}
 
 	public int getBranch() {
-		branch=10;
+		branch=10; // TODO add to table
 		return branch;
 	}
 
@@ -185,7 +174,7 @@ public class PageService {
 	}
 
 	public int getChart() {
-		chart=50;
+		chart=50; // TODO add to table
 		return chart;
 	}
 
@@ -194,31 +183,12 @@ public class PageService {
 	}
 
 	public int getDisburse() {
-		disburse=20;
+		disburse=20; // TODO add to table
 		return disburse;
 	}
 
 	public void setDisburse(int disburse) {
 		this.disburse = disburse;
 	}
-
-	public int getAuction() {
-		try {
-			pstmt = conn.prepareStatement("SELECT auction FROM page WHERE pageid=?");
-			pstmt.setInt(1,branchId);
-			rs=pstmt.executeQuery();
-			if(rs.next()){
-				auction=rs.getInt(1);
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return auction;
-	}
-
-	public void setAuction(int auction) {
-		this.auction = auction;
-	}
-	
 	
 }

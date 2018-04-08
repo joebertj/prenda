@@ -35,7 +35,7 @@ public class RedeemService extends GenericService{
 	
 	public List<Redeem> getAllRedeem(){
 		List<Redeem> list = new ArrayList<Redeem>();
-		list = getAllRedeem(level,branchId,userId,mode,sort,order,page,pageSize,filterDate);
+		list = getAllRedeem(level,branchId,userId,mode,sort,order,pageNum,pageSize,filterDate);
 		return list;
 	}
 	

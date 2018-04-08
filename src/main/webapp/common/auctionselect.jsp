@@ -4,7 +4,7 @@
 <body>
 
 
-<TABLE border="1" width=100% class=main>
+<TABLE border="1" class="main" width="100%">
 	<TBODY>
 		<TR>
 			<TD><IMG border="0" src="${contextPath}/resources/img/logo.png" width="135"

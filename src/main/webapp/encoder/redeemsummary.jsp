@@ -3,7 +3,7 @@
 <body>
 
 
-<TABLE border="1" width=100% class=main>
+<TABLE border="1" class="main" width="100%">
 	<TBODY>
 		<TR>
 			<TD><IMG border="0" src="${contextPath}/resources/img/logo.png" width="135"
@@ -32,7 +32,7 @@
 <jsp:setProperty name="redeem" property="mode" value="${mode}"/>
 <jsp:setProperty name="redeem" property="sort" value="redeem.pid"/>
 <jsp:setProperty name="redeem" property="order" value="1"/>
-<jsp:setProperty name="redeem" property="page" value="${pagenum}"/>
+<jsp:setProperty name="redeem" property="pageNum" value="${pagenum}"/>
 <jsp:setProperty name="redeem" property="pageSize" value="${perpage}"/>
 <c:set var="numid" value="${redeem.allRedeemCount}" />
 <c:set var="pages" value="${numid/perpage}" />
