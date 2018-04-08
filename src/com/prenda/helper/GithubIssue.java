@@ -36,7 +36,7 @@ public class GithubIssue {
 	}
 
 	public int create(String title, String body, String username, String repo, String[] labels, String[] assignees,
-			int tokenType, String token) {
+			int tokenType) {
 		int issue = 0;
 		try {
 			if (!exists(title, username, repo)) {
@@ -60,7 +60,7 @@ public class GithubIssue {
 				URL url = new URL(request);
 				HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 				conn.setDoOutput(true);
-				conn.setInstanceFollowRedirects(false);
+				//conn.setInstanceFollowRedirects(false);
 				conn.setRequestMethod("POST");
 				conn.setRequestProperty("charset", "utf-8");
 				conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
@@ -71,10 +71,7 @@ public class GithubIssue {
 							.encodeToString((username + ":" + token).getBytes(StandardCharsets.UTF_8));
 					conn.setRequestProperty("Authorization", "Basic " + encoded);
 				} else if (tokenType == Mode.JWT) { // JSON Web Token
-					//if (authenticate()) {
-						token = getToken();
-						conn.setRequestProperty("Authorization", "Token " + token);
-					//}
+					conn.setRequestProperty("Authorization", "Token " + getToken());
 				}
 				DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
 				wr.write(postData);
@@ -101,12 +98,13 @@ public class GithubIssue {
 	}
 
 	private String getToken() {
+		log.info("installId: " + installId);
 		try {
 			String request = "https://api.github.com/installations/" + installId + "/access_tokens";
 			log.info(request);
 			URL url = new URL(request);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setInstanceFollowRedirects(false);
+			//conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("POST");
 			conn.setRequestProperty("Accept", "application/vnd.github.machine-man-preview+json");
 			conn.setRequestProperty("Authorization", "Bearer " + KeyUtil.getJws());
@@ -134,14 +132,14 @@ public class GithubIssue {
 	protected String getRepo() {
 		String name ="";
 		try {
-			String request = "https://api.github.com/installations/" + installId + "/repositories";
+			String request = "https://api.github.com/installation/repositories";
 			log.info(request);
 			URL url = new URL(request);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setInstanceFollowRedirects(false);
+			//conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/vnd.github.machine-man-preview+json");
-			conn.setRequestProperty("Authorization", "Token " + token);
+			conn.setRequestProperty("Authorization", "Token " + getToken());
 			int responseCode = conn.getResponseCode();
 			log.info("Response Code : " + responseCode);
 			if (responseCode == 200) {
@@ -154,7 +152,7 @@ public class GithubIssue {
 				in.close();
 				log.info(response.toString());
 				JSONObject myResponse = new JSONObject(response.toString());
-				JSONObject repo = (JSONObject) myResponse.getJSONArray("repositories").get(0);
+				JSONObject repo = myResponse.getJSONArray("repositories").getJSONObject(0);
 				repo.getString("name");
 				log.info("name: " + name);
 			}
@@ -172,7 +170,7 @@ public class GithubIssue {
 			log.info(request);
 			URL url = new URL(request);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setInstanceFollowRedirects(false);
+			//conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("GET");
 			int responseCode = conn.getResponseCode();
 			log.info("Response Code : " + responseCode);
@@ -205,7 +203,7 @@ public class GithubIssue {
 			log.info(request);
 			URL url = new URL(request);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setInstanceFollowRedirects(false);
+			//conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("GET");
 			int responseCode = conn.getResponseCode();
 			log.info("Response Code : " + responseCode);

@@ -49,7 +49,9 @@ public class KeyUtil {
 			if(Files.notExists(p)) {
 				download(p);
 			}
-			GregorianCalendar gc = (GregorianCalendar) GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
+			TimeZone tz = TimeZone.getTimeZone("UTC");
+			GregorianCalendar gc = new GregorianCalendar();
+			gc.setTimeZone(tz);
 			JwtBuilder builder = Jwts.builder();
 			builder = builder.setIssuer(issuer);
 			builder = builder.setIssuedAt(gc.getTime());

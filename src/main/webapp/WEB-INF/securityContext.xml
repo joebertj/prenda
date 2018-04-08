@@ -20,6 +20,7 @@
 		<intercept-url pattern="/manage/**" access="hasAnyRole('ROLE_MANAGER','ROLE_OWNER','ROLE_ADMIN')"/>
 		<intercept-url pattern="/common/**" access="hasAnyRole('ROLE_ENCODER','ROLE_LIAISON','ROLE_MANAGER','ROLE_OWNER','ROLE_ADMIN')"/>
 		<intercept-url pattern="/encoder/**" access="hasAnyRole('ROLE_ENCODER','ROLE_LIAISON','ROLE_MANAGER','ROLE_OWNER','ROLE_ADMIN')"/>
+		<intercept-url pattern="/**" access="hasAnyRole('ROLE_ENCODER','ROLE_LIAISON','ROLE_MANAGER','ROLE_OWNER','ROLE_ADMIN')"/>
 		<form-login login-page="/public/login.jsp" authentication-failure-url="/public/login.jsp?msg=No+such+user+or+bad+password!"
 			always-use-default-target="false" 
 			username-parameter="user" password-parameter="pass" 

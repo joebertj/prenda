@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class WebhookHandler {
-	@RequestMapping(value = "common/Webhook.htm", method = RequestMethod.POST)
+	@RequestMapping(value = "public/Webhook.htm", method = RequestMethod.POST)
 	@ResponseBody
 	public String webhook(@RequestBody JSONObject request) {
 		request.toString(3);

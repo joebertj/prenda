@@ -6,7 +6,6 @@ import org.junit.Test;
 import com.prenda.Mode;
 import com.prenda.helper.CustomPasswordGenerator;
 import com.prenda.helper.GithubIssue;
-import com.prenda.helper.KeyUtil;
 
 public class GithubIssueTest extends GithubIssue{
 	
@@ -16,8 +15,10 @@ public class GithubIssueTest extends GithubIssue{
 		String body = CustomPasswordGenerator.getPassword(32)+"<br/>"+CustomPasswordGenerator.getPassword(32)+"<br/>"+CustomPasswordGenerator.getPassword(32);
 		String [] label = {"bug"};
 		String [] assignees = {"joebertj"};
-		Assert.assertEquals(0, create(title,body,"joebertj","prenda",label,assignees,Mode.JWT,KeyUtil.getJws()));
-		//Assert.assertEquals("prenda",getRepo());//Not used
+		Assert.assertEquals(0, create(title,body,"joebertj","prenda",label,assignees,Mode.JWT));
+		title=CustomPasswordGenerator.getPassword(32);
+		Assert.assertEquals(1, create(title,body,"joebertj","prenda",label,assignees,Mode.JWT));
+		Assert.assertEquals("prenda",getRepo());//Not used
 	}
 	
 	@Test
