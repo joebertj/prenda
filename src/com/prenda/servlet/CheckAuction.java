@@ -72,15 +72,15 @@ public class CheckAuction extends javax.servlet.http.HttpServlet implements java
 					pstmt.executeUpdate();
 				}
 				if(level==9){
-					response.sendRedirect("admin/auctionselect.jsp?msg=Auction items successful.");
+					response.sendRedirect("common/auctionselect.jsp?msg=Auction items successful.");
 				}else if(level==8){
-					response.sendRedirect("owner/auctionselect.jsp?msg=Auction items successful.");
+					response.sendRedirect("common/auctionselect.jsp?msg=Auction items successful.");
 				}
 			}else{
 				if(level==9){
-					response.sendRedirect("admin/auctionselect.jsp?msg=You are not authorized to auction items.");
+					response.sendRedirect("common/auctionselect.jsp?msg=You are not authorized to auction items.");
 				}else if(level==8){
-					response.sendRedirect("owner/auctionselect.jsp?msg=You are not authorized to auction items.");
+					response.sendRedirect("common/auctionselect.jsp?msg=You are not authorized to auction items.");
 				}
 			}
 		}catch (SQLException ex) {

@@ -16,13 +16,14 @@ class GlobalDefaultExceptionHandler { // handles JAVA errors
 
 	@ExceptionHandler(value = Exception.class)
 	public ModelAndView defaultErrorHandler(HttpServletRequest request, Exception e) throws Exception {
-		ModelAndView mav = new ModelAndView(DEFAULT_ERROR_VIEW);
+		e.printStackTrace();
 		String exception = e.getMessage();
 		String url = request.getRequestURI();
 		String stackTrace ="";
 		for(StackTraceElement element: e.getStackTrace()) {
 			stackTrace += element.getClassName()+" "+element.getMethodName()+" "+element.getLineNumber() +"<br/>";
 		}
+		ModelAndView mav = new ModelAndView(DEFAULT_ERROR_VIEW);
 		mav.addObject("exception", exception);
 		mav.addObject("url", url);
 		String [] labels = {"bug"};

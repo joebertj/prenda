@@ -246,15 +246,15 @@ import com.prenda.service.UserService;
     				pstmt.setInt(1, branchid);
     				pstmt.executeUpdate();
     				if(request.getContextPath().toString().contains("owner")){
-    					response.sendRedirect("owner/branchlist.jsp?msg=Branch "+bname+" archived");
+    					response.sendRedirect("common/branchlist.jsp?msg=Branch "+bname+" archived");
     				}else{
-    					response.sendRedirect("admin/branchlist.jsp?msg=Branch "+bname+" archived");
+    					response.sendRedirect("common/branchlist.jsp?msg=Branch "+bname+" archived");
     				}
     			}else{
     				if(request.getContextPath().toString().contains("owner")){
-    					response.sendRedirect("owner/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
+    					response.sendRedirect("common/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
     				}else{
-    					response.sendRedirect("admin/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
+    					response.sendRedirect("common/branchlist.jsp?msg=Archive of branch "+bname+" cancelled");
     				}
     			}
     		}else if(modtype==Mode.UPDATE){

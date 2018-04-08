@@ -21,7 +21,7 @@
 <c:set var="numid" value="${user.count}"/>
 <c:set var="pages" value="${numid/perpage}" />
 <c:set var="adjust" value="${numid % perpage}" />
-<c:if test="${adjust!=0}">
+<c:if test="${adjust>0}">
 	<c:set var="pages" value="${pages-(adjust/perpage)+1}" />
 </c:if>
 <c:set var="pagenum" value="${param.pagenum}" />

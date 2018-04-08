@@ -23,6 +23,7 @@ public class ErrorHandler { // handles JSP errors
 	@RequestMapping(value = "public/Error.htm", method = RequestMethod.GET)
 	public ModelAndView error(ModelMap map, Exception e) throws Exception{
 		String url = request.getRequestURI().toString();
+		e.printStackTrace();
 		String exception = e.getMessage();
 		String stackTrace ="";
 		for(StackTraceElement element: e.getStackTrace()) {

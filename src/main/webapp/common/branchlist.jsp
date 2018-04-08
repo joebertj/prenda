@@ -19,6 +19,10 @@
 <c:set var="perpage" value="${pageS.branch}"/>
 <sql:query var="pageable" dataSource="${prenda}">
 SELECT count(branchid) as numid FROM branch
+<c:if test="${users.level==8}">
+LEFT JOIN users ON branch.owner=users.uid 
+WHERE users.username="${authenticated}"
+</c:if>
 </sql:query>
 <c:set var="numid" value="${pageable.rows[0].numid}" />
 <c:set var="pages" value="${numid/perpage}" />
@@ -52,6 +56,9 @@ SELECT count(branchid) as numid FROM branch
 <sql:query var="branchlist" dataSource="${prenda}">
 SELECT branchid,name,address,balance,branch.archive,username FROM branch
 LEFT JOIN users ON branch.owner=users.uid
+<c:if test="${users.level==8}">
+WHERE users.username="${authenticated}"
+</c:if>
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 </sql:query>
 			<TABLE border="1">

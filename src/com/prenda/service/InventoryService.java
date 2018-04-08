@@ -98,7 +98,7 @@ public class InventoryService extends GenericService {
 				if(i>0){
 					branches += " or ";
 				}
-				branches = "pawn.branch = ?";
+				branches += "pawn.branch = ?";
 				i++;
 			}
 			if(branches.length()>0){
