@@ -12,7 +12,7 @@
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD width="200"><%@include file="../common/menu.jsp"%></TD>
+			<TD valign="top" width="200"><%@include file="../common/menu.jsp"%></TD>
 			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 <c:set var="perpage" value="${10}"/><!--page.rows[0].auction-->

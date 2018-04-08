@@ -20,7 +20,7 @@
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD width="200"><%@include file="../common/menu.jsp"%></TD>
+			<TD valign="top" width="200"><%@include file="../common/menu.jsp"%></TD>
 			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 <div id="errorMsg" style="display:none;border:1px solid #e00;background-color:#fee;padding:2px;margin-top:8px;width:300px;font:normal 12px Arial;color:#900"></div>

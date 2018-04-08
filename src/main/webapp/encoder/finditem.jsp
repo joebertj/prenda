@@ -9,10 +9,10 @@
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD width="200"><%@include file="../common/menu.jsp"%></TD>
+			<TD valign="top" width="200"><%@include file="../common/menu.jsp"%></TD>
 			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
-			<FORM method="post" action="CheckItem">
+			<FORM method="post" action="${contextPath}/public/CheckItem">
 			<TABLE border="1">
 				<TR>
 					<TH colspan="2">Item Access</TH>

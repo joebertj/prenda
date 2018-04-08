@@ -16,7 +16,7 @@
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD width="200"><%@include file="../common/menu.jsp"%></TD>
+			<TD valign="top" width="200"><%@include file="../common/menu.jsp"%></TD>
 			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 			<form name="disburse" action="cashdisbursementdetail.jsp" method="post">

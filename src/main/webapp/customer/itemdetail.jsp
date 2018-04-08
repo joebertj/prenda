@@ -11,7 +11,7 @@
 			<TD><%@include file="../public/navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD valign=top><%@include file="menu.jsp"%></TD>
+			<TD valign="top" width="200"><%@include file="menu.jsp"%></TD>
 			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 <sql:query var="testredeem" dataSource="${prenda}">

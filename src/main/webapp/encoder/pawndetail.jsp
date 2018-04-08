@@ -11,7 +11,7 @@
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD width="200"><%@include file="../common/menu.jsp"%></TD>
+			<TD valign="top" width="200"><%@include file="../common/menu.jsp"%></TD>
 			<TD valign="top" align="center">
 
 <%@include file="../public/msg.jsp"%>
@@ -26,7 +26,7 @@
 				<TR>
 					<TD>Branch PID</TD>
 					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branch.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
-					<TD width="200"></TD>
+					<TD valign="top" width="200"></TD>
 					<TD>Date of Loan</TD>
 					<TD>: <jsp:useBean id="ldate" class="com.prenda.helper.DateUtil" /> 
 					<jsp:setProperty property="sdfIn" name="ldate" value="MMM dd, yyyy"/>

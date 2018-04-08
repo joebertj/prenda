@@ -376,7 +376,7 @@
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>CheckItem</servlet-name>
-		<url-pattern>/CheckItem</url-pattern>
+		<url-pattern>/public/CheckItem</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
 		<servlet-name>ExtendItem</servlet-name>
