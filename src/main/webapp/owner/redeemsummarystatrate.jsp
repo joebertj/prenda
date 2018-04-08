@@ -11,8 +11,8 @@
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD valign=top><%@include file="menu.jsp"%></TD>
-			<TD align=center>
+			<TD width="200"><%@include file="../common/menu.jsp"%></TD>
+			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 			<form method="post" action="redeemstatrate.pdf">
 				<input type="hidden" name="branch" value="${user.branchId}"/>

@@ -11,7 +11,7 @@
 		</TR>
 		<TR>
 			<TD valign=top></TD>
-			<TD align=center>
+			<TD valign="top" align="center">
 <%@include file="errormsg.jsp"%>
 </TD>
 		</TR>

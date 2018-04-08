@@ -12,7 +12,7 @@
 			<td width="200"></td>
 			<TD align="center">
 <%@include file="msg.jsp"%>
-<<spring:message code="common.logout" />
+<<spring:message code="common.bye" />
 <br/><br/>
 <spring:message code="common.thanks" />
 </TD>

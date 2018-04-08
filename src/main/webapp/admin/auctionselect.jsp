@@ -12,8 +12,8 @@
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD valign=top><%@include file="menu.jsp"%></TD>
-			<TD align=center>
+			<TD width="200"><%@include file="../common/menu.jsp"%></TD>
+			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 <c:set var="perpage" value="${10}"/><!--page.rows[0].auction-->
 <sql:query var="pageable" dataSource="${prenda}">

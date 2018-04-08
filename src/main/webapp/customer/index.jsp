@@ -11,7 +11,7 @@
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
-			<TD align=center>
+			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 <%@include file="../public/credits.jsp"%>
 </TD>

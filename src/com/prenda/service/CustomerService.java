@@ -37,10 +37,10 @@ public class CustomerService {
 		if(!lastName.isEmpty()) {
 			c.add(Restrictions.like("lastName", lastName+"%", MatchMode.END));
 		}
-		if(!lastName.isEmpty()) {
+		if(!firstName.isEmpty()) {
 			c.add(Restrictions.like("firstName", firstName+"%", MatchMode.END));
 		}
-		if(!lastName.isEmpty()) {
+		if(!middleName.isEmpty()) {
 			Restrictions.like("middleName", middleName+"%", MatchMode.END);
 		}
 		List<Customer> customers = c.list();

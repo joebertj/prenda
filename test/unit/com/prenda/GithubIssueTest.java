@@ -11,17 +11,13 @@ import com.prenda.helper.KeyUtil;
 public class GithubIssueTest extends GithubIssue{
 	
 	@Test
-	public void testAuthenticate() {
-		Assert.assertTrue(authenticate());
-	}
-	
-	@Test
 	public void testCreate() {
 		String title = getATitle("joebertj","prenda");
 		String body = CustomPasswordGenerator.getPassword(32)+"<br/>"+CustomPasswordGenerator.getPassword(32)+"<br/>"+CustomPasswordGenerator.getPassword(32);
 		String [] label = {"bug"};
 		String [] assignees = {"joebertj"};
 		Assert.assertEquals(0, create(title,body,"joebertj","prenda",label,assignees,Mode.JWT,KeyUtil.getJws()));
+		//Assert.assertEquals("prenda",getRepo());//Not used
 	}
 	
 	@Test

@@ -74,6 +74,9 @@ public class UserModify {
 				message = "Delete cancelled";
 			}
 		} else if (mode == Mode.UPDATE) {
+			if(actionUser.equals(targetUser)) { //For self password change remove parameters that indicates changing password in behalf of subordinates
+				redirectUrl ="redirect:"+redirectUrl+".jsp";
+			}
 			message = updateUser(userId, actionUser, targetUser, lastName, firstName, middleName, oldPassword,
 					newPassword, verifyPassword, targetLevel, targetBranch);
 		}

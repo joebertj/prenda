@@ -21,12 +21,12 @@ public class LanguageSelector {
 	@Autowired
 	LocaleResolver localeResolver;
 
-	@RequestMapping(value = "common/Language.htm", method = RequestMethod.GET)
+	@RequestMapping(value = "public/Language.htm", method = RequestMethod.GET)
 	private String set(HttpServletRequest request, HttpServletResponse response, ModelMap map, Locale locale,
 			@RequestParam("referer") String redirectUrl, @RequestParam("lang") String lang) {
 		localeResolver.setLocale(request, response, locale);
 		int idx = redirectUrl.indexOf("/prenda/");
-		int idxC = redirectUrl.indexOf("/prenda/common/");
+		int idxC = redirectUrl.indexOf("/prenda/public/");
 		/*
 		 * int idxA = redirectUrl.indexOf("/prenda/admin/"); int idxU =
 		 * redirectUrl.indexOf("/prenda/customer/"); int idxO =

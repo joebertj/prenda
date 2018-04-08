@@ -12,7 +12,7 @@
 		</TR>
 		<TR>
 			<TD valign=top></TD>
-			<TD align=center>
+			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 			<FORM method="post" action="ActivateOwner.htm">
 				<INPUT type="hidden" name="pass" value="">

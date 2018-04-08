@@ -10,8 +10,8 @@
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD valign=top><%@include file="menu.jsp"%></TD>
-			<TD align=center>
+			<TD width="200"><%@include file="../common/menu.jsp"%></TD>
+			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 <jsp:useBean id="cashpos" class="com.prenda.service.CashPositionService"/>
 <jsp:setProperty name="cashpos" property="level" value="${user.level}"/>

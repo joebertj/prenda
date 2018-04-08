@@ -11,15 +11,15 @@
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD valign=top><%@include file="menu.jsp"%></TD>
-			<TD align=center>
+			<TD width="200"><%@include file="../common/menu.jsp"%></TD>
+			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 <c:if test="${param.level==9}">
 	<sql:query var="admin" dataSource="${prenda}">
 	SELECT count(level) as numlvl FROM users WHERE level=9
 	</sql:query>
 	<c:if test="${admin.rows[0].numlvl==1}">
-		<c:redirect url="userlist.jsp?msg=At least one admin must be present">
+		<c:redirect url="../common/userlist.jsp?msg=At least one admin must be present">
 		</c:redirect>
 	</c:if>
 </c:if>

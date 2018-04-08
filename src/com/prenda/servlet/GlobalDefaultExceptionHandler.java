@@ -13,7 +13,7 @@ import com.prenda.helper.KeyUtil;
 @ControllerAdvice
 class GlobalDefaultExceptionHandler {
 
-	public static final String DEFAULT_ERROR_VIEW = "common/error";
+	public static final String DEFAULT_ERROR_VIEW = "public/error";
 
 	@ExceptionHandler(value = Exception.class)
 	public ModelAndView defaultErrorHandler(HttpServletRequest request, Exception e) throws Exception {

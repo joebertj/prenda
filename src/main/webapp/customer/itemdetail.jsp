@@ -12,7 +12,7 @@
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
-			<TD align=center>
+			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 <sql:query var="testredeem" dataSource="${prenda}">
 SELECT count(pid) as numid FROM redeem

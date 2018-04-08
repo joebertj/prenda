@@ -13,7 +13,7 @@
 		</TR>
 		<TR>
 			<TD valign=top></TD>
-			<TD align=center>
+			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 			<FORM method="post" action="RegisterOwner.htm">
 				<INPUT type="hidden" name="referer" value="register/activate">

@@ -2,22 +2,38 @@ package com.prenda.helper;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.prenda.Mode;
+import com.prenda.servlet.RegisterOwner;
 
 public class GithubIssue {
 
 	private static Logger log = Logger.getLogger(GithubIssue.class);
+	
+	private Integer installId;
+	private String token;
+	
+	public GithubIssue()  {
+		Properties props = new Properties();
+		try {
+			props.load(RegisterOwner.class.getResourceAsStream("/env.properties"));
+			installId = Integer.parseInt(props.getProperty("github.install"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public int create(String title, String body, String username, String repo, String[] labels, String[] assignees,
 			int tokenType, String token) {
@@ -56,7 +72,7 @@ public class GithubIssue {
 					conn.setRequestProperty("Authorization", "Basic " + encoded);
 				} else if (tokenType == Mode.JWT) { // JSON Web Token
 					//if (authenticate()) {
-						token = getToken(120193);
+						token = getToken();
 						conn.setRequestProperty("Authorization", "Token " + token);
 					//}
 				}
@@ -64,15 +80,15 @@ public class GithubIssue {
 				wr.write(postData);
 				int responseCode = conn.getResponseCode();
 				log.info("Response Code : " + responseCode);
-				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-				String inputLine;
-				StringBuffer response = new StringBuffer();
-				while ((inputLine = in.readLine()) != null) {
-					response.append(inputLine);
-				}
-				in.close();
-				log.info(response.toString());
 				if (responseCode == 201) {
+					BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+					String inputLine;
+					StringBuffer response = new StringBuffer();
+					while ((inputLine = in.readLine()) != null) {
+						response.append(inputLine);
+					}
+					in.close();
+					log.info(response.toString());
 					JSONObject myResponse = new JSONObject(response.toString());
 					issue = myResponse.getInt("number");
 					log.info("issue: " + issue);
@@ -84,10 +100,9 @@ public class GithubIssue {
 		return issue;
 	}
 
-	private String getToken(Integer id) {
-		String token = "";
+	private String getToken() {
 		try {
-			String request = "https://api.github.com/installations/" + id + "/access_tokens";
+			String request = "https://api.github.com/installations/" + installId + "/access_tokens";
 			log.info(request);
 			URL url = new URL(request);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -97,15 +112,15 @@ public class GithubIssue {
 			conn.setRequestProperty("Authorization", "Bearer " + KeyUtil.getJws());
 			int responseCode = conn.getResponseCode();
 			log.info("Response Code : " + responseCode);
-			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = in.readLine()) != null) {
-				response.append(inputLine);
-			}
-			in.close();
-			log.info(response.toString());
 			if (responseCode == 201) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				in.close();
+				log.info(response.toString());
 				JSONObject myResponse = new JSONObject(response.toString());
 				token = myResponse.getString("token");
 				log.info("token: " + token);
@@ -116,34 +131,37 @@ public class GithubIssue {
 		return token;
 	}
 
-	protected boolean authenticate() {
-		boolean auth = false;
+	protected String getRepo() {
+		String name ="";
 		try {
-			String request = "https://api.github.com/app";
+			String request = "https://api.github.com/installations/" + installId + "/repositories";
 			log.info(request);
 			URL url = new URL(request);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setInstanceFollowRedirects(false);
 			conn.setRequestMethod("GET");
 			conn.setRequestProperty("Accept", "application/vnd.github.machine-man-preview+json");
-			conn.setRequestProperty("Authorization", "Bearer " + KeyUtil.getJws());
+			conn.setRequestProperty("Authorization", "Token " + token);
 			int responseCode = conn.getResponseCode();
 			log.info("Response Code : " + responseCode);
-			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = in.readLine()) != null) {
-				response.append(inputLine);
-			}
-			in.close();
-			log.info(response.toString());
 			if (responseCode == 200) {
-				auth = true;
+				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				in.close();
+				log.info(response.toString());
+				JSONObject myResponse = new JSONObject(response.toString());
+				JSONObject repo = (JSONObject) myResponse.getJSONArray("repositories").get(0);
+				repo.getString("name");
+				log.info("name: " + name);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return auth;
+		return name;
 	}
 
 	protected boolean exists(String title, String username, String repo) {
@@ -158,15 +176,15 @@ public class GithubIssue {
 			conn.setRequestMethod("GET");
 			int responseCode = conn.getResponseCode();
 			log.info("Response Code : " + responseCode);
-			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = in.readLine()) != null) {
-				response.append(inputLine);
-			}
-			in.close();
-			log.info(response.toString());
 			if (responseCode == 200) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				in.close();
+				log.info(response.toString());
 				JSONObject myResponse = new JSONObject(response.toString());
 				int count = myResponse.getInt("total_count");
 				log.info("total_count: " + count);
@@ -191,15 +209,15 @@ public class GithubIssue {
 			conn.setRequestMethod("GET");
 			int responseCode = conn.getResponseCode();
 			log.info("Response Code : " + responseCode);
-			BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-			while ((inputLine = in.readLine()) != null) {
-				response.append(inputLine);
-			}
-			in.close();
-			log.info(response.toString());
 			if (responseCode == 200) {
+				BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				in.close();
+				log.info(response.toString());
 				JSONArray myResponse = new JSONArray(response.toString());
 				JSONObject object = myResponse.getJSONObject(1);
 				if(object.length()>0) {

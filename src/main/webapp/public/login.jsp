@@ -15,7 +15,7 @@
 			<TABLE border="1">
 				<TR>
 					<TH colspan="2">
-					Login
+					<spring:message code="common.login" text="Login"/>
  					</TH>
 				</TR>
 				<TR>
@@ -32,11 +32,12 @@
 					</td>
 				</tr>
 				<TR>
-					<TD align="center" colspan="2"><INPUT type="submit" value="Login"></TD>
+					<TD align="center" colspan="2"><INPUT type="submit" value="<spring:message code="common.login" text="Login"/>"></TD>
 				</TR>
 			</TABLE>
 			</FORM>
-			<a href="${contextPath}/register/newuser.jsp"><spring:message code="common.register" text="${param.lang} "/></a>
+			<a href="${contextPath}/register/forgot.jsp"><spring:message code="common.forgot" text="Forgot Password?"/></a>
+			<a href="${contextPath}/register/newuser.jsp"><spring:message code="common.register" text="New User?"/></a>
 			</TD>
 		</TR>
 	</TBODY>

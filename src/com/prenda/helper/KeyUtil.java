@@ -36,21 +36,22 @@ import io.jsonwebtoken.SignatureAlgorithm;
 public class KeyUtil {
 	
 	private static Logger log = Logger.getLogger(KeyUtil.class);
+	
+	private static String jws;
 
 	public static String getJws() {
-		String jws="";
 		try {
 			Properties props = new Properties();
 			props.load(RegisterOwner.class.getResourceAsStream("/env.properties"));
 			String path = props.getProperty("github.pem");
+			String issuer = props.getProperty("github.app");
 			Path p = Paths.get(path);
 			if(Files.notExists(p)) {
 				download(p);
 			}
-			GregorianCalendar gc = new GregorianCalendar();
-			gc.setTimeZone(TimeZone.getTimeZone("UTC"));
+			GregorianCalendar gc = (GregorianCalendar) GregorianCalendar.getInstance(TimeZone.getTimeZone("UTC"));
 			JwtBuilder builder = Jwts.builder();
-			builder = builder.setIssuer("10575");
+			builder = builder.setIssuer(issuer);
 			builder = builder.setIssuedAt(gc.getTime());
 			gc.add(GregorianCalendar.MINUTE, 1);
 			builder = builder.setExpiration(gc.getTime());
@@ -64,8 +65,9 @@ public class KeyUtil {
 
 	private static void download(Path path) {
 		try {
-			String filename = path.getFileName().toString();
-			String request = "https://ex.kenchlightyear.com/" +  filename;
+			Properties props = new Properties();
+			props.load(RegisterOwner.class.getResourceAsStream("/env.properties"));
+			String request = props.getProperty("github.pemUrl");
 			log.info(request);
 			URL url = new URL(request);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -73,15 +75,17 @@ public class KeyUtil {
 			conn.setRequestMethod("GET");
 			int responseCode = conn.getResponseCode();
 			log.info("Response Code : " + responseCode);
-			InputStream in = conn.getInputStream();
-			OutputStream outputStream = new FileOutputStream(path.toString());
-			byte[] buffer = new byte[2048];
-			int length;
-			while ((length = in.read(buffer)) != -1) {
-				outputStream.write(buffer, 0, length);
+			if(responseCode == 200) {
+				InputStream in = conn.getInputStream();
+				OutputStream outputStream = new FileOutputStream(path.toString());
+				byte[] buffer = new byte[2048];
+				int length;
+				while ((length = in.read(buffer)) != -1) {
+					outputStream.write(buffer, 0, length);
+				}
+				in.close();
+				outputStream.close();
 			}
-			in.close();
-			outputStream.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

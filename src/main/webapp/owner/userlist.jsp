@@ -11,8 +11,8 @@
 			<TD><%@include file="../common/navi.jsp"%></TD>
 		</TR>
 		<TR>
-			<TD valign=top><%@include file="menu.jsp"%></TD>
-			<TD align=center>
+			<TD width="200"><%@include file="../common/menu.jsp"%></TD>
+			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
 <jsp:useBean id="pageS" class="com.prenda.service.PageService" />
 <jsp:setProperty name="pageS" property="branchId" value="${user.branchId}" />
@@ -41,12 +41,12 @@ AND users.archive = false
 <br/>
 			Page 
 <c:if test="${pagenum>1}">
-				<A href='${contextPath}/owner/userlist.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
+				<A href='${contextPath}/common/userlist.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
 			</c:if>
 <c:forEach var="i" begin="1" end="${pages}">
 				<c:choose>
 					<c:when test="${i!=pagenum}">
-						<A href='${contextPath}/owner/userlist.jsp?pagenum=<c:out value="${i}"/>'><c:out
+						<A href='${contextPath}/common/userlist.jsp?pagenum=<c:out value="${i}"/>'><c:out
 							value="${i}" /></A>
 					</c:when>
 					<c:otherwise>
@@ -55,7 +55,7 @@ AND users.archive = false
 				</c:choose>
 			</c:forEach>
 <c:if test="${pagenum<(pages-(adjust/perpage))}">
-				<A href='${contextPath}/owner/userlist.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
+				<A href='${contextPath}/common/userlist.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
 			</c:if>
 <sql:query var="userlist" dataSource="${prenda}">
 SELECT uid,username,level,branch,users.archive,name,lastname,firstname,middlename FROM users
