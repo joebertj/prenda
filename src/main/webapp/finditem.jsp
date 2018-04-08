@@ -1,4 +1,4 @@
-<%@include file="../common/header.jsp"%>
+<%@include file="../public/header.jsp"%>
 </head>
 <body>
 
@@ -11,7 +11,7 @@
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="../common/msg.jsp"%>
+<%@include file="../public/msg.jsp"%>
 			<FORM method="post" action="CheckItem">
 			<TABLE border="1">
 				<TR>

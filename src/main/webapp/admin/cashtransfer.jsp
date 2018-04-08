@@ -1,4 +1,4 @@
-<%@include file="../common/header.jsp"%>
+<%@include file="../public/header.jsp"%>
 </head>
 <body>
 
@@ -13,7 +13,7 @@
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="../common/msg.jsp"%>
+<%@include file="../public/msg.jsp"%>
 <sql:query var="branches" dataSource="${prenda}">
 SELECT name,branchid FROM branch
 </sql:query>

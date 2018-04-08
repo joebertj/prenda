@@ -1,4 +1,4 @@
-<%@include file="../common/header.jsp"%>
+<%@include file="../public/header.jsp"%>
 </head>
 <body>
 
@@ -13,7 +13,7 @@
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="../common/msg.jsp"%>
+<%@include file="../public/msg.jsp"%>
 <c:choose>
 	<c:when test="${param.pid>0}">
 		<c:set var="pid" value="${param.pid}"/>

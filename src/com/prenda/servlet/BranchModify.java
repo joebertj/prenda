@@ -60,7 +60,7 @@ import com.prenda.service.UserService;
 		String redirectURL=null;
 				
 		if(session.isNew()){
-			redirectURL = "/common/login.jsp";
+			redirectURL = "/public/login.jsp";
 			response.sendRedirect(redirectURL);
 		}else{ 
 			Authentication auth = SecurityContextHolder.getContext()
@@ -77,7 +77,7 @@ import com.prenda.service.UserService;
 			Integer level = ls.getId(role.replace("ROLE_", ""));
 			log.info("role: " + role + " level: " + level);
 			if(authenticated == null){
-				redirectURL = "/common/login.jsp?msg=You have not logged in yet";
+				redirectURL = "/public/login.jsp?msg=You have not logged in yet";
 				response.sendRedirect(redirectURL);
 			}else if(level==Level.ADMIN){
 				continuePost(request, response, authenticated, level);
@@ -99,7 +99,7 @@ import com.prenda.service.UserService;
 							if (rs.first()) {
 								continuePost(request, response, authenticated, level);
 							} else {
-								redirectURL = "/common/login.jsp?msg=You do not own the selected branch";
+								redirectURL = "/public/login.jsp?msg=You do not own the selected branch";
 								response.sendRedirect(redirectURL);
 							}
 						} else if (modtype == 2 && level==Level.OWNER) {
@@ -112,7 +112,7 @@ import com.prenda.service.UserService;
 							if (rs.first()) {
 								continuePost(request, response, authenticated, level);
 							} else {
-								redirectURL = "/common/login.jsp?msg=You do not own the selected branch";
+								redirectURL = "/public/login.jsp?msg=You do not own the selected branch";
 								response.sendRedirect(redirectURL);
 							}
 
@@ -126,11 +126,11 @@ import com.prenda.service.UserService;
 								if(branchid==rs.getInt(1)){
 									continuePost(request, response, authenticated, level);
 								}else{
-									redirectURL = "/common/login.jsp?msg=You are not the manager of this branch";
+									redirectURL = "/public/login.jsp?msg=You are not the manager of this branch";
 									response.sendRedirect(redirectURL);
 								}
 							} else {
-								redirectURL = "/common/login.jsp?msg=You are not the manager of this branch";
+								redirectURL = "/public/login.jsp?msg=You are not the manager of this branch";
 								response.sendRedirect(redirectURL);
 							}
 						}
@@ -143,10 +143,10 @@ import com.prenda.service.UserService;
 					continuePost(request, response, authenticated, level);
 				}
 			}else if(level<Level.ADMIN){
-				redirectURL = "/common/login.jsp?msg=You are not an administrator";
+				redirectURL = "/public/login.jsp?msg=You are not an administrator";
 				response.sendRedirect(redirectURL);
 			}else{
-				redirectURL = "/common/login.jsp?msg=You don't have access rights";
+				redirectURL = "/public/login.jsp?msg=You don't have access rights";
 				response.sendRedirect(redirectURL);
 			}
 		}

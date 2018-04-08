@@ -9,7 +9,7 @@
 	
 	<global-method-security secured-annotations="enabled" /> 
 	 
-	<http pattern="/common/**" security="none"/>
+	<http pattern="/public/**" security="none"/>
 	<http pattern="/customer/**" security="none"/>
 	<http pattern="/register/**" security="none"/>
 	<http pattern="/resources/**" security="none"/>
@@ -18,13 +18,14 @@
 		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
 		<intercept-url pattern="/owner/**" access="hasAnyRole('ROLE_OWNER','ROLE_ADMIN')"/>
 		<intercept-url pattern="/manage/**" access="hasAnyRole('ROLE_MANAGER','ROLE_OWNER','ROLE_ADMIN')"/>
+		<intercept-url pattern="/common/**" access="hasAnyRole('ROLE_ENCODER','ROLE_LIAISON','ROLE_MANAGER','ROLE_OWNER','ROLE_ADMIN')"/>
 		<intercept-url pattern="/**" access="hasAnyRole('ROLE_ENCODER','ROLE_LIAISON','ROLE_MANAGER','ROLE_OWNER','ROLE_ADMIN')"/>
-		<form-login login-page="/common/login.jsp" authentication-failure-url="/common/login.jsp?msg=No+such+user+or+bad+password!"
+		<form-login login-page="/public/login.jsp" authentication-failure-url="/public/login.jsp?msg=No+such+user+or+bad+password!"
 			always-use-default-target="false" 
 			username-parameter="user" password-parameter="pass" 
 			authentication-success-handler-ref="successHandler" />
-		<logout logout-success-url="/common/logout.jsp" />
-		<access-denied-handler error-page="/common/login.jsp?msg=Insufficient+credentials!Please+use+navigation+to+access+functions+appropriate+to+your+role."/>
+		<logout logout-success-url="/public/logout.jsp" />
+		<access-denied-handler error-page="/public/login.jsp?msg=Insufficient+credentials!Please+use+navigation+to+access+functions+appropriate+to+your+role."/>
 		<remember-me key="559be09a34b6d5f135fef9ef69da31b6"/>
 	</http>
 	

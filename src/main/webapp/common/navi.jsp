@@ -1,4 +1,4 @@
-<%@include file="datasource.jsp"%>
+<%@include file="../public/datasource.jsp"%>
 <sec:authentication property="principal.username" var="authenticated"/>
 <sec:authorize access="isAuthenticated()"> 
 <jsp:useBean id="user" class="com.prenda.service.UserService"/>

@@ -1,4 +1,4 @@
-<%@include file="../common/datasource.jsp"%>
+<%@include file="datasource.jsp"%>
 <table class="navi" style="width:100%;">
 	<tr>
 		<td align="right">

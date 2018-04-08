@@ -1,4 +1,4 @@
-<%@include file="../common/header.jsp"%>
+<%@include file="../public/header.jsp"%>
 </head>
 <body>
 
@@ -12,7 +12,7 @@
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="../common/msg.jsp"%>
+<%@include file="../public/msg.jsp"%>
 <jsp:useBean id="cashpos" class="com.prenda.service.CashPositionService"/>
 <jsp:setProperty name="cashpos" property="level" value="${user.level}"/>
 <jsp:setProperty name="cashpos" property="branchId" value="${user.branchId}"/>

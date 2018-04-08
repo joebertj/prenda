@@ -1,4 +1,4 @@
-<%@include file="../common/header.jsp"%>
+<%@include file="../public/header.jsp"%>
 <script type="text/javascript" src="${contextPath}/resources/js/pawn.js"></script>
 </head>
 <body>
@@ -14,7 +14,7 @@
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="../common/msg.jsp"%>
+<%@include file="../public/msg.jsp"%>
 <sql:query var="page" dataSource="${prenda}">
 SELECT foreclose FROM page WHERE pageid=<c:out value="${user.branchId}"/>
 </sql:query>

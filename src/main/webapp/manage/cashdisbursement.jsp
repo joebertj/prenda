@@ -1,4 +1,4 @@
-<%@include file="../common/header.jsp"%>
+<%@include file="../public/header.jsp"%>
 <script type="text/javascript" src="${contextPath}/resources/js/dynamicrow.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/prototype-1.4.0.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/scriptaculous.js"></script>
@@ -18,7 +18,7 @@
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="../common/msg.jsp"%>
+<%@include file="../public/msg.jsp"%>
 			<form name="disburse" action="cashdisbursementdetail.jsp" method="post">
 			<input type="hidden" name="branch" value="${user.branchId}"/>
 			<TABLE>

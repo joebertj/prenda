@@ -47,14 +47,14 @@ import com.prenda.service.UserService;
 		HttpSession session=request.getSession(true);
 		String redirectURL;
 		if(session.isNew()){
-			redirectURL = "/common/login.jsp";
+			redirectURL = "/public/login.jsp";
 			response.sendRedirect(redirectURL);
 		}else{ 
 			String authenticated=(String) session.getAttribute("authenticated");
 			UserService us = new UserService();
 			int level= us.getUser(authenticated).getLevel();
 			if(authenticated == null){
-				redirectURL = "/common/login.jsp?msg=You have not logged in yet";
+				redirectURL = "/public/login.jsp?msg=You have not logged in yet";
 				response.sendRedirect(redirectURL);
 			}else if(level==9){
 				continuePost(request, response);
@@ -74,11 +74,11 @@ import com.prenda.service.UserService;
 						if(rs.next()){
 							continuePost(request, response);
 						}else{
-							redirectURL = "/common/login.jsp?msg=You do not own either the sending or receiving branch";
+							redirectURL = "/public/login.jsp?msg=You do not own either the sending or receiving branch";
 							response.sendRedirect(redirectURL);
 						}
 					}else{
-						redirectURL = "/common/login.jsp?msg=You do not own either the sending or receiving branch";
+						redirectURL = "/public/login.jsp?msg=You do not own either the sending or receiving branch";
 						response.sendRedirect(redirectURL);
 					}
 				}catch (SQLException ex) {
@@ -87,10 +87,10 @@ import com.prenda.service.UserService;
 	            	log.info("VendorError: " + ex.getErrorCode());
 				}
 			}else if(level<8){
-				redirectURL = "/common/login.jsp?msg=You are not an owner or administrator";
+				redirectURL = "/public/login.jsp?msg=You are not an owner or administrator";
 				response.sendRedirect(redirectURL);
 			}else{
-				redirectURL = "/common/login.jsp?msg=You don't have access rights";
+				redirectURL = "/public/login.jsp?msg=You don't have access rights";
 				response.sendRedirect(redirectURL);
 			}
 		}

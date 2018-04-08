@@ -1,4 +1,4 @@
-<%@include file="../common/header.jsp"%>
+<%@include file="../public/header.jsp"%>
 <script type="text/javascript" src="${contextPath}/resources/js/pawn.js"></script>
 </head>
 <body>
@@ -14,7 +14,7 @@
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="../common/msg.jsp"%>
+<%@include file="../public/msg.jsp"%>
 <c:set var="perpage" value="${10}"/><!--page.rows[0].auction-->
 <sql:query var="pageable" dataSource="${prenda}">
 SELECT count(pawn.pid) as numid FROM pawn

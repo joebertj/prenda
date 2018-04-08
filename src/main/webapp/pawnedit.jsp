@@ -1,4 +1,4 @@
-<%@include file="../common/header.jsp"%>
+<%@include file="../public/header.jsp"%>
 <script type="text/javascript" src="${contextPath}/resources/js/pawn.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/prototype-1.4.0.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/scriptaculous.js"></script>
@@ -22,7 +22,7 @@
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="../common/msg.jsp"%>
+<%@include file="../public/msg.jsp"%>
 <sql:query var="pawn" dataSource="${prenda}">
 SELECT * FROM pawn 
 LEFT JOIN customer ON pawn.nameid=customer.id

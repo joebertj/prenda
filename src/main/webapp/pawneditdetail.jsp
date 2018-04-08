@@ -1,4 +1,4 @@
-<%@include file="../common/header.jsp"%>
+<%@include file="../public/header.jsp"%>
 </head>
 <body>
 
@@ -14,7 +14,7 @@
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
 
-<%@include file="../common/msg.jsp"%>
+<%@include file="../public/msg.jsp"%>
 			<FORM name="pawn" method="post" action="EditPawn">
 			<input type="hidden" name="pid" value="${param.pid}"/>
 			<input type="hidden" name="cdate" value="${param.cdate}"/>

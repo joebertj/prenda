@@ -1,4 +1,4 @@
-<%@include file="../common/header.jsp"%>
+<%@include file="../public/header.jsp"%>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body>
@@ -9,12 +9,12 @@
 		<TR>
 			<TD><IMG border="0" src="${contextPath}/resources/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="../common/navipub.jsp"%></TD>
+			<TD><%@include file="../public/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top></TD>
 			<TD align=center>
-<%@include file="../common/msg.jsp"%>
+<%@include file="../public/msg.jsp"%>
 			<FORM method="post" action="RegisterOwner.htm">
 				<INPUT type="hidden" name="referer" value="register/activate">
 				<INPUT type="hidden" name="pass" value="">

@@ -1,4 +1,4 @@
-<%@include file="../common/header.jsp"%>
+<%@include file="../public/header.jsp"%>
 </head>
 <body>
 
@@ -8,12 +8,12 @@
 		<TR>
 			<TD><IMG border="0" src="${contextPath}/resources/img/logo.png" width="135"
 				height="123"></TD>
-			<TD><%@include file="../common/navipub.jsp"%></TD>
+			<TD><%@include file="../public/navi.jsp"%></TD>
 		</TR>
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="../common/msg.jsp"%>
+<%@include file="../public/msg.jsp"%>
 <c:set var="perpage" value="${10}"/><!--page.rows[0].pullout-->
 <sql:query var="pageable" dataSource="${prenda}">
 SELECT count(pawn.pid) as numid FROM pawn

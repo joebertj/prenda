@@ -1,4 +1,4 @@
-<%@include file="../common/header.jsp"%>
+<%@include file="../public/header.jsp"%>
 </head>
 <body>
 
@@ -12,8 +12,8 @@
 		<TR>
 			<TD valign=top><%@include file="menu.jsp"%></TD>
 			<TD align=center>
-<%@include file="../common/msg.jsp"%>
-<%@include file="../common/credits.jsp"%>
+<%@include file="../public/msg.jsp"%>
+<%@include file="../public/credits.jsp"%>
 </TD>
 		</TR>
 	</TBODY>

@@ -117,6 +117,6 @@ public class RegisterOwner {
 			}
 		}
 		map.addAttribute("msg", message);
-		return "redirect:../common/login.jsp";
+		return "redirect:../public/login.jsp";
 	}
 }
