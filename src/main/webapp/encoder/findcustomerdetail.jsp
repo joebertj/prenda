@@ -13,24 +13,22 @@
 		<TR>
 			<TD valign="top" width="200"><%@include file="../common/menu.jsp"%></TD>
 			<TD valign="top" align="center">
-
 <%@include file="../public/msg.jsp"%>
+<jsp:useBean id="customers" class="com.prenda.service.CustomerService" />
+<jsp:setProperty name="customers" property="lastName" value="${param.lastName}"/>
+<jsp:setProperty name="customers" property="firstName" value="${param.firstName}"/>
+<jsp:setProperty name="customers" property="middleName" value="${param.middleName}"/>
 <jsp:useBean id="pageS" class="com.prenda.service.PageService" />
 <jsp:setProperty name="pageS" property="branchId" value="${user.branchId}" />
 <c:set var="perpage" value="${pageS.customer}"/>
-<sql:query var="customer" dataSource="${prenda}">
-SELECT count(id) as numid FROM customer 
-WHERE last_name like '%<c:out value="${param.customer}" />%'
-OR first_name like '%<c:out value="${param.customer}" />%'
-OR middle_name like '%<c:out value="${param.customer}" />%'
-<c:if test="${user.level<7}">
-AND archive=0
-</c:if>
-</sql:query>
-<c:set var="numid" value="${pageable.rows[0].numid}" />
+<jsp:setProperty name="customers" property="pageSize" value="${perpage}"/>
+<jsp:setProperty name="customers" property="pageNum" value="${param.pagenum}"/>
+<c:set var="numid" value="${customers.count}" />
 <c:set var="pages" value="${numid/perpage}" />
 <c:set var="adjust" value="${numid % perpage}" />
-<c:set var="pages" value="${pages-(adjust/perpage)+1}" />
+<c:if test="${adjust>0}">
+	<c:set var="pages" value="${pages+1}" />
+</c:if>
 <c:set var="pagenum" value="${param.pagenum}" />
 <c:if test="${pagenum==null || pagenum<1 || pagenum>pages}">
 				<c:set var="pagenum" value="1" />
@@ -67,7 +65,7 @@ AND archive=0
 					<TH>Archived</TH>
 					</c:if>
 				</TR>
-				<c:forEach var="row" items="${customers}" varStatus="line">
+				<c:forEach var="row" items="${customers.customers}" varStatus="line">
 					<c:choose>
 						<c:when test="${line.count % 2 == 1}">
 							<TR bgcolor="#99CCFF">

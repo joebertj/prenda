@@ -77,7 +77,7 @@ public class CheckPawn {
 		int bcode = generator.nextInt(5) + 1;
 		long nameid = 0;
 		CustomerService cs = new CustomerService();
-		Customer customer = cs.getCustomerbyNames(lname, fname, mname);
+		Customer customer = cs.getCustomerbyName(lname, fname, mname);
 		if (customer.getId() > 0) {
 			nameid = customer.getId().intValue();
 		} else {

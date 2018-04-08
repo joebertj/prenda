@@ -14,8 +14,7 @@
 			<TD valign="top" width="200"><%@include file="../common/menu.jsp"%></TD>
 			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
-			<FORM method="post" action="../FindCustomer.htm">
-				<INPUT type="hidden" name="referer" value="findcustomerdetail">
+			<FORM method="GET" action="findcustomerdetail.jsp">
 			<TABLE border="1">
 				<TR>
 					<TH colspan="2">Find Customer</TH>

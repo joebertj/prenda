@@ -14,21 +14,18 @@
 			<TD valign="top" width="200"><%@include file="../common/menu.jsp"%></TD>
 			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
+<jsp:useBean id="customers" class="com.prenda.service.CustomerService" />
 <jsp:useBean id="pageS" class="com.prenda.service.PageService" />
 <jsp:setProperty name="pageS" property="branchId" value="${user.branchId}" />
 <c:set var="perpage" value="${pageS.customer}"/>
-<sql:query var="pageable" dataSource="${prenda}">
-SELECT count(id) as numid FROM customer
-<c:if test="${user.level<7}">
-WHERE archive=0
-</c:if>
-</sql:query>
-<c:set var="numid" value="${pageable.rows[0].numid}" />
+<jsp:setProperty name="customers" property="pageSize" value="${perpage}"/>
+<jsp:setProperty name="customers" property="pageNum" value="${param.pagenum}"/>
+<c:set var="numid" value="${customers.count}" />
 <c:set var="pages" value="${numid/perpage}" />
 <c:set var="adjust" value="${numid % perpage}" />
-<c:if test="${adjust!=0}">
-				<c:set var="pages" value="${pages-(adjust/perpage)+1}" />
-			</c:if>
+<c:if test="${adjust>0}">
+	<c:set var="pages" value="${pages+1}" />
+</c:if>
 <c:set var="pagenum" value="${param.pagenum}" />
 <c:if test="${pagenum==null || pagenum<1 || pagenum>pages}">
 				<c:set var="pagenum" value="1" />
@@ -52,15 +49,6 @@ WHERE archive=0
 <c:if test="${pagenum<(pages-(adjust/perpage))}">
 				<A href='listcustomer.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
 			</c:if>
-<sql:query var="customer" dataSource="${prenda}">
-SELECT * FROM customer 
-<c:if test="${user.level<7}">
-WHERE archive=0
-</c:if>
-ORDER BY last_name
-LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
-					value="${perpage}" />
-			</sql:query>
 			<TABLE border="1">
 				<TR>
 					<TH colspan="100%">Customers</TH>
@@ -74,7 +62,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 					<TH>Archived</TH>
 					</c:if>
 				</TR>
-				<c:forEach var="row" items="${customer.rows}" varStatus="line">
+				<c:forEach var="row" items="${customers.allCustomers}" varStatus="line">
 					<c:choose>
 						<c:when test="${line.count % 2 == 1}">
 							<TR bgcolor="#99CCFF">
@@ -83,18 +71,18 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 							<TR>
 						</c:otherwise>
 					</c:choose>
-					<TD><c:out value="${row.last_name}" /></TD>
-					<TD><c:out value="${row.first_name}" /></TD>
-					<TD><c:out value="${row.middle_name}" /></TD>
-					<TD><c:out value="${row.address}" /></TD>
+					<TD><c:out value="${row.lastName}" /></TD>
+					<TD><c:out value="${row.firstName}" /></TD>
+					<TD><c:out value="${row.middleName}" /></TD>
+					<TD><c:out value="${row.address}" />
 					<c:if test="${user.level>=7}">
 					<TD>
 					<c:choose>
-						<c:when test="${row.archive==false}">
-						No
+						<c:when test="${row.isArchive()}">
+						Yes
 						</c:when>
 						<c:otherwise>
-						Yes
+						No
 						</c:otherwise>
 					</c:choose>
 					</TD>
@@ -102,9 +90,9 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 					<TD>
 					<FORM method="post" action="editcustomer.jsp">
 					<INPUT name="cid" type="hidden" value="${row.id}">
-					<INPUT name="clname" type="hidden" value="${row.last_name}">
-					<INPUT name="cfname" type="hidden" value="${row.first_name}">
-					<INPUT name="cmname" type="hidden" value="${row.middle_name}"> 
+					<INPUT name="clname" type="hidden" value="${row.lastName}">
+					<INPUT name="cfname" type="hidden" value="${row.firstName}">
+					<INPUT name="cmname" type="hidden" value="${row.middleName}"> 
 					<INPUT name="cadd" type="hidden" value="${row.address}">
 					<INPUT name="modtype" type="submit" value="Edit">
 					</FORM>
@@ -113,9 +101,9 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 					<TD>
 					<FORM method="post" action="delcustomer.jsp">
 					<INPUT name="cid" type="hidden" value="${row.id}">
-					<INPUT name="clname" type="hidden" value="${row.last_name}">
-					<INPUT name="cfname" type="hidden" value="${row.first_name}">
-					<INPUT name="cmname" type="hidden" value="${row.middle_name}"> 
+					<INPUT name="clname" type="hidden" value="${row.lastName}">
+					<INPUT name="cfname" type="hidden" value="${row.firstName}">
+					<INPUT name="cmname" type="hidden" value="${row.middleName}"> 
 					<INPUT name="cadd" type="hidden" value="${row.address}">
 					<INPUT name="modtype" type="submit" value="Archive">
 					</FORM>

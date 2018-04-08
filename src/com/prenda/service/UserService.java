@@ -12,10 +12,8 @@ import java.util.ListIterator;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.prenda.Level;
@@ -40,6 +38,7 @@ public class UserService {
 	private String lastName;
 	private String firstName;
 	private String middleName;
+	
 	private List<Users> users;
 	private List<Users> allUsers;
 	
@@ -194,6 +193,7 @@ public class UserService {
 		criteria.setFirstResult((pageNum-1)*pageSize);
 		criteria.setMaxResults(pageSize);
 		allUsers = criteria.list();
+		count = allUsers.size();
 		return allUsers;
 	}
 	
@@ -203,6 +203,7 @@ public class UserService {
 				.findByCriteria(Restrictions.and(
 						Restrictions.eq("branch", branchId),
 						Restrictions.eq("archive", false)));
+		count = users.size();
 		return users;
 	}
 	

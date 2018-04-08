@@ -41,7 +41,7 @@ import com.prenda.service.UserService;
 	 * 
 	 */
 	private static final long serialVersionUID = 2820267674260545204L;
-	private static Logger log =Logger.getLogger(BranchModify.class);
+	private static Logger log = Logger.getLogger(BranchModify.class);
 
 	/**
 	 * 

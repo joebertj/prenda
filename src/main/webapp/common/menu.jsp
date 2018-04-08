@@ -24,7 +24,7 @@
     <td>
 
 <a href="${contextPath}/common/userlist.jsp">Manage Users</a> <br/> 
-<a href="${contextPath}/manage/listcustomer.jsp">Manage Customers</a> <br/>
+<a href="${contextPath}/common/listcustomer.jsp">Manage Customers</a> <br/>
 <a href="${contextPath}/manage/changebranch.jsp">Branch Settings</a> <br/>
 <a href="${contextPath}/BranchSettings.htm?branchid=<c:out value='${user.branchId}'/>">Rates, Carats and Page Settings</a> <br/> 
 <c:if test="${user.level>7}">
