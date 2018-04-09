@@ -104,36 +104,42 @@ import com.prenda.service.UserService;
     		String tobranch="";
     		int f=(new Integer(request.getParameter("frombranch"))).intValue();
     		int t=(new Integer(request.getParameter("tobranch"))).intValue();
-    		float amount=(new Float(request.getParameter("amount"))).floatValue();
-    		pstmt = conn.prepareStatement("SELECT name from branch WHERE branchid=?");
+    		double amount=(new Double(request.getParameter("amount"))).floatValue();
+    		pstmt = conn.prepareStatement("SELECT name from branch WHERE branchid=?"); // get from branch id
     		pstmt.setInt(1,f);
     		rs=pstmt.executeQuery();
     		if(rs.first()){
     			frombranch=rs.getString(1);
     		}
-    		pstmt = conn.prepareStatement("SELECT name from branch WHERE branchid=?");
+    		pstmt = conn.prepareStatement("SELECT name from branch WHERE branchid=?"); // get to branch id
     		pstmt.setInt(1,t);
     		rs=pstmt.executeQuery();
     		if(rs.first()){
     			tobranch=rs.getString(1);
     		}
-    		pstmt = conn.prepareStatement("INSERT INTO journal VALUES (0,CURDATE(),12,?,?,?,0)");
+    		pstmt = conn.prepareStatement("UPDATE branch set balance=balance-? WHERE branchid=?"); //update from balance 
+    		pstmt.setDouble(1, amount);
+    		pstmt.setInt(2,f);
+    		pstmt.executeUpdate();
+    		pstmt = conn.prepareStatement("UPDATE branch set balance=balance+? WHERE branchid=?"); //update from balance 
+    		pstmt.setDouble(1, amount);
+    		pstmt.setInt(2,t);
+    		pstmt.executeUpdate();
+    		pstmt = conn.prepareStatement("INSERT INTO journal VALUES (0,CURDATE(),12,?,?,?,0)"); // add accounting entry 
     		String desc="Cash from " + frombranch;
     		pstmt.setInt(1,t);
     		pstmt.setString(2,desc);
-    		pstmt.setFloat(3,amount);
+    		pstmt.setDouble(3,amount);
     		pstmt.executeUpdate();
-    		pstmt = conn.prepareStatement("INSERT INTO journal VALUES (0,CURDATE(),13,?,?,?,0)");
+    		pstmt = conn.prepareStatement("INSERT INTO journal VALUES (0,CURDATE(),13,?,?,?,0)"); // add accounting entry 
     		desc="Cash to " + tobranch;
     		pstmt.setInt(1,f);
     		pstmt.setString(2,desc);
-    		pstmt.setFloat(3,amount);
+    		pstmt.setDouble(3,amount);
     		pstmt.executeUpdate();
-    		response.sendRedirect("admin/cashtransfer.jsp?msg=Cash amounting to Php "+amount+" successfully journalled");
-    	}catch (SQLException ex) {
-            log.info("SQLException: " + ex.getMessage());
-            log.info("SQLState: " + ex.getSQLState());
-            log.info("VendorError: " + ex.getErrorCode());
+    		response.sendRedirect("common/cashtransfer.jsp?msg=Cash amounting to Php "+amount+" successfully journalled");
+    	}catch (Exception e) {
+            e.printStackTrace();
 		}
     }
 }

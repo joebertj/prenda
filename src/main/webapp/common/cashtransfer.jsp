@@ -16,8 +16,10 @@
 <%@include file="../public/msg.jsp"%>
 <sql:query var="branches" dataSource="${prenda}">
 SELECT name,branchid FROM branch
+<c:if test="${user.level==8}">
 LEFT JOIN users ON branch.owner=users.uid 
 WHERE users.username="${authenticated}"
+</c:if>
 </sql:query>
 			<FORM method="post" action="cashtransferdetail.jsp">
 			<INPUT type="hidden" name="modtype" value="0">

@@ -87,7 +87,7 @@ import com.prenda.helper.DatabaseConnection;
     			pstmt2.setLong(2,branch);
     			pstmt2.executeUpdate();
     		}else{
-    			response.sendRedirect("cashtransfer.jsp?msg=Invalid account");
+    			response.sendRedirect("common/cashtransfer.jsp?msg=Invalid account");
     		}
     		HttpSession session=request.getSession(true);
     		String encoder=(String) session.getAttribute("authenticated");
@@ -95,7 +95,7 @@ import com.prenda.helper.DatabaseConnection;
     		pstmt.setInt(1,journalid);
     		pstmt.setString(2,encoder);
     		pstmt.executeUpdate();
-    		response.sendRedirect("cashtransfer.jsp?msg=Cash amounting to Php "+amount+" successfully transferred");
+    		response.sendRedirect("common/cashtransfer.jsp?msg=Cash amounting to Php "+amount+" successfully transferred");
     	}catch (SQLException ex) {
             log.info("SQLException: " + ex.getMessage());
             log.info("SQLState: " + ex.getSQLState());
