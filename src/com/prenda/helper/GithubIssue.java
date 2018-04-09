@@ -16,19 +16,17 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.prenda.Mode;
-import com.prenda.servlet.RegisterOwner;
 
 public class GithubIssue {
 
 	private static Logger log = Logger.getLogger(GithubIssue.class);
 	
 	private Integer installId;
-	private String token;
 	
 	public GithubIssue()  {
 		Properties props = new Properties();
 		try {
-			props.load(RegisterOwner.class.getResourceAsStream("/env.properties"));
+			props.load(GithubIssue.class.getResourceAsStream("/env.properties"));
 			installId = Integer.parseInt(props.getProperty("github.install"));
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -36,7 +34,7 @@ public class GithubIssue {
 	}
 
 	public int create(String title, String body, String username, String repo, String[] labels, String[] assignees,
-			int tokenType) {
+			int tokenType, String token) {
 		int issue = 0;
 		try {
 			if (!exists(title, username, repo)) {
@@ -98,6 +96,7 @@ public class GithubIssue {
 	}
 
 	private String getToken() {
+		String token = "";
 		log.info("installId: " + installId);
 		try {
 			String request = "https://api.github.com/installations/" + installId + "/access_tokens";
@@ -152,8 +151,8 @@ public class GithubIssue {
 				in.close();
 				log.info(response.toString());
 				JSONObject myResponse = new JSONObject(response.toString());
-				JSONObject repo = myResponse.getJSONArray("repositories").getJSONObject(0);
-				repo.getString("name");
+				JSONArray repo = myResponse.getJSONArray("repositories");
+				name = (String) repo.getJSONObject(0).get("name");
 				log.info("name: " + name);
 			}
 		} catch (Exception e) {

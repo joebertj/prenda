@@ -29,7 +29,7 @@ class GlobalDefaultExceptionHandler { // handles JAVA errors
 		String [] labels = {"bug"};
 		String [] assignees = {"joebertj"};
 		GithubIssue issue = new GithubIssue();
-		issue.create(url + " " + exception, stackTrace, "joebertj", "prenda", labels, assignees, Mode.JWT);
+		issue.create(url + " " + exception, stackTrace, "joebertj", "prenda", labels, assignees, Mode.JWT,"");
 		return mav;
 	}
 

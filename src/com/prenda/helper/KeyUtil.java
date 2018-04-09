@@ -19,16 +19,14 @@ import java.security.spec.PKCS8EncodedKeySpec;
 import java.util.Base64;
 import java.util.GregorianCalendar;
 import java.util.Properties;
-import java.util.TimeZone;
-
 import org.apache.log4j.Logger;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import com.prenda.Mode;
-import com.prenda.servlet.RegisterOwner;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -37,26 +35,28 @@ public class KeyUtil {
 	
 	private static Logger log = Logger.getLogger(KeyUtil.class);
 	
-	private static String jws;
-
 	public static String getJws() {
+		String jws = "";
 		try {
 			Properties props = new Properties();
-			props.load(RegisterOwner.class.getResourceAsStream("/env.properties"));
+			props.load(KeyUtil.class.getResourceAsStream("/env.properties"));
 			String path = props.getProperty("github.pem");
 			String issuer = props.getProperty("github.app");
 			Path p = Paths.get(path);
 			if(Files.notExists(p)) {
 				download(p);
 			}
-			TimeZone tz = TimeZone.getTimeZone("UTC");
 			GregorianCalendar gc = new GregorianCalendar();
-			gc.setTimeZone(tz);
-			JwtBuilder builder = Jwts.builder();
+			long iat = gc.getTimeInMillis()/1000;
+			log.info("iat " + iat);
+			log.info("exp " + (iat + 60 * 10));
+			Claims claims = Jwts.claims();
+			claims.put("iat", iat);
+			claims.put("exp", (iat + 60 * 10));
+			JwtBuilder builder = Jwts.builder(); //JWTBuilder iat and exp are different format for Github
+			builder = builder.setClaims(claims);
 			builder = builder.setIssuer(issuer);
-			builder = builder.setIssuedAt(gc.getTime());
-			gc.add(GregorianCalendar.MINUTE, 1);
-			builder = builder.setExpiration(gc.getTime());
+			log.info("claims: " + claims.toString());
 			jws = builder.signWith(SignatureAlgorithm.RS256, getPemPrivateKey(path, Mode.PKCS1)).compact();
 			log.info("jws: "+ jws);
 		} catch (Exception e) {
@@ -68,7 +68,7 @@ public class KeyUtil {
 	private static void download(Path path) {
 		try {
 			Properties props = new Properties();
-			props.load(RegisterOwner.class.getResourceAsStream("/env.properties"));
+			props.load(KeyUtil.class.getResourceAsStream("/env.properties"));
 			String request = props.getProperty("github.pemUrl");
 			log.info(request);
 			URL url = new URL(request);
