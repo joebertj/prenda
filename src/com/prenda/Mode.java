@@ -39,4 +39,8 @@ public class Mode {
 	public static final int PKCS1 = 1;
 	
 	public static final int PKCS8 = 2;	
+	
+	public static final boolean DEBIT = false;
+	
+	public static final boolean CREDIT = true;	
 }

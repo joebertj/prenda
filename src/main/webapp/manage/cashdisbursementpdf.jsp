@@ -16,10 +16,10 @@
 <%@include file="../public/msg.jsp"%>
 <sql:query var="group" dataSource="${prenda}">
 SELECT * FROM journal 
-LEFT JOIN accounts ON journal.accountid=accounts.accountid 
+LEFT JOIN accounts ON journal.accountid=accounts.accountcode 
 WHERE journal_group=<c:out value="${param.group}"/>
 </sql:query>
-			<form name="disburse" action="cashdisbursement.pdf" method="post">
+			<form name="disburse" action="../cashdisbursement.pdf" method="post" target="_blank">
 			<input type="hidden" name="branch" value="${user.branchId}"/>
 			<input type="hidden" name="bname" value="${branch.name}"/>
 			<input type="hidden" name="baddress" value="${branch.address}"/>

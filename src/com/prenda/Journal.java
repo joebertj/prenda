@@ -5,25 +5,34 @@
 
 package com.prenda;
 
-public class Disbursement {
+public class Journal {
 	private int journalId;
 	private String journalGroup;
-	private int accountId;
 	private int accountCode;
 	private String description;
 	private String accountName;
-	private float amount;
+	private double amount;
+	private boolean drcr;
 	
-	public Disbursement() {
+	public Journal() {
 		
 	}
 
-	public Disbursement(String journalGroup, int accountCode, String accountName, String description, float amount) {
+	public Journal(String journalGroup, int accountCode, String accountName, String description, double amount, boolean drcr) {
 		this.journalGroup = journalGroup;
 		this.accountCode = accountCode;
 		this.accountName = accountName;
 		this.description = description;
 		this.amount = amount;
+		this.drcr = drcr;
+	}
+
+	public boolean isDrcr() {
+		return drcr;
+	}
+
+	public void setDrcr(boolean drcr) {
+		this.drcr = drcr;
 	}
 
 	public int getAccountCode() {
@@ -34,19 +43,11 @@ public class Disbursement {
 		this.accountCode = accountCode;
 	}
 
-	public int getAccountId() {
-		return accountId;
-	}
-
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
-	}
-
-	public float getAmount() {
+	public double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(float amount) {
+	public void setAmount(double amount) {
 		this.amount = amount;
 	}
 

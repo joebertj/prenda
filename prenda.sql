@@ -21,10 +21,9 @@
 
 DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts` (
-  `accountid` tinyint unsigned NOT NULL,
   `accountname` varchar(30) NOT NULL,
-  `accountcode` smallint unsigned default NULL,
-  PRIMARY KEY  (`accountid`)
+  `accountcode` smallint unsigned NOT NULL,
+  PRIMARY KEY  (`accountcode`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 --
@@ -103,14 +102,17 @@ DROP TABLE IF EXISTS `journal`;
 CREATE TABLE `journal` (
   `journalid` int unsigned NOT NULL auto_increment,
   `journal_date` date NOT NULL default '2008-01-01',
-  `accountid` tinyint(4) NOT NULL default '0',
+  `accountid` smallint NOT NULL default '0',
   `branchid` smallint(5) NOT NULL default '0',
   `description` varchar(100) default NULL,
   `amount` double NOT NULL default '0',
+  `drcr` boolean,
   `journal_group` varchar(20) default '0',
+  `encoder` varchar(50) NOT NULL,
   PRIMARY KEY  (`journalid`),
   FOREIGN KEY `branchid` (`branchid`) REFERENCES branch (`branchid`),
-  FOREIGN KEY `accountid` (`accountid`) REFERENCES accounts (`accountid`)
+  FOREIGN KEY `accountid` (`accountid`) REFERENCES accounts (`accountcode`),
+  FOREIGN KEY `encoder` (`encoder`) REFERENCES users (`username`)
 ) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 --
@@ -121,8 +123,15 @@ DROP TABLE IF EXISTS `ledger`;
 CREATE TABLE `ledger` (
   `ledgerid` int unsigned NOT NULL default '0',
   `ledger_date` date NOT NULL,
+  `accountid` smallint NOT NULL default '0',
+  `branchid` smallint(5) NOT NULL default '0',
+  `description` varchar(100) default NULL,
+  `amount` double NOT NULL default '0',
+  `drcr` boolean,
   `encoder` varchar(50) NOT NULL,
   PRIMARY KEY  (`ledgerid`),
+  FOREIGN KEY `branchid` (`branchid`) REFERENCES branch (`branchid`),
+  FOREIGN KEY `accountid` (`accountid`) REFERENCES accounts (`accountcode`),
   FOREIGN KEY `encoder` (`encoder`) REFERENCES users (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -289,7 +298,7 @@ insert into limits values (2,1,1,1);
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,'ASSET',1),(2,'LIABILITIES',2),(3,'CAPITAL',3),(4,'INCOME',4),(5,'EXPENSES',5),(6,'CURRENT ASSEST',101),(7,'CASH ON HAND',10101),(8,'ACCOUNTS PAYABLE',201),(9,'FIXED ASSET',102),(10,'FURNITURES AND EXPENSES',10201),(11,'ACCUM. DEPRECATION - F & F',10202),(12,'OWNER CAPITAL',301),(13,'OWNER DRAWINGS',302),(14,'INTEREST INCOME',401),(15,'OTHER INCOME',402),(16,'OFFICE SUPPLIES',501),(17,'SALARIES AND WAGES',502),(18,'TRANSPORTATION AND ALLOWANCES',503),(19,'LOANS EXTENDED',10103),(20,'UTILITIES (POWER & WATER)',504),(21,'COMMUNICATION AND POSTAGE',505),(22,'TAXES AND LICENCES',506),(23,'DONATION',507),(24,'RENT',508),(25,'ADVERTISING',509),(26,'JEWELRY SALE',403),(27,'MEETINGS AND REPRESENTATION',510),(28,'DEPRECATION EXPENSE',511),(29,'IT EQUIPMENT',10203),(30,'ACCUM. DEPRECIATION - IT EQUIP',10204),(31,'SECURITY SERVICES',512),(32,'PREMIUM',515),(33,'REPAIRS AND MAINTENANCE',513),(34,'HONORARIUM',514),(35,'STAFF HOUSE',516),(36,'INTEREST ON PAST DUE LOANS',517);
+INSERT INTO `accounts` VALUES ('ASSET',1),('LIABILITIES',2),('CAPITAL',3),('INCOME',4),('EXPENSES',5),('CURRENT ASSEST',101),('CASH ON HAND',10101),('ACCOUNTS PAYABLE',201),('FIXED ASSET',102),('FURNITURES AND EXPENSES',10201),('ACCUM. DEPRECATION - F & F',10202),('OWNER CAPITAL',301),('OWNER DRAWINGS',302),('INTEREST INCOME',401),('OTHER INCOME',402),('OFFICE SUPPLIES',501),('SALARIES AND WAGES',502),('TRANSPORTATION AND ALLOWANCES',503),('LOANS EXTENDED',10103),('UTILITIES (POWER & WATER)',504),('COMMUNICATION AND POSTAGE',505),('TAXES AND LICENCES',506),('DONATION',507),('RENT',508),('ADVERTISING',509),('JEWELRY SALE',403),('MEETINGS AND REPRESENTATION',510),('DEPRECATION EXPENSE',511),('IT EQUIPMENT',10203),('ACCUM. DEPRECIATION - IT EQUIP',10204),('SECURITY SERVICES',512),('PREMIUM',515),('REPAIRS AND MAINTENANCE',513),('HONORARIUM',514),('STAFF HOUSE',516),('INTEREST ON PAST DUE LOANS',517),('ACCOUNTS RECEIVABLE',103);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 

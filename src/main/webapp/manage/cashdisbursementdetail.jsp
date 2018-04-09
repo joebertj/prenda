@@ -14,7 +14,7 @@
 			<TD valign="top" width="200"><%@include file="../common/menu.jsp"%></TD>
 			<TD valign="top" align="center">
 <%@include file="../public/msg.jsp"%>
-			<form name="disburse" action="CashDisbursement" method="post">
+			<form name="disburse" action="../CashDisbursement" method="post">
 			<input type="hidden" name="branch" value="${user.branchId}"/>
 			<TABLE border="1">
 				<TR>

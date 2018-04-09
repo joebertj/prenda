@@ -35,12 +35,12 @@ import com.prenda.helper.DatabaseConnection;
 		if(limit==0){
 			pstmt=conn.prepareStatement("SELECT accountname FROM accounts WHERE accountcode=?");
 		}else{
-			pstmt=conn.prepareStatement("SELECT accountname FROM accounts WHERE accountcode=? AND (floor(accountcode/100)=5 OR accountid=13)");
+			pstmt=conn.prepareStatement("SELECT accountname FROM accounts WHERE accountcode=? AND SUBSTRING(CAST(accountcode as char(5)),1,1)='5'");
 		}
 		pstmt.setInt(1,code);
 		ResultSet rs=pstmt.executeQuery();
 		if(rs.first()){
-			xml.addItem(new Integer(code).toString(),rs.getString(1));
+			xml.addItem(new Integer(code).toString(),rs.getString(1).replace("&", "&amp;"));
 		}else{
 			xml.addItem(new Integer(code).toString(),"Not a valid disbursement account!");
 		}

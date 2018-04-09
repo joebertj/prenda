@@ -9,8 +9,6 @@ package com.prenda.servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -20,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
+import com.prenda.Mode;
 import com.prenda.helper.DatabaseConnection;
 
 /**
@@ -31,7 +30,7 @@ import com.prenda.helper.DatabaseConnection;
 	 * 
 	 */
 	private static final long serialVersionUID = -8127470001729455855L;
-	private static Logger log =Logger.getLogger(CashDisbursement.class);
+	private static Logger log = Logger.getLogger(CashDisbursement.class);
 	
 
 	/* (non-Java-doc)
@@ -56,64 +55,49 @@ import com.prenda.helper.DatabaseConnection;
 				redirectURL = "/public/login.jsp?msg=You have not logged in yet";
 				response.sendRedirect(redirectURL);
 			}else{
-				continuePost(request, response);
+				continuePost(request, response, authenticated);
 			}
 		}
 	}
-	protected void continuePost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void continuePost(HttpServletRequest request, HttpServletResponse response, String encoder) throws ServletException, IOException {
 		try{
 			Connection conn = DatabaseConnection.getConnection();
     		PreparedStatement pstmt = null;
     		String[] accountcode=(String []) request.getParameterValues("code");
-    		int branchid=(new Integer(request.getParameter("branch"))).intValue();
+    		int branchId=(new Integer(request.getParameter("branch"))).intValue();
     		String[] description=(String []) request.getParameterValues("particulars");
     		String[] amount=(String[]) request.getParameterValues("amount");
-    		String[] accountname=new String[accountcode.length];
-    		ResultSet rs=null;
-    		String journalGroup=new Long(new Date().getTime()).toString()+new Integer(accountcode.length).toString();
+    		String journalGroup=branchId + new Long(new Date().getTime()/1000).toString(); // format branch id + date in epoch seconds
             log.info(journalGroup);
+            Double totalAmount = 0d;
+            pstmt = conn.prepareStatement("INSERT INTO journal VALUES (0,CURDATE(),?,?,?,?,?,?,?)");
+            pstmt.setInt(2,branchId);
+            pstmt.setBoolean(5, Mode.CREDIT); // add Expenses
+            pstmt.setString(6,journalGroup);
+			pstmt.setString(7,encoder);
     		for(int i=0;i<accountcode.length;i++){
-    			pstmt = conn.prepareStatement("SELECT accountid,accountname from accounts where accountcode=?");
-    			pstmt.setInt(1,new Integer(accountcode[i]).intValue());
-    			int accountid=0;
-    			rs=pstmt.executeQuery();
-    			if(rs.first()){
-    				accountid=rs.getInt(1);
-    				accountname[i]=rs.getString(2);
-    			}else{
-    				log.info(accountcode+"--"+accountid);
-    			}
-    			pstmt = conn.prepareStatement("INSERT INTO journal VALUES (0,CURDATE(),?,?,?,?,?)");
-    			pstmt.setInt(1,accountid);
-    			pstmt.setInt(2,branchid);
+    			pstmt.setInt(1,Integer.parseInt(accountcode[i]));
     			pstmt.setString(3,description[i]);
-    			pstmt.setFloat(4,new Float(amount[i]).floatValue());
-    			pstmt.setString(5,journalGroup);
-    			pstmt.executeUpdate();
-    			pstmt = conn.prepareStatement("UPDATE branch SET balance=balance-? WHERE branchid=?");
-    			pstmt.setFloat(1,new Float(amount[i]).floatValue());
-    			pstmt.setLong(2,branchid);
+    			Double a = new Double(amount[i]);
+    			pstmt.setDouble(4,a);
+    			totalAmount += a;
     			pstmt.executeUpdate();
     		}
-    		pstmt = conn.prepareStatement("SELECT journalid FROM journal WHERE journal_group=?");
-    		pstmt.setString(1,journalGroup);
-    		rs=pstmt.executeQuery();
-    		int journalid=0;
-    		while(rs.next()){
-    			journalid=rs.getInt(1);
-    			HttpSession session=request.getSession(true);
-        		String encoder=(String) session.getAttribute("authenticated");
-        		pstmt = conn.prepareStatement("INSERT INTO ledger VALUES (?,CURDATE(),?)");
-        		pstmt.setInt(1,journalid);
-        		pstmt.setString(2,encoder);
-        		pstmt.executeUpdate();
-        	}
-    		String redirectUrl="cashdisbursementpdf.jsp?group=" + journalGroup;
+    		// Debit cash on hand
+    		pstmt.setInt(1,10101);
+    		pstmt.setString(3,"Total expenses for JG "+journalGroup);
+    		pstmt.setDouble(4,totalAmount);
+    		pstmt.setBoolean(5, Mode.DEBIT);
+    		pstmt.executeUpdate();
+    		// Update balance on branch table
+    		pstmt = conn.prepareStatement("UPDATE branch SET balance=balance-? WHERE branchid=?");
+			pstmt.setDouble(1,totalAmount);
+			pstmt.setLong(2,branchId);
+			pstmt.executeUpdate();
+    		String redirectUrl="manage/cashdisbursementpdf.jsp?group=" + journalGroup;
     		response.sendRedirect(redirectUrl);
-    	}catch (SQLException ex) {
-            log.info("SQLException: " + ex.getMessage());
-            log.info("SQLState: " + ex.getSQLState());
-            log.info("VendorError: " + ex.getErrorCode());
+    	}catch (Exception e) {
+            e.printStackTrace();
 		}
     }   	  	    
 }

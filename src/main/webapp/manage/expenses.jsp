@@ -39,12 +39,12 @@ AND branchid=<c:out value="${user.branchId}"/>
 <br/>
 			Page 
 <c:if test="${pagenum>1}">
-				<A href='cashdisbursements.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
+				<A href='journal.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
 			</c:if>
 <c:forEach var="i" begin="1" end="${pages}">
 				<c:choose>
 					<c:when test="${i!=pagenum}">
-						<A href='cashdisbursements.jsp?pagenum=<c:out value="${i}"/>'><c:out
+						<A href='journal.jsp?pagenum=<c:out value="${i}"/>'><c:out
 							value="${i}" /></A>
 					</c:when>
 					<c:otherwise>
@@ -53,14 +53,14 @@ AND branchid=<c:out value="${user.branchId}"/>
 				</c:choose>
 			</c:forEach>
 <c:if test="${pagenum<(pages-(adjust/perpage))}">
-				<A href='cashdisbursements.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
+				<A href='journal.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
 			</c:if>
-			<jsp:useBean id="cd" class="com.prenda.service.CashDisbursementService"/>
-			<form name="disburse" action="cashdisbursements.pdf" method="post">
+			<jsp:useBean id="journal" class="com.prenda.service.JournalService"/>
+			<form name="disburse" action="../cashdisbursement.pdf" method="post" target="_blank">
 			<input type="hidden" name="branch" value="${user.branchId}"/>
 			<TABLE>
 				<TR>
-					<TH colspan="100%">Cash Disbursements</TH>
+					<TH colspan="100%">Expenses</TH>
 				</TR>
 				<TR>
 					<TD>Group</TD>
@@ -68,8 +68,9 @@ AND branchid=<c:out value="${user.branchId}"/>
 					<TD>Account</TD>
 					<TD>Particulars</TD>
 					<TD>Amount</TD>
+					<TD>Dr/Cr</TD>
 				</TR>
-				<c:forEach var="row" items="${cd.disbursement}" varStatus="line">
+				<c:forEach var="row" items="${journal.expenses}" varStatus="line">
 					<c:choose>
 						<c:when test="${line.count % 2 == 1}">
 							<TR bgcolor="#99CCFF">
@@ -83,6 +84,11 @@ AND branchid=<c:out value="${user.branchId}"/>
 					<TD><c:out value="${row.accountName}"/></TD>
 					<TD><c:out value="${row.description}"/></TD>
 					<TD><c:out value="${row.amount}"/></TD>
+					<TD><c:choose>
+							<c:when test="${row.isDrcr()}">Cr</c:when>
+							<c:otherwise>Dr</c:otherwise>
+						</c:choose>
+					</TD>
 				</c:forEach>	
 				</TR>
 				<TR>

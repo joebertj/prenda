@@ -104,7 +104,11 @@
 			<a href="${contextPath}/common/accountlist.jsp">Chart of Accounts</a> <br/> 
 			<a href="${contextPath}/manage/cashposition.jsp">Cash Position</a><br/>
 		<c:if test="${user.level>3}">
-			<a href="${contextPath}/common/cashdisbursements.jsp">Cash Disbursements</a><br/>
+			<a href="${contextPath}/manage/ledger.jsp">Ledger</a><br/>
+			<a href="${contextPath}/manage/journal.jsp">Journal</a><br/>
+			<a href="${contextPath}/manage/expenses.jsp">Expenses</a><br/><br/>
+			<a href="${contextPath}/manage/cashtransfer.jsp">Pending Cash Transfers</a><br/>
+			<a href="${contextPath}/manage/cashdisbursement.jsp">Cash Disbursement</a><br/>
 		</c:if>
 		<c:if test="${user.level>7}">
 			<a href="${contextPath}/common/cashtransfer.jsp">Transfer Cash</a> <br/>

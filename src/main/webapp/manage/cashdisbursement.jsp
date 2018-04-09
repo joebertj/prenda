@@ -57,7 +57,7 @@
 </TABLE>
 
 <ajax:updateField
-  baseUrl="GetAccountName"
+  baseUrl="../GetAccountName"
   source="code1"
   target="account1"
   action="code1"

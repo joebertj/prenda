@@ -16,9 +16,15 @@
 <%@include file="../public/msg.jsp"%>
 <jsp:useBean id="pageS" class="com.prenda.service.PageService" />
 <jsp:setProperty name="pageS" property="branchId" value="${user.branchId}" />
-<c:set var="perpage" value="${pageS.chart}"/>
+<c:set var="perpage" value="${pageS.disburse}"/>
 <sql:query var="pageable" dataSource="${prenda}">
-SELECT count(accountcode) as numid FROM accounts
+SELECT count(journal.journalid) as numid FROM journal WHERE journal_date=CURDATE()
+<c:if test="${user.level<9}">
+AND branchid=<c:out value="${user.branchId}"/>
+</c:if>
+<c:if test="${param.bcode==1}">
+<c:out value="AND bcode=1" />
+</c:if>
 </sql:query>
 <c:set var="numid" value="${pageable.rows[0].numid}" />
 <c:set var="pages" value="${numid/perpage}" />
@@ -33,12 +39,12 @@ SELECT count(accountcode) as numid FROM accounts
 <br/>
 			Page 
 <c:if test="${pagenum>1}">
-				<A href='accountlist.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
+				<A href='journal.jsp?pagenum=<c:out value="${pagenum-1}"/>'>prev</A>
 			</c:if>
 <c:forEach var="i" begin="1" end="${pages}">
 				<c:choose>
 					<c:when test="${i!=pagenum}">
-						<A href='accountlist.jsp?pagenum=<c:out value="${i}"/>'><c:out
+						<A href='journal.jsp?pagenum=<c:out value="${i}"/>'><c:out
 							value="${i}" /></A>
 					</c:when>
 					<c:otherwise>
@@ -47,21 +53,24 @@ SELECT count(accountcode) as numid FROM accounts
 				</c:choose>
 			</c:forEach>
 <c:if test="${pagenum<(pages-(adjust/perpage))}">
-				<A href='accountlist.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
+				<A href='journal.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
 			</c:if>
-<sql:query var="accountlist" dataSource="${prenda}">
-SELECT * FROM accounts
-LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
-</sql:query>
-			<TABLE border="1">
+			<jsp:useBean id="journal" class="com.prenda.service.JournalService"/>
+			<form name="disburse" action="../cashdisbursement.pdf" method="post" target="_blank">
+			<input type="hidden" name="branch" value="${user.branchId}"/>
+			<TABLE>
 				<TR>
-					<TH colspan="100%">Chart of Accounts</TH>
+					<TH colspan="100%">Journal Entries</TH>
 				</TR>
 				<TR>
-					<TH>Account Code</TH>
-					<TH>Account Name</TH>
+					<TD>Group</TD>
+					<TD>Code</TD>
+					<TD>Account</TD>
+					<TD>Particulars</TD>
+					<TD>Amount</TD>
+					<TD>Dr/Cr</TD>
 				</TR>
-				<c:forEach var="row" items="${accountlist.rows}" varStatus="line">
+				<c:forEach var="row" items="${journal.journal}" varStatus="line">
 					<c:choose>
 						<c:when test="${line.count % 2 == 1}">
 							<TR bgcolor="#99CCFF">
@@ -70,11 +79,25 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out value="${perpage}" />
 							<TR>
 						</c:otherwise>
 					</c:choose>
-					<TD align="center"><c:out value="${row.accountcode}"/></TD></TD>
-					<TD><c:out value="${row.accountname}"/></TD>
+					<TD><c:out value="${row.journalGroup}"/></TD>
+					<TD><c:out value="${row.accountCode}"/></TD>
+					<TD><c:out value="${row.accountName}"/></TD>
+					<TD><c:out value="${row.description}"/></TD>
+					<TD><c:out value="${row.amount}"/></TD>
+					<TD><c:choose>
+							<c:when test="${row.isDrcr()}">Cr</c:when>
+							<c:otherwise>Dr</c:otherwise>
+						</c:choose>
+					</TD>
 				</c:forEach>	
 				</TR>
-			</TABLE>
+				<TR>
+					<TD colspan="100%">
+					<input type="submit" value="Print"/>
+					</TD>
+				</TR>
+			</TABLE>	
+			</form>
 			</TD>
 		</TR>
 	</TBODY>

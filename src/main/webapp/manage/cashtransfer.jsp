@@ -20,7 +20,7 @@ SELECT count(journalid) as numid FROM journal
 LEFT JOIN ledger on journal.journalid=ledger.ledgerid
 WHERE ledgerid IS NULL
 <c:if test="${user.level<9}">
-AND branchid=<c:out value="${user.branchId}"/>
+AND journal.branchid=<c:out value="${user.branchId}"/>
 </c:if>
 </sql:query>
 <c:set var="numid" value="${pageable.rows[0].numid}" />
@@ -53,13 +53,13 @@ AND branchid=<c:out value="${user.branchId}"/>
 				<A href='pawnsummary.jsp?pagenum=<c:out value="${pagenum+1}"/>'>next</A>
 			</c:if>
 <sql:query var="transfer" dataSource="${prenda}">
-SELECT journalid,journal_date,accountname,description,amount
+SELECT journalid,journal_date,accountname,journal.description,journal.amount
 FROM journal
 LEFT JOIN ledger on journal.journalid=ledger.ledgerid
-LEFT JOIN accounts on journal.accountid=accounts.accountid
+LEFT JOIN accounts on journal.accountid=accounts.accountcode
 WHERE ledgerid IS NULL
 <c:if test="${user.level<9}">
-AND branchid=<c:out value="${user.branchId}"/>
+AND journal.branchid=<c:out value="${user.branchId}"/>
 </c:if>
 ORDER BY journalid
 LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
@@ -68,7 +68,7 @@ LIMIT <c:out value="${(pagenum-1)*perpage}" />,<c:out
 			<form action="CashTransfers" method="post">
 			<TABLE border="1">
 				<TR>
-					<TH colspan="100%">Cash Transfers</TH>
+					<TH colspan="100%">Pending Cash Transfers</TH>
 				</TR>
 				<TR>
 					<TD>Journal Date</TD>
