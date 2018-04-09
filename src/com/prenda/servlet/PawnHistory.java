@@ -82,6 +82,6 @@ import com.prenda.helper.DatabaseConnection;
 		                      true
 		                     );
 		ChartUtilities.saveChartAsJPEG(new File(getServletContext().getRealPath("/resources/img")+"/pawnhistory"+type+".jpg"), chart, 500, 300);
-		response.sendRedirect("admin/pawnhistory.jsp?type="+type);
+		response.sendRedirect("common/pawnhistory.jsp?type="+type);
 	}
 }

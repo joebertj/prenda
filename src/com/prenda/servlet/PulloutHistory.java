@@ -82,6 +82,6 @@ import com.prenda.helper.DatabaseConnection;
 		                      true
 		                     );
 		ChartUtilities.saveChartAsJPEG(new File(getServletContext().getRealPath("/resources/img")+"/pullouthistory"+type+".jpg"), chart, 500, 300);
-		response.sendRedirect("admin/pullouthistory.jsp?type="+type);
+		response.sendRedirect("common/pullouthistory.jsp?type="+type);
 	}
 }

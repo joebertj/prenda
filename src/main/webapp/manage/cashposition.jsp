@@ -19,7 +19,7 @@
 <c:if test="${param.bcode==1}">
 <jsp:setProperty name="cashpos" property="bcode" value="${param.bcode}"/>
 </c:if>
-			<FORM method="post" action="../cashposition.pdf">
+			<FORM method="post" action="../cashposition.pdf" target="_blank">
 			<input type="hidden" name="branch" value="${user.branchId}"/>
 			<input type="hidden" name="name" value="${branch.name}"/>
 			<input type="hidden" name="address" value="${branch.address}"/>

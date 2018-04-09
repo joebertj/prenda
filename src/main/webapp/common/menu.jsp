@@ -102,7 +102,7 @@
 		<td>
 		
 			<a href="${contextPath}/common/accountlist.jsp">Chart of Accounts</a> <br/> 
-			<a href="${contextPath}/common/cashposition.jsp">Cash Position</a><br/>
+			<a href="${contextPath}/manage/cashposition.jsp">Cash Position</a><br/>
 		<c:if test="${user.level>3}">
 			<a href="${contextPath}/common/cashdisbursements.jsp">Cash Disbursements</a><br/>
 		</c:if>

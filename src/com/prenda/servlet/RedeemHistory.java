@@ -82,6 +82,6 @@ import com.prenda.helper.DatabaseConnection;
 		                      true
 		                     );
 		ChartUtilities.saveChartAsJPEG(new File(getServletContext().getRealPath("/resources/img")+"/redeemhistory"+type+".jpg"), chart, 500, 300);
-		response.sendRedirect("admin/redeemhistory.jsp?type="+type);
+		response.sendRedirect("common/redeemhistory.jsp?type="+type);
 	}
 }
