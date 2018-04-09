@@ -1,6 +1,6 @@
 package com.prenda.factories.prenda;
 
-import com.github.wwadge.hbnpojogen.randomlib.data.dataGeneration.*;
+import com.github.wwadge.hbnpojogen.randomlib.data.dataGeneration.BasicDataGenerator;
 import com.prenda.model.obj.prenda.*;
 import org.springframework.stereotype.Component;
 
@@ -30,9 +30,8 @@ public class PrendaDataPoolFactory {
 
         Accounts accounts = new Accounts();    
         
-        accounts.setAccountcode(BasicDataGenerator.generateRandomInt());
         accounts.setAccountname(BasicDataGenerator.generateRandomString(30));
-        accounts.setId((byte)(BasicDataGenerator.generateRandomTinyInt()));
+        accounts.setId(BasicDataGenerator.generateRandomInt());
 
         return accounts;
     }
@@ -161,10 +160,12 @@ public class PrendaDataPoolFactory {
 
         Journal journal = new Journal();    
         
-        journal.setAccountid((byte)(BasicDataGenerator.generateRandomTinyInt()));
+        journal.setAccountid(BasicDataGenerator.generateRandomInt());
         journal.setAmount(BasicDataGenerator.generateRandomDouble());
-        journal.setBranchid((byte)(BasicDataGenerator.generateRandomTinyInt()));
+        journal.setBranchid(BasicDataGenerator.generateRandomInt());
         journal.setDescription(BasicDataGenerator.generateRandomString(100));
+        journal.setDrcr(BasicDataGenerator.generateRandomBoolean());
+        journal.setEncoder(BasicDataGenerator.generateRandomString(50));
         journal.setJournalDate(BasicDataGenerator.generateDate());
         journal.setJournalGroup(BasicDataGenerator.generateRandomString(20));
 
@@ -179,6 +180,11 @@ public class PrendaDataPoolFactory {
 
         Ledger ledger = new Ledger();    
         
+        ledger.setAccountid(BasicDataGenerator.generateRandomInt());
+        ledger.setAmount(BasicDataGenerator.generateRandomDouble());
+        ledger.setBranchid(BasicDataGenerator.generateRandomInt());
+        ledger.setDescription(BasicDataGenerator.generateRandomString(100));
+        ledger.setDrcr(BasicDataGenerator.generateRandomBoolean());
         ledger.setEncoder(BasicDataGenerator.generateRandomString(50));
         ledger.setId(BasicDataGenerator.generateRandomLong());
         ledger.setLedgerDate(BasicDataGenerator.generateDate());

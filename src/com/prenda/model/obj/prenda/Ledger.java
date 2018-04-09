@@ -38,6 +38,16 @@ public class Ledger implements Cloneable, Serializable, IPojoGenEntity, ILedger 
 	
 
 	/** Field mapping. */
+	private Integer accountid;
+	/** Field mapping. */
+	private Double amount;
+	/** Field mapping. */
+	private Integer branchid;
+	/** Field mapping. */
+	private String description;
+	/** Field mapping. */
+	private Boolean drcr;
+	/** Field mapping. */
 	private String encoder;
 	/** Field mapping. */
 	private Long id;
@@ -58,12 +68,19 @@ public class Ledger implements Cloneable, Serializable, IPojoGenEntity, ILedger 
 	}
 	
 	/** Constructor taking a given ID.
+	 * @param accountid Integer object;
+	 * @param amount Double object;
+	 * @param branchid Integer object;
 	 * @param encoder String object;
 	 * @param id Long object;
 	 * @param ledgerDate Date object;
 	 */
-	public Ledger(String encoder, Long id, Date ledgerDate) {
+	public Ledger(Integer accountid, Double amount, Integer branchid, 					
+			String encoder, Long id, Date ledgerDate) {
 
+		this.accountid = accountid;
+		this.amount = amount;
+		this.branchid = branchid;
 		this.encoder = encoder;
 		this.id = id;
 		this.ledgerDate = ledgerDate;
@@ -81,6 +98,109 @@ public class Ledger implements Cloneable, Serializable, IPojoGenEntity, ILedger 
 		return Ledger.class;
 	}
  
+
+    /**
+     * Return the value associated with the column: accountid.
+	 * @return A Integer object (this.accountid)
+	 */
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	public Integer getAccountid() {
+		return this.accountid;
+		
+	}
+	
+
+  
+    /**  
+     * Set the value related to the column: accountid.
+	 * @param accountid the accountid value you wish to set
+	 */
+	public void setAccountid(final Integer accountid) {
+		this.accountid = accountid;
+	}
+
+    /**
+     * Return the value associated with the column: amount.
+	 * @return A Double object (this.amount)
+	 */
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	public Double getAmount() {
+		return this.amount;
+		
+	}
+	
+
+  
+    /**  
+     * Set the value related to the column: amount.
+	 * @param amount the amount value you wish to set
+	 */
+	public void setAmount(final Double amount) {
+		this.amount = amount;
+	}
+
+    /**
+     * Return the value associated with the column: branchid.
+	 * @return A Integer object (this.branchid)
+	 */
+	@Basic( optional = false )
+	@Column( nullable = false  )
+	public Integer getBranchid() {
+		return this.branchid;
+		
+	}
+	
+
+  
+    /**  
+     * Set the value related to the column: branchid.
+	 * @param branchid the branchid value you wish to set
+	 */
+	public void setBranchid(final Integer branchid) {
+		this.branchid = branchid;
+	}
+
+    /**
+     * Return the value associated with the column: description.
+	 * @return A String object (this.description)
+	 */
+	@Basic( optional = true )
+	@Column( length = 100  )
+	public String getDescription() {
+		return this.description;
+		
+	}
+	
+
+  
+    /**  
+     * Set the value related to the column: description.
+	 * @param description the description value you wish to set
+	 */
+	public void setDescription(final String description) {
+		this.description = description;
+	}
+
+    /**
+     * Return the value associated with the column: drcr.
+	 * @return A Boolean object (this.drcr)
+	 */
+	public Boolean isDrcr() {
+		return this.drcr;
+		
+	}
+	
+
+  
+    /**  
+     * Set the value related to the column: drcr.
+	 * @param drcr the drcr value you wish to set
+	 */
+	public void setDrcr(final Boolean drcr) {
+		this.drcr = drcr;
+	}
 
     /**
      * Return the value associated with the column: encoder.
@@ -165,6 +285,11 @@ public class Ledger implements Cloneable, Serializable, IPojoGenEntity, ILedger 
 		
         final Ledger copy = (Ledger)super.clone();
 
+		copy.setAccountid(this.getAccountid());
+		copy.setAmount(this.getAmount());
+		copy.setBranchid(this.getBranchid());
+		copy.setDescription(this.getDescription());
+		copy.setDrcr(this.isDrcr());
 		copy.setEncoder(this.getEncoder());
 		copy.setId(this.getId());
 		copy.setLedgerDate(this.getLedgerDate());
@@ -181,6 +306,11 @@ public class Ledger implements Cloneable, Serializable, IPojoGenEntity, ILedger 
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		
+		sb.append("accountid: " + this.getAccountid() + ", ");
+		sb.append("amount: " + this.getAmount() + ", ");
+		sb.append("branchid: " + this.getBranchid() + ", ");
+		sb.append("description: " + this.getDescription() + ", ");
+		sb.append("drcr: " + this.isDrcr() + ", ");
 		sb.append("encoder: " + this.getEncoder() + ", ");
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("ledgerDate: " + this.getLedgerDate());
@@ -229,6 +359,11 @@ public class Ledger implements Cloneable, Serializable, IPojoGenEntity, ILedger 
 		
 		boolean result = true;
 		result = result && (((this.getId() == null) && ( that.getId() == null)) || (this.getId() != null  && this.getId().equals(that.getId())));
+		result = result && (((getAccountid() == null) && (that.getAccountid() == null)) || (getAccountid() != null && getAccountid().equals(that.getAccountid())));
+		result = result && (((getAmount() == null) && (that.getAmount() == null)) || (getAmount() != null && getAmount().equals(that.getAmount())));
+		result = result && (((getBranchid() == null) && (that.getBranchid() == null)) || (getBranchid() != null && getBranchid().equals(that.getBranchid())));
+		result = result && (((getDescription() == null) && (that.getDescription() == null)) || (getDescription() != null && getDescription().equals(that.getDescription())));
+		result = result && (((isDrcr() == null) && (that.isDrcr() == null)) || (isDrcr() != null && isDrcr().equals(that.isDrcr())));
 		result = result && (((getEncoder() == null) && (that.getEncoder() == null)) || (getEncoder() != null && getEncoder().equals(that.getEncoder())));
 		result = result && (((getLedgerDate() == null) && (that.getLedgerDate() == null)) || (getLedgerDate() != null && getLedgerDate().equals(that.getLedgerDate())));
 		return result;

@@ -16,6 +16,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import com.prenda.Journal;
+import com.prenda.Mode;
 import com.prenda.helper.DatabaseConnection;
 
 public class JournalService {
@@ -37,8 +38,9 @@ public class JournalService {
 	public List<Journal> getExpenses() {
 		expenses=new ArrayList<Journal>();
 		try {
-			pstmt = conn.prepareStatement("SELECT journal_group, accountid, description, amount, drcr FROM journal WHERE journal_date=? AND SUBSTRING(CAST(accountid as char(5)),1,1)='5'");
+			pstmt = conn.prepareStatement("SELECT journal_group, accountid, description, amount, drcr FROM journal WHERE journal_date=? AND SUBSTRING(CAST(accountid as char(5)),1,1)=?");
 			pstmt.setDate(1,new java.sql.Date(date.getTime()));
+			pstmt.setString(2,new Integer(Mode.EXPENSE).toString());
 			rs=pstmt.executeQuery();
 			while(rs.next()){
 				String g=rs.getString(1);

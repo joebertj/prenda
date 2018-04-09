@@ -1,4 +1,5 @@
 package com.prenda.model.obj.prenda.iface;
+import javax.persistence.Basic;
 
 
 /** 
@@ -9,20 +10,6 @@ package com.prenda.model.obj.prenda.iface;
 public interface IAccounts {
 
 
-
-    /**
-     * Return the value associated with the column: accountcode.
-	 * @return A Integer object (this.accountcode)
-	 */
-	Integer getAccountcode();
-	
-
-  
-    /**  
-     * Set the value related to the column: accountcode.
-	 * @param accountcode the accountcode value you wish to set
-	 */
-	void setAccountcode(final Integer accountcode);
 
     /**
      * Return the value associated with the column: accountname.
@@ -40,9 +27,9 @@ public interface IAccounts {
 
     /**
      * Return the value associated with the column: id.
-	 * @return A Byte object (this.id)
+	 * @return A Integer object (this.id)
 	 */
-	Byte getId();
+	Integer getId();
 	
 
   
@@ -50,7 +37,7 @@ public interface IAccounts {
      * Set the value related to the column: id.
 	 * @param id the id value you wish to set
 	 */
-	void setId(final Byte id);
+	void setId(final Integer id);
 
 	// end of interface
 }

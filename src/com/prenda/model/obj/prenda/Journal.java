@@ -40,13 +40,17 @@ public class Journal implements Cloneable, Serializable, IPojoGenEntity, IJourna
 	
 
 	/** Field mapping. */
-	private Byte accountid;
+	private Integer accountid;
 	/** Field mapping. */
 	private Double amount;
 	/** Field mapping. */
-	private Byte branchid;
+	private Integer branchid;
 	/** Field mapping. */
 	private String description;
+	/** Field mapping. */
+	private Boolean drcr;
+	/** Field mapping. */
+	private String encoder;
 	/** Field mapping. */
 	private Long id = 0L; // init for hibernate bug workaround
 	/** Field mapping. */
@@ -68,18 +72,20 @@ public class Journal implements Cloneable, Serializable, IPojoGenEntity, IJourna
 	}
 	
 	/** Constructor taking a given ID.
-	 * @param accountid Byte object;
+	 * @param accountid Integer object;
 	 * @param amount Double object;
-	 * @param branchid Byte object;
+	 * @param branchid Integer object;
+	 * @param encoder String object;
 	 * @param id Long object;
 	 * @param journalDate Date object;
 	 */
-	public Journal(Byte accountid, Double amount, Byte branchid, 					
-			Long id, Date journalDate) {
+	public Journal(Integer accountid, Double amount, Integer branchid, 					
+			String encoder, Long id, Date journalDate) {
 
 		this.accountid = accountid;
 		this.amount = amount;
 		this.branchid = branchid;
+		this.encoder = encoder;
 		this.id = id;
 		this.journalDate = journalDate;
 	}
@@ -99,11 +105,11 @@ public class Journal implements Cloneable, Serializable, IPojoGenEntity, IJourna
 
     /**
      * Return the value associated with the column: accountid.
-	 * @return A Byte object (this.accountid)
+	 * @return A Integer object (this.accountid)
 	 */
 	@Basic( optional = false )
 	@Column( nullable = false  )
-	public Byte getAccountid() {
+	public Integer getAccountid() {
 		return this.accountid;
 		
 	}
@@ -114,7 +120,7 @@ public class Journal implements Cloneable, Serializable, IPojoGenEntity, IJourna
      * Set the value related to the column: accountid.
 	 * @param accountid the accountid value you wish to set
 	 */
-	public void setAccountid(final Byte accountid) {
+	public void setAccountid(final Integer accountid) {
 		this.accountid = accountid;
 	}
 
@@ -141,11 +147,11 @@ public class Journal implements Cloneable, Serializable, IPojoGenEntity, IJourna
 
     /**
      * Return the value associated with the column: branchid.
-	 * @return A Byte object (this.branchid)
+	 * @return A Integer object (this.branchid)
 	 */
 	@Basic( optional = false )
 	@Column( nullable = false  )
-	public Byte getBranchid() {
+	public Integer getBranchid() {
 		return this.branchid;
 		
 	}
@@ -156,7 +162,7 @@ public class Journal implements Cloneable, Serializable, IPojoGenEntity, IJourna
      * Set the value related to the column: branchid.
 	 * @param branchid the branchid value you wish to set
 	 */
-	public void setBranchid(final Byte branchid) {
+	public void setBranchid(final Integer branchid) {
 		this.branchid = branchid;
 	}
 
@@ -179,6 +185,46 @@ public class Journal implements Cloneable, Serializable, IPojoGenEntity, IJourna
 	 */
 	public void setDescription(final String description) {
 		this.description = description;
+	}
+
+    /**
+     * Return the value associated with the column: drcr.
+	 * @return A Boolean object (this.drcr)
+	 */
+	public Boolean isDrcr() {
+		return this.drcr;
+		
+	}
+	
+
+  
+    /**  
+     * Set the value related to the column: drcr.
+	 * @param drcr the drcr value you wish to set
+	 */
+	public void setDrcr(final Boolean drcr) {
+		this.drcr = drcr;
+	}
+
+    /**
+     * Return the value associated with the column: encoder.
+	 * @return A String object (this.encoder)
+	 */
+	@Basic( optional = false )
+	@Column( nullable = false, length = 50  )
+	public String getEncoder() {
+		return this.encoder;
+		
+	}
+	
+
+  
+    /**  
+     * Set the value related to the column: encoder.
+	 * @param encoder the encoder value you wish to set
+	 */
+	public void setEncoder(final String encoder) {
+		this.encoder = encoder;
 	}
 
     /**
@@ -269,6 +315,8 @@ public class Journal implements Cloneable, Serializable, IPojoGenEntity, IJourna
 		copy.setAmount(this.getAmount());
 		copy.setBranchid(this.getBranchid());
 		copy.setDescription(this.getDescription());
+		copy.setDrcr(this.isDrcr());
+		copy.setEncoder(this.getEncoder());
 		copy.setId(this.getId());
 		copy.setJournalDate(this.getJournalDate());
 		copy.setJournalGroup(this.getJournalGroup());
@@ -289,6 +337,8 @@ public class Journal implements Cloneable, Serializable, IPojoGenEntity, IJourna
 		sb.append("amount: " + this.getAmount() + ", ");
 		sb.append("branchid: " + this.getBranchid() + ", ");
 		sb.append("description: " + this.getDescription() + ", ");
+		sb.append("drcr: " + this.isDrcr() + ", ");
+		sb.append("encoder: " + this.getEncoder() + ", ");
 		sb.append("id: " + this.getId() + ", ");
 		sb.append("journalDate: " + this.getJournalDate() + ", ");
 		sb.append("journalGroup: " + this.getJournalGroup());
@@ -341,6 +391,8 @@ public class Journal implements Cloneable, Serializable, IPojoGenEntity, IJourna
 		result = result && (((getAmount() == null) && (that.getAmount() == null)) || (getAmount() != null && getAmount().equals(that.getAmount())));
 		result = result && (((getBranchid() == null) && (that.getBranchid() == null)) || (getBranchid() != null && getBranchid().equals(that.getBranchid())));
 		result = result && (((getDescription() == null) && (that.getDescription() == null)) || (getDescription() != null && getDescription().equals(that.getDescription())));
+		result = result && (((isDrcr() == null) && (that.isDrcr() == null)) || (isDrcr() != null && isDrcr().equals(that.isDrcr())));
+		result = result && (((getEncoder() == null) && (that.getEncoder() == null)) || (getEncoder() != null && getEncoder().equals(that.getEncoder())));
 		result = result && (((getJournalDate() == null) && (that.getJournalDate() == null)) || (getJournalDate() != null && getJournalDate().equals(that.getJournalDate())));
 		result = result && (((getJournalGroup() == null) && (that.getJournalGroup() == null)) || (getJournalGroup() != null && getJournalGroup().equals(that.getJournalGroup())));
 		return result;

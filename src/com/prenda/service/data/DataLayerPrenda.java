@@ -71,20 +71,20 @@ public interface DataLayerPrenda {
      * Will load the object internally so consider using delete (Accounts obj) directly
      * @param id Identifier to delete
      */
-    void deleteAccounts(final Byte id);
+    void deleteAccounts(final Integer id);
 	
     /**
      * Loads the given Object.
      * @param id Identifier to load
      * @return a Accounts object
      */
-    Accounts loadAccounts(final Byte id);
+    Accounts loadAccounts(final Integer id);
     /**
      * Loads the given Object.
      * @param id Id to load
      * @return An object of type T
      */
-     Accounts getAccounts(final Byte id);  
+     Accounts getAccounts(final Integer id);  
 
     /** Deletes an object of a given Id. 
      * Will load the object internally so consider using delete (Branch obj) directly
@@ -337,20 +337,20 @@ public interface DataLayerPrenda {
      * Will load the object internally so consider using delete (Register obj) directly
      * @param id Identifier to delete
      */
-    void deleteRegister(final Long id);
+    void deleteRegister(final Integer id);
 	
     /**
      * Loads the given Object.
      * @param id Identifier to load
      * @return a Register object
      */
-    Register loadRegister(final Long id);
+    Register loadRegister(final Integer id);
     /**
      * Loads the given Object.
      * @param id Id to load
      * @return An object of type T
      */
-     Register getRegister(final Long id);  
+     Register getRegister(final Integer id);  
 
     /** Deletes an object of a given Id. 
      * Will load the object internally so consider using delete (Users obj) directly
@@ -389,6 +389,7 @@ public interface DataLayerPrenda {
 	* @param persistentObject a class, which is persistent, or has persistent subclasses 
 	* @return Criteria instance
 	*/
+	@SuppressWarnings("unchecked")
 	Criteria createCriteria(Class persistentObject);
     /** Flushes the currently open session.
 	*/

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.ajaxtags.helpers.AjaxXmlBuilder;
 import org.ajaxtags.servlets.BaseAjaxServlet;
 
+import com.prenda.Mode;
 import com.prenda.helper.DatabaseConnection;
 
 /**
@@ -35,12 +36,13 @@ import com.prenda.helper.DatabaseConnection;
 		if(limit==0){
 			pstmt=conn.prepareStatement("SELECT accountname FROM accounts WHERE accountcode=?");
 		}else{
-			pstmt=conn.prepareStatement("SELECT accountname FROM accounts WHERE accountcode=? AND SUBSTRING(CAST(accountcode as char(5)),1,1)='5'");
+			pstmt=conn.prepareStatement("SELECT accountname FROM accounts WHERE accountcode=? AND SUBSTRING(CAST(accountcode as char(5)),1,1)=?");
 		}
 		pstmt.setInt(1,code);
+		pstmt.setString(2,new Integer(Mode.EXPENSE).toString());
 		ResultSet rs=pstmt.executeQuery();
 		if(rs.first()){
-			xml.addItem(new Integer(code).toString(),rs.getString(1).replace("&", "&amp;"));
+			xml.addItem(new Integer(code).toString(),rs.getString(1).replace("&", "&amp;")); // TODO XML is allergic to unescaped &
 		}else{
 			xml.addItem(new Integer(code).toString(),"Not a valid disbursement account!");
 		}

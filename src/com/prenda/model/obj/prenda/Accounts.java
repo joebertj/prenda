@@ -29,19 +29,17 @@ public class Accounts implements Cloneable, Serializable, IPojoGenEntity, IAccou
 
 	/** Use a WeakHashMap so entries will be garbage collected once all entities 
 		referring to a saved hash are garbage collected themselves. */
-	private static final Map<Serializable, Byte> SAVED_HASHES =
-		Collections.synchronizedMap(new WeakHashMap<Serializable, Byte>());
+	private static final Map<Serializable, Integer> SAVED_HASHES =
+		Collections.synchronizedMap(new WeakHashMap<Serializable, Integer>());
 	
 	/** hashCode temporary storage. */
-	private volatile Byte hashCode;
+	private volatile Integer hashCode;
 	
 
 	/** Field mapping. */
-	private Integer accountcode;
-	/** Field mapping. */
 	private String accountname;
 	/** Field mapping. */
-	private Byte id;
+	private Integer id;
 	/**
 	 * Default constructor, mainly for hibernate use.
 	 */
@@ -52,15 +50,15 @@ public class Accounts implements Cloneable, Serializable, IPojoGenEntity, IAccou
 	/** Constructor taking a given ID.
 	 * @param id to set
 	 */
-	public Accounts(Byte id) {
+	public Accounts(Integer id) {
 		this.id = id;
 	}
 	
 	/** Constructor taking a given ID.
 	 * @param accountname String object;
-	 * @param id Byte object;
+	 * @param id Integer object;
 	 */
-	public Accounts(String accountname, Byte id) {
+	public Accounts(String accountname, Integer id) {
 
 		this.accountname = accountname;
 		this.id = id;
@@ -78,25 +76,6 @@ public class Accounts implements Cloneable, Serializable, IPojoGenEntity, IAccou
 		return Accounts.class;
 	}
  
-
-    /**
-     * Return the value associated with the column: accountcode.
-	 * @return A Integer object (this.accountcode)
-	 */
-	public Integer getAccountcode() {
-		return this.accountcode;
-		
-	}
-	
-
-  
-    /**  
-     * Set the value related to the column: accountcode.
-	 * @param accountcode the accountcode value you wish to set
-	 */
-	public void setAccountcode(final Integer accountcode) {
-		this.accountcode = accountcode;
-	}
 
     /**
      * Return the value associated with the column: accountname.
@@ -121,12 +100,12 @@ public class Accounts implements Cloneable, Serializable, IPojoGenEntity, IAccou
 
     /**
      * Return the value associated with the column: id.
-	 * @return A Byte object (this.id)
+	 * @return A Integer object (this.id)
 	 */
     @Id 
 	@Basic( optional = false )
-	@Column( name = "accountid", nullable = false  )
-	public Byte getId() {
+	@Column( name = "accountcode", nullable = false  )
+	public Integer getId() {
 		return this.id;
 		
 	}
@@ -137,11 +116,11 @@ public class Accounts implements Cloneable, Serializable, IPojoGenEntity, IAccou
      * Set the value related to the column: id.
 	 * @param id the id value you wish to set
 	 */
-	public void setId(final Byte id) {
+	public void setId(final Integer id) {
 		// If we've just been persisted and hashCode has been
 		// returned then make sure other entities with this
 		// ID return the already returned hash code
-		if ( (this.id == null ) &&
+		if ( (this.id == null || this.id == 0) &&
 				(id != null) &&
 				(this.hashCode != null) ) {
 		SAVED_HASHES.put( id, this.hashCode );
@@ -160,7 +139,6 @@ public class Accounts implements Cloneable, Serializable, IPojoGenEntity, IAccou
 		
         final Accounts copy = (Accounts)super.clone();
 
-		copy.setAccountcode(this.getAccountcode());
 		copy.setAccountname(this.getAccountname());
 		copy.setId(this.getId());
 		return copy;
@@ -176,7 +154,6 @@ public class Accounts implements Cloneable, Serializable, IPojoGenEntity, IAccou
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		
-		sb.append("accountcode: " + this.getAccountcode() + ", ");
 		sb.append("accountname: " + this.getAccountname() + ", ");
 		sb.append("id: " + this.getId());
 		return sb.toString();		
@@ -224,7 +201,6 @@ public class Accounts implements Cloneable, Serializable, IPojoGenEntity, IAccou
 		
 		boolean result = true;
 		result = result && (((this.getId() == null) && ( that.getId() == null)) || (this.getId() != null  && this.getId().equals(that.getId())));
-		result = result && (((getAccountcode() == null) && (that.getAccountcode() == null)) || (getAccountcode() != null && getAccountcode().equals(that.getAccountcode())));
 		result = result && (((getAccountname() == null) && (that.getAccountname() == null)) || (getAccountname() != null && getAccountname().equals(that.getAccountname())));
 		return result;
 	}
@@ -238,17 +214,16 @@ public class Accounts implements Cloneable, Serializable, IPojoGenEntity, IAccou
 		if ( this.hashCode == null ) {
 			synchronized ( this ) {
 				if ( this.hashCode == null ) {
-					Byte newHashCode = null;
+					Integer newHashCode = null;
 
 					if ( getId() != null ) {
 					newHashCode = SAVED_HASHES.get( getId() );
 					}
 					
 					if ( newHashCode == null ) {
-						if ( getId() != null ) {
+						if ( getId() != null && getId() != 0) {
 							newHashCode = getId();
 						} else {
-							newHashCode = (byte)super.hashCode();
 
 						}
 					}

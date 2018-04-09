@@ -99,7 +99,7 @@ public class Register implements Cloneable, Serializable, IPojoGenEntity, IRegis
 		// If we've just been persisted and hashCode has been
 		// returned then make sure other entities with this
 		// ID return the already returned hash code
-		if ( (this.id == null || this.id == 0L) &&
+		if ( (this.id == null || this.id == 0) &&
 				(id != null) &&
 				(this.hashCode != null) ) {
 		SAVED_HASHES.put( id, this.hashCode );
@@ -221,10 +221,9 @@ public class Register implements Cloneable, Serializable, IPojoGenEntity, IRegis
 					}
 					
 					if ( newHashCode == null ) {
-						if ( getId() != null && getId() != 0L) {
+						if ( getId() != null && getId() != 0) {
 							newHashCode = getId();
 						} else {
-							newHashCode = (int) super.hashCode();
 
 						}
 					}
@@ -233,7 +232,7 @@ public class Register implements Cloneable, Serializable, IPojoGenEntity, IRegis
 				}
 			}
 		}
-		return (int) (this.hashCode & 0xffffff);
+	return this.hashCode;
 	}
 	
 

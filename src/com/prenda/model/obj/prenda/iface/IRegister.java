@@ -1,4 +1,5 @@
 package com.prenda.model.obj.prenda.iface;
+import javax.persistence.Basic;
 
 
 /** 
@@ -12,7 +13,7 @@ public interface IRegister {
 
     /**
      * Return the value associated with the column: id.
-	 * @return A Long object (this.id)
+	 * @return A Integer object (this.id)
 	 */
 	Integer getId();
 	

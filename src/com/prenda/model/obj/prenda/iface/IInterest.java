@@ -1,5 +1,6 @@
 package com.prenda.model.obj.prenda.iface;
 import com.prenda.model.obj.prenda.InterestPK;
+import javax.persistence.Basic;
 
 
 /** 

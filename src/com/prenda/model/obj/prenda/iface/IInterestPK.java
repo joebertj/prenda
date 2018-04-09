@@ -1,4 +1,5 @@
 package com.prenda.model.obj.prenda.iface;
+import javax.persistence.Basic;
 
 
 /** 

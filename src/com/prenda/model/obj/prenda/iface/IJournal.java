@@ -1,5 +1,6 @@
 package com.prenda.model.obj.prenda.iface;
 import java.util.Date;
+import javax.persistence.Basic;
 
 
 /** 
@@ -13,9 +14,9 @@ public interface IJournal {
 
     /**
      * Return the value associated with the column: accountid.
-	 * @return A Byte object (this.accountid)
+	 * @return A Integer object (this.accountid)
 	 */
-	Byte getAccountid();
+	Integer getAccountid();
 	
 
   
@@ -23,7 +24,7 @@ public interface IJournal {
      * Set the value related to the column: accountid.
 	 * @param accountid the accountid value you wish to set
 	 */
-	void setAccountid(final Byte accountid);
+	void setAccountid(final Integer accountid);
 
     /**
      * Return the value associated with the column: amount.
@@ -41,9 +42,9 @@ public interface IJournal {
 
     /**
      * Return the value associated with the column: branchid.
-	 * @return A Byte object (this.branchid)
+	 * @return A Integer object (this.branchid)
 	 */
-	Byte getBranchid();
+	Integer getBranchid();
 	
 
   
@@ -51,7 +52,7 @@ public interface IJournal {
      * Set the value related to the column: branchid.
 	 * @param branchid the branchid value you wish to set
 	 */
-	void setBranchid(final Byte branchid);
+	void setBranchid(final Integer branchid);
 
     /**
      * Return the value associated with the column: description.
@@ -66,6 +67,34 @@ public interface IJournal {
 	 * @param description the description value you wish to set
 	 */
 	void setDescription(final String description);
+
+    /**
+     * Return the value associated with the column: drcr.
+	 * @return A Boolean object (this.drcr)
+	 */
+	Boolean isDrcr();
+	
+
+  
+    /**  
+     * Set the value related to the column: drcr.
+	 * @param drcr the drcr value you wish to set
+	 */
+	void setDrcr(final Boolean drcr);
+
+    /**
+     * Return the value associated with the column: encoder.
+	 * @return A String object (this.encoder)
+	 */
+	String getEncoder();
+	
+
+  
+    /**  
+     * Set the value related to the column: encoder.
+	 * @param encoder the encoder value you wish to set
+	 */
+	void setEncoder(final String encoder);
 
     /**
      * Return the value associated with the column: id.

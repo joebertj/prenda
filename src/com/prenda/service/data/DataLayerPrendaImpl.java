@@ -164,7 +164,7 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
      * Will load the object internally so consider using delete (Accounts obj) directly
      * @param id Identifier to delete
      */
-    public void deleteAccounts(final Byte id)  {
+    public void deleteAccounts(final Integer id)  {
         HibernatePrendaDaoFactory.getAccountsDao().delete(loadAccounts(id));
     }
 	
@@ -173,7 +173,7 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
      * @param id Identifier to load
      * @return a Accounts object
      */
-    public Accounts loadAccounts(final Byte id) {
+    public Accounts loadAccounts(final Integer id) {
         return HibernatePrendaDaoFactory.getAccountsDao().load(id);
     }
     /**
@@ -181,7 +181,7 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
      * @param id Id to load
      * @return An object of type T
      */
-     public Accounts getAccounts(final Byte id) {
+     public Accounts getAccounts(final Integer id) {
         return HibernatePrendaDaoFactory.getAccountsDao().get(id);
     }  
 
@@ -514,7 +514,7 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
      * Will load the object internally so consider using delete (Register obj) directly
      * @param id Identifier to delete
      */
-    public void deleteRegister(final Long id)  {
+    public void deleteRegister(final Integer id)  {
         HibernatePrendaDaoFactory.getRegisterDao().delete(loadRegister(id));
     }
 	
@@ -523,7 +523,7 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
      * @param id Identifier to load
      * @return a Register object
      */
-    public Register loadRegister(final Long id) {
+    public Register loadRegister(final Integer id) {
         return HibernatePrendaDaoFactory.getRegisterDao().load(id);
     }
     /**
@@ -531,7 +531,7 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
      * @param id Id to load
      * @return An object of type T
      */
-     public Register getRegister(final Long id) {
+     public Register getRegister(final Integer id) {
         return HibernatePrendaDaoFactory.getRegisterDao().get(id);
     }  
 
@@ -598,6 +598,7 @@ public class DataLayerPrendaImpl implements DataLayerPrenda {
 	* @param persistentObject a class, which is persistent, or has persistent subclasses 
 	* @return Criteria instance
 	*/
+	@SuppressWarnings("unchecked")
 	public Criteria createCriteria(Class persistentObject) {
         return this.sessionFactory.getCurrentSession().createCriteria(persistentObject);
     }

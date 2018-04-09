@@ -207,6 +207,7 @@ CREATE TABLE `pullout` (
   `encoder` varchar(20) default NULL,
   `auction` boolean NOT NULL default '0',
   PRIMARY KEY  (`pid`),
+  FOREIGN KEY `pid` (`pid`) REFERENCES pawn (`pid`),
   FOREIGN KEY `username` (`username`) REFERENCES users (`username`),
   FOREIGN KEY `encoder` (`encoder`) REFERENCES users (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
@@ -223,6 +224,7 @@ CREATE TABLE `redeem` (
   `encoder` varchar(20) default NULL,
   `interest` float NOT NULL,
   PRIMARY KEY  (`pid`),
+  FOREIGN KEY `pid` (`pid`) REFERENCES pawn (`pid`),
   FOREIGN KEY `encoder` (`encoder`) REFERENCES users (`username`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
@@ -272,7 +274,7 @@ CREATE TABLE `register` (
   `rid` smallint unsigned NOT NULL default '0',
   `password` char(128) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL default '',
   PRIMARY KEY  (`rid`),
-  FOREIGN KEY `rid` (`rid`) REFERENCES pawn (`pid`)
+  FOREIGN KEY `rid` (`rid`) REFERENCES users (`uid`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 INSERT INTO `users` VALUES (1,'admin','$2a$10$xjahs1aLp6l2pjNtN6GTseil9bj5eWRiSP.l0SmCzXdyEHX/IQY1e',NULL,NULL,NULL,9,1,0,'2007-06-12');
