@@ -48,7 +48,7 @@
 					Branch PID</TD>
 					<TD colspan="2"><fmt:formatNumber value="${user.branchId}" minIntegerDigits="2" groupingUsed="false"/>-<fmt:formatNumber value="${branch.counter+1}" minIntegerDigits="8" groupingUsed="false"/></TD>
 					<TD width="200" align="right">
-					<input class="revert" type="button" value="  " style="background: url(resources/img/revert.png) no-repeat; cursor:pointer; border: none;" 
+					<input class="revert" type="button" value="  " style="background: url(${contextPath}/resources/img/revert.png) no-repeat; cursor:pointer; border: none;" 
 					onClick='document.pawn.dateInJs.value="<c:out value="${sqlToJs.effective}"/>";document.pawn.loandate.focus();'/></TD>
 					<TD>Date of Loan</TD>
 					<TD> 
