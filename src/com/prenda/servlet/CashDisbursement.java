@@ -72,7 +72,7 @@ import com.prenda.helper.DatabaseConnection;
             Double totalAmount = 0d;
             pstmt = conn.prepareStatement("INSERT INTO journal VALUES (0,CURDATE(),?,?,?,?,?,?,?)");
             pstmt.setInt(2,branchId);
-            pstmt.setBoolean(5, Mode.CREDIT); // add Expenses
+            pstmt.setBoolean(5, Mode.DEBIT); // add Expenses
             pstmt.setString(6,journalGroup);
 			pstmt.setString(7,encoder);
     		for(int i=0;i<accountcode.length;i++){
@@ -87,7 +87,7 @@ import com.prenda.helper.DatabaseConnection;
     		pstmt.setInt(1,10101);
     		pstmt.setString(3,"Total expenses for JG "+journalGroup);
     		pstmt.setDouble(4,totalAmount);
-    		pstmt.setBoolean(5, Mode.DEBIT);
+    		pstmt.setBoolean(5, Mode.CREDIT);
     		pstmt.executeUpdate();
     		// Update balance on branch table
     		pstmt = conn.prepareStatement("UPDATE branch SET balance=balance-? WHERE branchid=?");
